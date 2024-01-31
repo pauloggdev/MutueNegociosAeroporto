@@ -8,6 +8,8 @@ use App\Application\UseCase\Empresa\Categorias\GetSubCategorias;
 use App\Application\UseCase\Empresa\CentrosDeCusto\GetCentrosCusto;
 use App\Application\UseCase\Empresa\CentrosDeCusto\GetCentrosCustoSemPaginacao;
 use App\Application\UseCase\Empresa\Fabricantes\GetFabricantes;
+use App\Application\UseCase\Empresa\mercadorias\GetTipoMercadoria;
+use App\Application\UseCase\Empresa\mercadorias\GetTiposMercadorias;
 use App\Application\UseCase\Empresa\MotivosIsencao\GetMotivosIsencao;
 use App\Application\UseCase\Empresa\Parametros\GetParametroPeloLabelNoParametro;
 use App\Application\UseCase\Empresa\Produtos\CadastrarProduto;
@@ -27,6 +29,7 @@ use Livewire\Component;
 use Livewire\WithFileUploads;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\WithPagination;
+use Symfony\Component\VarDumper\Cloner\Data;
 
 class ProdutoCreateController extends Component
 {
@@ -40,6 +43,7 @@ class ProdutoCreateController extends Component
     public $produto;
     public $margemLucro;
     public $centrosCusto = [];
+    public $tiposMercadorias;
     public $centroCustoData = [];
     public $armazens = [];
     public $categorias = [];
@@ -49,12 +53,16 @@ class ProdutoCreateController extends Component
     public $motivosIsencao = [];
     public $unidadesMedida = [];
     public $carateristicasProduto = [];
-    protected $listeners = ['refresh-me' => '$refresh', 'selectedItem','selectedFuncaoItem'];
+    protected $listeners = ['refresh-me' => '$refresh', 'selectedItem', 'selectedFuncaoItem'];
 
 
     public function mount()
     {
         $this->setarValor();
+
+
+        $getTiposMercadorias = new GetTiposMercadorias(new DatabaseRepositoryFactory());
+        $this->tiposMercadorias = $getTiposMercadorias->execute();
 
         $getParametroPVP = new GetParametroPeloLabelNoParametro(new DatabaseRepositoryFactory());
         $parametroPvp = $getParametroPVP->execute('incluir_iva');
@@ -77,10 +85,10 @@ class ProdutoCreateController extends Component
 
         $userAdmin = UserPerfil::where('user_id', auth()->user()->id)
             ->where('perfil_id', 1)->first();
-        if($userAdmin){
+        if ($userAdmin) {
             $centroCustos = CentroCusto::where('empresa_id', auth()->user()->empresa_id)->get();
             $this->centrosCusto = $centroCustos;
-        }else{
+        } else {
             $user = User::with(['centrosCusto', 'perfis'])->find(auth()->user()->id);
             $this->centrosCusto = $user->centrosCusto;
         }
@@ -116,15 +124,19 @@ class ProdutoCreateController extends Component
     {
         $this->emit('select2');
     }
+
     public function selectedFuncaoItem($item)
     {
-        $this->centroCustoData =$item;
+        $this->centroCustoData = $item;
     }
-
-
 
     public function selectedItem($item)
     {
+        if ($item['atributo'] == 'tipoMercadoriaId') {
+            $getTipoMercadoria = new GetTipoMercadoria(new DatabaseRepositoryFactory());
+            $mercadoria = $getTipoMercadoria->execute($item['valor']);
+            $this->produto['preco_venda'] = $mercadoria ? $mercadoria->valor : 0;
+        }
         $this->produto[$item['atributo']] = $item['valor'];
     }
 
@@ -157,14 +169,16 @@ class ProdutoCreateController extends Component
         $data['subCategorias2'] = $getSubCategoria->execute($subCategoria1);
         return view('empresa.produtos.create', $data);
     }
-    public function selecionarGarantia($tipoGarantia){
+
+    public function selecionarGarantia($tipoGarantia)
+    {
         $this->produto['tipoGarantia'] = $tipoGarantia;
     }
 
     public function store()
     {
 
-        if(!$this->centroCustoData){
+        if (!$this->centroCustoData) {
             $this->confirm('Informe pelo menos um centro de Custo', [
                 'showConfirmButton' => false,
                 'showCancelButton' => false,
@@ -182,7 +196,7 @@ class ProdutoCreateController extends Component
                 }
             }],
             'produto.referencia' => [function ($attr, $referencia, $fail) {
-             if ($this->codigoProduto && !$referencia) {
+                if ($this->codigoProduto && !$referencia) {
                     $fail("Informe o código do produto");
                 }
             }],
@@ -251,6 +265,7 @@ class ProdutoCreateController extends Component
             Log::error($e->getMessage());
         }
     }
+
     public function preventEnter()
     {
         $this->dispatchBrowserEvent('preventEnter');
@@ -298,7 +313,7 @@ class ProdutoCreateController extends Component
 
     public function calcularPVP()
     {
-        if(!is_numeric($this->produto['preco_venda']) || !isset($this->produto['preco_venda'])){
+        if (!is_numeric($this->produto['preco_venda']) || !isset($this->produto['preco_venda'])) {
             $this->produto['pvp'] = 0;
             return;
         }
@@ -311,8 +326,8 @@ class ProdutoCreateController extends Component
     {
         $preco_compra = (int)$this->produto['preco_compra'] ?? 0;
         $margemLucro = (int)$this->margemLucro ?? 0;
-        $precoVenda = is_numeric($this->produto['preco_venda'])?$this->produto['preco_venda']: null;
-        if($precoVenda && $margemLucro > 0){
+        $precoVenda = is_numeric($this->produto['preco_venda']) ? $this->produto['preco_venda'] : null;
+        if ($precoVenda && $margemLucro > 0) {
             $this->produto['preco_venda'] = $precoVenda + $preco_compra + (($preco_compra * $margemLucro) / 100);
         }
         $this->calcularPVP();
@@ -334,6 +349,7 @@ class ProdutoCreateController extends Component
             $this->calcularPVP();
         }
     }
+
     public function updatedMargemLucro()
     {
         $preco_compra = (int)$this->produto['preco_compra'] ?? 0;

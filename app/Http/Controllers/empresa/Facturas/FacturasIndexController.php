@@ -67,6 +67,7 @@ class FacturasIndexController extends Component
     public function imprimirFactura($facturaId)
     {
 
+
         $getParametroImpressao = new GetParametroPeloLabelNoParametro(new DatabaseRepositoryFactory());
         $parametroImpressao = $getParametroImpressao->execute('tipoImpreensao');
 
@@ -103,8 +104,14 @@ class FacturasIndexController extends Component
          $filename = "documentoTeste";
 
 
+
+
         if ($factura['anulado'] == 2) {
-            $logotipo = public_path() . '/upload//' . auth()->user()->empresa->logotipo;
+            if($factura['tipo_documento'] == 3){ //proforma
+                $logotipo = public_path() . '/upload/_logo_ATO_vertical_com_TAG_color.png';
+            }else{
+                $logotipo = public_path() . '/upload//' . auth()->user()->empresa->logotipo;
+            }
             $DIR_SUBREPORT = "/upload/documentos/empresa/modelosFacturas/a4/";
             $DIR = public_path() . "/upload/documentos/empresa/modelosFacturas/a4/";
             $reportController = new ReportShowController('pdf', $DIR_SUBREPORT);
@@ -127,10 +134,12 @@ class FacturasIndexController extends Component
                 ]
             );
         } else if ($factura['retificado'] == 'Sim') {
-
             $filename = "WinmarketFacturaRetificada";
-
-            $logotipo = public_path() . '/upload//' . auth()->user()->empresa->logotipo;
+            if($factura['tipo_documento'] == 3){ //proforma
+                $logotipo = public_path() . '/upload/_logo_ATO_vertical_com_TAG_color.png';
+            }else{
+                $logotipo = public_path() . '/upload//' . auth()->user()->empresa->logotipo;
+            }
             $DIR_SUBREPORT = "/upload/documentos/empresa/modelosFacturas/a4/";
             $DIR = public_path() . "/upload/documentos/empresa/modelosFacturas/a4/";
 
@@ -154,8 +163,18 @@ class FacturasIndexController extends Component
                 ]
             );
         } else {
+            $getParametro = new GetParametroPeloLabelNoParametro(new DatabaseRepositoryFactory());
+            $parametro = $getParametro->execute('tipoImpreensao');
 
-            $logotipo = public_path() . '/upload//' . auth()->user()->empresa->logotipo;
+            $filename = "Winmarket";
+            if($parametro->valor == 'A5'){
+                $filename = "Winmarket_A5";
+            }
+            if($factura['tipo_documento'] == 3){ //proforma
+                $logotipo = public_path() . '/upload/_logo_ATO_vertical_com_TAG_color.png';
+            }else{
+                $logotipo = public_path() . '/upload//' . auth()->user()->empresa->logotipo;
+            }
             $DIR_SUBREPORT = "/upload/documentos/empresa/modelosFacturas/a4/";
             $DIR = public_path() . "/upload/documentos/empresa/modelosFacturas/a4/";
             $reportController = new ReportShowController('pdf', $DIR_SUBREPORT);
@@ -165,18 +184,15 @@ class FacturasIndexController extends Component
                     'report_file' => $filename,
                     'report_jrxml' => $filename . '.jrxml',
                     'report_parameters' => [
-                        "empresa_id" => auth()->user()->empresa_id,
-                        "logotipo" => $logotipo,
-                        "facturaId" => $facturaId,
                         "viaImpressao" => 1,
+                        "logotipo" => $logotipo,
+                        "empresa_id" => auth()->user()->empresa_id,
+                        "facturaId" => $facturaId,
                         "dirSubreportBanco" => $DIR,
                         "dirSubreportTaxa" => $DIR,
-                        "viewNotaEntrega" => $factura['notaEntrega'],
-                        "viewCartaGarantia" => $viewCartaGarantia,
-                        "viewMarcaAguaTeste" => $viewMarcaAguaTeste,
-                        "DIR" => $DIR,
                         "tipo_regime" => auth()->user()->empresa->tipo_regime_id,
-                        "nVia" => 1
+                        "nVia" => 1,
+                        "DIR" => $DIR
                     ]
                 ],"pdf",$DIR_SUBREPORT
             );

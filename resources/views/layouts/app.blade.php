@@ -113,10 +113,17 @@ if (Auth::guard('web')->check()) {
         @endif
         <div class="navbar-container ace-save-state" id="navbar-container">
             <a href="/empresa/home" class="navbar-brand">
-                <small>{{ mb_strtoupper($empresa->nome, 'UTF-8') }}</small>
+                <small style="
+                    text-transform: uppercase;
+                     max-width: 25ch;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 
-                <small  style="color: #888;">
-                    - MUTUE-NEGÓCIOS - {{ \Illuminate\Support\Str::limit(Str::title(session()->get('centroCustoNome')), 35)}}
+                    ">{{ $empresa->nome }}</small>
+
+                <small  style="color: #888; text-transform: capitalize">
+                    - MUTUE-NEGÓCIOS - {{ session()->get('centroCustoNome')}}
                 </small>
             </a>
 
@@ -287,6 +294,13 @@ if (Auth::guard('web')->check()) {
                             </a>
                             <b class="arrow"></b>
                         </li>
+                        <li class="hover">
+                            <a href="/empresa/mercadorias">
+                                <i class="menu-icon fa fa-caret-right"></i>
+                                TIPOS DE MERCADORIAS
+                            </a>
+                            <b class="arrow"></b>
+                        </li>
 
                         <li class="hover">
                             <a href="{{ route('unidadeMedidas.index') }}">
@@ -371,13 +385,13 @@ if (Auth::guard('web')->check()) {
                             </a>
                             <b class="arrow"></b>
                         </li>
-                        <li class="hover">
-                            <a href="/empresa/cartao/clientes">
-                                <i class="menu-icon fa fa-list"></i>
-                                CARTÃO CLIENTE
-                            </a>
-                            <b class="arrow"></b>
-                        </li>
+{{--                        <li class="hover">--}}
+{{--                            <a href="/empresa/cartao/clientes">--}}
+{{--                                <i class="menu-icon fa fa-list"></i>--}}
+{{--                                CARTÃO CLIENTE--}}
+{{--                            </a>--}}
+{{--                            <b class="arrow"></b>--}}
+{{--                        </li>--}}
 
                     <!-- <li class="hover">
                         <a href="">
@@ -481,13 +495,13 @@ if (Auth::guard('web')->check()) {
                         </li>
                     </ul>
                 </li>
-                <li class="">
-                    <a href="{{route('notaEntregaIndex')}}">
-                        <i class="menu-icon fa fa-tasks"></i>
-                        <span class="menu-text"> EMITIR NOTA ENTREGA </span>
-                    </a>
-                    <b class="arrow"></b>
-                </li>
+{{--                <li class="">--}}
+{{--                    <a href="{{route('notaEntregaIndex')}}">--}}
+{{--                        <i class="menu-icon fa fa-tasks"></i>--}}
+{{--                        <span class="menu-text"> EMITIR NOTA ENTREGA </span>--}}
+{{--                    </a>--}}
+{{--                    <b class="arrow"></b>--}}
+{{--                </li>--}}
                 <li class="hover">
                     <a href="#" class="dropdown-toggle" style="color: #ffffff">
                         <i class="menu-icon fa fa-tasks"></i>
@@ -730,13 +744,13 @@ if (Auth::guard('web')->check()) {
 
                             <b class="arrow"></b>
                         </li>
-                         <li class="hover">
-                            <a href="{{ route('bonusClienteIndex') }}">
-                                <i class="menu-icon fa fa-pencil" style="color: white;"></i>
-                                DEFINIR BONUS(%) CARTÃO CLIENTE
-                            </a>
-                            <b class="arrow"></b>
-                        </li>
+{{--                         <li class="hover">--}}
+{{--                            <a href="{{ route('bonusClienteIndex') }}">--}}
+{{--                                <i class="menu-icon fa fa-pencil" style="color: white;"></i>--}}
+{{--                                DEFINIR BONUS(%) CARTÃO CLIENTE--}}
+{{--                            </a>--}}
+{{--                            <b class="arrow"></b>--}}
+{{--                        </li>--}}
                     </ul>
                 </li>
                 <li class="hover">

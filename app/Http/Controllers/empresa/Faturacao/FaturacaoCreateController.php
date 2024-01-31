@@ -448,7 +448,7 @@ class FaturacaoCreateController extends Component
             }
             $this->fatura['items'][$key]['quantidade'] = $this->quantidade;
         } else {
-            
+
             $produto['quantidade'] = $this->quantidade;
             $produto['desconto'] = 0;
             $produto = (object)$produto;
@@ -582,7 +582,7 @@ class FaturacaoCreateController extends Component
             $produto['quantidade'] = ++$qty;
             $produto = (object)$produto;
 
-    
+
             $isStock = $existenciaStock->isStock($produto, $produto->armazemId);
             if (!$isStock && $produto->isEstocavel == 'Sim' && $this->fatura['tipoDocumento'] != 3) {
                 $this->confirm('Quantidade indisponível no estoque', [
@@ -969,10 +969,12 @@ class FaturacaoCreateController extends Component
             $getParametroImpressao = new GetParametroPeloLabelNoParametro(new DatabaseRepositoryFactory());
             $parametroImpressao = $getParametroImpressao->execute('tipoImpreensao');
 
+
             if ($parametroImpressao->valor == 'ticket') {
                 $this->imprimirDocumentoFormatoTicket($outputFatura->id);
             } else {
-                $this->imprimirDocumentoFaturacao($outputFatura);
+                $filename = $parametroImpressao->valor == 'A4'?'Winmarket':'Winmarket_A5';
+                $this->imprimirDocumentoFaturacao($outputFatura, $filename);
             }
 
 

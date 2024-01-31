@@ -29,15 +29,12 @@ use Illuminate\Support\Str;
 
 class MVPagamentoVendaOnlineCreateController extends Controller
 {
-
     public function reinviarComprovativoPagamento(Request $request)
     {
-
         $message = [
             'pagamentoId.required' => 'Informe o código do pagamento reinviado',
             'comprovativoBancario.required' => 'Adiciona o comprovativo bancário',
-            'comprovativoBancario.mimes' => 'Formatos suportado comprovativo:(png, jpeg, pdf)',
-
+            'comprovativoBancario.mimes' => 'Formatos suportado comprovativo:(png, jpeg, pdf)'
         ];
         $pagamento = DB::connection('mysql2')->table('pagamentos_vendas_online')
             ->where('id', $request['pagamentoId'])->first();
@@ -57,7 +54,7 @@ class MVPagamentoVendaOnlineCreateController extends Controller
 
 
         try {
-            $pagamento = (array) $pagamento;
+            $pagamento = (array)$pagamento;
 
             $comprovativoBancarioAnterior = $pagamento['comprovativoBancario'];
             $this->eliminarComprovativoAnterior($comprovativoBancarioAnterior);
@@ -69,7 +66,7 @@ class MVPagamentoVendaOnlineCreateController extends Controller
             $atualizarPagamento->execute($request['pagamentoId'], $STATUSPENDENTE, $comprovativoBancario);
 
 
-            $descricao = "O cliente ". $pagamento['nomeUserEntrega']." reinviou o comprovativo de pagamento";
+            $descricao = "O cliente " . $pagamento['nomeUserEntrega'] . " reinviou o comprovativo de pagamento";
             $atualizarHistoricoPagamento = new AtualizarHistoricoPagamentoOnline(new DatabaseRepositoryFactory());
             $atualizarHistoricoPagamento->execute($pagamento['id'], $STATUSPENDENTE, $descricao);
 
@@ -127,7 +124,7 @@ class MVPagamentoVendaOnlineCreateController extends Controller
 
 
         $getFinalizarPagamento = new GetParametroPeloLabelNoParametro(new \App\Infra\Factory\Empresa\DatabaseRepositoryFactory());
-        $getFinalizarPagamento =  $getFinalizarPagamento->execute('finalizar_pagamento');
+        $getFinalizarPagamento = $getFinalizarPagamento->execute('finalizar_pagamento');
 //        if($getFinalizarPagamento->valor == 'não'){
 //            return response()->json([
 //                'data' => null,
@@ -170,11 +167,11 @@ class MVPagamentoVendaOnlineCreateController extends Controller
 
         $comprovativoBancario = null;
 
-        if($request['numeroCartaoCliente'] && $request['numeroCartaoCliente'] != 'null'){
+        if ($request['numeroCartaoCliente'] && $request['numeroCartaoCliente'] != 'null') {
             $getCarrinho = new GetTotalPagarCarrinho(new DatabaseRepositoryFactory());
             $totalDescontar = $getCarrinho->execute();
             $getSaldoSuficiente = new VerificarSaldoSuficienteDescontarCartao(new \App\Infra\Factory\Empresa\DatabaseRepositoryFactory());
-            $saldoSuficiente =  $getSaldoSuficiente->execute($numeroCartaoCliente, $totalDescontar);
+            $saldoSuficiente = $getSaldoSuficiente->execute($numeroCartaoCliente, $totalDescontar);
 
             $cartaoCliente = new IsValidoCartaoCliente(new \App\Infra\Factory\Empresa\DatabaseRepositoryFactory());
             $isValid = $cartaoCliente->execute($numeroCartaoCliente);
@@ -195,7 +192,7 @@ class MVPagamentoVendaOnlineCreateController extends Controller
                 return response()->json($validator->errors()->messages(), 422);
             }
             $comprovativoFormato = $request->file('comprovativoBancario')->getClientOriginalExtension();
-            $formatosSuportado = array("jpg","jpeg", "png", "pdf");
+            $formatosSuportado = array("jpg", "jpeg", "png", "pdf");
             if (!in_array($comprovativoFormato, $formatosSuportado)) {
                 return response()->json('Formato do comprovativo bancário não suportado', 422);
             }
@@ -203,7 +200,7 @@ class MVPagamentoVendaOnlineCreateController extends Controller
         try {
             DB::beginTransaction();
             $pagamento['comprovativoBancario'] = $comprovativoBancario;
-            $pagamento['numeroCartaoCliente'] = $request['numeroCartaoCliente']?$request['numeroCartaoCliente']:null;
+            $pagamento['numeroCartaoCliente'] = $request['numeroCartaoCliente'] ? $request['numeroCartaoCliente'] : null;
             $pagamentoCompra = new EnviarPagamentoCompraVendaOnline(new DatabaseRepositoryFactory());
             $output = $pagamentoCompra->execute($pagamento);
             DB::commit();

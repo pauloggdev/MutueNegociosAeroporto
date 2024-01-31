@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers\Api\Auth;
-
 use App\Http\Controllers\Controller;
 use App\Models\empresa\Cliente;
 use App\Models\empresa\User;
@@ -14,13 +13,10 @@ class MvClienteAuthController extends Controller
 {
     public function auth(Request $request)
     {
-      
         $mensagem =  [
             'email.required' => 'E-mail/ou telefone é obrigatorio',
             'password.required' => 'Senha é obrigatorio',
         ];
-
-        
         $user = User::where('email', $request->email)
             ->orwhere('telefone', $request->email)->first();
         if (!$user) {
@@ -32,16 +28,16 @@ class MvClienteAuthController extends Controller
         $cliente = Cliente::with(['cartaoCliente'])->where('user_id', $user->id)
             ->where('empresa_id', 148)
             ->first();
-           
+
         if(!$cliente){
             return response()->json([
                 'data' => null,
                 'message' => 'Usuário não encontrado'
             ], 400);
-            
+
         }
 
-    
+
         if ($user->status_id == 2) {
             return response()->json([
                 'data' => null,
@@ -49,7 +45,7 @@ class MvClienteAuthController extends Controller
             ], 400);
         }
 
-      
+
         $validator = Validator::make($request->all(), [
             'email' => ['required'],
             'password' => 'required'
@@ -74,14 +70,14 @@ class MvClienteAuthController extends Controller
         if ($user)
             $user->tokens()->delete();
 
-            
+
 
         if (!$user || !Hash::check($request->password, $user->password)) {
             return response()->json(['message' => 'Credenciais invalidos'], 401);
         }
 
         if ($cliente->status_id == 2) {
-          
+
             return response()->json([
                 'data' => null,
                 'message' => 'Conta desativada'

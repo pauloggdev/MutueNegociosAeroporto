@@ -28,6 +28,7 @@ use App\Infra\Repository\Empresa\NotaCreditoFaturaRepository;
 use App\Infra\Repository\Empresa\NotaCreditoReciboRepository;
 use App\Infra\Repository\Empresa\NotaEntregaRepository;
 use App\Infra\Repository\Empresa\OrderByProdutoRepository;
+use App\Infra\Repository\Empresa\PaisRepository;
 use App\Infra\Repository\Empresa\ParametroRepository;
 use App\Infra\Repository\Empresa\ProdutoRepository;
 use App\Infra\Repository\Empresa\ProvinciaRepository;
@@ -35,6 +36,8 @@ use App\Infra\Repository\Empresa\ReciboRepository;
 use App\Infra\Repository\Empresa\SequenciaDocumentoRepository;
 use App\Infra\Repository\Empresa\SequenciaFaturaRepository;
 use App\Infra\Repository\Empresa\TaxaIvaRepository;
+use App\Infra\Repository\Empresa\TipoDocumentoRepository;
+use App\Infra\Repository\Empresa\TipoMercadoriaRepository;
 use App\Infra\Repository\Empresa\UnidadesMedidaRepository;
 use App\Infra\Repository\Empresa\UserRepository as UserRepositoryEmpresa;
 use App\Infra\Repository\FaturaVendaOnlineRepository;
@@ -230,5 +233,20 @@ class DatabaseRepositoryFactory implements RepositoryFactory
     public function createEmpresaRepository(): EmpresaRepository
     {
         return new EmpresaRepository();
+    }
+
+    public function createPaisRepository(): PaisRepository
+    {
+        return new PaisRepository();
+    }
+
+    public function createTipoDocumentoRepository(): TipoDocumentoRepository
+    {
+        return new TipoDocumentoRepository();
+    }
+
+    public function createTipoMercadoriaRepository(): TipoMercadoriaRepository
+    {
+        return new TipoMercadoriaRepository();
     }
 }

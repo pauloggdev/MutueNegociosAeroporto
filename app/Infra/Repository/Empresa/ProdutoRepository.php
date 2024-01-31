@@ -99,6 +99,16 @@ class ProdutoRepository
             'produto_id' => $produtoId
         ]);
     }
+    public function getProdutoPeloCentroCustoId($centroCustoId){
+
+        return ExistenciaStockDatabase::with(['produto', 'produto.tipoTaxa'])
+            ->whereHas('produto', function ($query) use ($centroCustoId) {
+                $query->where('centroCustoId', $centroCustoId);
+            })
+            ->where('empresa_id', auth()->user()->empresa_id)
+            ->get();
+
+    }
     public function getProdutoArmazemIdPeloCentroCustoId2($centroCustoId, $armazemId)
     {
         return ExistenciaStockDatabase::with(['produto', 'produto.tipoTaxa'])

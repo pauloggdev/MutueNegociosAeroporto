@@ -12,7 +12,7 @@ class GetClientes
     public function __construct(RepositoryFactory $repositoryFactory){
         $this->clienteRepository = $repositoryFactory->createClienteRepository();
     }
-    public function execute($search){
+    public function execute($search = null){
         return $this->clienteRepository->getClientes($search);
     }
 }

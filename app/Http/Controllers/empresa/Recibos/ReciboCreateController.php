@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\empresa\Recibos;
 
+use App\Application\UseCase\Empresa\Parametros\GetParametroPeloLabelNoParametro;
 use App\Http\Controllers\empresa\ReportShowController;
+use App\Infra\Factory\Empresa\DatabaseRepositoryFactory;
 use App\Repositories\Empresa\ClienteRepository;
 use App\Repositories\Empresa\FacturaRepository;
 use App\Repositories\Empresa\FormaPagamentoRepository;
@@ -28,7 +30,7 @@ class ReciboCreateController extends Component
 
 
     public $numeracaoFactura = null;
-    public $factura= [];
+    public $factura = [];
     public $formaPagamentoId = 1;
 
     private $reciboRepository;
@@ -40,17 +42,20 @@ class ReciboCreateController extends Component
 
 
     public function boot(
-        ReciboRepository $reciboRepository,
-        ClienteRepository $clienteRepository,
-        FacturaRepository $facturaRepository,
+        ReciboRepository         $reciboRepository,
+        ClienteRepository        $clienteRepository,
+        FacturaRepository        $facturaRepository,
         FormaPagamentoRepository $formaPagamentoRepository
-    ) {
+    )
+    {
         $this->reciboRepository = $reciboRepository;
         $this->clienteRepository = $clienteRepository;
         $this->facturaRepository = $facturaRepository;
         $this->formaPagamentoRepository = $formaPagamentoRepository;
     }
-    public function updated(){
+
+    public function updated()
+    {
         $this->dispatchBrowserEvent('loadSelect2');
         $this->factura['forma_pagamento_id'] = $this->formaPagamentoId;
     }
@@ -59,24 +64,29 @@ class ReciboCreateController extends Component
     {
         $this->setarValorPadrao();
     }
-    public function selected($name, $value){
+
+    public function selected($name, $value)
+    {
         $this->$name = $value;
         $this->factura['forma_pagamento_id'] = $value;
         $this->dispatchBrowserEvent('loadSelect2');
     }
+
     public function render()
     {
 
         $data['formaPagamentos'] = $this->formaPagamentoRepository->listarFormaPagamentos();
         return view('empresa.recibos.create', $data);
     }
-    public function updatedNumeracaoFactura(){
 
-        if($this->numeracaoFactura && strlen(rtrim($this->numeracaoFactura)) > 10){
+    public function updatedNumeracaoFactura()
+    {
+
+        if ($this->numeracaoFactura && strlen(rtrim($this->numeracaoFactura)) > 10) {
             $numeracaoFactura = preg_replace('/\s+/', '', $this->numeracaoFactura);
             $numeracaoFactura = preg_replace('/^(\w{2})/', '$1 ', $numeracaoFactura);
             $factura = $this->facturaRepository->listarFacturasParaEmitirReciboPelaNumeracaoFactura($numeracaoFactura);
-            if(!$factura){
+            if (!$factura) {
                 $this->confirm('Factura não encontrada', ['showConfirmButton' => false, 'showCancelButton' => false, 'icon' => 'warning']);
                 $this->setarValorPadrao();
                 return;
@@ -95,9 +105,9 @@ class ReciboCreateController extends Component
             $this->factura['total_debito'] = $this->clienteRepository->mostrarValorFaltanteApagarNaFaturaDoCliente($factura);
 
             $valorPagar = str_replace(".", "", $this->factura['valor_a_pagar']);
-            $totalDebito =  str_replace(".", "", $this->factura['total_debito']);
+            $totalDebito = str_replace(".", "", $this->factura['total_debito']);
             $valorPagar = str_replace(",", ".", $valorPagar);
-            $totalDebito =  str_replace(",", ".", $totalDebito);
+            $totalDebito = str_replace(",", ".", $totalDebito);
 
             $faltante = $valorPagar - $totalDebito;
             $this->factura['faltante'] = number_format($faltante, 2, ',', '.');
@@ -106,14 +116,13 @@ class ReciboCreateController extends Component
 
     public function emitirRecibo()
     {
-
         $rules = [
             'numeracaoFactura' => 'required',
             'factura.valor_total_entregue' => ["required", function ($attr, $valorEntregue, $fail) {
                 $valorPagar = str_replace(".", "", $this->factura['valor_a_pagar']);
-                $totalDebito =  str_replace(".", "", $this->factura['total_debito']);
+                $totalDebito = str_replace(".", "", $this->factura['total_debito']);
                 $valorPagar = str_replace(",", ".", $valorPagar);
-                $totalDebito =  str_replace(",", ".", $totalDebito);
+                $totalDebito = str_replace(",", ".", $totalDebito);
 
                 $total = $valorPagar - $totalDebito;
                 $total = round($total, 2);
@@ -147,11 +156,19 @@ class ReciboCreateController extends Component
         $this->numeracaoFactura = null;
         $this->formaPagamentoId = 1;
 
+        $getParametro = new GetParametroPeloLabelNoParametro(new DatabaseRepositoryFactory());
+        $parametro = $getParametro->execute('tipoImpreensao');
+
+        $filename = "recibos";
+        if ($parametro->valor == 'A5') {
+            $filename = "recibos_A5";
+        }
+
         $reportController = new ReportShowController();
         $report = $reportController->show(
             [
-                'report_file' => 'recibos',
-                'report_jrxml' => 'recibos.jrxml',
+                'report_file' => $filename,
+                'report_jrxml' => $filename . '.jrxml',
                 'report_parameters' => [
                     'viaImpressao' => 1,
                     'empresa_id' => auth()->user()->empresa_id,
@@ -165,6 +182,7 @@ class ReciboCreateController extends Component
         unlink($report['filename']);
         flush();
     }
+
     public function setarValorPadrao()
     {
         $this->factura['nome_do_cliente'] = NULL;

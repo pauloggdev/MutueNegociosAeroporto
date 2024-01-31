@@ -11,9 +11,8 @@ Trait TraitRelatorioFaturacaoJasper
 {
 
 
-    public function imprimirDocumentoFaturacao($fatura){
+    public function imprimirDocumentoFaturacao($fatura, $filename = "Winmarket"){
 
-        $filename = "documentoTeste";
         $output = $filename;
         $input = $filename . '.jrxml';
         $caminho = public_path() ."/upload/documentos/empresa/modelosFacturas/a4/";
@@ -41,18 +40,15 @@ Trait TraitRelatorioFaturacaoJasper
                 'report_file' => $output,
                 'report_jrxml' => $input,
                 'report_parameters' => [
-                    "empresa_id" => auth()->user()->empresa_id,
-                    "logotipo" => $logotipo,
-                    "facturaId" => $fatura->id,
                     "viaImpressao" => 1,
+                    "logotipo" => $logotipo,
+                    "empresa_id" => auth()->user()->empresa_id,
+                    "facturaId" => $fatura->id,
                     "dirSubreportBanco" => $caminho,
                     "dirSubreportTaxa" => $caminho,
-                    "viewNotaEntrega" => $fatura->notaEntrega,
-                    "viewCartaGarantia" => $viewCartaGarantia,
-                    "viewMarcaAguaTeste" => $viewMarcaAguaTeste,
-                    "DIR" => $caminho,
                     "tipo_regime" => auth()->user()->empresa->tipo_regime_id,
-                    "nVia" => 1
+                    "nVia" => 1,
+                    "DIR" => $caminho
                 ]
             ],
         );

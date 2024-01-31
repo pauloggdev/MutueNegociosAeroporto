@@ -52,7 +52,6 @@ class FaturaRepository
 
     public function verificarSeExisteDocumentoSuperiorDataAtual($numeracaoDocumento = "numeracaoFactura")
     {
-
         $empresaSerie = DB::table('series_documento')->where('empresa_id', auth()->user()->empresa_id)->first();
         $serieDocumento = $empresaSerie ? $empresaSerie->serie : mb_strtoupper(substr(auth()->user()->empresa->nome, 0, 3));
         $yearNow = Carbon::parse(Carbon::now())->format('Y');
@@ -101,6 +100,7 @@ class FaturaRepository
           ORDER BY id DESC
           LIMIT 1");
 
+        if(!$resultados) return null;
         return json_decode(json_encode($resultados[0]));
 
 

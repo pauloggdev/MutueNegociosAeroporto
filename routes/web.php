@@ -110,6 +110,7 @@ use App\Http\Controllers\empresa\FacturacaoController;
 use App\Http\Controllers\empresa\FacturaController;
 use App\Http\Controllers\empresa\Facturas\FacturaProformaIndexController;
 use App\Http\Controllers\empresa\Facturas\FacturasIndexController;
+use App\Http\Controllers\empresa\Faturacao\EmissaoFaturaController;
 use App\Http\Controllers\empresa\Faturacao\EmitirDocumentoController;
 use App\Http\Controllers\empresa\Faturacao\FaturacaoCreateController;
 use App\Http\Controllers\empresa\Faturacao\FaturacaoIndexController;
@@ -135,6 +136,7 @@ use App\Http\Controllers\empresa\MarcaController;
 use App\Http\Controllers\empresa\Marcas\MarcaCreateController;
 use App\Http\Controllers\empresa\Marcas\MarcaIndexController;
 use App\Http\Controllers\empresa\Marcas\MarcaUpdateController;
+use App\Http\Controllers\empresa\mercadorias\MercadoriaIndexController;
 use App\Http\Controllers\empresa\ModeloDocumentos\ModeloDocumentoController;
 use App\Http\Controllers\empresa\MotivoIvaController;
 use App\Http\Controllers\empresa\MunicipiosFrete\MunicipioFreteCreateController;
@@ -446,7 +448,7 @@ Route::group(['middleware' => ['auth:web']], function () {
         Route::get('/taxaIva/novo', AdminTaxaIvaCreateController::class)->name('admin.taxas.create');
         Route::get('/taxaIva/editar/{id}', AdminTaxaIvaUpdateController::class)->name('admin.taxas.edit');
 
-        // Motivo isencao 
+        // Motivo isencao
         Route::get('/motivoisencao', AdminMotivoIsencaoIndexController::class)->name('motivoIsencao.index');
         Route::get('/motivoisencao/novo', AdminMotivoIsencaoCreateController::class)->name('motivoIsencao.create');
         Route::get('/motivoisencao/edit/{id}', AdminMotivoIsencaoUpdateController::class)->name('motivoIsencao.edit');
@@ -990,6 +992,8 @@ Route::group(['middleware' => ['auth:empresa']], function () {
             Route::get('/empresa/categorias/adicionar', [CategoriaController::class, 'create']);
             Route::post('/empresa/categorias/adicionar', [CategoriaController::class, 'store']);
 
+            //Tipos de mercadorias
+            Route::get('/empresa/mercadorias', MercadoriaIndexController::class);
 
             Route::get('empresa/facturacao', [FacturacaoController::class, 'index']);
             Route::put('empresa/facturacao/produto/editar', [FacturacaoController::class, 'editarProduto']);
@@ -997,6 +1001,7 @@ Route::group(['middleware' => ['auth:empresa']], function () {
 //            Route::get('empresa/faturacao/novo', [FacturacaoController::class, 'create']);
 //            Route::get('empresa/faturacao/novo', [FaturacaoIndexController::class, 'create']);
             Route::get('empresa/faturacao/novo', FaturacaoCreateController::class);
+            Route::get('empresa/emissao/fatura', EmissaoFaturaController::class);
             Route::post('empresa/facturacao/salvar', [FacturacaoController::class, 'store']);
             Route::post('empresa/emitirDocumento', [EmitirDocumentoController::class, 'store']);
             Route::get('empresa/facturacao/produtos/{armazen_id}', [FacturacaoController::class, 'listarProdutos']);

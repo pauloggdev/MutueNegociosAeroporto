@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\empresa\Recibos;
 
+use App\Application\UseCase\Empresa\Parametros\GetParametroPeloLabelNoParametro;
 use App\Http\Controllers\empresa\ReportShowController;
+use App\Infra\Factory\Empresa\DatabaseRepositoryFactory;
 use App\Repositories\Empresa\ReciboRepository;
 use App\Traits\Empresa\TraitEmpresaAutenticada;
 use App\Traits\VerificaSeEmpresaTipoAdmin;
@@ -52,10 +54,16 @@ class ReciboIndexController extends Component
     {
         $recibo = $this->reciboRepository->listarRecibo($reciboId);
 
-        $logotipo = public_path() . '/upload//' . auth()->user()->empresa->logotipo;
+        $logotipo = public_path() . '/upload/_logo_ATO_horizontal_negativo.png';
         $caminho = public_path() . '/upload/documentos/empresa/relatorios/';
 
+        $getParametro = new GetParametroPeloLabelNoParametro(new DatabaseRepositoryFactory());
+        $parametro = $getParametro->execute('tipoImpreensao');
+
         $filename = "recibos";
+        if($parametro->valor == 'A5'){
+            $filename = "recibos_A5";
+        }
         if ($recibo['anulado'] == 2) { //Tipo anulado
             $filename = 'recibosAnulados';
         }
