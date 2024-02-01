@@ -79,89 +79,6 @@
                 </div>
             </div>
         </div>
-        <div class="modal fade" id="modalCartaoCliente" wire:ignore>
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header text-center">
-                        <a type="button" class="close red bolder" data-dismiss="modal">×</a>
-                        <h4 class="smaller">
-                            PAGAR COM CARTÃO CLIENTE
-                        </h4>
-
-                    </div>
-
-                    <div class="modal-body">
-                        <div class="row" style="left: 0%; position: relative;">
-
-                            <div class="col-md-12">
-                                <form class="filter-form form-horizontal validation-form">
-                                    @if ($errors->any())
-                                        <div class="alert alert-danger">
-                                            <span>{{ $errors->all()[0] }}</span>
-                                        </div>
-                                    @endif
-                                    <div class="second-row">
-                                        <div class="tabbable">
-                                            <div class="tab-content profile-edit-tab-content">
-                                                <div id="dados_motivo" class="tab-pane in active">
-                                                    <div class="form-group has-info">
-                                                        <div class="col-md-12">
-                                                            <label class="control-label bold label-select2"
-                                                                   for="cliente">NÚMERO DO CARTÃO CLIENTE/OU TELEFONE</label>
-                                                            <div>
-                                                                <input type="text"
-                                                                       wire:model.debounce.1000ms="fatura.numeroCartaoCliente"
-                                                                       id="cliente"
-                                                                       class="col-md-12 col-xs-12 col-sm-4"/>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group has-info">
-                                                        <div class="col-md-6">
-                                                            <label class="control-label bold label-select2"
-                                                                   for="numeroCartao">CLIENTE</label>
-                                                            <div>
-                                                                <input type="text" disabled
-                                                                       wire:model="cartaoNomeCliente"
-                                                                       id="cliente"
-                                                                       class="col-md-12 col-xs-12 col-sm-4"/>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <label class="control-label bold label-select2"
-                                                                   for="descontoItem">SALDO DISPONÍVEL</label>
-                                                            <div>
-                                                                <input type="text" disabled
-                                                                       wire:model="fatura.saldoClienteAux"
-                                                                       id="cliente"
-                                                                       class="col-md-12 col-xs-12 col-sm-4"/>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="clearfix form-actions">
-                                                <div class="col-md-9">
-                                                    <a class="search-btn" style="border-radius: 10px"
-                                                       wire:click.prevent="aplicarCartaoCliente">
-                                                    <span wire:loading.remove wire:target="aplicarCartaoCliente">
-                                                        APLICAR
-                                                    </span>
-                                                        <span wire:loading wire:target="aplicarCartaoCliente">
-                                                        <span class="loading"></span>
-                                                        Aguarde...</span>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
         <div class="modal fade" id="addProdutoDiversos" wire:ignore.self>
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
@@ -442,23 +359,6 @@
         <div class="col-md-3" style="padding-right:0px;">
             <div class="row">
                 <label class="control-label bold" for="preco_compra">SELECIONAR CLIENTE
-
-                    @if($fatura['aplicadoCartaoCliente'])
-                        <a href="#modalCartaoCliente" wire:click="showModalCartaoCliente" title="ativo pagar com saldo"
-                           data-toggle="modal"
-                           style="background:green; padding: 5px;border-radius: 5px;color: white; cursor: pointer;">PAGAR
-                            COM SALDO</a>
-                        <i wire:click="showCancelarPagarComSaldoCliente"
-                           style="color: red;font-size: 40px;align-items: center;top: 3px;background: green;padding: 4px;cursor:pointer;border-radius: 2px"
-                           class="ace-icon glyphicon glyphicon-remove bigger-130"></i>
-                    @else
-                        <a href="#modalCartaoCliente" wire:click="showModalCartaoCliente" data-toggle="modal"
-                           title="desativo pagar com saldo"
-                           style="background:red; padding: 5px;border-radius: 5px;color: white; cursor: pointer;">PAGAR
-                            COM SALDO</a>
-                    @endif
-{{--                    <a href="#addProdutoDiversos" data-toggle="modal" title="adicionar produtos diversos"--}}
-{{--                       style="background:red; padding: 5px;border-radius: 5px;color: white; cursor: pointer;">ADICIONAR</a>--}}
                 </label>
                 <select wire:model="fatura.clienteId" data="clienteId" class="col-md-12 select2"
                         id="clienteId" <?= $fatura['aplicadoCartaoCliente'] ? 'disabled' : '' ?>>

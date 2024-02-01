@@ -9,15 +9,18 @@ use Illuminate\Support\Facades\DB;
 
 Trait TraitRelatorioFaturacaoJasper
 {
-
-
     public function imprimirDocumentoFaturacao($fatura, $filename = "Winmarket"){
 
         $output = $filename;
         $input = $filename . '.jrxml';
         $caminho = public_path() ."/upload/documentos/empresa/modelosFacturas/a4/";
         $path = "/upload/documentos/empresa/modelosFacturas/a4/";
-        $logotipo = public_path() . "/upload//" . auth()->user()->empresa->logotipo;
+
+        if($fatura->tipo_documento == 3){
+            $logotipo = public_path() . '/upload/_logo_ATO_vertical_com_TAG_color.png';
+        }else{
+            $logotipo = public_path() . "/upload//" . auth()->user()->empresa->logotipo;
+        }
 
         $viewCartaGarantia = 'N';
         $parametroCartaGarantia = new GetHabilitadoCartaGarantia(new DatabaseRepositoryFactory());

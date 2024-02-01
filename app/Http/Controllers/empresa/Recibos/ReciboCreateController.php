@@ -148,8 +148,7 @@ class ReciboCreateController extends Component
 
         //Faltando verificar se já foi emitido documento com datas anterior
         $recibo = $this->reciboRepository->salvarRecibo($this->factura);
-        $logotipo = public_path() . '/upload//' . auth()->user()->empresa->logotipo;
-
+        $logotipo = public_path() . '/upload/_logo_ATO_horizontal_negativo.png';
         // $this->emit('refresh-me');
         $this->confirm('Operação realizada com sucesso', ['showConfirmButton' => false, 'showCancelButton' => false, 'icon' => 'success']);
         $this->setarValorPadrao();

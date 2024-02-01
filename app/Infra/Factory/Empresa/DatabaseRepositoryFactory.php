@@ -38,6 +38,7 @@ use App\Infra\Repository\Empresa\SequenciaFaturaRepository;
 use App\Infra\Repository\Empresa\TaxaIvaRepository;
 use App\Infra\Repository\Empresa\TipoDocumentoRepository;
 use App\Infra\Repository\Empresa\TipoMercadoriaRepository;
+use App\Infra\Repository\Empresa\TipoServicoRepository;
 use App\Infra\Repository\Empresa\UnidadesMedidaRepository;
 use App\Infra\Repository\Empresa\UserRepository as UserRepositoryEmpresa;
 use App\Infra\Repository\FaturaVendaOnlineRepository;
@@ -248,5 +249,10 @@ class DatabaseRepositoryFactory implements RepositoryFactory
     public function createTipoMercadoriaRepository(): TipoMercadoriaRepository
     {
         return new TipoMercadoriaRepository();
+    }
+
+    public function createTipoServicoRepository(): TipoServicoRepository
+    {
+        return new TipoServicoRepository();
     }
 }

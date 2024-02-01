@@ -23,6 +23,7 @@ class ProdutoRepository
             'preco_venda' => $produto->getPrecoVenda(),
             'pvp' => $produto->getPvp(),
             'preco_compra' => $produto->getPrecoCompra(),
+            'tipoServicoId' => $produto->getTipoServidoId(),
             'categoria_id' => $produto->getCategoriaId(),
             'orderCategoria1' => $produto->getOrderCategoria1(),
             'orderCategoria2' => $produto->getOrderCategoria2(),
@@ -65,6 +66,7 @@ class ProdutoRepository
                 'preco_venda' => $produto->getPrecoVenda(),
                 'pvp' => $produto->getPvp(),
                 'preco_compra' => $produto->getPrecoCompra(),
+                'tipoServicoId' => $produto->getTipoServidoId(),
                 'categoria_id' => $produto->getCategoriaId(),
                 'orderCategoria1' => $produto->getOrderCategoria1(),
                 'orderCategoria2' => $produto->getOrderCategoria2(),
@@ -104,8 +106,7 @@ class ProdutoRepository
         return ExistenciaStockDatabase::with(['produto', 'produto.tipoTaxa'])
             ->whereHas('produto', function ($query) use ($centroCustoId) {
                 $query->where('centroCustoId', $centroCustoId);
-            })
-            ->where('empresa_id', auth()->user()->empresa_id)
+            })->where('empresa_id', auth()->user()->empresa_id)
             ->get();
 
     }
@@ -140,7 +141,7 @@ class ProdutoRepository
     }
 
     public function getProdutosPeloCentroCusto($filter){
-        return ProdutoDatabase::with(['tipoTaxa', 'statuGeral', 'motivoIsencao', 'categoria'])
+        return ProdutoDatabase::with(['tipoTaxa', 'statuGeral', 'motivoIsencao', 'categoria', 'tipoMercadoria'])
             ->filter($filter)
             ->where('empresa_id', auth()->user()->empresa_id)
             ->where('centroCustoId', session()->get('centroCustoId'))

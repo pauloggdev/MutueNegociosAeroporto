@@ -7,6 +7,7 @@ use App\Application\UseCase\Empresa\Categorias\GetCategoriaSubCategoriaPeloId;
 use App\Application\UseCase\Empresa\Categorias\GetSubCategorias;
 use App\Application\UseCase\Empresa\CentrosDeCusto\GetCentrosCustoSemPaginacao;
 use App\Application\UseCase\Empresa\Fabricantes\GetFabricantes;
+use App\Application\UseCase\Empresa\mercadorias\GetTiposMercadorias;
 use App\Application\UseCase\Empresa\MotivosIsencao\GetMotivosIsencao;
 use App\Application\UseCase\Empresa\Parametros\GetParametroPeloLabelNoParametro;
 use App\Application\UseCase\Empresa\Produtos\AtualizarProduto;
@@ -44,6 +45,7 @@ class ProdutoUpdateController extends Component
     public $imagem;
     public $margemLucro;
     public $ivaIncluido = false;
+    public $tiposMercadorias;
     public $armazens = [];
     public $categorias = [];
     public $fabricantes = [];
@@ -59,6 +61,9 @@ class ProdutoUpdateController extends Component
         $getParametroPVP = new GetParametroPeloLabelNoParametro(new DatabaseRepositoryFactory());
         $parametroPvp = $getParametroPVP->execute('incluir_iva');
         $this->ivaIncluido = $parametroPvp['valor'] == 'sim' ? true : false;
+
+        $getTiposMercadorias = new GetTiposMercadorias(new DatabaseRepositoryFactory());
+        $this->tiposMercadorias = $getTiposMercadorias->execute();
 
         $getParametroPeloLabel = new GetParametroPeloLabelNoParametro(new DatabaseRepositoryFactory());
         $codigoProdutoData = $getParametroPeloLabel->execute('codigo_produto');
@@ -99,6 +104,7 @@ class ProdutoUpdateController extends Component
         $this->produto['codigo_barra'] = $produto['codigo_barra'];
         $this->produto['referencia'] = $produto['referencia'];
         $this->produto['categoria_id'] = $produto['orderCategoria1']??$produto['categoria_id'];
+        $this->produto['tipoMercadoriaId'] = $produto['tipoMercadoriaId'];
         $this->produto['subCategoria1'] =  $produto['orderCategoria2'];
         $this->produto['subCategoria2'] =  $produto['orderCategoria3'];
 

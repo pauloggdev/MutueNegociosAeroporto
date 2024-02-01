@@ -10,6 +10,7 @@ class Produto
     private $precoVenda;
     private $precoCompra;
     private $categoriaId;
+    private $tipoServicoId;
     private $orderCategoria1;
     private $orderCategoria2;
     private $orderCategoria3;
@@ -61,6 +62,7 @@ class Produto
         $pvp,
         $precoCompra,
         $categoriaId,
+        $tipoServicoId,
         $orderCategoria1,
         $orderCategoria2,
         $orderCategoria3,
@@ -91,6 +93,7 @@ class Produto
         $this->precoVenda = $precoVenda;
         $this->precoCompra = $precoCompra ?? 0;
         $this->categoriaId = $categoriaId;
+        $this->tipoServicoId = $tipoServicoId;
         $this->orderCategoria1 = $orderCategoria1;
         $this->orderCategoria2 = $orderCategoria2;
         $this->orderCategoria3 = $orderCategoria3;
@@ -157,6 +160,10 @@ class Produto
     public function getCategoriaId()
     {
         return $this->categoriaId;
+    }
+    public function getTipoServidoId()
+    {
+        return $this->tipoServicoId;
     }
     public function getOrderCategoria1()
     {
