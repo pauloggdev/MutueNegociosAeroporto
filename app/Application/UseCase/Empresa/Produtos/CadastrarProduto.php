@@ -38,6 +38,7 @@ class CadastrarProduto
                 $request->preco_compra,
                 $categoriaId,
                 $request->categoria_id,
+                $request->tipoServicoId,
                 $request->subCategoria1,
                 $request->subCategoria2,
                 $request->unidade_medida_id,

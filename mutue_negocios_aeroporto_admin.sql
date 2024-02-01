@@ -1,7 +1,7 @@
 -- --------------------------------------------------------
--- Anfitrião:                    127.0.0.1
--- Versão do servidor:           5.7.24 - MySQL Community Server (GPL)
--- SO do servidor:               Win64
+-- Anfitrião:                    192.168.30.42
+-- Versão do servidor:           5.7.42 - MySQL Community Server (GPL)
+-- SO do servidor:               Linux
 -- HeidiSQL Versão:              12.1.0.6537
 -- --------------------------------------------------------
 
@@ -322,7 +322,7 @@ INSERT INTO `empresas` (`id`, `nome`, `pessoal_Contacto`, `endereco`, `empresa_i
 	(161, 'RAJAK - Comércio Geral, LDA', '924415938', 'Cacuaco, Estrada Nacional', NULL, 1, 0, '5601019282', 1, 4, 2, 'utilizadores/cliente/nV13ouXhpMTNB4sIkXKQXVobrlvEDsrHtaZtXVc4.png', NULL, 'seguranrajak18@gmail.com', '1NT0HXD', NULL, 1, 3, NULL, '2023-11-23 19:03:42', '2023-12-18 08:28:33', 'Luanda', 'documentos/empresa/documentos/3ysWRzejK3K3g8IKeJjZrDjC80HCMEBy7wncqjPy.pdf', 'documentos/empresa/documentos/DnSBVBxUIfVl3G2C10sI3Nnw2yaPU9e6KFIy2lUs.pdf', 'ativo', 'N', '2023-12-18 08:28:33'),
 	(162, 'ANGOLA vidro', '931656134', 'Via Expresso, Viana Bairro Kikuxi', NULL, 1, 0, '5405158186', 1, 2, 1, 'utilizadores/cliente/avatarEmpresa.png', NULL, 'angovidro345@gmail.com', '4RTC20E', NULL, 1, 3, NULL, '2023-12-15 21:58:14', '2023-12-15 21:58:14', 'Luanda', NULL, NULL, NULL, 'N', NULL),
 	(163, 'RICWAN Comércio Geral e Prestação de Serviços, LDA', '930668932', 'Bairro Nelito Soares, Rua da Cela Edifício N°51A, Distrito Urbano do Rangel, Município de Luanda', NULL, 1, 0, '5001377604', 1, 6, 3, 'utilizadores/cliente/2DYdC4VcRU64cYUe68LAPl102NWlfxY8FwS2mLzo.jpg', NULL, 'ricwansolucoes@gmail.com', 'S1R5QO8', NULL, 1, 3, NULL, '2023-12-19 16:16:15', '2024-01-11 12:01:04', 'Luanda', NULL, NULL, 'ativo', 'N', '2024-01-11 12:01:04'),
-	(167, 'Aeroporto Internacional Dr. António Agostino Neto Operador Temporário Aeroportuário ATO - AIAA', '937036322', 'Estrada nacional 230, km 42 - Municipio do Icolo e Bengo, Distrito  do Bom Jesus, Luanda-Angola', NULL, 1, 0, '5001720538', 1, 1, 1, 'utilizadores/cliente/Sy25ugUGqoST3TRMFLTF4O9bvJiP6sv5ayOtfari.png', 'ato.ao', 'info@ato.ao', '4EEJFPK', NULL, 1, 3, NULL, '2024-01-23 16:10:54', '2024-01-30 15:37:01', 'Luanda', NULL, NULL, 'ativo', 'N', '2024-01-30 16:37:01');
+	(167, 'Aeroporto Internacional Dr. António Agostino Neto Operador Temporário Aeroportuário ATO - AIAA', '937036322', 'Estrada nacional 230, km 42 - Municipio do Icolo e Bengo, Distrito  do Bom Jesus, Luanda-Angola', NULL, 1, 0, '5001720538', 1, 1, 1, 'utilizadores/cliente/vhf0IyhOcawiw3yaiy9LahTI75qCVb83GRkmcvlu.png', 'ato.ao', 'info@ato.ao', '4EEJFPK', NULL, 1, 3, NULL, '2024-01-23 16:10:54', '2024-01-31 12:34:41', 'Luanda', NULL, NULL, 'ativo', 'N', '2024-01-31 12:34:41');
 
 -- A despejar estrutura para tabela mutue_negocios_aeroporto_admin.facturas
 CREATE TABLE IF NOT EXISTS `facturas` (

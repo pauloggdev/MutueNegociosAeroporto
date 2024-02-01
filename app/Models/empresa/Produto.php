@@ -26,6 +26,7 @@ class Produto extends Model
         'classificacao',
         'marca_id',
         'categoria_id',
+        'tipoServicoId',
         'orderCategoria1',
         'orderCategoria2',
         'orderCategoria3',
@@ -121,6 +122,10 @@ class Produto extends Model
     public function categoria()
     {
         return $this->belongsTo(Categoria::class, 'categoria_id');
+    }
+    public function tipoMercadoria()
+    {
+        return $this->belongsTo(TipoMercadoria::class,'tipoMercadoriaId', 'id');
     }
     public function classe()
     {

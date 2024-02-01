@@ -683,13 +683,13 @@ if (Auth::guard('web')->check()) {
                     </ul>
                 </li>
             @endif;
-            <li class="hover">
-                <a href="/empresa/inventarios" style="color: #ffffff">
-                    <i class="menu-icon glyphicon glyphicon-refresh"></i>
-                    <span class="menu-text">INVENTÁRIOS</span>
-                    <b class="arrow fa fa-angle-down"></b>
-                </a>
-            </li>
+{{--            <li class="hover">--}}
+{{--                <a href="/empresa/inventarios" style="color: #ffffff">--}}
+{{--                    <i class="menu-icon glyphicon glyphicon-refresh"></i>--}}
+{{--                    <span class="menu-text">INVENTÁRIOS</span>--}}
+{{--                    <b class="arrow fa fa-angle-down"></b>--}}
+{{--                </a>--}}
+{{--            </li>--}}
 
             <li class="hover">
                 <a href="#" class="dropdown-toggle" style="color: #ffffff">
@@ -798,13 +798,13 @@ if (Auth::guard('web')->check()) {
                     <span class="menu-text">FECHO DE CAIXA</span>
                 </a>
             </li>
-            <li class="">
-                <a href="{{route('centroCusto.index')}}">
-                    <i class="menu-icon fa fa-shopping-basket"></i>
-                    <span class="menu-text">CENTRO DE CUSTOS</span>
-                </a>
-                <b class="arrow"></b>
-            </li>
+{{--            <li class="">--}}
+{{--                <a href="{{route('centroCusto.index')}}">--}}
+{{--                    <i class="menu-icon fa fa-shopping-basket"></i>--}}
+{{--                    <span class="menu-text">CENTRO DE CUSTOS</span>--}}
+{{--                </a>--}}
+{{--                <b class="arrow"></b>--}}
+{{--            </li>--}}
             <li class="hover">
                 <a href="#" class="dropdown-toggle" style="color: #ffffff">
                     <i class="menu-icon fa fa-file-text"></i>

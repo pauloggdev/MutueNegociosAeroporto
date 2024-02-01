@@ -17,6 +17,7 @@ use App\Application\UseCase\Empresa\Produtos\GetCaracteristicasProduto;
 use App\Application\UseCase\Empresa\TaxasIva\GetTaxasIva;
 use App\Application\UseCase\Empresa\TaxasIva\GetTaxasIvaDaEmpresaRegimeExclusaoESimplificado;
 use App\Application\UseCase\Empresa\TaxasIva\GetTaxasIvaDaEmpresaRegimeGeral;
+use App\Application\UseCase\Empresa\TiposServicos\GetTiposServicos;
 use App\Application\UseCase\Empresa\UnidadesMedida\GetUnidadesMedida;
 use App\Infra\Factory\Empresa\DatabaseRepositoryFactory;
 use App\Models\empresa\CentroCusto;
@@ -43,7 +44,7 @@ class ProdutoCreateController extends Component
     public $produto;
     public $margemLucro;
     public $centrosCusto = [];
-    public $tiposMercadorias;
+    public $tiposServicos;
     public $centroCustoData = [];
     public $armazens = [];
     public $categorias = [];
@@ -59,10 +60,8 @@ class ProdutoCreateController extends Component
     public function mount()
     {
         $this->setarValor();
-
-
-        $getTiposMercadorias = new GetTiposMercadorias(new DatabaseRepositoryFactory());
-        $this->tiposMercadorias = $getTiposMercadorias->execute();
+        $getTipoServico = new GetTiposServicos(new DatabaseRepositoryFactory());
+        $this->tiposServicos = $getTipoServico->execute();
 
         $getParametroPVP = new GetParametroPeloLabelNoParametro(new DatabaseRepositoryFactory());
         $parametroPvp = $getParametroPVP->execute('incluir_iva');
@@ -178,74 +177,18 @@ class ProdutoCreateController extends Component
     public function store()
     {
 
-        if (!$this->centroCustoData) {
-            $this->confirm('Informe pelo menos um centro de Custo', [
-                'showConfirmButton' => false,
-                'showCancelButton' => false,
-                'icon' => 'warning'
-            ]);
-            return;
-        }
 
         $this->produto['centrosCustos'] = $this->centroCustoData;
         $rules = [
             'produto.designacao' => ['required'],
-            'produto.codigo_barra' => [function ($attr, $codigoBarra, $fail) {
-                if ($this->codigoBarra && !$codigoBarra) {
-                    $fail("Informe o código de barra");
-                }
-            }],
-            'produto.referencia' => [function ($attr, $referencia, $fail) {
-                if ($this->codigoProduto && !$referencia) {
-                    $fail("Informe o código do produto");
-                }
-            }],
-            'produto.categoria_id' => ['required'],
-            'produto.imagens' => [function ($attr, $imagens, $fail) {
-                if ($imagens) {
-                    foreach ($imagens as $imagem) {
-                        if (!in_array($imagem->extension(), array("jpeg", "png", "jpg"))) {
-                            $fail("Formato imagens suportado(jpeg,png,jpg)");
-                        }
-                    }
-                }
-            }],
-            'produto.preco_compra' => [function ($atr, $precoCompra, $fail) {
-                if (!is_numeric($precoCompra) && $precoCompra) {
-                    $fail('Informe o preço de compra');
-                }
-            }],
-            'produto.preco_venda' => ['required', function ($atr, $precoVenda, $fail) {
-                if (!is_numeric($precoVenda)) {
-                    $fail('Informe o preço de venda');
-                }
-                if ($precoVenda < 0) {
-                    $fail('O preço de venda não pode ser negativo');
-                }
-            }],
+            'produto.tipoServicoId' => ['required'],
             'produto.status_id' => ['required'],
             'produto.codigo_taxa' => ['required'],
-            'produto.fabricante_id' => ['required'],
-            'produto.imagem_produto' => [function ($attr, $imagem_produto, $fail) {
-                if ($imagem_produto) {
-                    if (!in_array($imagem_produto->extension(), array("jpeg", "png", "jpg"))) {
-                        $fail("Formato imagens suportado(jpeg,png,jpg)");
-                    }
-                }
-                if (auth()->user()->empresa->venda_online == 'Y' && $this->produto['venda_online'] && !$imagem_produto) {
-                    $fail("Informe a imagem");
-                }
-            }]
         ];
         $messages = [
             'produto.designacao.required' => 'É obrigatório o nome',
-            'produto.imagem_produto.mimes' => 'Formato imagens suportado(jpeg,png,jpg)',
-            'produto.categoria_id.required' => 'É obrigatório a categoria',
-            'produto.fabricante_id.required' => 'É obrigatório o fabricante',
-            'produto.preco_venda.required' => 'É obrigatório o preço de venda',
+            'produto.tipoServicoId.required' => 'É obrigatório o tipo de serviço',
             'produto.status_id.required' => 'É obrigatório o status',
-            'produto.centroCustoId.required' => 'Informe o centro de custo',
-            'produto.unidade_medida_id' => ''
         ];
         $this->validate($rules, $messages);
         try {
@@ -283,9 +226,9 @@ class ProdutoCreateController extends Component
         $this->produto['armazem_id'] = $this->armazens[0]['id'];
 
         $this->produto['designacao'] = NULL;
-        $this->produto['preco_venda'] = NULL;
-        $this->produto['pvp'] = NULL;
-        $this->produto['preco_compra'] = NULL;
+        $this->produto['preco_venda'] = 0;
+        $this->produto['pvp'] = 0;
+        $this->produto['preco_compra'] = 0;
         $this->produto['venda_online'] = false;
         $this->produto['tempoGarantiaProduto'] = null;
         $this->produto['tipoGarantia'] = null;
@@ -295,9 +238,10 @@ class ProdutoCreateController extends Component
         $this->produto['canal_id'] = 2;
         $this->produto['quantidade_minima'] = 0;
         $this->produto['quantidade_critica'] = 0;
+        $this->produto['tipoServicoId'] = null;
         $this->produto['categoria_id'] = 1;
         $this->produto['status_id'] = 1;
-        $this->produto['stocavel'] = "Sim";
+        $this->produto['stocavel'] = "Não";
         $this->produto['quantidade'] = 0;
         $this->produto['unidade_medida_id'] = 1;
         $this->produto['codigo_taxa'] = 1;

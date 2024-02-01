@@ -14,16 +14,6 @@ use Illuminate\Support\Str;
                 </small>
             </h1>
         </div>
-        <div class>
-            <form>
-                <div class="row">
-                    <div class="col-md-6">
-
-                    </div>
-                </div>
-            </form>
-        </div>
-
         <div class="col-md-12">
             <div class>
                 <form class="form-search" method="get" action>
@@ -90,12 +80,11 @@ use Illuminate\Support\Str;
                                         <tr>
                                             <th>Código</th>
                                             <th>Nome</th>
-                                            <th>Categoria</th>
+                                            <th>Tipo mercadoria</th>
                                             <th style="text-align:right">Taxa</th>
-                                            <th style="text-align:right">Preço Compra</th>
-                                            <th style="text-align:right">PVP</th>
+                                            <th style="text-align:right">Preço venda(USD)</th>
+                                            <th style="text-align:right">PVP(USD)</th>
                                             <th style="text-align:center">Estocavel</th>
-                                            <th style="text-align:center">Venda online</th>
                                             <th style="text-align: center">Estado</th>
                                             <th style="text-align: center;width: 100px">Ações</th>
                                         </tr>
@@ -107,7 +96,7 @@ use Illuminate\Support\Str;
                                             <td>{{ Str::upper($produto['designacao'])}}</td>
                                             <td>{{ Str::upper($produto['categoria']['designacao'])}}</td>
                                             <td style="text-align:right">{{ $produto['tipoTaxa']['descricao'] }}</td>
-                                            <td style="text-align:right">{{ number_format($produto['preco_compra'],2, ',','.')}}</td>
+                                            <td style="text-align:right">{{ number_format($produto['preco_venda'],2, ',','.')}}</td>
                                             <td style="text-align:right">{{ number_format($produto['pvp'],2, ',','.')}}</td>
                                             <td style="text-align:center">
                                                 @if($produto['stocavel'] == 'Sim')
@@ -115,15 +104,6 @@ use Illuminate\Support\Str;
                                                 @else
                                                 <span class="label label-sm label-warning">{{ $produto['stocavel']}}</span>
                                                 @endif
-                                            </td>
-                                            <td style="text-align:center">
-
-                                                @if($produto['venda_online'] == 'Y')
-                                                <span class="label label-sm label-success">Sim</span>
-                                                @else
-                                                <span class="label label-sm label-warning">Não</span>
-                                                @endif
-
                                             </td>
                                             <td style="text-align:center">
                                                 @if($produto['status_id'] == 1)
@@ -136,9 +116,6 @@ use Illuminate\Support\Str;
                                                     <a href="{{ route('produto.edit', $produto['uuid']) }}">
                                                         <i class="fa fa-pencil-square-o bigger-150 blue" title="Editar Produtos"></i>
 
-                                                    </a>
-                                                    <a href="{{ route('produto.carateristica', $produto['uuid']) }}">
-                                                        <i class="fa fa-pencil-square-o bigger-150 orange" title="Adicionar Caracteristicas do produto"></i>
                                                     </a>
                                                     <a title="Eliminar este Registro" style="cursor:pointer;" wire:click="modalDel({{$produto->id}})">
                                                         <i class="ace-icon fa fa-trash-o bigger-150 bolder danger red"></i>

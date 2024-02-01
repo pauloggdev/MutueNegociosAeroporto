@@ -41,6 +41,7 @@ class AtualizarProduto
             $request->preco_compra,
             $categoriaId,
             $request->categoria_id,
+            $request->tipoMercadoriaId,
             $request->subCategoria1,
             $request->subCategoria2,
             $request->unidade_medida_id,
