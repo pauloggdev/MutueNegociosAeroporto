@@ -137,6 +137,7 @@ use App\Http\Controllers\empresa\Marcas\MarcaCreateController;
 use App\Http\Controllers\empresa\Marcas\MarcaIndexController;
 use App\Http\Controllers\empresa\Marcas\MarcaUpdateController;
 use App\Http\Controllers\empresa\mercadorias\MercadoriaIndexController;
+use App\Http\Controllers\empresa\mercadorias\EspecificacaoMercadoriaController;
 use App\Http\Controllers\empresa\ModeloDocumentos\ModeloDocumentoController;
 use App\Http\Controllers\empresa\MotivoIvaController;
 use App\Http\Controllers\empresa\MunicipiosFrete\MunicipioFreteCreateController;
@@ -994,6 +995,9 @@ Route::group(['middleware' => ['auth:empresa']], function () {
 
             //Tipos de mercadorias
             Route::get('/empresa/mercadorias', MercadoriaIndexController::class);
+
+             //Especificao de mercadorias
+            Route::get('/empresa/mercadorias/especificacao', EspecificacaoMercadoriaController::class);
 
             Route::get('empresa/facturacao', [FacturacaoController::class, 'index']);
             Route::put('empresa/facturacao/produto/editar', [FacturacaoController::class, 'editarProduto']);

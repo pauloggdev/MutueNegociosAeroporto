@@ -1,5 +1,5 @@
 @php use Illuminate\Support\Str; @endphp
-@section('title','Tipos de mercadorias')
+@section('title','Especificação de mercadorias')
 
 <div>
     <div class="row">
@@ -9,7 +9,7 @@
                     <div class="modal-header text-center">
                         <button type="button" class="close red bolder" data-dismiss="modal">×</button>
                         <h4 class="smaller">
-                            NOVO TIPO DE MERCADORIAS
+                            NOVA ESPECIFICAÇÃO DE MERCADORIA
                         </h4>
 
                     </div>
@@ -29,22 +29,11 @@
                                             <div class="tab-content profile-edit-tab-content">
                                                 <div id="dados_motivo" class="tab-pane in active">
                                                     <div class="form-group has-info">
-                                                        <div class="col-md-12">
-                                                            <label class="control-label bold label-select2"
-                                                                   for="designacao">Nome</label>
-                                                            <div>
-                                                                <input type="text" wire:model="mercadoria.designacao"
-                                                                       id="designacao"
-                                                                       class="col-md-12 col-xs-12 col-sm-4"/>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group has-info">
                                                         <div class="col-md-6">
                                                             <label class="control-label bold label-select2"
-                                                                   for="valor">Taxa</label>
+                                                                   for="valor">Desconto</label>
                                                             <div>
-                                                                <input type="number" wire:model="mercadoria.valor"
+                                                                <input type="number" wire:model="especificacao.desconto"
                                                                        id="valor" class="col-md-12 col-xs-12 col-sm-4"/>
                                                             </div>
 
@@ -52,19 +41,27 @@
                                                         <div class="col-md-6">
                                                             <label class="control-label bold label-select2"
                                                                    for="statuId">Status</label>
-                                                            <select wire:model="mercadoria.statuId" data="statuId"
-                                                                    class="col-md-12 select2" id="statuId"
-                                                                    style="height:35px;<?= $errors->has('marca.status_id') ? 'border-color: #ff9292;' : '' ?>">
-                                                                <option value="1">ATIVO</option>
-                                                                <option value="2">DESATIVO</option>
+                                                            <select wire:model="especificacao->status" data="status"
+                                                                    class="col-md-12 select2" id="status"
+                                                                    style="height:35px;<?= $errors->has('especificacao.status') ? 'border-color: #ff9292;' : '' ?>">
+                                                                <option :value="1">ATIVO</option>
+                                                                <option :value="2">DESATIVO</option>
 
                                                             </select>
-                                                            @if ($errors->has('mercadoria.statuId'))
+                                                            @if ($errors->has('especificacao.status'))
                                                                 <span class="help-block"
                                                                       style="color: red; font-weight: bold">
-                                                                    <strong>{{ $errors->first('mercadoria.statuId') }}</strong>
+                                                                    <strong>{{ $errors->first('especificacao.status') }}</strong>
                                                                 </span>
                                                             @endif
+                                                        </div>
+
+                                                        <div class="col-md-12">
+                                                            
+                                                            <label class="control-label bold label-select2" for="saldoAtual">Descrição <b class="red fa fa-question-circle"></b></label>
+                                                            <div class="input-group">
+                                                                <textarea wire:model="especificacao.descricao" id="" cols="200" rows="4" class="form-control" style="font-size: 16px; z-index: 1;"></textarea>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -72,7 +69,7 @@
                                             <div class="clearfix form-actions">
                                                 <div class="col-md-9">
                                                     <button class="search-btn" style="border-radius: 10px"
-                                                            wire:click.prevent="salvarTipoMercadoria">
+                                                            wire:click.prevent="store">
 
                                                     <span wire:loading.remove wire:target="salvarTipoMercadoria">
                                                         <i class="ace-icon fa fa-print bigger-110"></i>
@@ -102,7 +99,7 @@
                     <div class="modal-header text-center">
                         <button type="button" class="close red bolder" data-dismiss="modal">×</button>
                         <h4 class="smaller">
-                            EDITAR TIPO MERCADORIA
+                            EDITAR ESPECIFICAÇÃO
                         </h4>
 
                     </div>
@@ -124,10 +121,10 @@
                                                     <div class="form-group has-info">
                                                         <div class="col-md-12">
                                                             <label class="control-label bold label-select2"
-                                                                   for="designacao">Nome</label>
+                                                                   for="descricao">Nome</label>
                                                             <div>
-                                                                <input type="text" wire:model="mercadoria.designacao"
-                                                                       id="designacao"
+                                                                <input type="text" wire:model="especificacao.descricao"
+                                                                       id="descricao"
                                                                        class="col-md-12 col-xs-12 col-sm-4"/>
                                                             </div>
                                                         </div>
@@ -135,9 +132,9 @@
                                                     <div class="form-group has-info">
                                                         <div class="col-md-6">
                                                             <label class="control-label bold label-select2"
-                                                                   for="valor">Taxa</label>
+                                                                   for="valor">Preço/kg</label>
                                                             <div>
-                                                                <input type="number" wire:model="mercadoria.valor"
+                                                                <input type="number" wire:model="especificacao.desconto"
                                                                        id="valor" class="col-md-12 col-xs-12 col-sm-4"/>
                                                             </div>
 
@@ -145,7 +142,7 @@
                                                         <div class="col-md-6">
                                                             <label class="control-label bold label-select2"
                                                                    for="statuId">Status</label>
-                                                            <select wire:model="mercadoria.statuId" data="statuId"
+                                                            <select wire:model="especificacao.status" data="statuId"
                                                                     class="col-md-12 select2" id="statuId"
                                                                     style="height:35px;<?= $errors->has('marca.status_id') ? 'border-color: #ff9292;' : '' ?>">
                                                                 <option value="1">ATIVO</option>
@@ -165,13 +162,13 @@
                                             <div class="clearfix form-actions">
                                                 <div class="col-md-9">
                                                     <button class="search-btn" style="border-radius: 10px"
-                                                            wire:click.prevent="update">
+                                                            wire:click.prevent="store">
 
-                                                    <span wire:loading.remove wire:target="salvarTipoMercadoria">
+                                                    <span wire:loading.remove wire:target="store">
                                                         <i class="ace-icon fa fa-print bigger-110"></i>
                                                         SALVAR
                                                     </span>
-                                                        <span wire:loading wire:target="salvarTipoMercadoria">
+                                                        <span wire:loading wire:target="store">
                                                         <span class="loading"></span>
                                                         Aguarde...</span>
                                                     </button>
@@ -191,7 +188,7 @@
 
         <div class="page-header" style="left: 0.5%; position: relative">
             <h1>
-                TIPOS DE MERCADORIAS
+                ESPECIFICAÇÃO DE MERCADORIAS
                 <small>
                     <i class="ace-icon fa fa-angle-double-right"></i>
                     Listagem
@@ -229,7 +226,7 @@
                             <div class="clearfix">
                                 <a href="#modalCriarTipoMercadoria" data-toggle="modal"
                                    class="btn btn-success widget-box widget-color-blue" id="botoes">
-                                    <i class="fa icofont-plus-circle"></i> Novo tipo de mercadoria
+                                    <i class="fa icofont-plus-circle"></i> Nova Especificação
                                 </a>
                                 <a title="Imprimir Categoria" wire:click.prevent="imprimirCategoria"
                                    class="btn btn-primary widget-box widget-color-blue" id="botoes">
@@ -239,7 +236,7 @@
                                 <div class="pull-right tableTools-container"></div>
                             </div>
                             <div class="table-header widget-header">
-                                Todos tipos de mercadorias do sistema (Total: {{ count($tiposMercadorias) }})
+                                Todas as especificação de mercadorias do sistema (Total: {{ count($especificacaoMercadorias) }})
                             </div>
 
                             <!-- div.dataTables_borderWrap -->
@@ -248,30 +245,30 @@
                                     <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Designação</th>
+                                        <th>Descrição</th>
                                         <th style="text-align: center">Status</th>
-                                        <th style="text-align: right">Valor(USD)</th>
+                                        <th style="text-align: right">Desconto(USD)</th>
                                         <th style="text-align: center">Ações</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($tiposMercadorias as $key=> $mercadoria)
+                                    @foreach($especificacaoMercadorias as $key=> $especificacao)
                                         <tr>
                                             <td>{{++$key}}</td>
-                                            <td>{{ Str::upper($mercadoria['designacao']) }}</td>
+                                            <td>{{ Str::upper($especificacao->descricao) }}</td>
 
                                             <td class="hidden-480" style="text-align: center">
                                                 <span
-                                                    class="label label-sm <?= $mercadoria['statuId']== 1 ? 'label-success' : 'label-warning' ?>"
-                                                    style="border-radius: 20px;">{{$mercadoria['statuId'] == 1 ? 'Activo' : 'Inactivo' }}</span>
+                                                    class="label label-sm <?= $especificacao['status']== 1 ? 'label-success' : 'label-warning' ?>"
+                                                    style="border-radius: 20px;">{{$especificacao['status'] == 1 ? 'Activo' : 'Inactivo' }}</span>
                                             </td>
 
-                                            <td style="text-align: right">{{ number_format($mercadoria['valor'], 2, ',', '.') }}</td>
+                                            <td style="text-align: right">{{ number_format($especificacao->desconto, 2, ',', '.') }}</td>
                                             <td style="text-align: center">
 
                                                 <div class="hidden-sm hidden-xs action-buttons">
                                                      
-                                                    <a wire:click="edit({{$mercadoria->id}})" href="#modalEditarTipoMercadoria" data-toggle="modal"
+                                                    <a wire:click="edit({{$especificacao->id}})" href="#modalEditarTipoMercadoria" data-toggle="modal"
                                                        class="pink" title="Editar este registo">
                                                         <i class="fa fa-pencil-square-o bigger-200 blue"></i>
                                                     </a>
@@ -290,3 +287,10 @@
     </div>
 
 </div>
+@push('scripts')
+    <script>
+        window.addEventListener('close-modal', event =>{
+            $('#modalEditarTipoMercadoria').modal('hide');
+        })
+    </script>
+@endpush

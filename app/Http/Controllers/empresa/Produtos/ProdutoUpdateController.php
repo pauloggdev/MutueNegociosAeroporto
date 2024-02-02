@@ -66,6 +66,7 @@ class ProdutoUpdateController extends Component
         $getTipoServico = new GetTiposServicos(new DatabaseRepositoryFactory());
         $this->tiposServicos = $getTipoServico->execute();
 
+
         $getParametroPeloLabel = new GetParametroPeloLabelNoParametro(new DatabaseRepositoryFactory());
         $codigoProdutoData = $getParametroPeloLabel->execute('codigo_produto');
         $codigoBarra = $getParametroPeloLabel->execute('codigo_barra');
@@ -106,6 +107,7 @@ class ProdutoUpdateController extends Component
         $this->produto['referencia'] = $produto['referencia'];
         $this->produto['categoria_id'] = $produto['orderCategoria1']??$produto['categoria_id'];
         $this->produto['tipoServicoId'] = $produto['tipoServicoId'];
+
         $this->produto['subCategoria1'] =  $produto['orderCategoria2'];
         $this->produto['subCategoria2'] =  $produto['orderCategoria3'];
 

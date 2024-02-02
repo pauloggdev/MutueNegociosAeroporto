@@ -59,4 +59,6 @@ class EmpresaIndexController extends Component
             'email' => ['required', 'email', 'max:145']
         ], $mensagem);
     }
+
+
 }

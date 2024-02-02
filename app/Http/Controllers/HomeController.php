@@ -79,6 +79,8 @@ class HomeController extends Controller
 
         $empresa = $this->pegarEmpresaAutenticadaGuardOperador();
 
+
+
         $data['produtoMaisVendido'] = DB::select('
           select factura_items.descricao_produto,
           sum(factura_items.quantidade_produto) AS quantidade,
@@ -90,6 +92,8 @@ class HomeController extends Controller
                  GROUP by factura_items.descricao_produto
                  order by sum(factura_items.quantidade_produto) desc
                  LIMIT 6');
+
+        dd($data['produtoMaisVendido']);
 
         $currentYear = now()->year;
         $data['vendasmensal'] = DB::connection('mysql2')->table('facturas')

@@ -15,7 +15,7 @@
                 </button>
                 Os campos marcados com
                 <span class="tooltip-target" data-toggle="tooltip" data-placement="top"><i
-                            class="fa fa-question-circle bold text-danger"></i></span>
+                        class="fa fa-question-circle bold text-danger"></i></span>
                 são de preenchimento obrigatório.
             </div>
         </div>
@@ -35,7 +35,7 @@
                             <div class="form-group has-info bold" style="left: 0%; position: relative">
                                 <div class="col-md-6">
                                     <label class="control-label bold label-select2" for="nomeCliente">Nome<b
-                                                class="red fa fa-question-circle"></b></label>
+                                            class="red fa fa-question-circle"></b></label>
                                     <div class="input-group">
                                         <input type="text" autofocus wire:model="produto.designacao"
                                                class="form-control" id="nomeProduto"
@@ -55,7 +55,7 @@
                                 <div class="col-md-3">
                                     <label class="control-label bold label-select2" for="tipoServicoId">Tipos de
                                         serviços<b
-                                                class="red fa fa-question-circle"></b></label>
+                                            class="red fa fa-question-circle"></b></label>
                                     <select wire:model="produto.tipoServicoId" data="tipoServicoId"
                                             class="col-md-12 select2"
                                             id="tipoServicoId"
@@ -63,7 +63,7 @@
                                         <option value="">Nenhum</option>
                                         @foreach($tiposServicos as $servico)
                                             <option
-                                                    value="{{ $servico->id }}" <?= $servico->id == $produto['tipoServicoId'] ? 'selected' : '' ?>>{{ $servico->designacao }}</option>
+                                                value="{{ $servico->id }}" <?= $servico->id == $produto['tipoServicoId'] ? 'selected' : '' ?>>{{ $servico->designacao }}</option>
                                         @endforeach
                                     </select>
                                     @if ($errors->has('produto.tipoServicoId'))

@@ -303,6 +303,14 @@ if (Auth::guard('web')->check()) {
                         </li>
 
                         <li class="hover">
+                            <a href="/empresa/mercadorias/especificacao">
+                                <i class="menu-icon fa fa-caret-right"></i>
+                                ESPECIFICAÇÃO DE MERCADORIA
+                            </a>
+                            <b class="arrow"></b>
+                        </li>
+
+                        <li class="hover">
                             <a href="{{ route('unidadeMedidas.index') }}">
                                 <i class="menu-icon fa fa-caret-right"></i>
                                 UNIDADE DE MEDIDA
