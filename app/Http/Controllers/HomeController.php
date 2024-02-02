@@ -82,28 +82,23 @@ class HomeController extends Controller
 
 
         $data['produtoMaisVendido'] = DB::select('
-          select factura_items.descricao_produto,
-          sum(factura_items.quantidade_produto) AS quantidade,
-          SUM(factura_items.total_preco_produto) AS total_preco
+          select factura_items.nomeProduto,
+          sum(factura_items.quantidade) AS quantidade,
+          SUM(factura_items.total) AS total_preco
                  from facturas
                  INNER JOIN factura_items ON facturas.id = factura_items.factura_id
-                 WHERE facturas.anulado=1 AND facturas.empresa_id = "' . $empresa['empresa']['id'] . '"
-                 AND facturas.centroCustoId = "' .session()->get('centroCustoId'). '"
-                 GROUP by factura_items.descricao_produto
-                 order by sum(factura_items.quantidade_produto) desc
+                 WHERE facturas.empresa_id = "' . $empresa['empresa']['id'] . '"
+                 GROUP by factura_items.nomeProduto
+                 order by sum(factura_items.quantidade) desc
                  LIMIT 6');
-
-        dd($data['produtoMaisVendido']);
 
         $currentYear = now()->year;
         $data['vendasmensal'] = DB::connection('mysql2')->table('facturas')
-            ->select(DB::raw('SUM(valor_a_pagar) as total_factura, MONTH(created_at) AS mes'))
+            ->select(DB::raw('SUM(total) as total_factura, MONTH(created_at) AS mes'))
             ->groupBy(DB::raw('MONTH(created_at)'))
             // ->where(DB::raw('YEAR(created_at)=2021'))
             ->whereRaw("YEAR(created_at) = {$currentYear}")
-            ->where('anulado', 1)
             ->where('empresa_id', $empresa['empresa']['id'])
-            ->where('centroCustoId', session()->get('centroCustoId'))
             ->get();
 
         $data['countusers'] = DB::connection('mysql2')->table('users_cliente')
@@ -132,22 +127,17 @@ class HomeController extends Controller
             ->count();
 
         $data['countvendas'] = DB::connection('mysql2')->table('facturas')
-            ->where('anulado', 1)
             ->where('empresa_id', $empresa['empresa']['id'])->where(function ($query) use ($TIPO_FACTURA, $TIPO_FACTURA_RECIBO) {
                 $query->where('tipo_documento', $TIPO_FACTURA)
                     ->orwhere('tipo_documento', $TIPO_FACTURA_RECIBO);
             })
-            ->where('centroCustoId', session()->get('centroCustoId'))
             ->count();
 
         $data['counttotalvendas'] = DB::connection('mysql2')->table('facturas')
-            ->where('anulado', 1)
             ->where('empresa_id', $empresa['empresa']['id'])->where(function ($query) use ($TIPO_FACTURA, $TIPO_FACTURA_RECIBO) {
                 $query->where('tipo_documento', $TIPO_FACTURA)
                     ->orwhere('tipo_documento', $TIPO_FACTURA_RECIBO);
-            })
-            ->where('centroCustoId', session()->get('centroCustoId'))
-            ->sum('valor_a_pagar');
+            })->sum('total');
 
 
         if ($empresa['tipo_user_id'] === $TIPO_FUNCIONARIO) {
@@ -165,7 +155,7 @@ class HomeController extends Controller
     public function listarVendasMensal()
     {
         $data['vendasmensal'] = DB::connection('mysql2')
-            ->select('SELECT SUM(valor_a_pagar) AS valor_pago, MONTH(created_at) AS mes FROM facturas  WHERE facturas.anulado =1 AND YEAR(CURDATE()) GROUP BY
+            ->select('SELECT SUM(total) AS valor_pago, MONTH(created_at) AS mes FROM facturas  WHERE YEAR(CURDATE()) GROUP BY
         MONTH(created_at)');
     }
 
