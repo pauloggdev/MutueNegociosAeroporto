@@ -249,14 +249,15 @@ if (Auth::guard('web')->check()) {
 
                 <ul class="submenu">
 
-                    <!-- <li class="hover">
-                        <a href="/empresa/gestores">
+                    <li class="hover">
+                        <a href="{{ route('bancos.index') }}">
                             <i class="menu-icon fa fa-caret-right"></i>
-                            Gestor
+                            BANCOS
                         </a>
 
                         <b class="arrow"></b>
-                    </li> -->
+                    </li>
+                    
                     <li class="hover">
                         <a href="/empresa/mercadorias">
                             <i class="menu-icon fa fa-caret-right"></i>
@@ -266,9 +267,9 @@ if (Auth::guard('web')->check()) {
                     </li>
 
                     <li class="hover">
-                        <a href="{{route('unidadeMedidas.index')}}">
+                        <a href="/empresa/mercadorias/especificacao">
                             <i class="menu-icon fa fa-caret-right"></i>
-                            UNIDADE DE MEDIDA
+                            ESPECIFICAÇÃO DE MERCADORIA
                         </a>
                         <b class="arrow"></b>
                     </li>

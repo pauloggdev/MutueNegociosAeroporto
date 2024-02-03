@@ -249,6 +249,14 @@ if (Auth::guard('web')->check()) {
                     </li>
 
                     <li class="hover">
+                        <a href="/empresa/mercadorias/especificacao">
+                            <i class="menu-icon fa fa-caret-right"></i>
+                            ESPECIFICAÇÃO DE MERCADORIA
+                        </a>
+                        <b class="arrow"></b>
+                    </li>
+
+                    <li class="hover">
                         <a href="/empresa/formapagamento">
                             <i class="menu-icon fa fa-caret-right"></i>
                             FORMA DE PAGAMENTO
