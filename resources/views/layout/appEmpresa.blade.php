@@ -586,13 +586,13 @@ if (Auth::guard('web')->check()) {
 
                             <b class="arrow"></b>
                         </li>
-                        <li class="hover">
+                        {{-- <li class="hover">
                             <a href="/empresa/relatorios-vendas">
                                 <i class="menu-icon fa fa-caret-right"></i>
                                 RELATÓRIOS DE VENDAS GERAIS
                             </a>
                             <b class="arrow"></b>
-                        </li>
+                        </li> --}}
                     </ul>
                 </li>
             @endif
