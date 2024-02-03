@@ -64,7 +64,16 @@ class EmitirDocumentoAeroportoCarga
         if ($getYearNow) {
             $yearNow = $getYearNow->valor;
         }
-        $numeracaoFactura = 'FR ' . $this->faturaRepository->mostrarSerieDocumento() . $yearNow . '/' . $numSequenciaFactura; //retirar somente 3 primeiros caracteres na facturaSerie da factura: substr('abcdef', 0, 3);
+        if ($request->tipoDocumento == 1) {
+            $doc = "FR ";
+        } else if ($request->tipoDocumento == 2) {
+            $doc = "FT ";
+        } else {
+            $doc = "FP ";
+        }
+
+        $numeracaoFactura = $doc . $this->faturaRepository->mostrarSerieDocumento() . $yearNow . '/' . $numSequenciaFactura; //retirar somente 3 primeiros caracteres na facturaSerie da factura: substr('abcdef', 0, 3);
+
         $statusFatura = 2;//Pago
         $dataVencimento = null;
 
@@ -94,6 +103,7 @@ class EmitirDocumentoAeroportoCarga
             'numeracaoFactura' => $numeracaoFactura,
             'hashValor' => $hashValor,
             'empresa_id' => auth()->user()->empresa_id,
+            'centroCustoId' => session()->get('centroCustoId'),
             'user_id' => auth()->user()->id,
             'operador' => auth()->user()->name,
             'cartaDePorte' => $request->cartaDePorte,
@@ -107,6 +117,12 @@ class EmitirDocumentoAeroportoCarga
             'valorIliquido' => $request->valorIliquido,
             'valorImposto' => $request->valorImposto,
             'total' => $request->total,
+            'clienteId' => $request->clienteId,
+            'nome_do_cliente' => $request->nomeCliente,
+            'telefone_cliente' => $request->telefoneCliente,
+            'nif_cliente' => $request->nifCliente,
+            'email_cliente' => $request->emailCliente,
+            'endereco_cliente' => $request->emailCliente,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
         ]);

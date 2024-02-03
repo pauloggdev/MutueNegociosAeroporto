@@ -176,8 +176,6 @@ class ProdutoCreateController extends Component
 
     public function store()
     {
-
-
         $this->produto['centrosCustos'] = $this->centroCustoData;
         $rules = [
             'produto.designacao' => ['required'],

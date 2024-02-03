@@ -78,45 +78,34 @@
                                 <table class="tabela1 table table-striped table-bordered table-hover">
                                     <thead>
                                         <tr>
-                                            <th>Codigo</th>
+                                            <th>#</th>
                                             <th>Numeração</th>
-                                            <th>Tipo Documento</th>
-                                            <th style="text-align: right">Total Factura</th>
-                                            <th style="text-align: right">Valor a Pagar</th>
+                                            <th style="text-align: center">Carta de Porte(AWB)</th>
+                                            <th style="text-align: center">Peso(kg)</th>
+                                            <th style="text-align: center">Data de Entrada</th>
+                                            <th style="text-align: center">Data de Saída</th>
+                                            <th style="text-align: center"> Nº Dias</th>
+                                            <th style="text-align: right">Total</th>
                                             <th>Emitido</th>
                                             <th>Cliente</th>
                                             <th>Tel.</th>
-                                            <th style="text-align: center">Anulado</th>
-                                            <th style="text-align: center">Retificado</th>
-                                            <th>Pago</th>
                                             <th>Ações</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($facturas as $factura)
+                                        @foreach ($facturas as $key=>$factura)
                                             <tr>
-                                                <td>{{ $factura['id'] }}</td>
+                                                <td>{{ ++$key }}</td>
                                                 <td>{{ $factura['numeracaoFactura'] }}</td>
-                                                <td>{{ $factura['tipoDocumento']['designacao'] }}</td>
-                                                <td style="text-align: right">
-                                                    {{ number_format($factura['total_preco_factura'], 2, ',', '.') }}</td>
-                                                <td style="text-align: right">
-                                                    {{ number_format($factura['valor_a_pagar'], 2, ',', '.') }}</td>
+                                                <td style="text-align: center">{{ $factura['cartaDePorte'] }}</td>
+                                                <td style="text-align: center">{{ $factura['peso'] }}</td>
+                                                <td style="text-align: center">{{ $factura['dataEntrada'] }}</td>
+                                                <td style="text-align: center">{{ $factura['dataSaida'] }}</td>
+                                                <td style="text-align: center">{{ $factura['nDias'] }}</td>
+                                                <td style="text-align: right">{{ number_format($factura['total'],2,',','.') }}</td>
                                                 <td>{{ date_format($factura['created_at'], 'd/m/Y') }}</td>
                                                 <td>{{ $factura['nome_do_cliente'] }}</td>
                                                 <td>{{ $factura['telefone_cliente'] }}</td>
-                                                <td class="hidden-480" style="text-align: center">
-                                                    <span
-                                                        class="label label-sm <?= $factura['anulado'] == 1 ? 'label-success' : 'label-danger' ?>">{{ $factura['anulado'] == 1 ? 'Não' : 'Sim' }}</span>
-                                                </td>
-                                                <td class="hidden-480" style="text-align: center">
-                                                    <span
-                                                        class="label label-sm <?= $factura['retificado'] == 'Não' ? 'label-success' : 'label-danger' ?>">{{ $factura['retificado'] }}</span>
-                                                </td>
-                                                <td class="hidden-480" style="text-align: center">
-                                                    <span
-                                                        class="label label-sm <?= $factura['statusFactura'] == 1 ? 'label-danger' : 'label-success' ?>">{{ $factura['statusFactura'] == 1 ? 'Não' : 'Sim' }}</span>
-                                                </td>
                                                 <td>
                                                     <a class="blue"
                                                         wire:click="imprimirFactura({{ $factura['id'] }})"

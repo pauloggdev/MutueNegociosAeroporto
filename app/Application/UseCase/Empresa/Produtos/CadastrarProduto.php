@@ -62,7 +62,6 @@ class CadastrarProduto
                 $request->tipoGarantia,
                 $centroCustoId
             );
-
             $outputProduto = $this->produtoRepository->salvar($produto);
             if (!$outputProduto) throw new \Exception("Erro ao cadastrar produto");
             foreach ($request->imagens as $imagem) {

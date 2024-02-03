@@ -96,19 +96,13 @@ class FaturaRepository
         $resultados =  DB::connection('mysql2')->select("SELECT *
           FROM facturas
           WHERE empresa_id = ". auth()->user()->empresa_id." and  SUBSTRING_INDEX(numeracaoFactura, '/', 1) LIKE '%".$yearNow."%' and numeracaoFactura  LIKE '%".$this->mostrarSerieDocumento()."%'
-            AND tipo_documento = 1
+            AND tipo_documento = $tipoDocumento
           ORDER BY id DESC
           LIMIT 1");
 
         if(!$resultados) return null;
+
         return json_decode(json_encode($resultados[0]));
-
-
-//        return DB::connection('mysql2')->table('facturas')->where('empresa_id', auth()->user()->empresa_id)
-//            ->where('numeracaoFactura', 'like', '%' . $yearNow . '%')
-//            ->where('tipo_documento', $tipoDocumento)
-//            ->where('numeracaoFactura', 'like', '%' . $this->mostrarSerieDocumento() . '%')
-//            ->orderBy('id', 'DESC')->limit(1)->first();
     }
     public function diasVencimentoFacturaProforma()
     {

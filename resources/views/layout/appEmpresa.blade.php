@@ -483,16 +483,20 @@ if (Auth::guard('web')->check()) {
                 <b class="arrow"></b>
 
                 <ul class="submenu">
-                    @if(Auth::user()->empresa_id != 156)
-                        <li class="hover">
-                            <a href="/empresa/faturacao/novo">
-                                <i class="menu-icon fa fa-wpforms"></i>
-                                FATURAÇÃO
-                            </a>
-                            <b class="arrow"></b>
-                        </li>
-
-                    @endif()
+                    <li class="hover">
+                        <a href="/empresa/emissao/fatura/carga">
+                            <i class="menu-icon fa fa-wpforms"></i>
+                            CARGA
+                        </a>
+                        <b class="arrow"></b>
+                    </li>
+                    <li class="hover">
+                        <a href="/empresa/emissao/fatura/aeronautica">
+                            <i class="menu-icon fa fa-wpforms"></i>
+                            AERONÁUTICO
+                        </a>
+                        <b class="arrow"></b>
+                    </li>
                     <li class="hover">
                         <a href="/empresa/facturas">
                             <i class="menu-icon fa fa-list"></i>
