@@ -60,8 +60,9 @@ class ProdutoCreateController extends Component
     public function mount()
     {
         $this->setarValor();
-        $getTipoServico = new GetTiposServicos(new DatabaseRepositoryFactory());
-        $this->tiposServicos = $getTipoServico->execute();
+
+        $getTiposMercadorias = new GetTiposMercadorias(new DatabaseRepositoryFactory());
+        $this->tiposMercadorias = $getTiposMercadorias->execute();
 
         $getParametroPVP = new GetParametroPeloLabelNoParametro(new DatabaseRepositoryFactory());
         $parametroPvp = $getParametroPVP->execute('incluir_iva');
@@ -181,13 +182,37 @@ class ProdutoCreateController extends Component
         $this->produto['centrosCustos'] = $this->centroCustoData;
         $rules = [
             'produto.designacao' => ['required'],
-            'produto.tipoServicoId' => ['required'],
+            'produto.codigo_barra' => [function ($attr, $codigoBarra, $fail) {
+                if ($this->codigoBarra && !$codigoBarra) {
+                    $fail("Informe o código de barra");
+                }
+            }],
+            'produto.referencia' => [function ($attr, $referencia, $fail) {
+                if ($this->codigoProduto && !$referencia) {
+                    $fail("Informe o código do produto");
+                }
+            }],
+            'produto.categoria_id' => ['required'],
+            'produto.imagens' => [function ($attr, $imagens, $fail) {
+                if ($imagens) {
+                    foreach ($imagens as $imagem) {
+                        if (!in_array($imagem->extension(), array("jpeg", "png", "jpg"))) {
+                            $fail("Formato imagens suportado(jpeg,png,jpg)");
+                        }
+                    }
+                }
+            }],
+            'produto.tipoMercadoriaId' => ['required'],
             'produto.status_id' => ['required'],
             'produto.codigo_taxa' => ['required'],
+            'produto.fabricante_id' => ['required']
         ];
         $messages = [
             'produto.designacao.required' => 'É obrigatório o nome',
-            'produto.tipoServicoId.required' => 'É obrigatório o tipo de serviço',
+            'produto.imagem_produto.mimes' => 'Formato imagens suportado(jpeg,png,jpg)',
+            'produto.categoria_id.required' => 'É obrigatório a categoria',
+            'produto.fabricante_id.required' => 'É obrigatório o fabricante',
+            'produto.tipoMercadoriaId.required' => 'É obrigatório o tipo de mercadoria',
             'produto.status_id.required' => 'É obrigatório o status',
         ];
         $this->validate($rules, $messages);
