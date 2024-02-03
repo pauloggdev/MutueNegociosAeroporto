@@ -1,4 +1,4 @@
-@component('frontOffice/header', ['title' => 'Home'])
+@component('frontOffice/header2', ['title' => 'Home'])
 @endcomponent
 <div class="hero row align-items-center">
     <div class="col-md-7">
@@ -11,7 +11,7 @@
         <div class="form">
             <h3>Login</h3>
             <form action="{{ route('login') }}" id="contact-form" method="POST">
-                @csrf
+                @csrf 
                 @if ($errors->has('email'))
                 <span class="block input-icon input-icon-right">
                     <strong style="color: #c73030;font-size: 12px;">{{ $errors->first('email') }}</strong>
@@ -54,7 +54,7 @@
 
 
 <!-- Service Start -->
-<div class="service">
+{{-- <div class="service">
     <div class="container">
         <div class="section-header">
             <p>Como funciona?</p>
@@ -105,11 +105,11 @@
         </div>
 
     </div>
-</div>
+</div> --}}
 <!-- Service End -->
 
 <!-- About Start -->
-<div class="about">
+{{-- <div class="about">
     <div class="container">
         <div class="row">
             <div class="col-md-6">
@@ -139,13 +139,13 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 <!-- About End -->
 
 
 
 <!-- Pricing -->
-<div class="block-contained">
+{{-- <div class="block-contained">
     <h2 class="block-title">
         Nossas Licenças
     </h2>
@@ -182,11 +182,11 @@
         </div>
         @endforeach
     </div>
-</div>
+</div> --}}
 
 
 <!-- Newsletter Start -->
-<div class="newsletter">
+{{-- <div class="newsletter">
     <div class="container">
         <div class="row align-items-center">
             <div class="col-md-8">
@@ -201,7 +201,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 <!-- Newsletter End -->
 
 <script>

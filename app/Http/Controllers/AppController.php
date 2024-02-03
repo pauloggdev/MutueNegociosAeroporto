@@ -59,7 +59,7 @@ class AppController extends Controller {
         ->join('tipotaxa', 'tipotaxa.codigo', '=', 'licencas.tipo_taxa_id')
         ->get();
         broadcast(new EnvioPagamentoVendaOnline('some data'));
-        return view('welcome', $data);
+        return view('welcome3', $data);
     }
 
 }
