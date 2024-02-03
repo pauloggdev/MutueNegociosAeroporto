@@ -10,6 +10,7 @@ use App\Application\UseCase\Empresa\Faturacao\SimuladorFaturaCargaAeroporto;
 use App\Application\UseCase\Empresa\mercadorias\GetTiposMercadorias;
 use App\Application\UseCase\Empresa\Pais\GetPaises;
 use App\Application\UseCase\Empresa\Produtos\GetProdutoPeloCentroCustoId;
+use App\Application\UseCase\Empresa\Produtos\GetProdutoPeloTipoServico;
 use App\Application\UseCase\Empresa\Produtos\GetProdutos;
 use App\Application\UseCase\Empresa\TiposServicos\GetTiposServicos;
 use App\Domain\Entity\Empresa\FaturaAeroporto\FaturaCarga;
@@ -19,7 +20,7 @@ use Illuminate\Support\Facades\DB;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
-class EmissaoFaturaController extends Component
+class EmissaoFaturaAeronauticoController extends Component
 {
     use LivewireAlert;
 
@@ -64,15 +65,14 @@ class EmissaoFaturaController extends Component
         $getBancos = new GetBancos(new DatabaseRepositoryFactory());
         $this->bancos = $getBancos->execute();
 
-
         $getTipoMercadorias = new GetTiposMercadorias(new DatabaseRepositoryFactory());
         $this->tipoMercadorias = $getTipoMercadorias->execute();
 
         $getTiposServicos = new GetTiposServicos(new DatabaseRepositoryFactory());
         $this->tipoServicos = $getTiposServicos->execute();
 
-        $getProdutos = new GetProdutoPeloCentroCustoId(new DatabaseRepositoryFactory());
-        $this->servicos = $getProdutos->execute(session('centroCustoId'));
+        $getProdutos = new GetProdutoPeloTipoServico(new DatabaseRepositoryFactory());
+        $this->servicos = $getProdutos->execute(2);
 
         $getPaises = new GetPaises(new DatabaseRepositoryFactory());
         $this->paises = $getPaises->execute();
@@ -80,11 +80,10 @@ class EmissaoFaturaController extends Component
         $getTiposDocumentos = new GetTipoDocumentoByFaturacao(new DatabaseRepositoryFactory());
         $this->tiposDocumentos = $getTiposDocumentos->execute();
     }
-
     public function render()
     {
         $this->especificaoMercadorias = DB::table('especificacao_mercadorias')->get();
-        return view("empresa.facturacao.createAeroporto");
+        return view("empresa.facturacao.createAeroportoAeronautico");
     }
 
     public function removeCart($item)

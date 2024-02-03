@@ -115,7 +115,7 @@ class FaturaItemCarga
         if($this->getProdutoId() == 1){
             return ($this->getPeso() * $this->getTaxa() * $this->getCambioDia());
         }else if($this->getProdutoId() == 2){
-            return ($this->getPeso() * $this->getNDias() * $this->getTaxa()) * (1 - $this->getDesconto()) * $this->getCambioDia();
+            return ($this->getPeso() * $this->getNDias() * $this->getTaxa()) * (1 - $this->getDesconto() / 100) * $this->getCambioDia();
         }else if($this->getProdutoId() == 3){
             return ($this->getPeso() * $this->getTaxa() * $this->getCambioDia());
         }

@@ -176,7 +176,6 @@ class Factura extends Model
                 ->orwhere("telefone_cliente", "like", $term)
                 ->orwhere("nif_cliente", "like", $term)
                 ->orwhere("email_cliente", "like", $term)
-                ->orwhere("conta_corrente_cliente", "like", $term)
             ->orwhere("numeracaoFactura", "like", $term);
         });
     }

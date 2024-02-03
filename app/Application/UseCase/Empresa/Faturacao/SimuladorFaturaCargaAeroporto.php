@@ -36,6 +36,12 @@ class SimuladorFaturaCargaAeroporto
         $faturaCarga = new FaturaCarga(
             $input->cartaDePorte,
             $input->tipoDocumento,
+            $input->clienteId,
+            $input->nomeCliente??null,
+            $input->telefoneCliente,
+            $input->nifCliente,
+            $input->emailCliente,
+            $input->enderecoCliente,
             $input->peso,
             $input->dataEntrada,
             $input->dataSaida,

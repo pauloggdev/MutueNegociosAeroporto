@@ -110,6 +110,8 @@ use App\Http\Controllers\empresa\FacturacaoController;
 use App\Http\Controllers\empresa\FacturaController;
 use App\Http\Controllers\empresa\Facturas\FacturaProformaIndexController;
 use App\Http\Controllers\empresa\Facturas\FacturasIndexController;
+use App\Http\Controllers\empresa\Faturacao\EmissaoFaturaAeronauticoController;
+use App\Http\Controllers\empresa\Faturacao\EmissaoFaturaCargaController;
 use App\Http\Controllers\empresa\Faturacao\EmissaoFaturaController;
 use App\Http\Controllers\empresa\Faturacao\EmitirDocumentoController;
 use App\Http\Controllers\empresa\Faturacao\FaturacaoCreateController;
@@ -608,7 +610,7 @@ Route::group(['middleware' => ['auth:empresa']], function () {
     Route::get('empresa/notaEntregas', NotaEntregaIndexController::class)->name('notaEntregaIndex');
 
     //Centro custo
-    Route::get('empresa/opcao/centros/custo', OpcaoCentroCustoIndexController::class)->name('opcaoCentroCusto.index');
+    Route::get('empresa/opcao/centros/custo', [OpcaoCentroCustoIndexController::class, 'index'])->name('opcaoCentroCusto.index');
 
     // Controlo de usuario
     Route::middleware(['updatePassword', 'UltimoAcesso'])->group(function () {
@@ -1011,7 +1013,8 @@ Route::group(['middleware' => ['auth:empresa']], function () {
 //            Route::get('empresa/faturacao/novo', [FacturacaoController::class, 'create']);
 //            Route::get('empresa/faturacao/novo', [FaturacaoIndexController::class, 'create']);
             Route::get('empresa/faturacao/novo', FaturacaoCreateController::class);
-            Route::get('empresa/emissao/fatura', EmissaoFaturaController::class);
+            Route::get('empresa/emissao/fatura/carga', EmissaoFaturaCargaController::class);
+            Route::get('empresa/emissao/fatura/aeronautica', EmissaoFaturaAeronauticoController::class);
             Route::post('empresa/facturacao/salvar', [FacturacaoController::class, 'store']);
             Route::post('empresa/emitirDocumento', [EmitirDocumentoController::class, 'store']);
             Route::get('empresa/facturacao/produtos/{armazen_id}', [FacturacaoController::class, 'listarProdutos']);

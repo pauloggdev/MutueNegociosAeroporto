@@ -363,17 +363,12 @@ if (Auth::guard('web')->check()) {
                     <li class="hover">
                         <a href="/empresa/produtos-mais-vendidos">
                             <i class="menu-icon fa fa-list"></i>
-                            LISTAR PRODUTOS MAIS VENDIDOS
+                           
+                            
                         </a>
                         <b class="arrow"></b>
                     </li>
-                    <li class="hover">
-                        <a href="/empresa/produtos/stock">
-                            <i class="menu-icon fa fa-opencart"></i>
-                            ÁNALISE DE STOCK
-                        </a>
-                        <b class="arrow"></b>
-                    </li>
+                   
                     <!-- <li class="hover">
                         <a href="/empresa/produtos-vendidos">
                             <i class="menu-icon fa fa-list"></i>
@@ -402,15 +397,20 @@ if (Auth::guard('web')->check()) {
                 <b class="arrow"></b>
 
                 <ul class="submenu">
-                    @if(Auth::user()->empresa_id != 156)
-                        <li class="hover">
-                            <a href="/empresa/faturacao/novo">
-                                <i class="menu-icon fa fa-wpforms"></i>
-                                FATURAÇÃO
-                            </a>
-                            <b class="arrow"></b>
-                        </li>
-                    @endif()
+                    <li class="hover">
+                        <a href="/empresa/emissao/fatura/carga">
+                            <i class="menu-icon fa fa-wpforms"></i>
+                           CARGA
+                        </a>
+                        <b class="arrow"></b>
+                    </li>
+                    <li class="hover">
+                        <a href="/empresa/emissao/fatura/aeronautica">
+                            <i class="menu-icon fa fa-wpforms"></i>
+                            AERONÁUTICO
+                        </a>
+                        <b class="arrow"></b>
+                    </li>
                     <li class="hover">
                         <a href="/empresa/facturas">
                             <i class="menu-icon fa fa-list"></i>
@@ -454,27 +454,7 @@ if (Auth::guard('web')->check()) {
                             DEPÓSITO DE VALORES - RECIBOS</a>
                         <b class="arrow"></b>
                     </li>
-                    <li class="hover">
-                        <a href="/empresa/notacredito">
-                            <i class="menu-icon fa fa-caret-right"></i>
-                            NOTA DE CRÉDITO
-                        </a>
-                        <b class="arrow"></b>
-                    </li>
-                    <li class="hover">
-                        <a href="/empresa/notadebito">
-                            <i class="menu-icon fa fa-caret-right"></i>
-                            NOTA DE DÉBITO
-                        </a>
-                        <b class="arrow"></b>
-                    </li>
-                    <li class="hover">
-                        <a href="{{ route('notaCreditoRetificacaoDoc.index') }}">
-                            <i class="menu-icon fa fa-caret-right"></i>
-                            RETIFICAÇÃO DE DOCUMENTOS
-                        </a>
-                        <b class="arrow"></b>
-                    </li>
+
                     <li class="hover">
                         <a href="{{ route('notaCreditoAnulacaoDoc.index') }}">
                             <i class="menu-icon fa fa-caret-right"></i>
@@ -482,37 +462,10 @@ if (Auth::guard('web')->check()) {
                         </a>
                         <b class="arrow"></b>
                     </li>
-
-                    <li class="hover">
-                        <a href="{{ route('atualizarStockIndex') }}">
-                            <i class="menu-icon fa fa-caret-right"></i>
-                            ATUALIZAR ESTOQUE</a>
-                        <b class="arrow"></b>
-                    </li>
-                    <li class="hover">
-                        <a href="/empresa/produtos/transferencia">
-                            <i class="menu-icon fa fa-caret-right"></i>
-                            TRANSFERÊNCIA DE PRODUTOS
-                        </a>
-                        <b class="arrow"></b>
-                    </li>
-                    <li class="hover">
-                        <a href="/empresa/produtos/entrada">
-                            <i class="menu-icon fa fa-caret-right"></i>
-                            ENTRADA DE PRODUTOS
-                        </a>
-                        <b class="arrow"></b>
-                    </li>
-                    <li class="hover">
-                        <a href="/empresa/pagamento/fornecedor">
-                            <i class="menu-icon fa fa-caret-right"></i>
-                            PAGAMENTO DE FORNECEDOR
-                        </a>
                         <b class="arrow"></b>
                     </li>
                 </ul>
             </li>
-
 
             @if(Auth::user()->hasRole('Super-Admin'))
 

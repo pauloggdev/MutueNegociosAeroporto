@@ -111,6 +111,15 @@ class ProdutoRepository
             ->get();
 
     }
+    public function getProdutoPeloTipoServico($tipoServicoId){
+        return ExistenciaStockDatabase::with(['produto', 'produto.tipoTaxa'])
+            ->whereHas('produto', function ($query) use($tipoServicoId){
+                $query->where('centroCustoId', session()->get('centroCustoId'));
+                $query->where('tipoServicoId', $tipoServicoId);
+            })->where('empresa_id', auth()->user()->empresa_id)
+            ->get();
+
+    }
     public function getProdutoArmazemIdPeloCentroCustoId2($centroCustoId, $armazemId)
     {
         return ExistenciaStockDatabase::with(['produto', 'produto.tipoTaxa'])
@@ -142,7 +151,7 @@ class ProdutoRepository
     }
 
     public function getProdutosPeloCentroCusto($filter){
-        return ProdutoDatabase::with(['tipoTaxa', 'statuGeral', 'motivoIsencao', 'categoria', 'tipoMercadoria'])
+        return ProdutoDatabase::with(['tipoTaxa', 'statuGeral', 'motivoIsencao', 'categoria', 'tipoServico'])
             ->filter($filter)
             ->where('empresa_id', auth()->user()->empresa_id)
             ->where('centroCustoId', session()->get('centroCustoId'))
