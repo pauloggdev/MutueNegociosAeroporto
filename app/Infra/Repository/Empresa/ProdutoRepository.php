@@ -151,7 +151,7 @@ class ProdutoRepository
     }
 
     public function getProdutosPeloCentroCusto($filter){
-        return ProdutoDatabase::with(['tipoTaxa', 'statuGeral', 'motivoIsencao', 'categoria', 'tipoMercadoria'])
+        return ProdutoDatabase::with(['tipoTaxa', 'statuGeral', 'motivoIsencao', 'categoria', 'tipoServico'])
             ->filter($filter)
             ->where('empresa_id', auth()->user()->empresa_id)
             ->where('centroCustoId', session()->get('centroCustoId'))

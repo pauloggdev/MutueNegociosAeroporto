@@ -123,9 +123,9 @@ class Produto extends Model
     {
         return $this->belongsTo(Categoria::class, 'categoria_id');
     }
-    public function tipoMercadoria()
+    public function tipoServico()
     {
-        return $this->belongsTo(TipoMercadoria::class,'tipoMercadoriaId', 'id');
+        return $this->belongsTo(TipoServico::class,'tipoServicoId', 'id');
     }
     public function classe()
     {

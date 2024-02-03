@@ -2,12 +2,12 @@
 use Illuminate\Support\Str;
 ?>
 
-@section('title','Produtos')
+@section('title','Produtos/Serviços')
 <div>
     <div class="row">
         <div class="page-header" style="left: 0.5%; position: relative">
             <h1>
-                PRODUTOS
+                PRODUTOS/SERVIÇOS
                 <small>
                     <i class="ace-icon fa fa-angle-double-right"></i>
                     Listagem
@@ -69,7 +69,7 @@ use Illuminate\Support\Str;
                             </div>
 
                             <div class="table-header widget-header">
-                            Todos os produtos do sistema (Total:{{count($produtos)}})
+                            Todos os produtos/serviços do sistema (Total:{{count($produtos)}})
 
                             </div>
 
@@ -80,10 +80,8 @@ use Illuminate\Support\Str;
                                         <tr>
                                             <th>Código</th>
                                             <th>Nome</th>
-                                            <th>Tipo mercadoria</th>
+                                            <th>Tipo Serviço</th>
                                             <th style="text-align:right">Taxa</th>
-                                            <th style="text-align:right">Preço venda(USD)</th>
-                                            <th style="text-align:right">PVP(USD)</th>
                                             <th style="text-align:center">Estocavel</th>
                                             <th style="text-align: center">Estado</th>
                                             <th style="text-align: center;width: 100px">Ações</th>
@@ -94,10 +92,8 @@ use Illuminate\Support\Str;
                                         <tr>
                                             <td>{{ Str::upper($produto['referencia'])}}</td>
                                             <td>{{ Str::upper($produto['designacao'])}}</td>
-                                            <td>{{ Str::upper($produto['categoria']['designacao'])}}</td>
+                                            <td>{{ Str::upper($produto['tipoServico']['designacao'])}}</td>
                                             <td style="text-align:right">{{ $produto['tipoTaxa']['descricao'] }}</td>
-                                            <td style="text-align:right">{{ number_format($produto['preco_venda'],2, ',','.')}}</td>
-                                            <td style="text-align:right">{{ number_format($produto['pvp'],2, ',','.')}}</td>
                                             <td style="text-align:center">
                                                 @if($produto['stocavel'] == 'Sim')
                                                 <span class="label label-sm label-success">{{ $produto['stocavel']}}</span>
