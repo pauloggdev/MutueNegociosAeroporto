@@ -1,34 +1,3 @@
-{{-- @component('frontOffice/header', ['title'=>'Recuperar senha'])
-@endcomponent
-<div class="hero row align-items-center">
-    <div class="col-md-6">
-        <h2><span>Mutue</span> Negócios</h2>
-        <h2>A solução da sua empresa</h2><br>
-    </div>
-    <div class="col-md-6">
-        <div class="form">
-            <h3>Informe o email</h3>
-            @if (session('status'))
-            <div class="alert alert-success" role="alert">
-                {{ session('status') }}
-            </div>
-            @endif
-            <form method="POST" action="{{ route('password.email') }}" class="php-email-form" id="form-submit">
-                @csrf
-                <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ $email ?? old('email') }}" placeholder="Email" autofocus />
-                @error('email')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-                @enderror
-                <button class="btn btn-block" type="submit">{{ __('redefinir a senha') }}</button>
-            </form>
-        </div>
-    </div>
-</div>
-</div>
-</div> --}}
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -37,8 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	
 	{{-- <link rel="icon" type="image/png" href="{{asset('assets/login/images/icons/favicon.ico')}}"/> --}}
-
-    <link rel="shortcut icon" sizes="57x57" href="{{asset('favicon/apple-icon-57x57.png')}}">
+	<link rel="shortcut icon" sizes="57x57" href="{{asset('favicon/apple-icon-57x57.png')}}">
     <link rel="shortcut icon" sizes="60x60" href="{{asset('favicon/apple-icon-60x60.png')}}">
     <link rel="shortcut icon" sizes="72x72" href="{{asset('favicon/apple-icon-72x72.png')}}">
     <link rel="shortcut icon" sizes="76x76" href="{{asset('favicon/apple-icon-76x76.png')}}">
@@ -70,23 +38,48 @@
 <body>
 	
 	<div class="limiter">
+			{{-- <source src="{{asset('assets/login/images/bgv.mp4')}}" type="video/mp4"> --}}
 		<div class="container-login100">
+			
+				
 			<div class="wrap-login100">
 				<div class="login100-pic js-tilt" data-tilt>
 					<img src="{{asset('assets/login/images/img-02.jpg')}}" alt="IMG">
 				</div>
 
-				<form method="POST" action="{{ route('password.email') }}" class="login100-form validate-form" id="form-submit">
+				<form action="{{ route('login') }}" id="contact-form" method="POST" class="login100-form validate-form">
                     @csrf
 					<span class="login100-form-title mb-4">
-						Informe o email
+						Faça Login
 					</span>
+                    <div class="mb-2">
+                    @if ($errors->has('email'))
+                    <span class="block input-icon input-icon-right">
+                        <strong style="color: #c73030;font-size: 12px;">{{ $errors->first('email') }}</strong>
+                    </span>
+                    @endif
+
+                    @if ($errors->has('password'))
+                    <span class="help-block" style="color: #c73030;font-size: 12px;">
+                        <strong>{{ $errors->first('password') }}</strong>
+                    </span>
+                    @endif
+                    </div>
+
 
 					<div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
-						<input class="input100 @error('email') is-invalid @enderror" type="text" name="email" placeholder="Email"  value="{{ $email ?? old('email') }}" required>
+						<input class="input100" type="text" name="email" placeholder="Email" value="{{ old('email') }}" required>
 						<span class="focus-input100"></span>
 						<span class="symbol-input100">
 							<i class="fa fa-envelope" aria-hidden="true"></i>
+						</span>
+					</div>
+
+					<div class="wrap-input100 validate-input" data-validate = "Password is required">
+						<input class="input100" value="{{ old('password') }}" required type="password" name="password" id="password" placeholder="Password">
+						<span class="focus-input100"></span>
+						<span class="symbol-input100">
+							<i class="fa fa-lock" aria-hidden="true"></i>
 						</span>
 					</div>
                     <div class="control-group d-none" aria-hidden="true">
@@ -97,16 +90,16 @@
                     </div>
 					<div class="container-login100-form-btn">
 						<button class="login100-form-btn" type="submit">
-							redefinir a senha
+							Login
 						</button>
 					</div>
 
 					<div class="text-center p-t-12">
 						<span class="txt1">
-							Lembra
+							Esqueceu
 						</span>
 						<a class="txt2" href="{{ route('password.reset') }}">
-							da sua senha?
+							a sua senha?
 						</a>
 					</div>
 

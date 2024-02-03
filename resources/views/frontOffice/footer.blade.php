@@ -1,5 +1,5 @@
 <!-- Footer Start -->
- <div class="footer">
+ {{-- <div class="footer">
      <div class="container">
          <div class="row">
              <div class="col-md-6 col-lg-3">
@@ -71,7 +71,7 @@
              </div>
          </div>
      </div>
- </div>
+ </div> --}}
  <!-- Footer End -->
 
  <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>

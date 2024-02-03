@@ -21,11 +21,22 @@ class EspecificacaoMercadoriaController extends Component
     public $mercadoria_id;
     public $especificacao_id;
     public $mercadoria = [
-        'statuId' => 1
+        // 'statuId' => 1
     ];
     public $especificacao = [
-        'status' => 1
+         'status' => 1
     ];
+    public function hydrate()
+    {
+        $this->emit('select2');
+    }
+    protected $listeners = [
+        'selectedItem'
+    ];
+    public function selectedItem($item)
+    {
+        $this->especificacao[$item['atributo']] = $item['valor'];
+    }
     public $tiposMercadorias;
     public $especificacaoMercadorias;
 

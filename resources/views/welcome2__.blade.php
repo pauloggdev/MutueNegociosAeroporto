@@ -1,5 +1,6 @@
-@component('frontOffice/header', ['title' => 'Home'])
+@component('frontOffice/header', ['title'=>'Home'])
 @endcomponent
+
 <div class="hero row align-items-center">
     <div class="col-md-7">
         <!-- <h2>Best & Trusted</h2> -->
@@ -10,24 +11,15 @@
     <div class="col-md-5">
         <div class="form">
             <h3>Login</h3>
-            <form action="{{ route('login') }}" id="contact-form" method="POST">
+            <form action="{{route('login')}}" id="contact-form" method="POST">
                 @csrf
                 @if ($errors->has('email'))
                 <span class="block input-icon input-icon-right">
                     <strong style="color: #c73030;font-size: 12px;">{{ $errors->first('email') }}</strong>
                 </span>
                 @endif
-                <input class="form-control" name="email" value="{{ old('email') }}" required type="text" autocomplete="off" placeholder="Email / telefone">
-                <div>
-                    
-                <span class="toggle-password" onclick="togglePasswordVisibility()" style="position: absolute;
-                    right: 60px;
-                    bottom: 184px; cursor:pointer">
-                        <i class="fa fa-eye-slash"></i>
-                    </span>
-                    <input class="form-control" name="password" id="password" value="{{ old('password') }}" required type="password" placeholder="Senha">
-                    
-                </div>
+                <input class="form-control" name="email" value="{{ old('email')}}" required type="text" autocomplete="off" placeholder="Email / telefone">
+                <input class="form-control" name="password" value="{{ old('password')}}" required type="password" placeholder="Senha">
                 @if ($errors->has('password'))
                 <span class="help-block" style="color: #c73030;font-size: 12px;">
                     <strong>{{ $errors->first('password') }}</strong>
@@ -114,7 +106,7 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="about-img">
-                    <img src="{{ asset('assets/images/HomeMutueNegocios.png') }}">
+                    <img src="{{asset('assets/images/HomeMutueNegocios.png')}}">
                 </div>
             </div>
             <div class="col-md-6">
@@ -150,32 +142,25 @@
         Nossas Licenças
     </h2>
     <div class="row">
-        @foreach ($licencas as $licenca)
+        @foreach($licencas as $licenca)
         <div class="col-md-3">
             <div class="panel panel-default panel-pricing panel-pricing-highlighted text-center">
                 <div class="panel-heading">
                     <h4 class="panel-title">
-                        {{ $licenca->designacao }}
+                        {{$licenca->designacao}}
                     </h4>
                 </div>
-                <div class="panel-body" style="height: 310px">
+                <div class="panel-body" style="height: 250px">
                     <ul class="list-dotted">
-                        @if ($licenca->tipo_licenca_id == 1)
+                        @if($licenca->tipo_licenca_id == 1)
                         <li>Acesso 30 dias</li>
                         @endif
                         <li>Certificado pela AGT</li>
-                        <li>Até {{ $licenca->limite_usuario }} utilizadores</li>
+                        <li>Até {{$licenca->limite_usuario}} utilizadores</li>
                         <li>Exportação do ficheiro SAFT</li>
                         <li>Facturação em Backoffice</li>
                         <li>Capacidade ilimitada</li>
                         <li>Acesso App</li>
-                        @if($licenca->valor > 0)
-                        <li>Incluido IVA: {{$licenca->taxa}}%</li>
-                        @endif
-                        <h3> <span class="badge badge-pill badge-info"> Preço:
-                                {{ number_format($licenca->valor , 2, ',', '.') }} KZ</span>
-                            <h3>
-
                     </ul>
                 </div>
             </div>
@@ -195,31 +180,13 @@
                 </p>
             </div>
             <div class="col-md-4">
-                <a class="btn" style="position: relative;" href="/cadastro-empresa" style="">Experimente
-                    Grátis</a>
+                <a class="btn" style="position: relative;" href="/cadastro-empresa" style="">Experimente Grátis</a>
 
             </div>
         </div>
     </div>
 </div>
 <!-- Newsletter End -->
-
-<script>
-    function togglePasswordVisibility() {
-        const passwordInput = document.getElementById("password");
-        const toggleIcon = document.querySelector(".toggle-password i");
-
-        if (passwordInput.type === "password") {
-            passwordInput.type = "text";
-            toggleIcon.classList.remove("fa-eye-slash");
-            toggleIcon.classList.add("fa-eye");
-        } else {
-            passwordInput.type = "password";
-            toggleIcon.classList.remove("fa-eye");
-            toggleIcon.classList.add("fa-eye-slash");
-        }
-    }
-</script>
 
 <style>
     .about .about-text h5 {
