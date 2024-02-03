@@ -126,6 +126,7 @@ class EmitirDocumento
         $getYearNow = new GetParametroPeloLabelNoParametro(new DatabaseRepositoryFactory());
         $getYearNow = $getYearNow->execute('ano_de_faturacao');
         $yearNow = Carbon::parse(Carbon::now())->format('Y');
+
         if($getYearNow){
             $yearNow = $getYearNow->valor;
         }

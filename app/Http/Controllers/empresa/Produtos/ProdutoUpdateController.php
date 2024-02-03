@@ -16,6 +16,7 @@ use App\Application\UseCase\Empresa\Produtos\GetProdutoUuid;
 use App\Application\UseCase\Empresa\Produtos\TraitUploadFileProduto;
 use App\Application\UseCase\Empresa\TaxasIva\GetTaxasIvaDaEmpresaRegimeExclusaoESimplificado;
 use App\Application\UseCase\Empresa\TaxasIva\GetTaxasIvaDaEmpresaRegimeGeral;
+use App\Application\UseCase\Empresa\TiposServicos\GetTiposServicos;
 use App\Application\UseCase\Empresa\UnidadesMedida\GetUnidadesMedida;
 use App\Infra\Factory\Empresa\DatabaseRepositoryFactory;
 use Illuminate\Http\Request;
@@ -45,7 +46,7 @@ class ProdutoUpdateController extends Component
     public $imagem;
     public $margemLucro;
     public $ivaIncluido = false;
-    public $tiposMercadorias;
+    public $tiposServicos;
     public $armazens = [];
     public $categorias = [];
     public $fabricantes = [];
@@ -62,8 +63,9 @@ class ProdutoUpdateController extends Component
         $parametroPvp = $getParametroPVP->execute('incluir_iva');
         $this->ivaIncluido = $parametroPvp['valor'] == 'sim' ? true : false;
 
-        $getTiposMercadorias = new GetTiposMercadorias(new DatabaseRepositoryFactory());
-        $this->tiposMercadorias = $getTiposMercadorias->execute();
+        $getTipoServico = new GetTiposServicos(new DatabaseRepositoryFactory());
+        $this->tiposServicos = $getTipoServico->execute();
+
 
         $getParametroPeloLabel = new GetParametroPeloLabelNoParametro(new DatabaseRepositoryFactory());
         $codigoProdutoData = $getParametroPeloLabel->execute('codigo_produto');
@@ -104,7 +106,8 @@ class ProdutoUpdateController extends Component
         $this->produto['codigo_barra'] = $produto['codigo_barra'];
         $this->produto['referencia'] = $produto['referencia'];
         $this->produto['categoria_id'] = $produto['orderCategoria1']??$produto['categoria_id'];
-        $this->produto['tipoMercadoriaId'] = $produto['tipoMercadoriaId'];
+        $this->produto['tipoServicoId'] = $produto['tipoServicoId'];
+
         $this->produto['subCategoria1'] =  $produto['orderCategoria2'];
         $this->produto['subCategoria2'] =  $produto['orderCategoria3'];
 
@@ -183,54 +186,16 @@ class ProdutoUpdateController extends Component
     {
         $this->produto['tempoGarantiaProduto'] = $this->produto['tempoGarantiaProduto'] == 0 ? null : $this->produto['tempoGarantiaProduto'];
         $this->produto['cartaGarantia'] = $this->produto['tempoGarantiaProduto'] == 0 ? false : true;
+
         $rules = [
             'produto.designacao' => ['required'],
-            'produto.codigo_barra' => [function ($attr, $codigoBarra, $fail) {
-                if ($this->codigoBarra && !$codigoBarra) {
-                    $fail("Informe o código de barra");
-                }
-            }],
-            'produto.referencia' => [function ($attr, $referencia, $fail) {
-                if ($this->codigoProduto && !$referencia) {
-                    $fail("Informe o código do produto");
-                }
-            }],
-            'produto.categoria_id' => ['required'],
-            'produto.centroCustoId' => ['required'],
-            'produto.imagem_produto' => 'nullable|mimes:jpeg,png,jpg',
-            'produto.imagens' => [function ($attr, $imagens, $fail) {
-                if ($imagens) {
-                    foreach ($imagens as $imagem) {
-                        if (!in_array($imagem->extension(), array("jpeg", "png", "jpg"))) {
-                            $fail("Formato imagens suportado(jpeg,png,jpg)");
-                        }
-                    }
-                }
-            }],
-            'produto.preco_compra' => [function ($atr, $precoCompra, $fail) {
-                if (!is_numeric($precoCompra) && $precoCompra) {
-                    $fail('Informe o preço de compra');
-                }
-            }],
-            'produto.preco_venda' => ['required', function ($atr, $precoVenda, $fail) {
-                if (!is_numeric($precoVenda)) {
-                    $fail('Informe o preço de venda');
-                }
-                if ($precoVenda < 0) {
-                    $fail('O preço de venda não pode ser negativo');
-                }
-            }],
+            'produto.tipoServicoId' => ['required'],
             'produto.status_id' => ['required'],
             'produto.codigo_taxa' => ['required'],
-            'produto.fabricante_id' => ['required']
         ];
         $messages = [
             'produto.designacao.required' => 'É obrigatório o nome',
-            'produto.imagem_produto.mimes' => 'Formato imagens suportado(jpeg,png,jpg)',
-            'produto.categoria_id.required' => 'É obrigatório a categoria',
-            'produto.fabricante_id.required' => 'É obrigatório o fabricante',
-            'produto.preco_venda.required' => 'É obrigatório o preço de venda',
-            'produto.centroCustoId.required' => 'Informe o centro de custo',
+            'produto.tipoServicoId.required' => 'É obrigatório o tipo de serviço',
             'produto.status_id.required' => 'É obrigatório o status',
         ];
         $this->validate($rules, $messages);

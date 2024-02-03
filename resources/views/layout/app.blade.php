@@ -202,7 +202,6 @@ if (Auth::guard('web')->check()) {
             }
         </script>
 
-
         <ul class="nav nav-list">
             <li class="">
                     <span class="">
@@ -212,7 +211,6 @@ if (Auth::guard('web')->check()) {
                         </a>
                     </span>
             </li>
-
             <li class="">
                 <a href="/empresa/home">
                     <i class="menu-icon glyphicon glyphicon-home"></i>
@@ -234,63 +232,12 @@ if (Auth::guard('web')->check()) {
                 <b class="arrow"></b>
 
                 <ul class="submenu">
-
-                    <!-- <li class="hover">
-                        <a href="/empresa/gestores">
-                            <i class="menu-icon fa fa-caret-right"></i>
-                            Gestor
-                        </a>
-
-                        <b class="arrow"></b>
-                    </li> -->
-
-                    <li class="hover">
-                        <a href="/empresa/fornecedores">
-                            <i class="menu-icon fa fa-caret-right"></i>
-                            FORNECEDORES
-                        </a>
-                        <b class="arrow"></b>
-                    </li>
-
-                    <li class="hover">
-                        <a href="/empresa/fabricantes">
-                            <i class="menu-icon fa fa-caret-right"></i>
-                            FABRICANTES
-                        </a>
-                        <b class="arrow"></b>
-                    </li>
-
-                    <li class="hover">
-                        <a href="/empresa/armazens">
-                            <i class="menu-icon fa fa-caret-right"></i>
-                            ARMAZÉNS
-                        </a>
-
-                        <b class="arrow"></b>
-                    </li>
-
                     <li class="hover">
                         <a href="bancos.index">
                             <i class="menu-icon fa fa-caret-right"></i>
                             BANCOS
                         </a>
 
-                        <b class="arrow"></b>
-                    </li>
-
-                    <li class="hover">
-                        <a href="/empresa/marcas">
-                            <i class="menu-icon fa fa-caret-right"></i>
-                            MARCAS
-                        </a>
-                        <b class="arrow"></b>
-                    </li>
-
-                    <li class="hover">
-                        <a href="/empresa/categorias">
-                            <i class="menu-icon fa fa-caret-right"></i>
-                            CATEGORIAS
-                        </a>
                         <b class="arrow"></b>
                     </li>
                     <li class="hover">
@@ -300,22 +247,6 @@ if (Auth::guard('web')->check()) {
                         </a>
                         <b class="arrow"></b>
                     </li>
-
-                    <li class="hover">
-                        <a href="{{ route('unidadeMedidas.index')}}">
-                            <i class="menu-icon fa fa-caret-right"></i>
-                            UNIDADE DE MEDIDA
-                        </a>
-                        <b class="arrow"></b>
-                    </li>
-
-                    <!-- <li class="hover">
-                        <a href="/empresa/classes">
-                            <i class="menu-icon fa fa-caret-right"></i>
-                            Classe de bem
-                        </a>
-                        <b class="arrow"></b>
-                    </li> -->
 
                     <li class="hover">
                         <a href="/empresa/formapagamento">
@@ -683,13 +614,13 @@ if (Auth::guard('web')->check()) {
                     </ul>
                 </li>
             @endif;
-            <li class="hover">
-                <a href="/empresa/inventarios" style="color: #ffffff">
-                    <i class="menu-icon glyphicon glyphicon-refresh"></i>
-                    <span class="menu-text">INVENTÁRIOS</span>
-                    <b class="arrow fa fa-angle-down"></b>
-                </a>
-            </li>
+{{--            <li class="hover">--}}
+{{--                <a href="/empresa/inventarios" style="color: #ffffff">--}}
+{{--                    <i class="menu-icon glyphicon glyphicon-refresh"></i>--}}
+{{--                    <span class="menu-text">INVENTÁRIOS</span>--}}
+{{--                    <b class="arrow fa fa-angle-down"></b>--}}
+{{--                </a>--}}
+{{--            </li>--}}
 
             <li class="hover">
                 <a href="#" class="dropdown-toggle" style="color: #ffffff">
@@ -798,13 +729,13 @@ if (Auth::guard('web')->check()) {
                     <span class="menu-text">FECHO DE CAIXA</span>
                 </a>
             </li>
-            <li class="">
-                <a href="{{route('centroCusto.index')}}">
-                    <i class="menu-icon fa fa-shopping-basket"></i>
-                    <span class="menu-text">CENTRO DE CUSTOS</span>
-                </a>
-                <b class="arrow"></b>
-            </li>
+{{--            <li class="">--}}
+{{--                <a href="{{route('centroCusto.index')}}">--}}
+{{--                    <i class="menu-icon fa fa-shopping-basket"></i>--}}
+{{--                    <span class="menu-text">CENTRO DE CUSTOS</span>--}}
+{{--                </a>--}}
+{{--                <b class="arrow"></b>--}}
+{{--            </li>--}}
             <li class="hover">
                 <a href="#" class="dropdown-toggle" style="color: #ffffff">
                     <i class="menu-icon fa fa-file-text"></i>

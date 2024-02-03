@@ -99,6 +99,7 @@ class ConfiguracaoController extends Controller
     public function index()
     {
 
+       
         $infoNotificacao = $this->alertarActivacaoLicenca();
         $data['alertaAtivacaoLicenca'] = $infoNotificacao;
 
@@ -150,6 +151,8 @@ class ConfiguracaoController extends Controller
 
         $data['observacaofactura']  = $observacao ? $observacao->observacao : NULL;
         $data['documentoserie'] = $documentoSerie ? $documentoSerie : ['serie' => mb_strtoupper(substr(Str::slug($empresa['empresa']['nome']), 0, 3)), 'empresa_id' => $empresa['empresa']['id']];
+
+        // $data=DB::connection('mysql2')->table('parametros')->Where('label','definir_cambio_diario_do_dolar')->where("empresa_id",$empresa['empresa']['id'])->first();
 
         return view('empresa.configuracoes.parametros', $data);
     }
@@ -553,5 +556,31 @@ class ConfiguracaoController extends Controller
         $empresa_id = $this->pegarEmpresaAutenticadaGuardOperador()['empresa']['id'];
         $data['armazens'] = Armazen::with('statuGeral')->where('empresa_id', $empresa_id)->get();
         return response()->json($data, 200);
+    }
+
+
+    public function DefiniCambioDalor(Request $request)
+    {
+
+
+        $empresa = $this->pegarEmpresaAutenticadaGuardOperador();
+        $desconto = DB::connection('mysql2')->table('parametros')
+            ->Where('label', $request->label)
+            ->where("empresa_id", $empresa['empresa']['id'])->first();
+
+        if ($desconto) {
+            return DB::connection('mysql2')->table('parametros')
+                ->Where('label', $request->label)
+                ->where("empresa_id", $empresa['empresa']['id'])
+                ->update(['vida' => $request->vida]);
+        }
+
+        return DB::connection('mysql2')->table('parametros')
+            ->insertGetId([
+                'designacao' => $request->designacao,
+                'vida' => $request->vida,
+                'empresa_id' => $empresa['empresa']['id'],
+                'label' => $request->label
+            ]);
     }
 }

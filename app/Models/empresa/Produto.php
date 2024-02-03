@@ -26,7 +26,7 @@ class Produto extends Model
         'classificacao',
         'marca_id',
         'categoria_id',
-        'tipoMercadoriaId',
+        'tipoServicoId',
         'orderCategoria1',
         'orderCategoria2',
         'orderCategoria3',

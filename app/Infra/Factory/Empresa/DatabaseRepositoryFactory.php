@@ -7,6 +7,7 @@ use App\Infra\Repository\CouponDescontoRepository;
 use App\Infra\Repository\Empresa\ArmazemRepository;
 use App\Infra\Repository\Empresa\AtualizacaoStockRepository;
 use App\Infra\Repository\Empresa\AtualizarEstoqueRepository;
+use App\Infra\Repository\Empresa\BancoRepository;
 use App\Infra\Repository\Empresa\CarateristicaProdutoRepository;
 use App\Infra\Repository\Empresa\CartaoClienteRepository;
 use App\Infra\Repository\Empresa\CategoriaRepository;
@@ -14,6 +15,7 @@ use App\Infra\Repository\Empresa\CentroCustoRepository;
 use App\Infra\Repository\Empresa\ClienteRepository;
 use App\Infra\Repository\Empresa\EmpresaRepository;
 use App\Infra\Repository\Empresa\EntradaProdutoRepository;
+use App\Infra\Repository\Empresa\EspecificacaoMercadoriaRepository;
 use App\Infra\Repository\Empresa\ExistenciaStockRepository;
 use App\Infra\Repository\Empresa\ExtratoCartaoClienteRepository;
 use App\Infra\Repository\Empresa\FabricanteRepository;
@@ -35,6 +37,7 @@ use App\Infra\Repository\Empresa\ProvinciaRepository;
 use App\Infra\Repository\Empresa\ReciboRepository;
 use App\Infra\Repository\Empresa\SequenciaDocumentoRepository;
 use App\Infra\Repository\Empresa\SequenciaFaturaRepository;
+use App\Infra\Repository\Empresa\TaxaCargaAduaneiraRepository;
 use App\Infra\Repository\Empresa\TaxaIvaRepository;
 use App\Infra\Repository\Empresa\TipoDocumentoRepository;
 use App\Infra\Repository\Empresa\TipoMercadoriaRepository;
@@ -254,5 +257,20 @@ class DatabaseRepositoryFactory implements RepositoryFactory
     public function createTipoServicoRepository(): TipoServicoRepository
     {
         return new TipoServicoRepository();
+    }
+
+    public function createTaxaCargaAduaneiraRepository(): TaxaCargaAduaneiraRepository
+    {
+        return new TaxaCargaAduaneiraRepository();
+    }
+
+    public function createEspecificacaoMercadoriaRepository(): EspecificacaoMercadoriaRepository
+    {
+        return new EspecificacaoMercadoriaRepository();
+    }
+
+    public function createBancoRepository(): BancoRepository
+    {
+        return new BancoRepository();
     }
 }

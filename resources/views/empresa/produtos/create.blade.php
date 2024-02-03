@@ -1,10 +1,10 @@
 @php use Illuminate\Support\Str; @endphp
-@section('title','Novo produto')
+@section('title','Novo serviço')
 <div class="row">
     <div class="space-6"></div>
     <div class="page-header" style="left: 0.5%; position: relative">
         <h1>
-            NOVO PRODUTO
+            NOVO SERVIÇO
         </h1>
     </div>
     <div class="row">
@@ -70,8 +70,6 @@
                                     </span>
                                     @endif
                                 </div>
-
-
                                 <div class="col-md-3">
                                     <label class="control-label bold label-select2" for="status_id">Status</label>
                                     <select wire:model="produto.status_id" data="status_id" class="col-md-12 select2"
@@ -89,7 +87,75 @@
                                 </div>
                             </div>
                             <div class="form-group has-info bold" style="left: 0%; position: relative">
-                                <div class="col-md-3">
+                                <div class="col-md-6">
+                                    <label class="control-label bold label-select2" for="tipoMercadoriaId">Tipos de mercadorias<b
+                                            class="red fa fa-question-circle"></b></label>
+                                    <select wire:model="produto.tipoMercadoriaId" data="tipoMercadoriaId" class="col-md-12 select2"
+                                            id="tipoMercadoriaId"
+                                            style="height:35px;">
+                                        <option value="">Nenhum</option>
+                                        @foreach($tiposMercadorias as $mercadoria)
+                                            <option value="{{ $mercadoria->id }}">{{ $mercadoria->designacao }}</option>
+                                        @endforeach
+                                    </select>
+                                    @if ($errors->has('produto.tipoMercadoriaId'))
+                                        <span class="help-block"
+                                              style="color: red; font-weight: bold;position:absolute;">
+                                        <strong>{{ $errors->first('produto.tipoMercadoriaId') }}</strong>
+                                    </span>
+                                    @endif
+                                </div>
+                                <div class="col-md-2">
+                                    <label class="control-label bold label-select2" for="preco_venda">Preço de Venda(USD)<b
+                                            class="red fa fa-question-circle"></b></label>
+                                    <div class="input-group">
+                                        <input type="text" disabled wire:model="produto.preco_venda" class="form-control"
+                                               id="preco_venda" autofocus
+                                               style="height: 35px; font-size: 10pt;<?= $errors->has('produto.preco_venda') ? 'border-color: #ff9292;' : '' ?>"/>
+                                        <span class="input-group-addon" id="basic-addon1">
+                                            <i class="ace-icon fa fa-info bigger-150 text-info"
+                                               data-target="form_supply_price_smartprice"></i>
+                                        </span>
+                                    </div>
+                                    @if ($errors->has('produto.preco_venda'))
+                                        <span class="help-block"
+                                              style="color: red; font-weight: bold;position:absolute;">
+                                        <strong>{{ $errors->first('produto.preco_venda') }}</strong>
+                                    </span>
+                                    @endif
+                                </div>
+                                <div class="col-md-2">
+                                    <label class="control-label bold label-select2" for="preco_venda">PVP(USD)</label>
+                                    <div class="input-group">
+                                        <input type="text" disabled wire:model="produto.pvp" class="form-control"
+                                               id="preco_venda" autofocus
+                                               style="height: 35px; font-size: 10pt;<?= $errors->has('produto.preco_venda') ? 'border-color: #ff9292;' : '' ?>"/>
+                                        <span class="input-group-addon" id="basic-addon1">
+                                            <i class="ace-icon fa fa-info bigger-150 text-info"
+                                               data-target="form_supply_price_smartprice"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <label class="control-label bold label-select2"
+                                           for="unidade_medida_id">Unidade</label>
+                                    <select wire:model="produto.unidade_medida_id" data="unidade_medida_id"
+                                            class="col-md-12 select2"
+                                            id="unidade_medida_id"
+                                            style="height:35px;<?= $errors->has('produto.unidade_medida_id') ? 'border-color: #ff9292;' : '' ?>">
+                                        @foreach($unidadesMedida as $unidade)
+                                            <option value="{{$unidade->id}}">{{$unidade->designacao}}</option>
+                                        @endforeach                                    </select>
+                                    @if ($errors->has('produto.unidade_medida_id'))
+                                        <span class="help-block"
+                                              style="color: red; font-weight: bold;position:absolute;">
+                                        <strong>{{ $errors->first('produto.unidade_medida_id') }}</strong>
+                                    </span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="form-group has-info bold" style="left: 0%; position: relative">
+                                <div class="col-md-2">
                                     <label class="control-label bold label-select2" for="stocavel">Produto
                                         estocavel?</label>
                                     <select wire:model="produto.stocavel" data="stocavel" class="col-md-12 select2"

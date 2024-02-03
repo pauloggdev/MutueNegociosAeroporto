@@ -257,57 +257,6 @@ if (Auth::guard('web')->check()) {
 
                         <b class="arrow"></b>
                     </li> -->
-
-                    <li class="hover">
-                        <a href="/empresa/fornecedores">
-                            <i class="menu-icon fa fa-caret-right"></i>
-                            FORNECEDORES
-                        </a>
-
-                        <b class="arrow"></b>
-                    </li>
-
-                    <li class="hover">
-                        <a href="/empresa/fabricantes">
-                            <i class="menu-icon fa fa-caret-right"></i>
-                            FABRICANTES
-                        </a>
-                        <b class="arrow"></b>
-                    </li>
-
-                    <li class="hover">
-                        <a href="/empresa/armazens">
-                            <i class="menu-icon fa fa-caret-right"></i>
-                            ARMAZÉNS
-                        </a>
-
-                        <b class="arrow"></b>
-                    </li>
-
-                    <li class="hover">
-                        <a href="{{ route('bancos.index') }}">
-                            <i class="menu-icon fa fa-caret-right"></i>
-                            BANCOS
-                        </a>
-
-                        <b class="arrow"></b>
-                    </li>
-
-                    <li class="hover">
-                        <a href="/empresa/marcas">
-                            <i class="menu-icon fa fa-caret-right"></i>
-                            MARCAS
-                        </a>
-                        <b class="arrow"></b>
-                    </li>
-
-                    <li class="hover">
-                        <a href="/empresa/categorias">
-                            <i class="menu-icon fa fa-caret-right"></i>
-                            CATEGORIAS
-                        </a>
-                        <b class="arrow"></b>
-                    </li>
                     <li class="hover">
                         <a href="/empresa/mercadorias">
                             <i class="menu-icon fa fa-caret-right"></i>
@@ -637,13 +586,13 @@ if (Auth::guard('web')->check()) {
 
                             <b class="arrow"></b>
                         </li>
-                        <li class="hover">
+                        {{-- <li class="hover">
                             <a href="/empresa/relatorios-vendas">
                                 <i class="menu-icon fa fa-caret-right"></i>
                                 RELATÓRIOS DE VENDAS GERAIS
                             </a>
                             <b class="arrow"></b>
-                        </li>
+                        </li> --}}
                     </ul>
                 </li>
             @endif
