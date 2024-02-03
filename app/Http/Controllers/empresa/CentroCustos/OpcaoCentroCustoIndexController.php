@@ -13,21 +13,30 @@ use Illuminate\Http\Request;
 class OpcaoCentroCustoIndexController extends Component
 {
 
-    public function render(){
-
-        $userAdmin = UserPerfil::where('user_id', auth()->user()->id)
-            ->where('perfil_id', 1)->first();
-        if($userAdmin){
-            $centroCustos = CentroCusto::where('empresa_id', auth()->user()->empresa_id)->get();
-            $data['centrosCusto'] = $centroCustos;
-        }else{
-            $user = User::with(['centrosCusto', 'perfis'])->find(auth()->user()->id);
-            $data['centrosCusto'] = $user->centrosCusto;
+    public function index()
+    {
+        $centroCustos = CentroCusto::where('empresa_id', auth()->user()->empresa_id)->get();
+        session()->put('centroCustoId', $centroCustos[0]['id']);
+        session()->put('centroCustoNome', $centroCustos[0]['nome']);
+        if (session()->has('centroCustoId')) {
+            return redirect("empresa/home");
         }
-
-        return view('empresa.centroCustos.opcaoCentrosCusto', $data);
+//        dd($centroCustos);
+//        $userAdmin = UserPerfil::where('user_id', auth()->user()->id)
+//            ->where('perfil_id', 1)->first();
+//        if($userAdmin){
+//            $centroCustos = CentroCusto::where('empresa_id', auth()->user()->empresa_id)->get();
+//            $data['centrosCusto'] = $centroCustos;
+//        }else{
+//            $user = User::with(['centrosCusto', 'perfis'])->find(auth()->user()->id);
+//            $data['centrosCusto'] = $user->centrosCusto;
+//        }
+//
+//        return view('empresa.centroCustos.opcaoCentrosCusto', $data);
     }
-    public function selecionarCentroCusto(Request $request, $centroCusto){
+
+    public function selecionarCentroCusto(Request $request, $centroCusto)
+    {
         $request->session()->put('centroCustoId', $centroCusto['id']);
         $request->session()->put('centroCustoNome', $centroCusto['nome']);
         if (session()->has('centroCustoId')) {

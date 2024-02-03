@@ -608,7 +608,7 @@ Route::group(['middleware' => ['auth:empresa']], function () {
     Route::get('empresa/notaEntregas', NotaEntregaIndexController::class)->name('notaEntregaIndex');
 
     //Centro custo
-    Route::get('empresa/opcao/centros/custo', OpcaoCentroCustoIndexController::class)->name('opcaoCentroCusto.index');
+    Route::get('empresa/opcao/centros/custo', [OpcaoCentroCustoIndexController::class, 'index'])->name('opcaoCentroCusto.index');
 
     // Controlo de usuario
     Route::middleware(['updatePassword', 'UltimoAcesso'])->group(function () {
