@@ -385,20 +385,7 @@ if (Auth::guard('web')->check()) {
                             </a>
                             <b class="arrow"></b>
                         </li>
-                        <li class="hover">
-                            <a href="/empresa/produtos/stock">
-                                <i class="menu-icon fa fa-opencart"></i>
-                                ÁNALISE DE STOCK
-                            </a>
-                            <b class="arrow"></b>
-                        </li>
-                        <li class="hover">
-                            <a href="/empresa/produtos/quantidade/critica">
-                                <i class="menu-icon fa fa-list"></i>
-                                LISTAR PRODUTOS COM QUANTIDADE CRÍTICA
-                            </a>
-                            <b class="arrow"></b>
-                        </li>
+                        
                         <!-- <li class="hover">
                             <a href="/empresa/produtos-vendidos">
                                 <i class="menu-icon fa fa-list"></i>

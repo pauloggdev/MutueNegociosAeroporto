@@ -257,7 +257,7 @@ if (Auth::guard('web')->check()) {
 
                         <b class="arrow"></b>
                     </li>
-                    
+
                     <li class="hover">
                         <a href="/empresa/mercadorias">
                             <i class="menu-icon fa fa-caret-right"></i>
@@ -394,20 +394,7 @@ if (Auth::guard('web')->check()) {
                         </a>
                         <b class="arrow"></b>
                     </li>
-                    <li class="hover">
-                        <a href="/empresa/produtos/stock">
-                            <i class="menu-icon fa fa-opencart"></i>
-                            ÁNALISE DE STOCK
-                        </a>
-                        <b class="arrow"></b>
-                    </li>
-                    <li class="hover">
-                        <a href="/empresa/produtos/quantidade/critica">
-                            <i class="menu-icon fa fa-list"></i>
-                            LISTAR PRODUTOS/QUANTIDADE CRÍTICA
-                        </a>
-                        <b class="arrow"></b>
-                    </li>
+                    
                 </ul>
             </li>
             @if(Auth::user()->empresa_id == 156)
