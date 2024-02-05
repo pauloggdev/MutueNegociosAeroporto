@@ -30,7 +30,6 @@ class EmissaoFaturaCargaController extends Component
     use LivewireAlert;
     use PrintFaturaCarga;
 
-
     public $clientes;
     public $bancos;
     public $empresa;
@@ -123,11 +122,9 @@ class EmissaoFaturaCargaController extends Component
     public function render()
     {
         $this->dispatchBrowserEvent('reloadTableJquery');
-
         $this->especificaoMercadorias = DB::table('especificacao_mercadorias')->get();
         return view("empresa.facturacao.createAeroportoCarga");
     }
-
     public function updatedFaturaClienteId($clienteId)
     {
 
@@ -141,7 +138,6 @@ class EmissaoFaturaCargaController extends Component
         $this->fatura['enderecoCliente'] = $cliente->endereco;
 
     }
-
     public function removeCart($item)
     {
         foreach ($this->fatura['items'] as $key => $itemCart) {

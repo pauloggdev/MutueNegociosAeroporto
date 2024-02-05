@@ -148,7 +148,7 @@ a[x-apple-data-detectors] {
                   <td valign="top" align="center" style="padding:0;Margin:0;width:560px">
                    <table width="100%" cellspacing="0" cellpadding="0" role="presentation" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
                      <tr style="border-collapse:collapse">
-                      <td esdev-links-color="#333333" align="center" class="es-m-txt-c" style="padding:0;Margin:0"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-size:13px;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:20px;color:#999999">© 2021 Mutue-Negócios.&nbsp;Todos os direitos reservados.</p></td>
+                      <td esdev-links-color="#333333" align="center" class="es-m-txt-c" style="padding:0;Margin:0"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-size:13px;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:20px;color:#999999">© 2021 &nbsp;Todos os direitos reservados.</p></td>
                      </tr>
                    </table></td>
                  </tr>

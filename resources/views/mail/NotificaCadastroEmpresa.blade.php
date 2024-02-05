@@ -393,7 +393,7 @@
                           </tr>
                           <tr style="border-collapse:collapse">
                             <td align="center" style="padding:0;Margin:0;padding-top:10px;padding-bottom:10px">
-                              <p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-size:11px;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:17px;color:#333333">©&nbsp; Copyright&nbsp;2021&nbsp;<strong><span>MUTUE NEGÓCIOS</span></strong>. Todos os direitos reservados</p>
+                              <p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-size:11px;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:17px;color:#333333">©&nbsp; Copyright&nbsp;2021&nbsp; Todos os direitos reservados</p>
                             </td>
                           </tr>
                         </table>

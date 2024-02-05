@@ -56,6 +56,8 @@ class Produto
      * @param $stocavel
      * @param $vendaOnline
      */
+
+
     public function __construct(
         $designacao,
         $precoVenda,

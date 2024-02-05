@@ -40,8 +40,8 @@ class AtualizarProduto
             $request->pvp,
             $request->preco_compra,
             $categoriaId,
-            $request->categoria_id,
-            $request->tipoMercadoriaId,
+            $request->tipoServicoId,
+            $categoriaId,
             $request->subCategoria1,
             $request->subCategoria2,
             $request->unidade_medida_id,
@@ -65,7 +65,7 @@ class AtualizarProduto
             $request->tipoGarantia,
             $request->centroCustoId
         );
-
+        
         $outputProduto = $this->produtoRepository->update($produto, $produtoId);
         if (!$outputProduto) throw new \Exception("Erro ao atualizar produto");
         if ($request->imagens) {

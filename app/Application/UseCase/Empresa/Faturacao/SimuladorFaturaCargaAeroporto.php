@@ -62,6 +62,9 @@ class SimuladorFaturaCargaAeroporto
                 $taxaTipoMercadoria = $this->taxaTipoMercadoriaRepository->getTipoMercadoria($item->tipoMercadoriaId);
                 $espeficificaoMercadoria = $this->especificacaoMercadoriaRepository->getEspecificacaoMercadoriaById($item->especificacaoMercadoriaId);
                 $desconto = $espeficificaoMercadoria->desconto;
+                if($item->produtoId == 3){ //Produto/Serviçso do tipo Manuseamento
+                    $desconto = 0;
+                }
                 $taxa = new Taxa(
                     $taxaTipoMercadoria->designacao,
                     $taxaTipoMercadoria->taxa,

@@ -821,7 +821,7 @@
             <div class="footer-inner">
                 <div class="footer-content">
                     <span class="bigger-120">
-                        <a href="#" class="text-primary">&copy; <?php echo date('Y') ?><span class="bolder" style=""> Mutue negócios. Todos os direitos reservados</span></a>
+                        <a href="#" class="text-primary">&copy; <?php echo date('Y') ?><span class="bolder" style=""> Todos os direitos reservados</span></a>
                     </span>
                     &nbsp; &nbsp;
                 </div>
