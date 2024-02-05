@@ -65,7 +65,7 @@ class AtualizarProduto
             $request->tipoGarantia,
             $request->centroCustoId
         );
-        
+
         $outputProduto = $this->produtoRepository->update($produto, $produtoId);
         if (!$outputProduto) throw new \Exception("Erro ao atualizar produto");
         if ($request->imagens) {
