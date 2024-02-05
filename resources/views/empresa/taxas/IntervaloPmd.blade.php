@@ -3,13 +3,13 @@
 
 <div>
     <div class="row">
-        <div class="modal fade" id="modalCriarTipoMercadoria" wire:ignore.self>
+        <div class="modal fade" id="modalPmd" wire:ignore.self>
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header text-center">
                         <button type="button" class="close red bolder" data-dismiss="modal">×</button>
                         <h4 class="smaller">
-                            NOVA ESPECIFICAÇÃO DE MERCADORIA
+                            {{$modalTitle}}
                         </h4>
 
                     </div>
@@ -31,37 +31,33 @@
                                                     <div class="form-group has-info">
                                                         <div class="col-md-6">
                                                             <label class="control-label bold label-select2"
-                                                                   for="valor">Desconto</label>
+                                                                   for="designacao">Tonelada Máxima</label>
                                                             <div>
-                                                                <input type="number" wire:model="especificacao.desconto"
+                                                                <input type="number" wire:model="pmd.toneladas_max"
+                                                                       id="designacao"
+                                                                       class="col-md-12 col-xs-12 col-sm-4"/>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-md-6">
+                                                            <label class="control-label bold label-select2"
+                                                                   for="designacao">Tonelada Minima</label>
+                                                            <div>
+                                                                <input type="number" wire:model="pmd.toneladas_min"
+                                                                       id="designacao"
+                                                                       class="col-md-12 col-xs-12 col-sm-4"/>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group has-info">
+                                                        <div class="col-md-12">
+                                                            <label class="control-label bold label-select2"
+                                                                   for="valor">valor</label>
+                                                            <div>
+                                                                <input type="number" wire:model="pmd.taxa"
                                                                        id="valor" class="col-md-12 col-xs-12 col-sm-4"/>
                                                             </div>
 
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <label class="control-label bold label-select2"
-                                                                   for="statuId">Status</label>
-                                                            <select wire:model="especificacao.status" data="status"
-                                                                    class="col-md-12 select2" id="status"
-                                                                    style="height:35px;<?= $errors->has('especificacao.status') ? 'border-color: #ff9292;' : '' ?>">
-                                                                <option value="1">ATIVO</option>
-                                                                <option value="2">DESATIVO</option>
-
-                                                            </select>
-                                                            @if ($errors->has('especificacao.status'))
-                                                                <span class="help-block"
-                                                                      style="color: red; font-weight: bold">
-                                                                    <strong>{{ $errors->first('especificacao.status') }}</strong>
-                                                                </span>
-                                                            @endif
-                                                        </div>
-
-                                                        <div class="col-md-12">
-                                                            
-                                                            <label class="control-label bold label-select2" for="saldoAtual">Descrição <b class="red fa fa-question-circle"></b></label>
-                                                            <div class="input-group">
-                                                                <textarea wire:model="especificacao.designacao" id="" cols="200" rows="4" class="form-control" style="font-size: 16px; z-index: 1;"></textarea>
-                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -99,7 +95,7 @@
                     <div class="modal-header text-center">
                         <button type="button" class="close red bolder" data-dismiss="modal">×</button>
                         <h4 class="smaller">
-                            EDITAR ESPECIFICAÇÃO
+                            EDITAR CÂMBIO
                         </h4>
 
                     </div>
@@ -119,39 +115,25 @@
                                             <div class="tab-content profile-edit-tab-content">
                                                 <div id="dados_motivo" class="tab-pane in active">
                                                     <div class="form-group has-info">
-                                                        <div class="col-md-6">
+                                                        <div class="col-md-12">
                                                             <label class="control-label bold label-select2"
-                                                                   for="valor">Desconto</label>
+                                                                   for="designacao">Designação</label>
                                                             <div>
-                                                                <input type="number" wire:model="especificacao.desconto"
+                                                                <input type="text" wire:model="pmd.designacao"
+                                                                       id="designacao"
+                                                                       class="col-md-12 col-xs-12 col-sm-4"/>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group has-info">
+                                                        <div class="col-md-12">
+                                                            <label class="control-label bold label-select2"
+                                                                   for="valor">Valor</label>
+                                                            <div>
+                                                                <input type="number" wire:model="pmd.valor"
                                                                        id="valor" class="col-md-12 col-xs-12 col-sm-4"/>
                                                             </div>
 
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <label class="control-label bold label-select2"
-                                                                   for="statuId">Status</label>
-                                                            <select wire:model="especificacao.status" data="status"
-                                                                    class="col-md-12 select2" id="statuId"
-                                                                    style="height:35px;<?= $errors->has('marca.status_id') ? 'border-color: #ff9292;' : '' ?>">
-                                                                <option value="1">ATIVO</option>
-                                                                <option value="2">DESATIVO</option>
-
-                                                            </select>
-                                                            @if ($errors->has('mercadoria.statuId'))
-                                                                <span class="help-block"
-                                                                      style="color: red; font-weight: bold">
-                                                                    <strong>{{ $errors->first('mercadoria.statuId') }}</strong>
-                                                                </span>
-                                                            @endif
-                                                        </div>
-
-                                                        <div class="col-md-12">
-                                                            
-                                                            <label class="control-label bold label-select2" for="saldoAtual">Descrição <b class="red fa fa-question-circle"></b></label>
-                                                            <div class="input-group">
-                                                                <textarea wire:model="especificacao.designacao" id="" cols="200" rows="4" class="form-control" style="font-size: 16px; z-index: 1;"></textarea>
-                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -185,7 +167,7 @@
 
         <div class="page-header" style="left: 0.5%; position: relative">
             <h1>
-                ESPECIFICAÇÃO DE MERCADORIAS
+                Intervalo PMD
                 <small>
                     <i class="ace-icon fa fa-angle-double-right"></i>
                     Listagem
@@ -201,9 +183,9 @@
                                 <span class="input-group-addon">
                                     <i class="ace-icon fa fa-search"></i>
                                 </span>
-                                <input type="text" wire:model="search" autofocus autocomplete="on"
+                                <input type="text" wire:model.debounce.500ms="search" autofocus autocomplete="on"
                                        class="form-control search-query"
-                                       placeholder="Buscar especificação"/>
+                                       placeholder="Buscar pelo designação  do câmbio"/>
                                 <span class="input-group-btn">
                                     <button type="submit" class="btn btn-primary btn-lg upload">
                                         <span class="ace-icon fa fa-search icon-on-right bigger-130"></span>
@@ -221,11 +203,11 @@
 
                         <div class="col-xs-12 widget-box widget-color-green" style="left: 0%">
                             <div class="clearfix">
-                                <a href="#modalCriarTipoMercadoria" data-toggle="modal"
-                                   class="btn btn-success widget-box widget-color-blue" id="botoes"
+                                <a href="#modalPmd" data-toggle="modal"
+                                   class="btn btn-success widget-box widget-color-blue hidden" id="botoes"
                                    wire:click="resetField()"
                                    >
-                                    <i class="fa icofont-plus-circle"></i> Nova Especificação
+                                    <i class="fa icofont-plus-circle"></i> Novo Intervalo
                                 </a>
                                 <a title="Imprimir Categoria" wire:click.prevent="imprimirCategoria"
                                    class="btn btn-primary widget-box widget-color-blue" id="botoes">
@@ -235,7 +217,7 @@
                                 <div class="pull-right tableTools-container"></div>
                             </div>
                             <div class="table-header widget-header">
-                               Todas as especificação de mercadorias do sistema (Total: {{ count($countespecificacaoMercadorias) }})
+                                Todos os câmbios do sistema (Total: {{ count($pmds) }})
                             </div>
 
                             <!-- div.dataTables_borderWrap -->
@@ -244,35 +226,17 @@
                                     <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Descrição</th>
-                                        <th style="text-align: center">Status</th>
-                                        <th style="text-align: right">Desconto(USD)</th>
-                                        <th style="text-align: center">Ações</th>
+                                        <th class="text-center"> Intervalo de PMD</th>
+                                        <th style="text-align: right">Taxa(USD)</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($especificacaoMercadorias as $key=> $especificacao)
+                                    @foreach($pmds as $key=> $pmd)
                                         <tr>
                                             <td>{{++$key}}</td>
-                                            <td>{{ Str::upper($especificacao->designacao) }}</td>
+                                            <td  class="text-center">{{ $pmd->toneladas_min.' -----------------   '.$pmd->toneladas_max }}</td>
+                                            <td style="text-align: right">{{ number_format($pmd->taxa, 2, ',', '.') }}</td>
 
-                                            <td class="hidden-480" style="text-align: center">
-                                                <span
-                                                    class="label label-sm <?= $especificacao['status']== 1 ? 'label-success' : 'label-warning' ?>"
-                                                    style="border-radius: 20px;">{{$especificacao['status'] == 1 ? 'Activo' : 'Inactivo' }}</span>
-                                            </td>
-
-                                            <td style="text-align: right">{{ number_format($especificacao->desconto, 2, ',', '.') }}</td>
-                                            <td style="text-align: center">
-
-                                                <div class="hidden-sm hidden-xs action-buttons">
-                                                     
-                                                    <a wire:click="edit({{$especificacao->id}})" href="#modalEditarTipoMercadoria" data-toggle="modal"
-                                                       class="pink" title="Editar este registo">
-                                                        <i class="fa fa-pencil-square-o bigger-200 blue"></i>
-                                                    </a>
-                                                </div>
-                                            </td>
                                         </tr>
                                     @endforeach
                                     </tbody>
@@ -289,7 +253,7 @@
 @push('scripts')
     <script>
         window.addEventListener('close-modal', event =>{
-            $('#modalEditarTipoMercadoria').modal('hide');
+            $('#modalPmd').modal('hide');
         })
     </script>
 @endpush

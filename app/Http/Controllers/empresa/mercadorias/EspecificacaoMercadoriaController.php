@@ -7,6 +7,7 @@ use App\Application\UseCase\Empresa\mercadorias\GetTiposMercadorias;
 use App\empresa\EspecificacaoMercadoria;
 use App\Infra\Factory\Empresa\DatabaseRepositoryFactory;
 use App\Models\empresa\TipoMercadoria;
+use Livewire\WithPagination;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
@@ -16,6 +17,10 @@ use Illuminate\Http\Request;
 class EspecificacaoMercadoriaController extends Component
 {
     use LivewireAlert;
+    use WithPagination;
+
+    
+    protected $paginationTheme ="bootstrap";
 
     public $search = null;
     public $mercadoria_id;
@@ -33,24 +38,27 @@ class EspecificacaoMercadoriaController extends Component
     protected $listeners = [
         'selectedItem'
     ];
+    public function updatingSearch(){
+        $this->resetPage();
+    }
     public function selectedItem($item)
     {
         $this->especificacao[$item['atributo']] = $item['valor'];
     }
     public $tiposMercadorias;
-    public $especificacaoMercadorias;
+    public $countespecificacaoMercadorias;
 
     public function mount()
     {
-        // $getTiposMercadorias = new GetTiposMercadorias(new DatabaseRepositoryFactory());
-        // $this->tiposMercadorias = $getTiposMercadorias->execute();
+        $this->countespecificacaoMercadorias = EspecificacaoMercadoria::all();
+
     }
     public function render()
     {
         
-        $this->especificacaoMercadorias = EspecificacaoMercadoria::all();
-        // $this->especificacaoMercadorias = $especificacaoMercadorias;
-        return view('empresa.mercadorias.EspecificacaoMercadoria', compact($this->especificacaoMercadorias));
+        $especificacaoMercadorias = EspecificacaoMercadoria::where('designacao', 'LIKE', '%'. $this->search .'%')->paginate(10);
+        
+        return view('empresa.mercadorias.EspecificacaoMercadoria', compact('especificacaoMercadorias'));
     }
     public function store(){
         $rules = [

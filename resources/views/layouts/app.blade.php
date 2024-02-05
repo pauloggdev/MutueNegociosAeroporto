@@ -275,6 +275,13 @@ if (Auth::guard('web')->check()) {
                             <b class="arrow"></b>
                         </li>
 
+                        <li class="hover">
+                            <a href="/empresa/taxas/pmd">
+                                <i class="menu-icon fa fa-caret-right"></i>
+                                INTERVALO PMD
+                            </a>
+                            <b class="arrow"></b>
+                        </li>
                         
                         <li class="hover">
                             <a href="/empresa/cambio">
