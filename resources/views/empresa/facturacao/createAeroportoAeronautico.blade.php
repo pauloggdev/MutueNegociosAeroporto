@@ -104,7 +104,7 @@
                                                                 <form class="form-inline">
                                                                     <div class="form-group"
                                                                          style="margin-right: 15px">
-                                                                        <label>Carta de Porte(AWB)</label>
+                                                                        <label>Tipo de Aeronave</label>
                                                                         <div>
                                                                             <input type="text"
                                                                                    wire:model="fatura.cartaDePorte"
@@ -121,7 +121,7 @@
                                                                     </div>
                                                                     <div class="form-group"
                                                                          style="margin-right: 15px">
-                                                                        <label>Peso(Kg)</label>
+                                                                        <label>PMD (Ton)</label>
                                                                         <div>
                                                                             <input type="text"
                                                                                    wire:model="fatura.peso"
@@ -138,7 +138,7 @@
                                                                     </div>
                                                                     <div class="form-group"
                                                                          style="margin-right: 15px">
-                                                                        <label>Data de Entrada</label>
+                                                                        <label>Data de Aterragem</label>
                                                                         <div>
                                                                             <input type="date"
                                                                                    wire:model="fatura.dataEntrada"
@@ -155,7 +155,7 @@
                                                                     </div>
                                                                     <div class="form-group"
                                                                          style="margin-right: 15px">
-                                                                        <label>Data de Saída</label>
+                                                                        <label>Data de Descolagem</label>
                                                                         <div>
                                                                             <input type="date"
                                                                                    wire:model="fatura.dataSaida"
@@ -170,12 +170,33 @@
                                                                         </div>
                                                                     </div>
                                                                     <div class="form-group">
-                                                                        <label>Nº Dias</label>
+                                                                        <label>Hora de Aterragem</label>
                                                                         <div>
-                                                                            <input type="text"
-                                                                                   wire:model="fatura.nDias"
-                                                                                   disabled class="input-small"
-                                                                                   style="width: 50px"/>
+                                                                            <input type="date"
+                                                                                   wire:model="fatura.dataSaida"
+                                                                                   class="input-small"
+                                                                                   style="width: 150px; <?= $errors->has('fatura.dataSaida') ? 'border-color: #ff9292;' : '' ?>"/>
+                                                                            @if ($errors->has('fatura.dataSaida'))
+                                                                                <span class="help-block"
+                                                                                      style="color: red; font-weight: bold">
+                                                                                    <strong>{{ $errors->first('fatura.dataSaida') }}</strong>
+                                                                                </span>
+                                                                            @endif
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label>Hora de Descolagem</label>
+                                                                        <div>
+                                                                            <input type="date"
+                                                                                   wire:model="fatura.dataSaida"
+                                                                                   class="input-small"
+                                                                                   style="width: 150px; <?= $errors->has('fatura.dataSaida') ? 'border-color: #ff9292;' : '' ?>"/>
+                                                                            @if ($errors->has('fatura.dataSaida'))
+                                                                                <span class="help-block"
+                                                                                      style="color: red; font-weight: bold">
+                                                                                    <strong>{{ $errors->first('fatura.dataSaida') }}</strong>
+                                                                                </span>
+                                                                            @endif
                                                                         </div>
                                                                     </div>
                                                                 </form>

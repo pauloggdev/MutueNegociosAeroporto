@@ -2,32 +2,142 @@
 
 namespace App\Http\Controllers\empresa\Produtos;
 
-use App\Models\empresa\MotivoIsencao;
-use App\Models\empresa\Produto;
+use App\Application\UseCase\Empresa\Categorias\GetCategorias;
+use App\Application\UseCase\Empresa\Categorias\GetCategoriaSubCategoriaPeloId;
+use App\Application\UseCase\Empresa\Categorias\GetSubCategorias;
+use App\Application\UseCase\Empresa\CentrosDeCusto\GetCentrosCustoSemPaginacao;
+use App\Application\UseCase\Empresa\Fabricantes\GetFabricantes;
+use App\Application\UseCase\Empresa\mercadorias\GetTiposMercadorias;
+use App\Application\UseCase\Empresa\MotivosIsencao\GetMotivosIsencao;
+use App\Application\UseCase\Empresa\Parametros\GetParametroPeloLabelNoParametro;
+use App\Application\UseCase\Empresa\Produtos\AtualizarProduto;
+use App\Application\UseCase\Empresa\Produtos\GetCaracteristicasProduto;
+use App\Application\UseCase\Empresa\Produtos\GetProdutoUuid;
+use App\Application\UseCase\Empresa\Produtos\TraitUploadFileProduto;
+use App\Application\UseCase\Empresa\TaxasIva\GetTaxasIvaDaEmpresaRegimeExclusaoESimplificado;
+use App\Application\UseCase\Empresa\TaxasIva\GetTaxasIvaDaEmpresaRegimeGeral;
+use App\Application\UseCase\Empresa\TiposServicos\GetTiposServicos;
+use App\Application\UseCase\Empresa\UnidadesMedida\GetUnidadesMedida;
+use App\Infra\Factory\Empresa\DatabaseRepositoryFactory;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
-use App\Models\empresa\TipoTaxa;
-use App\Repositories\Empresa\MotivoIsencaoRepository;
-use App\Repositories\Empresa\TaxaRepository;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Livewire\WithPagination;
+use PharIo\Version\Exception;
 
-class ProdutoUpdateControllerCopia extends Component
+class ProdutoUpdateController extends Component
 {
 
     use WithFileUploads;
     use LivewireAlert;
+    use WithPagination;
+    use TraitUploadFileProduto;
 
+
+    public $codigoBarra;
+    public $codigoProduto;
     public $produto;
-    public $imagem;
-    public $desabledStock = false;
-    public $margemLucro;
+    public $URL;
     public $uuid;
-    protected $motivoIsencaoRepository;
-    protected $taxaRepository;
+    public $imagem;
+    public $margemLucro;
+    public $ivaIncluido = false;
+    public $tiposServicos;
+    public $armazens = [];
+    public $categorias = [];
+    public $fabricantes = [];
+    public $taxasIva = [];
+    public $motivosIsencao = [];
+    public $unidadesMedida = [];
+    public $carateristicasProduto = [];
+    protected $listeners = ['refresh-me' => '$refresh', 'selectedItem','eliminarImage'];
 
-    protected $listeners = ['eliminarImage', 'refreshComponent' => '$refresh', 'selectedItem'];
+
+    public function mount($uuid)
+    {
+        $getParametroPVP = new GetParametroPeloLabelNoParametro(new DatabaseRepositoryFactory());
+        $parametroPvp = $getParametroPVP->execute('incluir_iva');
+        $this->ivaIncluido = $parametroPvp['valor'] == 'sim' ? true : false;
+
+        $getTipoServico = new GetTiposServicos(new DatabaseRepositoryFactory());
+        $this->tiposServicos = $getTipoServico->execute();
+
+
+        $getParametroPeloLabel = new GetParametroPeloLabelNoParametro(new DatabaseRepositoryFactory());
+        $codigoProdutoData = $getParametroPeloLabel->execute('codigo_produto');
+        $codigoBarra = $getParametroPeloLabel->execute('codigo_barra');
+        $this->codigoBarra = $codigoBarra['valor'] == 'sim' ? true : false;
+        $this->codigoProduto = $codigoProdutoData['valor'] == 'sim' ? true : false;
+
+        $this->URL =  env('APP_URL');
+        $this->uuid = $uuid;
+        $produto = new GetProdutoUuid(new DatabaseRepositoryFactory());
+        $produto = $produto->execute($uuid);
+
+        if (!$produto) {
+            return redirect()->back();
+        }
+
+        $this->produto['id'] = $produto['id'];
+        $this->produto['designacao'] = $produto['designacao'];
+        $this->produto['preco_compra'] = $produto['preco_compra'];
+        $this->produto['preco_venda'] = $produto['preco_venda'];
+        $this->produto['pvp'] = $produto['pvp'];
+        $this->produto['status_id'] = $produto['status_id'];
+        $this->produto['quantidade_minima'] = $produto['quantidade_minima'];
+        $this->produto['quantidade_critica'] = $produto['quantidade_critica'];
+        $this->produto['stocavel'] = $produto['stocavel'];
+        $this->produto['unidade_medida_id'] = $produto['unidade_medida_id'];
+        $this->produto['fabricante_id'] = $produto['fabricante_id'];
+        $this->produto['codigo_taxa'] = $produto['codigo_taxa'];
+        $this->produto['venda_online'] = $produto['venda_online'] == 'Y' ? true : false;
+        $this->produto['cartaGarantia'] = $produto['cartaGarantia'] == 'Y' ? true : false;
+        $this->produto['tempoGarantiaProduto'] = $produto['tempoGarantiaProduto'];
+        $this->produto['tipoGarantia'] = $produto['tipoGarantia'];
+        $this->produto['motivo_isencao_id'] = $produto['motivo_isencao_id'];
+        $this->produto['imagem_produto'] = null;
+        $this->produto['imagens'] = null;
+        $this->produto['antImagemProduto'] = $produto['imagem_produto'];
+        $this->produto['AntProdutoImagens'] = $produto['produtoImagens'];
+        $this->produto['codigo_barra'] = $produto['codigo_barra'];
+        $this->produto['referencia'] = $produto['referencia'];
+        $this->produto['categoria_id'] = $produto['orderCategoria1']??$produto['categoria_id'];
+        $this->produto['tipoServicoId'] = $produto['tipoServicoId'];
+
+        $this->produto['subCategoria1'] =  $produto['orderCategoria2'];
+        $this->produto['subCategoria2'] =  $produto['orderCategoria3'];
+
+
+        $getCentrosCusto = new GetCentrosCustoSemPaginacao(new DatabaseRepositoryFactory());
+        $this->centrosCusto = $getCentrosCusto->execute();
+        $this->produto['centroCustoId'] = $produto['centroCustoId'];
+
+
+        $getCaracteristicasProduto = new GetCaracteristicasProduto(new DatabaseRepositoryFactory());
+        $this->carateristicasProduto = $getCaracteristicasProduto->execute();
+
+        $getCategorias = new GetCategorias(new DatabaseRepositoryFactory());
+        $this->categorias = $getCategorias->execute();
+
+
+        $getFabricantes = new GetFabricantes(new DatabaseRepositoryFactory());
+        $this->fabricantes = $getFabricantes->execute();
+
+        $REGIME_GERAL = 1;
+        if (auth()->user()->empresa->tiporegime->id == $REGIME_GERAL) {
+            $getTaxasIva = new GetTaxasIvaDaEmpresaRegimeGeral(new DatabaseRepositoryFactory());
+        } else {
+            $getTaxasIva = new GetTaxasIvaDaEmpresaRegimeExclusaoESimplificado(new DatabaseRepositoryFactory());
+        }
+
+        $this->taxasIva = $getTaxasIva->execute();
+        $getUnidadesMedida = new GetUnidadesMedida(new DatabaseRepositoryFactory());
+        $this->unidadesMedida = $getUnidadesMedida->execute();
+    }
 
     public function hydrate()
     {
@@ -37,93 +147,86 @@ class ProdutoUpdateControllerCopia extends Component
     public function selectedItem($item)
     {
         $this->produto[$item['atributo']] = $item['valor'];
-    }
-
-
-    public function boot()
-    {
-
-
-        $this->produto['designacao'] = NULL;
-        $this->produto['preco_venda'] = NULL;
-        $this->produto['preco_compra'] = NULL;
-        $this->produto['marca_id'] = NULL;
-        $this->produto['classe_id'] = NULL;
-        $this->produto['canal_id'] = 2;
-        $this->produto['quantidade_minima'] = 0;
-        $this->produto['quantidade_critica'] = 0;
-        $this->produto['categoria_id'] = 1;
-        $this->produto['status_id'] = 1;
-        $this->produto['stocavel'] = "Sim";
-        $this->produto['quantidade'] = 0;
-        $this->produto['armazem_id'] = NULL;
-        $this->produto['unidade_medida_id'] = NULL;
-        $this->produto['fabricante_id'] = NULL;
-        $this->produto['codigo_taxa'] = 1;
-        $this->produto['motivo_isencao_id'] = 8;
-        $this->produto['imagem_produto'] = null;
-        $this->produto['margemLucro'] = 0;
-        $this->produto['newImagemProduto'] = NULL;
-        $this->produto['codigo_barra'] = NULL;
+        if ($item['atributo'] == 'codigo_taxa') $this->calcularPVP();
 
     }
 
-    public function mount($uuid)
-    {
-        $this->uuid = $uuid;
-        $produto = Produto::with(['produtoImagens'])->where('uuid', $uuid)
-            ->where('empresa_id', auth()->user()->empresa_id)->first();
-
-        if (!$produto) {
-            return redirect()->back();
-        }
-
-
-        $this->motivoIsencaoRepository = new MotivoIsencaoRepository(new MotivoIsencao());
-        $this->taxaRepository = new TaxaRepository(new TipoTaxa());
-        $this->motivos =  $this->motivoIsencaoRepository->listarMotivosPelaTaxa($produto['codigo_taxa']);
-        $this->taxas = $this->taxaRepository->listarTaxas();
-
-        $this->produto['designacao'] = $produto['designacao'];
-        $this->produto['categoria_id'] = $produto['categoria_id'];
-        $this->produto['preco_compra'] = $produto['preco_compra'];
-        $this->produto['preco_venda'] = $produto['preco_venda'];
-        $this->produto['status_id'] = $produto['status_id'];
-        $this->produto['quantidade_minima'] = $produto['quantidade_minima'];
-        $this->produto['quantidade_critica'] = $produto['quantidade_critica'];
-        $this->produto['stocavel'] = $produto['stocavel'];
-        $this->produto['quantidade'] = $produto->existenciaEstock[0]['quantidade'] ?? 0;
-        $this->produto['armazem_id'] = $produto->existenciaEstock[0]['armazem_id'];
-        $this->produto['unidade_medida_id'] = $produto['unidade_medida_id'];
-        $this->produto['fabricante_id'] = $produto['fabricante_id'];
-        $this->produto['codigo_taxa'] = $produto['codigo_taxa'];
-        $this->produto['venda_online'] = $produto['venda_online'] == 'Y' ? true : false;
-        $this->produto['motivo_isencao_id'] = $produto['motivo_isencao_id'];
-        $this->produto['imagem_produto'] = $produto['imagem_produto'];
-        $this->produto['produto_imagens'] = $produto['produtoImagens'];
-        $this->produto['codigo_barra'] = $produto['codigo_barra'];
-        $this->produto['newImagens'] = [];
-    }
 
     public function render()
     {
-        if ($this->produto['stocavel'] == 'Não') {
-            $this->quantidade = 0;
+        $getMotivosIsencao = new GetMotivosIsencao(new DatabaseRepositoryFactory());
+        $TAXA_IVA_ZERO = 1;
+        if ($this->produto['codigo_taxa'] != $TAXA_IVA_ZERO) {
+            $this->motivosIsencao = [];
+            $this->produto['motivo_isencao_id'] = null;
+        } else {
+            $this->motivosIsencao = $getMotivosIsencao->execute();
         }
-        $data['categorias'] = DB::table('categorias')->where('empresa_id', auth()->user()->empresa_id)
-            ->orwhere('empresa_id', NULL)->orderBy('id', 'asc')
-            ->get();
 
-        $data['armazens'] = DB::table('armazens')->where('empresa_id', auth()->user()->empresa_id)->orderBy('id', 'asc')
-            ->get();
-        $data['status'] = DB::table('status_gerais')->orderBy('id', 'asc')
-            ->get();
-        $data['unidades'] = DB::table('unidade_medidas')->where('empresa_id', auth()->user()->empresa_id)->orderBy('id', 'asc')
-            ->get();
-        $data['fabricantes'] = DB::table('fabricantes')->where('empresa_id', auth()->user()->empresa_id)->orderBy('id', 'asc')
-            ->get();
+        $categoriaMaeId = $this->produto['categoria_id'];
+        $subCategoria1 = $this->produto['subCategoria1'];
 
+        $getSubCategoria = new GetSubCategorias(new DatabaseRepositoryFactory());
+        $data['subCategorias1'] = $getSubCategoria->execute($categoriaMaeId);
+
+
+        if (count($data['subCategorias1']) <= 0 || !is_numeric($subCategoria1)) {
+            $this->produto['subCategoria2'] = null;
+            $this->produto['subCategoria1'] = null;
+            $subCategoria1 = null;
+        }
+        $data['subCategorias2'] = $getSubCategoria->execute($subCategoria1);
         return view('empresa.produtos.edit', $data);
+    }
+    public function selecionarGarantia($tipoGarantia = null){
+        $this->produto['tipoGarantia'] = $tipoGarantia;
+    }
+
+    public function update()
+    {
+        $this->produto['tempoGarantiaProduto'] = $this->produto['tempoGarantiaProduto'] == 0 ? null : $this->produto['tempoGarantiaProduto'];
+        $this->produto['cartaGarantia'] = $this->produto['tempoGarantiaProduto'] == 0 ? false : true;
+
+        $rules = [
+            'produto.designacao' => ['required'],
+            'produto.tipoServicoId' => ['required'],
+            'produto.status_id' => ['required'],
+            'produto.codigo_taxa' => ['required'],
+        ];
+        $messages = [
+            'produto.designacao.required' => 'É obrigatório o nome',
+            'produto.tipoServicoId.required' => 'É obrigatório o tipo de serviço',
+            'produto.status_id.required' => 'É obrigatório o status',
+        ];
+        $this->validate($rules, $messages);
+
+        try {
+            DB::beginTransaction();
+            $atualizarProduto = new AtualizarProduto(new DatabaseRepositoryFactory());
+            $output = $atualizarProduto->execute(new Request($this->produto), $this->produto['id']);
+            DB::commit();
+            $this->confirm('Operação realizada com sucesso', [
+                'showConfirmButton' => false,
+                'showCancelButton' => false,
+                'icon' => 'success'
+            ]);
+            $this->mount($this->uuid);
+
+        } catch (Exception $e) {
+            DB::rollBack();
+            Log::error($e->getMessage());
+        }
+    }
+
+    public function calcularPVP()
+    {
+        if(!is_numeric($this->produto['preco_venda']) || !isset($this->produto['preco_venda'])){
+            $this->produto['pvp'] = 0;
+            return;
+        }
+        $valorIva = $this->ivaIncluido ? $this->getValorIva($this->produto['codigo_taxa']) : 0;
+        $precoVenda = !isset($this->produto['preco_venda']) ? 0 : $this->produto['preco_venda'];
+        $this->produto['pvp'] = $precoVenda + ($precoVenda * $valorIva) / 100;
     }
     public function modalDelImagem($imagem)
     {
@@ -139,147 +242,45 @@ class ProdutoUpdateControllerCopia extends Component
         if ($data['value']) {
             DB::connection('mysql2')->table('produto_imagens')
                 ->where('id', $this->imagem['id'])->delete();
-
-            if (Storage::exists($this->imagem['url'])) {
-                Storage::delete($this->imagem['url']);
-            }
-
-            return  redirect()->to(url()->previous())->with('success', 'produto actualizado com sucesso');
+            $this->eliminarFileProdutoAdicionais($this->imagem['url']);
+            $this->mount($this->uuid);
         }
     }
-    public function updatedProdutoCodigoTaxa($taxaId)
-    {
-        $motivoIsencaoRepository = new MotivoIsencaoRepository(new MotivoIsencao());
-        $this->motivos =  $motivoIsencaoRepository->listarMotivosPelaTaxa($taxaId);
-    }
-    public function updatedProdutoStocavel($valor)
-    {
 
-        if ($valor == 'Não') {
-            $this->produto['quantidade'] = 0;
-            $this->desabledStock = true;
-        } else {
-            $this->desabledStock = false;
+    public function updatedProdutoPrecoVenda()
+    {
+        $preco_compra = (int)$this->produto['preco_compra'] ?? 0;
+        $margemLucro = (int)$this->margemLucro ?? 0;
+        $precoVenda = is_numeric($this->produto['preco_venda'])?$this->produto['preco_venda']: null;
+        if($precoVenda && $margemLucro > 0){
+            $this->produto['preco_venda'] = $precoVenda + $preco_compra + (($preco_compra * $margemLucro) / 100);
+            $this->calcularPVP();
         }
+    }
+    public function getValorIva($codigoId)
+    {
+        return DB::connection('mysql2')->table('tipotaxa')
+            ->where('codigo', $codigoId)->first()->taxa;
     }
     public function updatedProdutoPrecoCompra()
     {
-        if ($this->margemLucro > 0) {
-            $preco_compra = (int) $this->produto['preco_compra'] ?? 0;
-            $margemLucro = (int) $this->margemLucro ?? 0;
+        $preco_compra = (int)$this->produto['preco_compra'] ?? 0;
+        $margemLucro = (int)$this->margemLucro ?? 0;
+        if ($margemLucro > 0) {
+            $this->produto['preco_venda'] = $preco_compra + (($preco_compra * $margemLucro) / 100);
+            $this->calcularPVP();
 
-            if ($preco_compra > 0 && $margemLucro > 0) {
-                $this->produto['preco_venda'] = $preco_compra + (($preco_compra * $margemLucro) / 100);
-            }
+
         }
     }
-    public function updatedmargemLucro()
+    public function updatedMargemLucro()
     {
-        $preco_compra = (int) $this->produto['preco_compra'] ?? 0;
-        $margemLucro = (int) $this->margemLucro ?? 0;
-
+        $preco_compra = (int)$this->produto['preco_compra'] ?? 0;
+        $margemLucro = (int)$this->margemLucro ?? 0;
         if ($preco_compra > 0 && $margemLucro > 0) {
             $this->produto['preco_venda'] = $preco_compra + (($preco_compra * $margemLucro) / 100);
-        }
-    }
-    public function updatedprodutoVendaOnline($check)
-    {
-        $this->produto['venda_online'] = $check ? true : false;
-    }
+            $this->calcularPVP();
 
-    public function update()
-    {
-        $rules = [
-            'produto.designacao' => ['required'],
-            'produto.categoria_id' => ['required'],
-            'produto.preco_venda' => ['required', function ($atr, $precoVenda, $fail) {
-                if ($precoVenda < 0) {
-                    $fail('O preço de venda não pode ser negativo');
-                }
-            }],
-            'produto.status_id' => ['required'],
-            'produto.codigo_taxa' => ['required'],
-            'produto.fabricante_id' => ['required']
-        ];
-        $messages = [
-            'produto.designacao.required' => 'É obrigatório o nome',
-            'produto.categoria_id.required' => 'É obrigatório a categoria',
-            'produto.fabricante_id.required' => 'É obrigatório o fabricante',
-            'produto.preco_venda.required' => 'É obrigatório o preço de venda',
-            'produto.status_id.required' => 'É obrigatório o status',
-        ];
-
-        $this->validate($rules, $messages);
-
-
-
-        $produto = Produto::where('uuid', $this->uuid)
-            ->where('empresa_id', auth()->user()->empresa_id)->first();
-
-        if (!$produto) {
-            return redirect()->back();
-        }
-
-        $imagem = NULL;
-        if ($this->produto['newImagemProduto']) {
-            if (Storage::exists($produto->imagem_produto)) {
-                Storage::delete($produto->imagem_produto);
-            }
-            $imagem =  env('APP_URL') . "upload/" . $this->produto['newImagemProduto']->store("/produtos");
-        }
-
-        if (count($this->produto['newImagens']) > 0) {
-            foreach ($this->produto['newImagens'] as $img) {
-                $img = env('APP_URL') . "upload/" . $img->store("/produtos");
-                DB::connection('mysql2')->table('produto_imagens')
-                    ->insert([
-                        'url' => $img,
-                        'produto_id' => $produto['id']
-                    ]);
-            }
-        }
-
-        try {
-
-            DB::beginTransaction();
-
-            DB::table('produtos')->where('uuid', $this->uuid)->update([
-                'designacao' => $this->produto['designacao'],
-                'preco_venda' => $this->produto['preco_venda'],
-                'preco_compra' => $this->produto['preco_compra'],
-                'categoria_id' => $this->produto['categoria_id'],
-                'unidade_medida_id' => $this->produto['unidade_medida_id'],
-                'fabricante_id' => $this->produto['fabricante_id'],
-                'status_id' => $this->produto['status_id'],
-                'codigo_taxa' => $this->produto['codigo_taxa'],
-                'codigo_barra' => $this->produto['codigo_barra'] ?? null,
-                'motivo_isencao_id' => $this->produto['codigo_taxa'] <= 0 ? 8 : $this->produto['motivo_isencao_id'], //Transmissão de bens e serviço não sujeita
-                'quantidade_minima' => $this->produto['quantidade_minima'] ?? 0,
-                'quantidade_critica' => $this->produto['quantidade_critica'] ?? 0,
-                'imagem_produto' => $imagem ? $imagem : $produto->imagem_produto,
-                'stocavel' => $this->produto['stocavel']
-            ]);
-
-            if ($this->produto['stocavel'] == 'Não') {
-                DB::table('existencias_stocks')->where('produto_id', $produto->id)->update([
-                    'quantidade' =>  0
-                ]);
-            }
-            DB::commit();
-            $this->confirm('Operação realizada com sucesso', [
-                'showConfirmButton' => false,
-                'showCancelButton' => false,
-                'icon' => 'success'
-            ]);
-            return  redirect()->to(url()->previous())->with('success', 'produto actualizado com sucesso');
-
-        } catch (\Exception $th) {
-            DB::rollBack();
-            $this->confirm('Erro', [
-                'showConfirmButton' => false,
-                'showCancelButton' => false,
-                'icon' => 'danger'
-            ]);
         }
     }
 }

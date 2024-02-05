@@ -394,7 +394,7 @@ if (Auth::guard('web')->check()) {
                         </a>
                         <b class="arrow"></b>
                     </li>
-                    
+
                 </ul>
             </li>
             @if(Auth::user()->empresa_id == 156)
@@ -477,7 +477,7 @@ if (Auth::guard('web')->check()) {
                             DEPÓSITO DE VALOR - RECIBOS</a>
                         <b class="arrow"></b>
                     </li>
-                   
+
                     <li class="hover">
                         <a href="{{ route('notaCreditoAnulacaoDoc.index') }}">
                             <i class="menu-icon fa fa-caret-right"></i>
@@ -597,13 +597,13 @@ if (Auth::guard('web')->check()) {
                     </ul>
                 </li>
             @endif;
-            <li class="hover">
-                <a href="/empresa/inventarios" style="color: #ffffff">
-                    <i class="menu-icon glyphicon glyphicon-refresh"></i>
-                    <span class="menu-text">INVENTÁRIOS</span>
-                    <b class="arrow fa fa-angle-down"></b>
-                </a>
-            </li>
+{{--            <li class="hover">--}}
+{{--                <a href="/empresa/inventarios" style="color: #ffffff">--}}
+{{--                    <i class="menu-icon glyphicon glyphicon-refresh"></i>--}}
+{{--                    <span class="menu-text">INVENTÁRIOS</span>--}}
+{{--                    <b class="arrow fa fa-angle-down"></b>--}}
+{{--                </a>--}}
+{{--            </li>--}}
 
             <li class="hover">
                 <a href="#" class="dropdown-toggle" style="color: #ffffff">
@@ -726,13 +726,13 @@ if (Auth::guard('web')->check()) {
                 </a>
             </li>
 
-            <li class="">
-                <a href="{{route('centroCusto.index')}}">
-                    <i class="menu-icon fa fa-shopping-basket"></i>
-                    <span class="menu-text">CENTRO DE CUSTOS</span>
-                </a>
-                <b class="arrow"></b>
-            </li>
+{{--            <li class="">--}}
+{{--                <a href="{{route('centroCusto.index')}}">--}}
+{{--                    <i class="menu-icon fa fa-shopping-basket"></i>--}}
+{{--                    <span class="menu-text">CENTRO DE CUSTOS</span>--}}
+{{--                </a>--}}
+{{--                <b class="arrow"></b>--}}
+{{--            </li>--}}
             <li class="hover">
                 <a href="#" class="dropdown-toggle" style="color: #ffffff">
                     <i class="menu-icon fa fa-file-text"></i>
@@ -871,7 +871,7 @@ if (Auth::guard('web')->check()) {
         <div class="footer-inner">
             <div class="footer-content">
                     <span class="bigger-120">
-                        <a href="#" class="text-primary">&copy; <?php echo date('Y') ?><span class="bolder" style=""> Mutue negócios. Todos os direitos reservados</span></a>
+                        <a href="#" class="text-primary">&copy; <?php echo date('Y') ?><span class="bolder" style=""> Todos os direitos reservados</span></a>
                     </span>
                 &nbsp; &nbsp;
             </div>
