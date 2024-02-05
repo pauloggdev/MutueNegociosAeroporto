@@ -54,12 +54,12 @@ class EspecificacaoMercadoriaController extends Component
     }
     public function store(){
         $rules = [
-            'especificacao.descricao' => ['required'],
+            'especificacao.designacao' => ['required'],
             'especificacao.desconto' => ['required'],
             'especificacao.status' => ['required']
         ];
         $messages = [
-            'especificacao.descricao.required' => 'É obrigatório a descricao',
+            'especificacao.designacao.required' => 'É obrigatório a descricao',
             'especificacao.desconto.required' => 'É obrigatório o desconto',
             'especificacao.status.required' => 'É obrigatório o status'
         ];
@@ -72,7 +72,7 @@ class EspecificacaoMercadoriaController extends Component
             EspecificacaoMercadoria::updateOrcreate(
                 ["id" => $this->especificacao_id ],
                 [
-                "descricao" => $this->especificacao['descricao'],
+                "designacao" => $this->especificacao['designacao'],
                 "desconto" => $this->especificacao['desconto'],
                 "status" => $this->especificacao['status']
             ]);
@@ -96,7 +96,7 @@ class EspecificacaoMercadoriaController extends Component
     }
     public function resetField(){
         $this->especificacao_id = null;
-        $this->especificacao['descricao'] = NULL;
+        $this->especificacao['designacao'] = NULL;
         $this->especificacao['desconto'] = 0;
         $this->especificacao['status'] = 1;
     }
@@ -105,7 +105,7 @@ class EspecificacaoMercadoriaController extends Component
     {
        $especificacao = EspecificacaoMercadoria::find($id);
        $this->especificacao_id  = $especificacao->id;
-        $this->especificacao['descricao']  = $especificacao->descricao;
+        $this->especificacao['designacao']  = $especificacao->designacao;
         $this->especificacao['desconto'] = $especificacao->desconto;
         $this->especificacao['status'] = $especificacao->status;
     }

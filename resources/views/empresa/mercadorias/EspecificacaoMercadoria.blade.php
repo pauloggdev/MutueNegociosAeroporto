@@ -60,7 +60,7 @@
                                                             
                                                             <label class="control-label bold label-select2" for="saldoAtual">Descrição <b class="red fa fa-question-circle"></b></label>
                                                             <div class="input-group">
-                                                                <textarea wire:model="especificacao.descricao" id="" cols="200" rows="4" class="form-control" style="font-size: 16px; z-index: 1;"></textarea>
+                                                                <textarea wire:model="especificacao.designacao" id="" cols="200" rows="4" class="form-control" style="font-size: 16px; z-index: 1;"></textarea>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -119,20 +119,9 @@
                                             <div class="tab-content profile-edit-tab-content">
                                                 <div id="dados_motivo" class="tab-pane in active">
                                                     <div class="form-group has-info">
-                                                        <div class="col-md-12">
-                                                            <label class="control-label bold label-select2"
-                                                                   for="descricao">Nome</label>
-                                                            <div>
-                                                                <input type="text" wire:model="especificacao.descricao"
-                                                                       id="descricao"
-                                                                       class="col-md-12 col-xs-12 col-sm-4"/>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group has-info">
                                                         <div class="col-md-6">
                                                             <label class="control-label bold label-select2"
-                                                                   for="valor">Preço/kg</label>
+                                                                   for="valor">Desconto</label>
                                                             <div>
                                                                 <input type="number" wire:model="especificacao.desconto"
                                                                        id="valor" class="col-md-12 col-xs-12 col-sm-4"/>
@@ -155,6 +144,14 @@
                                                                     <strong>{{ $errors->first('mercadoria.statuId') }}</strong>
                                                                 </span>
                                                             @endif
+                                                        </div>
+
+                                                        <div class="col-md-12">
+                                                            
+                                                            <label class="control-label bold label-select2" for="saldoAtual">Descrição <b class="red fa fa-question-circle"></b></label>
+                                                            <div class="input-group">
+                                                                <textarea wire:model="especificacao.designacao" id="" cols="200" rows="4" class="form-control" style="font-size: 16px; z-index: 1;"></textarea>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -257,7 +254,7 @@
                                     @foreach($especificacaoMercadorias as $key=> $especificacao)
                                         <tr>
                                             <td>{{++$key}}</td>
-                                            <td>{{ Str::upper($especificacao->descricao) }}</td>
+                                            <td>{{ Str::upper($especificacao->designacao) }}</td>
 
                                             <td class="hidden-480" style="text-align: center">
                                                 <span

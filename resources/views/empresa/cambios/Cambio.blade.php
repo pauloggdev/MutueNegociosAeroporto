@@ -9,7 +9,7 @@
                     <div class="modal-header text-center">
                         <button type="button" class="close red bolder" data-dismiss="modal">×</button>
                         <h4 class="smaller">
-                            NOVA ESPECIFICAÇÃO DE MERCADORIA
+                            NOVO CÂMBIO
                         </h4>
 
                     </div>
@@ -29,39 +29,25 @@
                                             <div class="tab-content profile-edit-tab-content">
                                                 <div id="dados_motivo" class="tab-pane in active">
                                                     <div class="form-group has-info">
-                                                        <div class="col-md-6">
+                                                        <div class="col-md-12">
                                                             <label class="control-label bold label-select2"
-                                                                   for="valor">Desconto</label>
+                                                                   for="designacao">Designação</label>
                                                             <div>
-                                                                <input type="number" wire:model="especificacao.desconto"
+                                                                <input type="text" wire:model="cambio.designacao"
+                                                                       id="designacao"
+                                                                       class="col-md-12 col-xs-12 col-sm-4"/>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group has-info">
+                                                        <div class="col-md-12">
+                                                            <label class="control-label bold label-select2"
+                                                                   for="valor">valor</label>
+                                                            <div>
+                                                                <input type="number" wire:model="cambio.valor"
                                                                        id="valor" class="col-md-12 col-xs-12 col-sm-4"/>
                                                             </div>
 
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <label class="control-label bold label-select2"
-                                                                   for="statuId">Status</label>
-                                                            <select wire:model="especificacao.status" data="status"
-                                                                    class="col-md-12 select2" id="status"
-                                                                    style="height:35px;<?= $errors->has('especificacao.status') ? 'border-color: #ff9292;' : '' ?>">
-                                                                <option value="1">ATIVO</option>
-                                                                <option value="2">DESATIVO</option>
-
-                                                            </select>
-                                                            @if ($errors->has('especificacao.status'))
-                                                                <span class="help-block"
-                                                                      style="color: red; font-weight: bold">
-                                                                    <strong>{{ $errors->first('especificacao.status') }}</strong>
-                                                                </span>
-                                                            @endif
-                                                        </div>
-
-                                                        <div class="col-md-12">
-                                                            
-                                                            <label class="control-label bold label-select2" for="saldoAtual">Descrição <b class="red fa fa-question-circle"></b></label>
-                                                            <div class="input-group">
-                                                                <textarea wire:model="especificacao.descricao" id="" cols="200" rows="4" class="form-control" style="font-size: 16px; z-index: 1;"></textarea>
-                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -99,7 +85,7 @@
                     <div class="modal-header text-center">
                         <button type="button" class="close red bolder" data-dismiss="modal">×</button>
                         <h4 class="smaller">
-                            EDITAR ESPECIFICAÇÃO
+                            EDITAR CÂMBIO
                         </h4>
 
                     </div>
@@ -121,40 +107,23 @@
                                                     <div class="form-group has-info">
                                                         <div class="col-md-12">
                                                             <label class="control-label bold label-select2"
-                                                                   for="descricao">Nome</label>
+                                                                   for="designacao">Designação</label>
                                                             <div>
-                                                                <input type="text" wire:model="especificacao.descricao"
-                                                                       id="descricao"
+                                                                <input type="text" wire:model="cambio.designacao"
+                                                                       id="designacao"
                                                                        class="col-md-12 col-xs-12 col-sm-4"/>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="form-group has-info">
-                                                        <div class="col-md-6">
+                                                        <div class="col-md-12">
                                                             <label class="control-label bold label-select2"
-                                                                   for="valor">Preço/kg</label>
+                                                                   for="valor">Valor</label>
                                                             <div>
-                                                                <input type="number" wire:model="especificacao.desconto"
+                                                                <input type="number" wire:model="cambio.valor"
                                                                        id="valor" class="col-md-12 col-xs-12 col-sm-4"/>
                                                             </div>
 
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <label class="control-label bold label-select2"
-                                                                   for="statuId">Status</label>
-                                                            <select wire:model="especificacao.status" data="status"
-                                                                    class="col-md-12 select2" id="statuId"
-                                                                    style="height:35px;<?= $errors->has('marca.status_id') ? 'border-color: #ff9292;' : '' ?>">
-                                                                <option value="1">ATIVO</option>
-                                                                <option value="2">DESATIVO</option>
-
-                                                            </select>
-                                                            @if ($errors->has('mercadoria.statuId'))
-                                                                <span class="help-block"
-                                                                      style="color: red; font-weight: bold">
-                                                                    <strong>{{ $errors->first('mercadoria.statuId') }}</strong>
-                                                                </span>
-                                                            @endif
                                                         </div>
                                                     </div>
                                                 </div>
@@ -188,7 +157,7 @@
 
         <div class="page-header" style="left: 0.5%; position: relative">
             <h1>
-                ESPECIFICAÇÃO DE MERCADORIAS
+                CÂMBIO
                 <small>
                     <i class="ace-icon fa fa-angle-double-right"></i>
                     Listagem
@@ -206,7 +175,7 @@
                                 </span>
                                 <input type="text" wire:model.debounce.500ms="search" autofocus autocomplete="on"
                                        class="form-control search-query"
-                                       placeholder="Buscar pelo nome da categoria"/>
+                                       placeholder="Buscar pelo designação  do câmbio"/>
                                 <span class="input-group-btn">
                                     <button type="submit" class="btn btn-primary btn-lg upload">
                                         <span class="ace-icon fa fa-search icon-on-right bigger-130"></span>
@@ -228,7 +197,7 @@
                                    class="btn btn-success widget-box widget-color-blue" id="botoes"
                                    wire:click="resetField()"
                                    >
-                                    <i class="fa icofont-plus-circle"></i> Nova Especificação
+                                    <i class="fa icofont-plus-circle"></i> Novo Câmbio
                                 </a>
                                 <a title="Imprimir Categoria" wire:click.prevent="imprimirCategoria"
                                    class="btn btn-primary widget-box widget-color-blue" id="botoes">
@@ -238,7 +207,7 @@
                                 <div class="pull-right tableTools-container"></div>
                             </div>
                             <div class="table-header widget-header">
-                                Todas as especificação de mercadorias do sistema (Total: {{ count($especificacaoMercadorias) }})
+                                Todos os câmbios do sistema (Total: {{ count($cambios) }})
                             </div>
 
                             <!-- div.dataTables_borderWrap -->
@@ -247,30 +216,23 @@
                                     <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Descrição</th>
-                                        <th style="text-align: center">Status</th>
-                                        <th style="text-align: right">Desconto(USD)</th>
+                                        <th>Designacao</th>
+                                        <th style="text-align: right">valor(USD)</th>
                                         <th style="text-align: center">Ações</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($especificacaoMercadorias as $key=> $especificacao)
+                                    @foreach($cambios as $key=> $cambio)
                                         <tr>
                                             <td>{{++$key}}</td>
-                                            <td>{{ Str::upper($especificacao->descricao) }}</td>
+                                            <td>{{ Str::upper($cambio->designacao) }}</td>
 
-                                            <td class="hidden-480" style="text-align: center">
-                                                <span
-                                                    class="label label-sm <?= $especificacao['status']== 1 ? 'label-success' : 'label-warning' ?>"
-                                                    style="border-radius: 20px;">{{$especificacao['status'] == 1 ? 'Activo' : 'Inactivo' }}</span>
-                                            </td>
-
-                                            <td style="text-align: right">{{ number_format($especificacao->desconto, 2, ',', '.') }}</td>
+                                            <td style="text-align: right">{{ number_format($cambio->valor, 2, ',', '.') }}</td>
                                             <td style="text-align: center">
 
                                                 <div class="hidden-sm hidden-xs action-buttons">
                                                      
-                                                    <a wire:click="edit({{$especificacao->id}})" href="#modalEditarTipoMercadoria" data-toggle="modal"
+                                                    <a wire:click="edit({{$cambio->id}})" href="#modalEditarTipoMercadoria" data-toggle="modal"
                                                        class="pink" title="Editar este registo">
                                                         <i class="fa fa-pencil-square-o bigger-200 blue"></i>
                                                     </a>
