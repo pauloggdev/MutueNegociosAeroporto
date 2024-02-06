@@ -271,7 +271,6 @@ if (Auth::guard('web')->check()) {
                             <b class="arrow"></b>
                         </li>
 
-
                         <li class="hover">
                             <a href="/empresa/cambio">
                                 <i class="menu-icon fa fa-caret-right"></i>

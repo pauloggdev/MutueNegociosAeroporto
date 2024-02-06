@@ -217,7 +217,7 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Designacao</th>
-                                        <th style="text-align: right">valor(USD)</th>
+                                        <th style="text-align: right">valor(KZ)</th>
                                         <th style="text-align: center">Ações</th>
                                     </tr>
                                     </thead>

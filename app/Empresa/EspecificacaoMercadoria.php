@@ -8,7 +8,7 @@ class EspecificacaoMercadoria extends Model
 {
     //
     protected $fillable = [
-        "descricao",
+        "designacao",
         "desconto",
         "status" 
     ];

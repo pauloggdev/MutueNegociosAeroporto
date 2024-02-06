@@ -1008,6 +1008,9 @@ Route::group(['middleware' => ['auth:empresa']], function () {
              //Câmbio
              Route::get('/empresa/cambio', CambioController::class);
 
+            //IntervaloPmd
+             Route::get('/empresa/taxas/pmd', \App\Http\Controllers\empresa\Taxas\IntervaloPmdController::class);
+
             Route::get('empresa/facturacao', [FacturacaoController::class, 'index']);
             Route::put('empresa/facturacao/produto/editar', [FacturacaoController::class, 'editarProduto']);
             Route::get('empresa/facturacao/imprimir-lista-vendas', [FacturacaoController::class, 'imprimirListaVenda']);

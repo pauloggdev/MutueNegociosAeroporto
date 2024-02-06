@@ -12,10 +12,14 @@ use Illuminate\Support\Facades\Log;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Illuminate\Http\Request;
+use Livewire\WithPagination;
 
 class CambioController extends Component
 {
     use LivewireAlert;
+    use WithPagination;
+
+    protected $paginationTheme ="bootstrap";
 
     public $search = null;
     public $mercadoria_id;
@@ -26,6 +30,9 @@ class CambioController extends Component
     public $tiposMercadorias;
     public $especificacaoMercadorias;
 
+    public function updatingSearch(){
+        $this->resetPage();
+    }
     public function mount()
     {
         // $getTiposMercadorias = new GetTiposMercadorias(new DatabaseRepositoryFactory());

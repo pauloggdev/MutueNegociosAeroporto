@@ -402,7 +402,11 @@ if (Auth::guard('web')->check()) {
                     <li class="hover">
                         <a href="/empresa/emissao/fatura/aeronautica">
                             <i class="menu-icon fa fa-wpforms"></i>
+<<<<<<< HEAD
                             SERVIÇO AEROPORTUÁRIO
+=======
+                             SERVIÇO AERPORTUÁRIO
+>>>>>>> ec30f18f931e74b67bf60c3dd39393cc02abd53e
                         </a>
                         <b class="arrow"></b>
                     </li>
