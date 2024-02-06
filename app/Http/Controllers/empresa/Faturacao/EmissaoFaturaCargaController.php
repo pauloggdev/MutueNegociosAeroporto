@@ -41,7 +41,7 @@ class EmissaoFaturaCargaController extends Component
     ];
     public $fatura = [
         'cartaDePorte' => null,
-        'tipoDocumento' => 1, //Fatura recibo
+        'tipoDocumento' => 3, //Fatura recibo
         'clienteId' => null,
         'nomeCliente' => null,
         'telefoneCliente' => null,
@@ -98,7 +98,7 @@ class EmissaoFaturaCargaController extends Component
     {
         $this->fatura = [
             'cartaDePorte' => null,
-            'tipoDocumento' => 1, //Fatura recibo
+            'tipoDocumento' => 3, //Fatura Proforma
             'clienteId' => null,
             'nomeCliente' => null,
             'telefoneCliente' => null,
@@ -118,6 +118,7 @@ class EmissaoFaturaCargaController extends Component
             'items' => []
         ];
     }
+    
 
     public function render()
     {
@@ -246,10 +247,12 @@ class EmissaoFaturaCargaController extends Component
             "items" => []
         ];
         foreach ($output->getItems() as $item) {
+
             array_push($fatura['items'], [
                 'produtoId' => $item->getProdutoId(),
                 'nomeProduto' => $item->getNomeProduto(),
                 'taxa' => $item->getTaxa(),
+                'valorIva' => $item->getValorIva($output->getTaxaIva()),
                 'nDias' => $item->getNDias(),
                 'sujeitoDespachoId' => $item->getSujeitoDespachoId(),
                 'tipoMercadoriaId' => $item->getTaxaTipoMercadoriaId(),
@@ -261,6 +264,7 @@ class EmissaoFaturaCargaController extends Component
         }
         return $fatura;
     }
+
 
     public function emitirDocumento()
     {
@@ -277,6 +281,7 @@ class EmissaoFaturaCargaController extends Component
             'fatura.dataEntrada.required' => 'campo obrigatório',
             'fatura.dataSaida.required' => 'campo obrigatório',
         ];
+
         $this->validate($rules, $messages);
 
         if (count($this->fatura['items']) <= 0) {

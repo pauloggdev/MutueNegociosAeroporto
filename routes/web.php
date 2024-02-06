@@ -140,7 +140,7 @@ use App\Http\Controllers\empresa\Marcas\MarcaIndexController;
 use App\Http\Controllers\empresa\Marcas\MarcaUpdateController;
 use App\Http\Controllers\empresa\mercadorias\MercadoriaIndexController;
 use App\Http\Controllers\empresa\mercadorias\EspecificacaoMercadoriaController;
-use App\Http\Controllers\empresa\cambio\CambioController;
+use App\Http\Controllers\empresa\Cambio\CambioController;
 
 use App\Http\Controllers\empresa\ModeloDocumentos\ModeloDocumentoController;
 use App\Http\Controllers\empresa\MotivoIvaController;
@@ -1000,10 +1000,11 @@ Route::group(['middleware' => ['auth:empresa']], function () {
             //Tipos de mercadorias
             Route::get('/empresa/mercadorias', MercadoriaIndexController::class);
 
+
              //Especificao de mercadorias
             Route::get('/empresa/mercadorias/especificacao', EspecificacaoMercadoriaController::class);
 
-            
+
              //Câmbio
              Route::get('/empresa/cambio', CambioController::class);
 

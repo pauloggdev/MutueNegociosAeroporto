@@ -2,36 +2,37 @@
 
 namespace App\Http\Controllers\empresa\Recibos;
 
+use App\Application\UseCase\Empresa\Faturas\GetFaturaPelaNumeracao;
+use App\Application\UseCase\Empresa\FormasPagamento\GetFormaPagamentoEmitirRecibo;
 use App\Application\UseCase\Empresa\Parametros\GetParametroPeloLabelNoParametro;
+use App\Application\UseCase\Empresa\Recibos\EmitirRecibo;
+use App\Application\UseCase\Empresa\Recibos\GetTotalDebitadoFatura;
+use App\Application\UseCase\Empresa\Recibos\SimuladorRecibo;
 use App\Http\Controllers\empresa\ReportShowController;
 use App\Infra\Factory\Empresa\DatabaseRepositoryFactory;
-use App\Repositories\Empresa\ClienteRepository;
-use App\Repositories\Empresa\FacturaRepository;
-use App\Repositories\Empresa\FormaPagamentoRepository;
-use App\Repositories\Empresa\ReciboRepository;
-use App\Traits\Empresa\TraitEmpresaAutenticada;
-use App\Traits\VerificaSeEmpresaTipoAdmin;
-use App\Traits\VerificaSeUsuarioAlterouSenha;
 use Livewire\Component;
-use Livewire\WithFileUploads;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
-use NumberFormatter;
-use Illuminate\Support\Facades\Storage;
-
-
 class ReciboCreateController extends Component
 {
-
-    use VerificaSeEmpresaTipoAdmin;
-    use VerificaSeUsuarioAlterouSenha;
-    use TraitEmpresaAutenticada;
-    use WithFileUploads;
     use LivewireAlert;
+    public $recibo = [
+        'numeracaoFactura' => null,
+        'clienteId' => null,
+        'nomeCliente' => null,
+        'nifCliente' => null,
+        'telefoneCliente' => null,
+        'emailCliente' => null,
+        'enderecoCliente' => null,
+        'formaPagamentoId' => 1,
+        'totalFatura' => null,
+        'totalDebitar' => 0,
+        'totalDebitado' => 0,
+        'totalEntregue' => 0,
+        'observacao' => null,
+    ];
 
+    public $formaPagamentos = [];
 
-    public $numeracaoFactura = null;
-    public $factura = [];
-    public $formaPagamentoId = 1;
 
     private $reciboRepository;
     private $clienteRepository;
@@ -40,120 +41,83 @@ class ReciboCreateController extends Component
 
     protected $listeners = ['selected' => 'selected'];
 
-
-    public function boot(
-        ReciboRepository         $reciboRepository,
-        ClienteRepository        $clienteRepository,
-        FacturaRepository        $facturaRepository,
-        FormaPagamentoRepository $formaPagamentoRepository
-    )
-    {
-        $this->reciboRepository = $reciboRepository;
-        $this->clienteRepository = $clienteRepository;
-        $this->facturaRepository = $facturaRepository;
-        $this->formaPagamentoRepository = $formaPagamentoRepository;
-    }
-
-    public function updated()
-    {
-        $this->dispatchBrowserEvent('loadSelect2');
-        $this->factura['forma_pagamento_id'] = $this->formaPagamentoId;
-    }
-
     public function mount()
     {
-        $this->setarValorPadrao();
-    }
+        $getFormaPagamento = new GetFormaPagamentoEmitirRecibo(new DatabaseRepositoryFactory());
+        $this->formaPagamentos = $getFormaPagamento->execute();
 
-    public function selected($name, $value)
-    {
-        $this->$name = $value;
-        $this->factura['forma_pagamento_id'] = $value;
-        $this->dispatchBrowserEvent('loadSelect2');
     }
-
     public function render()
     {
-
-        $data['formaPagamentos'] = $this->formaPagamentoRepository->listarFormaPagamentos();
-        return view('empresa.recibos.create', $data);
+        return view('empresa.recibos.create');
     }
-
-    public function updatedNumeracaoFactura()
+    public function updatedReciboNumeracaoFactura($numeracaoFatura)
     {
+        $getFatura = new GetFaturaPelaNumeracao(new DatabaseRepositoryFactory());
+        $fatura = $getFatura->execute($numeracaoFatura);
+        if ($fatura && strlen($numeracaoFatura) > 8) {
+            $fatura = (object) $fatura;
+            $getTotalDebitadoFatura = new GetTotalDebitadoFatura(new DatabaseRepositoryFactory());
+            $totalEntregue = $getTotalDebitadoFatura->execute($fatura->id);
+            $data = [
+                'clienteId' => $fatura->clienteId,
+                'nomeCliente' => $fatura->nome_do_cliente,
+                'nifCliente' => $fatura->nif_cliente,
+                'telefoneCliente' => $fatura->telefone_cliente,
+                'emailCliente' => $fatura->email_cliente,
+                'enderecoCliente' => $fatura->endereco_cliente,
+                'anulado' => 1,
+                'totalEntregue' => $totalEntregue,
+                'totalImposto' => $fatura->valorImposto,
+                'facturaId' => $fatura->id,
+                'totalFatura' => $fatura->total,
+                'formaPagamentoId' => $this->recibo['formaPagamentoId'],
+                'observacao' => $this->recibo['observacao'],
+                'numSequenciaRecibo' => 1
+            ];
 
-        if ($this->numeracaoFactura && strlen(rtrim($this->numeracaoFactura)) > 10) {
-            $numeracaoFactura = preg_replace('/\s+/', '', $this->numeracaoFactura);
-            $numeracaoFactura = preg_replace('/^(\w{2})/', '$1 ', $numeracaoFactura);
-            $factura = $this->facturaRepository->listarFacturasParaEmitirReciboPelaNumeracaoFactura($numeracaoFactura);
-            if (!$factura) {
-                $this->confirm('Factura não encontrada', ['showConfirmButton' => false, 'showCancelButton' => false, 'icon' => 'warning']);
-                $this->setarValorPadrao();
-                return;
-            }
-            $this->factura['nome_do_cliente'] = $factura->nome_do_cliente;
-            $this->factura['telefone_cliente'] = $factura->telefone_cliente;
-            $this->factura['nif_cliente'] = $factura->nif_cliente;
-            $this->factura['email_cliente'] = $factura->email_cliente;
-            $this->factura['endereco_cliente'] = $factura->endereco_cliente;
-            $this->factura['conta_corrente_cliente'] = $factura->conta_corrente_cliente;
-            $this->factura['numeracaoFactura'] = $factura->numeracaoFactura;
-            $this->factura['factura_id'] = $factura->id;
-            $this->factura['cliente_id'] = $factura->cliente_id;
-            $this->factura['valor_a_pagar'] = $factura->valor_a_pagar;
-            $this->factura['cliente_saldo'] = $this->clienteRepository->mostrarSaldoAtualDoCliente($factura->cliente_id);
-            $this->factura['total_debito'] = $this->clienteRepository->mostrarValorFaltanteApagarNaFaturaDoCliente($factura);
-
-            $valorPagar = str_replace(".", "", $this->factura['valor_a_pagar']);
-            $totalDebito = str_replace(".", "", $this->factura['total_debito']);
-            $valorPagar = str_replace(",", ".", $valorPagar);
-            $totalDebito = str_replace(",", ".", $totalDebito);
-
-            $faltante = $valorPagar - $totalDebito;
-            $this->factura['faltante'] = number_format($faltante, 2, ',', '.');
+            $simuladorRecibo = new SimuladorRecibo(new DatabaseRepositoryFactory());
+            $recibo = $simuladorRecibo->execute($data);
+            $this->recibo['clienteId'] = $recibo->getClienteId();
+            $this->recibo['nomeCliente'] = $recibo->getNomeCliente();
+            $this->recibo['nifCliente'] = $recibo->getNifCliente();
+            $this->recibo['telefoneCliente'] = $recibo->getTelefoneCliente();
+            $this->recibo['emailCliente'] = $recibo->getEmailCliente();
+            $this->recibo['enderecoCliente'] = $recibo->getEnderecoCliente();
+            $this->recibo['anulado'] = $recibo->getAnulado();
+            $this->recibo['totalEntregue'] = null;
+            $this->recibo['facturaId'] = $recibo->getFacturaId();
+            $this->recibo['totalFatura'] = $recibo->getTotalFatura();
+            $this->recibo['totalImposto'] = $recibo->getTotalImposto();
+            $this->recibo['formaPagamentoId'] = $recibo->getFormaPagamentoId();
+            $this->recibo['observacao'] = $recibo->getObservacao();
+            $this->recibo['totalDebitar'] = $recibo->getTotalDebitar();
+            $this->recibo['totalDebitado'] = $recibo->getTotalDebitado();
         }
     }
 
     public function emitirRecibo()
     {
         $rules = [
-            'numeracaoFactura' => 'required',
-            'factura.valor_total_entregue' => ["required", function ($attr, $valorEntregue, $fail) {
-                $valorPagar = str_replace(".", "", $this->factura['valor_a_pagar']);
-                $totalDebito = str_replace(".", "", $this->factura['total_debito']);
-                $valorPagar = str_replace(",", ".", $valorPagar);
-                $totalDebito = str_replace(",", ".", $totalDebito);
-
-                $total = $valorPagar - $totalDebito;
-                $total = round($total, 2);
-
-                if ($valorEntregue > $total) {
-                    $fail('Valor entregue maior que a debitar');
-                } else if ($valorEntregue <= 0) {
-                    $fail('Informe o valor entregue');
+            'recibo.numeracaoFactura' => ['required'],
+            'recibo.totalEntregue' => ['required', function ($attr, $totalEntregue, $fail) {
+                if ($totalEntregue <= 0) {
+                    $fail("Informe o valor entregue");
+                } else if ($totalEntregue > $this->recibo['totalDebitar']) {
+                    $fail("O valor entregue não deve ser maior ao total a debitar");
                 }
-            }],
-            'formaPagamentoId' => 'required',
+            }]
         ];
         $messages = [
-            'numeracaoFactura.required' => 'Informe a factura',
-            'factura.valor_total_entregue.required' => 'Informe o valor entregue',
-            'formaPagamentoId.required' => 'Informe a forma de pagamento',
+            'recibo.numeracaoFactura.required' => 'Informe o numeração do documento',
+            'recibo.totalEntregue.required' => 'Informe o valor entregue',
         ];
-
         $this->validate($rules, $messages);
 
-        $f = new NumberFormatter("pt", NumberFormatter::SPELLOUT);
-        $this->factura['valor_extenso'] = $f->format($this->factura['valor_total_entregue']);
+        $emitirRecibo = new EmitirRecibo(new DatabaseRepositoryFactory());
+        $recibo = $emitirRecibo->execute($this->recibo);
 
-        //Faltando verificar se já foi emitido documento com datas anterior
-        $recibo = $this->reciboRepository->salvarRecibo($this->factura);
         $logotipo = public_path() . '/upload/_logo_ATO_horizontal_negativo.png';
-        // $this->emit('refresh-me');
-        $this->confirm('Operação realizada com sucesso', ['showConfirmButton' => false, 'showCancelButton' => false, 'icon' => 'success']);
-        $this->setarValorPadrao();
-        $this->numeracaoFactura = null;
-        $this->formaPagamentoId = 1;
 
         $getParametro = new GetParametroPeloLabelNoParametro(new DatabaseRepositoryFactory());
         $parametro = $getParametro->execute('tipoImpreensao');
@@ -172,27 +136,32 @@ class ReciboCreateController extends Component
                     'viaImpressao' => 1,
                     'empresa_id' => auth()->user()->empresa_id,
                     'recibo_id' => $recibo->id,
-                    'factura_id' => $recibo->factura_id,
+                    'factura_id' => $recibo->facturaId,
                     'logotipo' => $logotipo
                 ]
             ]
         );
+        $this->resetField();
         $this->dispatchBrowserEvent('printPdf', ['data' => base64_encode($report['response']->getContent())]);
         unlink($report['filename']);
         flush();
     }
-
-    public function setarValorPadrao()
-    {
-        $this->factura['nome_do_cliente'] = NULL;
-        $this->factura['conta_corrente_cliente'] = NULL;
-        $this->factura['numeracaoFactura'] = NULL;
-        $this->factura['cliente_saldo'] = NULL;
-        $this->factura['valor_a_pagar'] = NULL;
-        $this->factura['total_debito'] = NULL;
-        $this->factura['faltante'] = 0;
-        $this->factura['observacao'] = NULL;
-        $this->factura['valor_total_entregue'] = NULL;
-        // $this->factura['forma_pagamento_id'] = $this->formaPagamentoId;
+    public function resetField(){
+        $this->recibo = [
+            'numeracaoFactura' => null,
+            'clienteId' => null,
+            'nomeCliente' => null,
+            'nifCliente' => null,
+            'telefoneCliente' => null,
+            'emailCliente' => null,
+            'enderecoCliente' => null,
+            'formaPagamentoId' => 1,
+            'totalFatura' => null,
+            'totalDebitar' => 0,
+            'totalDebitado' => 0,
+            'totalEntregue' => 0,
+            'observacao' => null,
+        ];
     }
+
 }

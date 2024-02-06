@@ -126,10 +126,6 @@ if (Auth::guard('web')->check()) {
   white-space: nowrap;
 
                     ">{{ $empresa->nome }}</small>
-
-                <small style="color: #888; text-transform: capitalize">
-                    - MUTUE-NEGÓCIOS - {{ session()->get('centroCustoNome')}}
-                </small>
             </a>
 
         </div>
@@ -423,14 +419,14 @@ if (Auth::guard('web')->check()) {
                     <li class="hover">
                         <a href="/empresa/emissao/fatura/carga">
                             <i class="menu-icon fa fa-wpforms"></i>
-                            CARGA
+                            SERVIÇO CARGA
                         </a>
                         <b class="arrow"></b>
                     </li>
                     <li class="hover">
                         <a href="/empresa/emissao/fatura/aeronautica">
                             <i class="menu-icon fa fa-wpforms"></i>
-                            AERONÁUTICO
+                            SERVIÇO AEROPORTUÁRIO
                         </a>
                         <b class="arrow"></b>
                     </li>

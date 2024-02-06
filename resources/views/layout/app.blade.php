@@ -114,11 +114,6 @@ if (Auth::guard('web')->check()) {
                 text-overflow: ellipsis;
                 max-width: 50px !important;
                 ">{{ $empresa->nome }}</small>
-
-            <small style="color: #888;">
-                - MUTUE-NEGÓCIOS
-                - {{ \Illuminate\Support\Str::limit(Str::title(session()->get('centroCustoNome')), 35)}}
-            </small>
         </a>
 
         <div class="navbar-buttons navbar-header pull-right" role="navigation">
@@ -363,12 +358,12 @@ if (Auth::guard('web')->check()) {
                     <li class="hover">
                         <a href="/empresa/produtos-mais-vendidos">
                             <i class="menu-icon fa fa-list"></i>
-                           
-                            
+
+
                         </a>
                         <b class="arrow"></b>
                     </li>
-                   
+
                     <!-- <li class="hover">
                         <a href="/empresa/produtos-vendidos">
                             <i class="menu-icon fa fa-list"></i>
@@ -400,14 +395,14 @@ if (Auth::guard('web')->check()) {
                     <li class="hover">
                         <a href="/empresa/emissao/fatura/carga">
                             <i class="menu-icon fa fa-wpforms"></i>
-                           CARGA
+                           SERVIÇO DE CARGA
                         </a>
                         <b class="arrow"></b>
                     </li>
                     <li class="hover">
                         <a href="/empresa/emissao/fatura/aeronautica">
                             <i class="menu-icon fa fa-wpforms"></i>
-                            AERONÁUTICO
+                            SERVIÇO AEROPORTUÁRIO
                         </a>
                         <b class="arrow"></b>
                     </li>

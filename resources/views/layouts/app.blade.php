@@ -121,10 +121,6 @@ if (Auth::guard('web')->check()) {
   white-space: nowrap;
 
                     ">{{ $empresa->nome }}</small>
-
-                <small  style="color: #888; text-transform: capitalize">
-                    - MUTUE-NEGÓCIOS - {{ session()->get('centroCustoNome')}}
-                </small>
             </a>
 
 
@@ -244,10 +240,10 @@ if (Auth::guard('web')->check()) {
                             <b class="arrow"></b>
                         </li> -->
 
-                       
-                        
 
-                        
+
+
+
 
                         <li class="hover">
                             <a href="{{ route('bancos.index') }}">
@@ -258,7 +254,7 @@ if (Auth::guard('web')->check()) {
                             <b class="arrow"></b>
                         </li>
 
-                       
+
                         <li class="hover">
                             <a href="/empresa/mercadorias">
                                 <i class="menu-icon fa fa-caret-right"></i>
@@ -275,7 +271,7 @@ if (Auth::guard('web')->check()) {
                             <b class="arrow"></b>
                         </li>
 
-                        
+
                         <li class="hover">
                             <a href="/empresa/cambio">
                                 <i class="menu-icon fa fa-caret-right"></i>
@@ -394,7 +390,7 @@ if (Auth::guard('web')->check()) {
                             </a>
                             <b class="arrow"></b>
                         </li>
-                        
+
                         <!-- <li class="hover">
                             <a href="/empresa/produtos-vendidos">
                                 <i class="menu-icon fa fa-list"></i>
@@ -426,14 +422,13 @@ if (Auth::guard('web')->check()) {
                         <li class="hover">
                             <a href="/empresa/emissao/fatura/carga">
                                 <i class="menu-icon fa fa-wpforms"></i>
-                                CARGA
+                                SERVIÇO DE CARGA
                             </a>
                             <b class="arrow"></b>
                         </li>
                         <li class="hover">
                             <a href="/empresa/emissao/fatura/aeronautica">
-                                <i class="menu-icon fa fa-wpforms"></i>
-                                AERONÁUTICO
+                                <i class="menu-icon fa fa-wpforms"></i>SERVIÇO AEROPORTUÁRIO
                             </a>
                             <b class="arrow"></b>
                         </li>
@@ -479,8 +474,8 @@ if (Auth::guard('web')->check()) {
                                 DEPÓSITO DE VALORES - RECIBOS</a>
                             <b class="arrow"></b>
                         </li>
-        
-                      
+
+
                         <li class="hover">
                             <a href="{{ route('notaCreditoAnulacaoDoc.index') }}">
                                 <i class="menu-icon fa fa-caret-right"></i>

@@ -28,6 +28,12 @@ class FaturaRepository
             ->where('tipo_documento', EnumTipoDocumento::$FATURA)
             ->first();
     }
+    public function getFaturaPelaNumeracao($numeracao){
+        return FaturaDatabase::where('numeracaoFactura', 'LIKE', '%' . $numeracao . '%')
+            ->where('empresa_id', auth()->user()->empresa_id)
+            ->where('tipo_documento', 2)
+            ->first();
+    }
     public function getFaturaPelaNumeracaoDocumento($numeracaoDocumento){
         return FaturaDatabase::where('numeracaoFactura', $numeracaoDocumento)
             ->where('empresa_id', auth()->user()->empresa_id)

@@ -69,7 +69,7 @@
                                                                 <li>
                                                                     <select wire:model="fatura.clienteId"
                                                                             data="clienteId"
-                                                                            class="col-md-12"
+                                                                            class="col-md-12 select2"
                                                                             id="clienteId"
                                                                             style="height:35px;">
                                                                         <option value="">Seleciona o cliente</option>

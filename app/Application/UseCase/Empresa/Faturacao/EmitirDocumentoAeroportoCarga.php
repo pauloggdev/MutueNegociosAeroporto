@@ -72,7 +72,7 @@ class EmitirDocumentoAeroportoCarga
             $doc = "FP ";
         }
 
-        $numeracaoFactura = $doc . $this->faturaRepository->mostrarSerieDocumento() . $yearNow . '/' . $numSequenciaFactura; //retirar somente 3 primeiros caracteres na facturaSerie da factura: substr('abcdef', 0, 3);
+        $numeracaoFactura = $doc . "ATO" . $yearNow . '/' . $numSequenciaFactura; //retirar somente 3 primeiros caracteres na facturaSerie da factura: substr('abcdef', 0, 3);
 
         $statusFatura = 2;//Pago
         $dataVencimento = null;
@@ -133,6 +133,7 @@ class EmitirDocumentoAeroportoCarga
                 'quantidade' => 1,
                 'nomeProduto' => $item->nomeProduto,
                 'taxa' => $item->taxa,
+                'valorIva' => $item->valorIva,
                 'nDias' => $item->nDias,
                 'sujeitoDespachoId' => $item->sujeitoDespachoId,
                 'tipoMercadoriaId' => $item->tipoMercadoriaId,

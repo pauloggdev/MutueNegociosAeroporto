@@ -60,22 +60,22 @@
                                         <th>Forma pagamento</th>
                                         <th>Emitido</th>
                                         <th style="text-align: center">Anulado</th>
-                                        <th>Ações</th>
+                                        <th style="text-align: center">Ações</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach($recibos as $recibo)
                                     <tr>
-                                        <td>{{$recibo->numeracao_recibo}}</td>
+                                        <td>{{$recibo->numeracaoRecibo}}</td>
                                         <td>{{$recibo->factura->numeracaoFactura}}</td>
-                                        <td>{{$recibo->nome_do_cliente}}</td>
-                                        <td style="text-align: right">{{number_format($recibo->valor_total_entregue, 2, ',','.')}}</td>
+                                        <td>{{$recibo->nomeCliente}}</td>
+                                        <td style="text-align: right">{{number_format($recibo->totalEntregue, 2, ',','.')}}</td>
                                         <td>{{$recibo->formaPagamento->descricao}}</td>
                                         <td>{{date_format($recibo->created_at,'d/m/Y')}}</td>
                                         <td style="text-align: center">
                                             <span class="label label-sm <?= $recibo->anulado == 1 ? 'label-success' : 'label-danger' ?>"><?= $recibo->anulado == 1 ? "Não" : "Sim" ?></span>
                                         </td>
-                                        <td>
+                                        <td style="text-align: center">
                                             <a class="blue" wire:click="printRecibo({{$recibo->id}})" title="Reimprimir o recibo" style="cursor: pointer">
                                                 <i class="ace-icon fa fa-print bigger-160"></i>
                                                 <span wire:loading wire:target="printRecibo({{$recibo->id}})" class="loading">

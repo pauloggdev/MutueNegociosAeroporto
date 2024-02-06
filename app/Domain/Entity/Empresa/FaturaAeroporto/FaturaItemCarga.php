@@ -59,6 +59,9 @@ class FaturaItemCarga
     {
         return $this->taxa->getTaxa();
     }
+    public function getValorIva($taxaIva){
+        return ($this->getTotal() * $taxaIva) / 100;
+    }
     public function getCambioDia(){
         return $this->cambioDia;
     }

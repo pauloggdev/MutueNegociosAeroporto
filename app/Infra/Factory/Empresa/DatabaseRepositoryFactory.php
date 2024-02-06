@@ -39,6 +39,7 @@ use App\Infra\Repository\Empresa\SequenciaDocumentoRepository;
 use App\Infra\Repository\Empresa\SequenciaFaturaRepository;
 use App\Infra\Repository\Empresa\TaxaCargaAduaneiraRepository;
 use App\Infra\Repository\Empresa\TaxaIvaRepository;
+use App\Infra\Repository\Empresa\TaxaPesoMaximoDescolagemRepositoryRepository;
 use App\Infra\Repository\Empresa\TipoDocumentoRepository;
 use App\Infra\Repository\Empresa\TipoMercadoriaRepository;
 use App\Infra\Repository\Empresa\TipoServicoRepository;
@@ -272,5 +273,10 @@ class DatabaseRepositoryFactory implements RepositoryFactory
     public function createBancoRepository(): BancoRepository
     {
         return new BancoRepository();
+    }
+
+    public function createTaxaPesoMaximoDescolagemRepositoryRepository(): TaxaPesoMaximoDescolagemRepositoryRepository
+    {
+        return new TaxaPesoMaximoDescolagemRepositoryRepository();
     }
 }

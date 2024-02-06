@@ -4,7 +4,7 @@ namespace App\Http\Controllers\empresa\mercadorias;
 
 use App\Application\UseCase\Empresa\mercadorias\CadastrarTipoMercadoria;
 use App\Application\UseCase\Empresa\mercadorias\GetTiposMercadorias;
-use App\empresa\EspecificacaoMercadoria;
+use App\Empresa\EspecificacaoMercadoria;
 use App\Infra\Factory\Empresa\DatabaseRepositoryFactory;
 use App\Models\empresa\TipoMercadoria;
 use Illuminate\Support\Facades\DB;
@@ -47,7 +47,7 @@ class EspecificacaoMercadoriaController extends Component
     }
     public function render()
     {
-        
+
         $this->especificacaoMercadorias = EspecificacaoMercadoria::all();
         // $this->especificacaoMercadorias = $especificacaoMercadorias;
         return view('empresa.mercadorias.EspecificacaoMercadoria', compact($this->especificacaoMercadorias));

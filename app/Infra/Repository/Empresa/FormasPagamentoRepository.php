@@ -12,4 +12,7 @@ class FormasPagamentoRepository
         return FormaPagamentoDatabase::where('id', '!=', 6)->get();
 
     }
+    public function getFormaPagamentoEmitirRecibo(){
+        return FormaPagamentoDatabase::whereIn('id', [1, 3, 4])->get();
+    }
 }
