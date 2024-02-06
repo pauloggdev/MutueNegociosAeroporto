@@ -433,14 +433,14 @@ if (Auth::guard('web')->check()) {
                         <li class="hover">
                             <a href="/empresa/emissao/fatura/carga">
                                 <i class="menu-icon fa fa-wpforms"></i>
-                                CARGA
+                               SERVIÇO DE CARGA 
                             </a>
                             <b class="arrow"></b>
                         </li>
                         <li class="hover">
                             <a href="/empresa/emissao/fatura/aeronautica">
                                 <i class="menu-icon fa fa-wpforms"></i>
-                                AERONÁUTICO
+                              SERVIÇO AERPORTUÁRIO
                             </a>
                             <b class="arrow"></b>
                         </li>
