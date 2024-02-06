@@ -396,7 +396,7 @@
                                                        wire:keydown.enter="preventEnter"
                                                     >
                                                         <span wire:loading wire:target="emitirDocumento"
-                                                              class="loading"></span> Faturar
+                                                              class="loading"></span> Finalizar
                                                         <span wire:loading wire:target="emitirDocumento">
             <span class="loading"></span>
             Aguarde...
