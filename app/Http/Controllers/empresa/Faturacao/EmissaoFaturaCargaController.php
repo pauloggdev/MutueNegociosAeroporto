@@ -329,8 +329,7 @@ class EmissaoFaturaCargaController extends Component
     }
 
     public function printFaturaCarga($facturaId)
-    {
-
+    {  
         $factura = DB::table('facturas')
             ->where('id', $facturaId)->first();
 

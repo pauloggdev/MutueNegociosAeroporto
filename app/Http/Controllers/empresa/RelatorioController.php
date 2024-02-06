@@ -164,6 +164,7 @@ class RelatorioController extends Component
 
     public function printRelatorioVendaPorOperadoresPdf()
     {
+        
         $dataInicioFormat = date_format(date_create($this->data_inicio), "d/m/Y H:i:s");
         $dataFinalFormat = date_format(date_create($this->data_fim), "d/m/Y H:i:s");
         $request = $this->data_inicio;

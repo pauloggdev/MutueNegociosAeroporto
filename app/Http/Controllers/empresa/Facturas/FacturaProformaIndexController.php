@@ -100,7 +100,8 @@ class FacturaProformaIndexController extends Component
 
     }
     public function ImprimirFactura($facturaId)
-    {
+    {  
+      
 
         $logotipo = public_path() . '/upload//' . auth()->user()->empresa->logotipo;
         $DIR_SUBREPORT = "/upload/documentos/empresa/modelosFacturas/a4/";
