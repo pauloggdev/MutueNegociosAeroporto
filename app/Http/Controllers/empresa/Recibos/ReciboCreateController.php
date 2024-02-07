@@ -12,9 +12,14 @@ use App\Http\Controllers\empresa\ReportShowController;
 use App\Infra\Factory\Empresa\DatabaseRepositoryFactory;
 use Livewire\Component;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Livewire\WithFileUploads;
+use illuminate\Support\Str;
+
 class ReciboCreateController extends Component
 {
     use LivewireAlert;
+    use WithFileUploads;
+
     public $recibo = [
         'numeracaoFactura' => null,
         'clienteId' => null,
@@ -28,8 +33,12 @@ class ReciboCreateController extends Component
         'totalDebitar' => 0,
         'totalDebitado' => 0,
         'totalEntregue' => 0,
+        "dataOperacao" => null,
+        "numeroOperacaoBancaria" => null,
+        "comprovativoBancario" => null,
         'observacao' => null,
     ];
+    public $anexo;
 
     public $formaPagamentos = [];
 
@@ -72,13 +81,17 @@ class ReciboCreateController extends Component
                 'facturaId' => $fatura->id,
                 'totalFatura' => $fatura->total,
                 'formaPagamentoId' => $this->recibo['formaPagamentoId'],
+                "dataOperacao" => $this->recibo['dataOperacao'],
+                "numeroOperacaoBancaria" => $this->recibo['numeroOperacaoBancaria'],
+                "comprovativoBancario" => $this->recibo['comprovativoBancario'],
                 'observacao' => $this->recibo['observacao'],
-                'numSequenciaRecibo' => 1
+                'numSequenciaRecibo' => null
             ];
 
 
             $simuladorRecibo = new SimuladorRecibo(new DatabaseRepositoryFactory());
             $recibo = $simuladorRecibo->execute($data);
+
             $this->recibo['clienteId'] = $recibo->getClienteId();
             $this->recibo['nomeCliente'] = $recibo->getNomeCliente();
             $this->recibo['nifCliente'] = $recibo->getNifCliente();
@@ -91,6 +104,9 @@ class ReciboCreateController extends Component
             $this->recibo['totalFatura'] = $recibo->getTotalFatura();
             $this->recibo['totalImposto'] = $recibo->getTotalImposto();
             $this->recibo['formaPagamentoId'] = $recibo->getFormaPagamentoId();
+            $this->recibo['numeroOperacaoBancaria'] = $recibo->GetNumeroOperacaoBancaria();
+            $this->recibo['dataOperacao'] = $recibo->GetDataOperacao();
+            $this->recibo['comprovativoBancario'] = $recibo->GetcomprovativoBancario(); 
             $this->recibo['observacao'] = $recibo->getObservacao();
             $this->recibo['totalDebitar'] = $recibo->getTotalDebitar();
             $this->recibo['totalDebitado'] = $recibo->getTotalDebitado();
@@ -108,6 +124,9 @@ class ReciboCreateController extends Component
                 'totalDebitar' => 0,
                 'totalDebitado' => 0,
                 'totalEntregue' => 0,
+                'numeroOperacaoBancaria' => null,
+                'dataOperacao' => null,
+                'comprovativoBancario' => null,
                 'observacao' => null,
             ];
         }
@@ -115,7 +134,11 @@ class ReciboCreateController extends Component
 
     public function emitirRecibo()
     {
+
+        
         $rules = [
+              'recibo.comprovativoBancario' =>  'mimes:jpg,jpeg,png,pdf|max:1024',
+              'recibo.comprovativoBancario' =>  'mimes:jpg,jpeg,png,pdf|max:1024', 
             'recibo.numeracaoFactura' => ['required'],
             'recibo.totalEntregue' => ['required', function ($attr, $totalEntregue, $fail) {
                 if ($totalEntregue <= 0) {
@@ -128,8 +151,10 @@ class ReciboCreateController extends Component
         $messages = [
             'recibo.numeracaoFactura.required' => 'Informe o numeração do documento',
             'recibo.totalEntregue.required' => 'Informe o valor entregue',
+            'recibo.comprovativoBancario.mimes' => 'O formato do arquivo não é válido'
         ];
         $this->validate($rules, $messages);
+
 
         $emitirRecibo = new EmitirRecibo(new DatabaseRepositoryFactory());
         $recibo = $emitirRecibo->execute($this->recibo);
@@ -177,6 +202,9 @@ class ReciboCreateController extends Component
             'totalDebitar' => 0,
             'totalDebitado' => 0,
             'totalEntregue' => 0,
+            'numeroOperacaoBancaria' => null,
+            'dataOperacao' => null,
+            'comprovativoBancario' => null,
             'observacao' => null,
         ];
     }

@@ -5,15 +5,30 @@ namespace App\Application\UseCase\Empresa\Recibos;
 use App\Domain\Entity\Empresa\Recibos\Recibo;
 use App\Domain\Factory\Empresa\RepositoryFactory;
 use App\Infra\Repository\Empresa\ReciboRepository;
+use Illuminate\Support\Facades\Storage;
+use illuminate\Support\Str;
+use Livewire\WithFileUploads;
 
 class EmitirRecibo
 {
 
+    use WithFileUploads;
+    
     private ReciboRepository $reciboRepository;
     public function __construct(RepositoryFactory $repositoryFactory){
         $this->reciboRepository = $repositoryFactory->createReciboRepository();
     }
     public function execute($data){
+
+
+        if($data['comprovativoBancario']){
+            //  dd($data['comprovativoBancario']);
+            $fileName= Str::slug($data['numeroOperacaoBancaria']) . "." .$data['comprovativoBancario']->getClientOriginalExtension();
+            // $fileName = time().'_'.$data['comprovativoBancario']->getClientOriginalName();
+            $path= $data['comprovativoBancario']->storeAs('comprovativos', $fileName, 'public');
+            $data['comprovativoBancario'] = $path;
+            // dd($data['comprovativoBancario']);
+        }
 
         $ultimoDoc = $this->reciboRepository->lastDocument();
         $numSequenciaRecibo = 1;
@@ -34,10 +49,14 @@ class EmitirRecibo
             $data['facturaId'],
             $data['totalFatura'],
             $data['formaPagamentoId'],
+            $data['numeroOperacaoBancaria'],
+            $data['dataOperacao'],
+            $data['comprovativoBancario'],
             $data['observacao'],
             $numSequenciaRecibo,
             $numeracaoRecibo
         );
+
         return $this->reciboRepository->emitirRecibo($recibo);
     }
 }

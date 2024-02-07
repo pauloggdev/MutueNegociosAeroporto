@@ -38,6 +38,7 @@ class ReciboRepository
             ->where('facturaId', $faturaId)->sum('totalEntregue');
     }
     public function emitirRecibo(Recibo $recibo){
+
         return ReciboDatabase::create([
             'numeracaoRecibo' => $recibo->getNumeracaoRecibo(),
             'clienteId' => $recibo->getClienteId(),
@@ -50,6 +51,9 @@ class ReciboRepository
             'totalImposto' => $recibo->getTotalImposto(),
             'totalDebitar' => $recibo->getTotalDebitar(),
             'formaPagamentoId' => $recibo->getFormaPagamentoId(),
+            'numeroOperacaoBancaria' => $recibo->getNumeroOperacaoBancaria(),
+            'dataOperacao' => $recibo->getDataOperacao(),
+            'comprovativoBancario' => $recibo->getComprovativoBancario(),
             'observacao' => $recibo->getObservacao(),
             'numSequenciaRecibo' => $recibo->getNumSequenciaRecibo(),
             'nomeCliente' => $recibo->getNomeCliente(),

@@ -29,6 +29,9 @@ class Recibos extends Model
         'nifCliente',
         'emailCliente',
         'enderecoCliente',
+        'dataOperacao',
+        'numeroOperacaoBancaria',
+        'comprovativoBancario',
         'hash'
     ];
 

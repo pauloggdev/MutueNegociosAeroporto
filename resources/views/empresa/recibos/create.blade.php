@@ -43,7 +43,7 @@
                                 </div>
                             </div>
                             <div class="form-group has-info bold" style="left: 0%; position: relative">
-                                <div class="col-md-4">
+                                <div class="col-md-6">
                                     <label class="control-label bold label-select2" for="nomeCliente">Nome do cliente<b class="red fa fa-question-"></b></label>
                                     <div class="input-group">
                                         <input type="text" value="<?= $recibo['nomeCliente'] ?>" disabled class="form-control" style="height: 35px; font-size: 10pt" />
@@ -52,7 +52,7 @@
                                         </span>
                                     </div>
                                 </div>
-                                <div class="col-md-2">
+                                <div class="col-md-6">
                                     <label class="control-label bold label-select2" for="numeracaoFactura">Nº Factura</label>
                                     <div class="input-group">
                                         <input type="text" value="<?= $recibo['numeracaoFactura'] ?>" disabled class="form-control" style="height: 35px; font-size: 10pt" />
@@ -61,7 +61,7 @@
                                         </span>
                                     </div>
                                 </div>
-                                <div class="col-md-2">
+                                <div class="col-md-3">
                                     <label class="control-label bold label-select2" for="contaCorrente">Valor Factura<b class="red fa fa-question-"></b></label>
                                     <div class="input-group">
                                         <input type="text" value="<?= number_format($recibo['totalFatura'], 2, ',', '.') ?>" disabled class="form-control" style="height: 35px; font-size: 10pt" />
@@ -70,19 +70,17 @@
                                         </span>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <label class="control-label bold label-select2" for="total_debito">Total à Débitar</label>
                                     <div class="input-group">
-                                        <input type="text" value="<?= $recibo['totalDebitar'] ?>" disabled class="form-control" style="height: 35px; font-size: 10pt" />
+                                        <input type="text" value="<?=number_format($recibo['totalDebitar'], 2, ',','.') ?>" disabled class="form-control" style="height: 35px; font-size: 10pt" />
                                         <span class="input-group-addon" id="basic-addon1">
                                             <i class="ace-icon fa fa-info bigger-150 text-info" data-target="form_supply_price_smartprice"></i>
                                         </span>
                                     </div>
                                 </div>
 
-                            </div>
-                            <div class="form-group has-info bold" style="left: 0%; position: relative">
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <label class="control-label bold label-select2" for="total_debito">Total Débitado</label>
                                     <div class="input-group">
                                         <input type="text" value="<?=number_format($recibo['totalDebitado'], 2, ',','.') ?>" disabled class="form-control" style="height: 35px; font-size: 10pt" />
@@ -91,17 +89,7 @@
                                         </span>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
-                                    <label class="control-label bold label-select2" for="formaPagamentoId">Forma pagamento<b class="red fa fa-question-circle"></b></label>
-                                    <div wire:ignore>
-                                        <select wire:model="recibo.formaPagamentoId" id="formaPagamentoId" class="col-md-12" style="height:35px;">
-                                            @foreach($formaPagamentos as $formaPagamento)
-                                                <option value="{{ $formaPagamento->id }}"  @if($formaPagamento->id == $recibo['formaPagamentoId']) selected @endif>{{ $formaPagamento->descricao }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <label class="control-label bold label-select2" for="saldoAtual">Valor Entregue<b class="red fa fa-question-circle"></b></label>
                                     <div class="input-group">
                                         <input type="number" step="any" wire:model="recibo.totalEntregue" name="recibo.totalEntregue" class="form-control" id="saldoAtual" data-target="form_supply_price" style="height: 35px; font-size: 10pt;<?= $errors->has('recibo.totalEntregue') ? 'border-color: #ff9292;' : '' ?>" />
@@ -115,13 +103,59 @@
                                     </span>
                                     @endif
                                 </div>
+
+                            </div>
+                            <div class="form-group has-info bold" style="left: 0%; position: relative">
+
+                                <div class="col-md-3">
+                                    <label class="control-label bold label-select2" for="formaPagamentoId">Forma pagamento<b class="red fa fa-question-circle"></b></label>
+                                    <div wire:ignore>
+                                        <select wire:model="recibo.formaPagamentoId" id="formaPagamentoId" class="col-md-12" style="height:35px;">
+                                            @foreach($formaPagamentos as $formaPagamento)
+                                                <option value="{{ $formaPagamento->id }}"  @if($formaPagamento->id == $recibo['formaPagamentoId']) selected @endif>{{ $formaPagamento->descricao }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="control-label bold label-select2" for="numeracaoFactura">Data Pagamento</label>
+                                    <div class="input-group">
+                                        <input type="date" value="<?= $recibo['dataOperacao'] ?>" wire:model="recibo.dataOperacao"  class="form-control" style="height: 35px; font-size: 10pt" />
+                                        <span class="input-group-addon" id="basic-addon1">
+                                            <i class="ace-icon fa fa-info bigger-150 text-info" data-target="form_supply_price_smartprice"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="control-label bold label-select2" for="numeracaoFactura">Nº Operação de Bancária </label>
+                                    <div class="input-group">
+                                        <input type="text"  wire:model="recibo.numeroOperacaoBancaria"  class="form-control" style="height: 35px; font-size: 10pt" />
+                                        <span class="input-group-addon" id="basic-addon1">
+                                            <i class="ace-icon fa fa-info bigger-150 text-info" data-target="form_supply_price_smartprice"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="control-label bold label-select2" for="numeracaoFactura">Anexo</label>
+                                    <div class="input-group">
+                                        <input type="file"  wire:model="recibo.comprovativoBancario"  class="form-control" style="height: 35px; font-size: 10pt" />
+                                        <span class="input-group-addon" id="basic-addon1">
+                                            <i class="ace-icon fa fa-info bigger-150 text-info" data-target="form_supply_price_smartprice"></i>
+                                        </span>
+                                    </div>
+                                    @if ($errors->has('recibo.comprovativoBancario'))
+                                    <span class="help-block" style="color: red; font-weight: bold">
+                                    <strong>{{ $errors->first('recibo.comprovativoBancario') }}</strong>
+                                </span>
+                                @endif
+                                </div>
                             </div>
                             <div class="form-group has-info bold" style="left: 0%; position: relative">
                                 <div class="col-md-12">
 
                                     <label class="control-label bold label-select2" for="observacao">Observação</label>
                                     <div class="input-group">
-                                        <textarea wire:model="recibo.observacao" id="observacao" cols="200" rows="2" class="form-control" style="font-size: 16px; z-index: 1;"></textarea>
+                                        <textarea wire:model="recibo.observacao" id="observacao" cols="400" rows="4" class="form-control" style="font-size: 16px; z-index: 1;"></textarea>
                                     </div>
                                 </div>
                             </div>

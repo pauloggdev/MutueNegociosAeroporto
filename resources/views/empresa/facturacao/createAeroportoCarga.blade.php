@@ -401,7 +401,6 @@
                                                     @endforeach
                                                 </div>
                                                 <div>
-<<<<<<< HEAD
                                                     <a href="#" class="btn btn-default btn-app radius-4 btn-primary"
                                                        wire:click.prevent="emitirDocumento"
                                                        wire:keydown.enter="preventEnter"
@@ -412,19 +411,7 @@
                                                         <span class="loading"></span>
                                                         Aguarde...
                                                     </span>
-=======
-                                                    <a href="#" class="btn btn-app radius-4" style="background: #001291 !important;"
-                                                       wire:click.prevent="emitirDocumento"
-                                                       wire:keydown.enter="preventEnter"
-                                                    >
->>>>>>> fda498c606c4800ef4a266aa6422ec853fa274d2
-
-                                                        <span wire:loading.remove wire:target="emitirDocumento">
-                                                        Finalizar
-                                                    </span>
-                                                        <span wire:loading wire:target="emitirDocumento">
-                                                        <span class="loading"></span>
-                                                        Aguarde...</span>
+                                                    
                                                     </a>
                                                 </div>
                                             </div>

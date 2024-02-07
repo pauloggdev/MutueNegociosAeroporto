@@ -22,8 +22,11 @@ class Recibo
     private $observacao;
     private $numSequenciaRecibo;
     private $numeracaoRecibo;
+    private $numeroOperacaoBancaria;
+    private $dataOperacao;
+    private $comprovativoBancario;
 
-    public function __construct($clienteId, $nomeCliente, $nifCliente, $telefoneCliente, $emailCliente, $enderecoCliente, int $anulado, $totalEntregue, $totalImposto, $facturaId, $totalFatura,$formaPagamentoId, $observacao, $numSequenciaRecibo, $numeracaoRecibo = null)
+    public function __construct($clienteId, $nomeCliente, $nifCliente, $telefoneCliente, $emailCliente, $enderecoCliente, int $anulado, $totalEntregue, $totalImposto, $facturaId, $totalFatura,$formaPagamentoId, $numeroOperacaoBancaria, $dataOperacao, $comprovativoBancario, $observacao, $numSequenciaRecibo, $numeracaoRecibo = null)
     {
         $this->clienteId = $clienteId;
         $this->nomeCliente = $nomeCliente;
@@ -37,9 +40,14 @@ class Recibo
         $this->facturaId = $facturaId;
         $this->totalFatura = $totalFatura;
         $this->formaPagamentoId = $formaPagamentoId;
+        $this->numeroOperacaoBancaria = $numeroOperacaoBancaria;
+        $this->dataOperacao = $dataOperacao;
+        $this->comprovativoBancario = $comprovativoBancario;
         $this->observacao = $observacao;
         $this->numSequenciaRecibo = $numSequenciaRecibo;
         $this->numeracaoRecibo = $numeracaoRecibo;
+
+
     }
     /**
      * @return mixed
@@ -147,6 +155,19 @@ class Recibo
     public function getFormaPagamentoId()
     {
         return $this->formaPagamentoId;
+    }
+
+    public function GetNumeroOperacaoBancaria()
+    {
+        return $this->numeroOperacaoBancaria;
+    }
+    public function GetDataOperacao()
+    {
+        return $this->dataOperacao;
+    }
+    public function GetcomprovativoBancario()
+    {
+        return $this->comprovativoBancario;
     }
 
     /**
