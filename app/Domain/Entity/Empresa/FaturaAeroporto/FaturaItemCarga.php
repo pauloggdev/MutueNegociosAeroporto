@@ -7,6 +7,7 @@ class FaturaItemCarga
     private $produtoId;
     private $nomeProduto;
     private $taxa;
+    private $taxaIva;
     private $peso;
     private $nDias;
     private $cambioDia;
@@ -27,11 +28,12 @@ class FaturaItemCarga
      * @param $imposto
      * @param $total
      */
-    public function __construct($produtoId,$nomeProduto, $taxa, $peso,$nDias, $cambioDia, $sujeitoDespachoId, $taxaTipoMercadoriaId, $especificacaoMercadoriaId)
+    public function __construct($produtoId,$nomeProduto, $taxa, $taxaIva, $peso,$nDias, $cambioDia, $sujeitoDespachoId, $taxaTipoMercadoriaId, $especificacaoMercadoriaId)
     {
         $this->produtoId = $produtoId;
         $this->nomeProduto = $nomeProduto;
         $this->taxa = $taxa;
+        $this->taxaIva = $taxaIva;
         $this->peso = $peso;
         $this->nDias = $nDias;
         $this->cambioDia = $cambioDia;
@@ -58,6 +60,12 @@ class FaturaItemCarga
     public function getTaxa()
     {
         return $this->taxa->getTaxa();
+    }
+    public function getTaxaIva(){
+        return $this->taxaIva;
+    }
+    public function getValorIva(){
+        return ($this->getTotal() * $this->getTaxaIva()) / 100;
     }
     public function getCambioDia(){
         return $this->cambioDia;
@@ -105,6 +113,9 @@ class FaturaItemCarga
     public function getImposto()
     {
         return "T";
+    }
+    public function getTotalIva(){
+        return $this->getTotal() + $this->getValorIva();
     }
 
     /**

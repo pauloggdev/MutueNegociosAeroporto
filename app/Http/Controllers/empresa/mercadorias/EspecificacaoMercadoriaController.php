@@ -4,7 +4,7 @@ namespace App\Http\Controllers\empresa\mercadorias;
 
 use App\Application\UseCase\Empresa\mercadorias\CadastrarTipoMercadoria;
 use App\Application\UseCase\Empresa\mercadorias\GetTiposMercadorias;
-use App\empresa\EspecificacaoMercadoria;
+use App\Empresa\EspecificacaoMercadoria;
 use App\Infra\Factory\Empresa\DatabaseRepositoryFactory;
 use App\Models\empresa\TipoMercadoria;
 use Livewire\WithPagination;
@@ -55,10 +55,10 @@ class EspecificacaoMercadoriaController extends Component
     }
     public function render()
     {
-        
-        $especificacaoMercadorias = EspecificacaoMercadoria::where('designacao', 'LIKE', '%'. $this->search .'%')->paginate(10);
-        
-        return view('empresa.mercadorias.EspecificacaoMercadoria', compact('especificacaoMercadorias'));
+
+        $this->especificacaoMercadorias = EspecificacaoMercadoria::all();
+        // $this->especificacaoMercadorias = $especificacaoMercadorias;
+        return view('empresa.mercadorias.EspecificacaoMercadoria', compact($this->especificacaoMercadorias));
     }
     public function store(){
         $rules = [

@@ -48,13 +48,15 @@ class ReciboIndexController extends Component
         }
 
         $data['recibos'] = $this->reciboRepository->listarRecibos($this->search);
+
+//        dd($data['recibos']);
         return view('empresa.recibos.index', $data);
     }
     public function printRecibo($reciboId)
     {
         $recibo = $this->reciboRepository->listarRecibo($reciboId);
 
-        $logotipo = public_path() . '/upload/_logo_ATO_horizontal_negativo.png';
+        $logotipo = public_path() . '/upload/AtoNegativo1.png';
         $caminho = public_path() . '/upload/documentos/empresa/relatorios/';
 
         $getParametro = new GetParametroPeloLabelNoParametro(new DatabaseRepositoryFactory());
@@ -77,9 +79,8 @@ class ReciboIndexController extends Component
                     'viaImpressao' => 2,
                     'empresa_id' => auth()->user()->empresa_id,
                     'recibo_id' => $recibo['id'],
-                    'factura_id' => $recibo['factura_id'],
-                    'logotipo' => $logotipo,
-                    'marcaAgua' => $caminho
+                    'factura_id' => $recibo['facturaId'],
+                    'logotipo' => $logotipo
                 ]
         ]
         );

@@ -39,6 +39,7 @@ use App\Infra\Repository\Empresa\SequenciaDocumentoRepository;
 use App\Infra\Repository\Empresa\SequenciaFaturaRepository;
 use App\Infra\Repository\Empresa\TaxaCargaAduaneiraRepository;
 use App\Infra\Repository\Empresa\TaxaIvaRepository;
+use App\Infra\Repository\Empresa\TaxaPesoMaximoDescolagemRepositoryRepository;
 use App\Infra\Repository\Empresa\TipoDocumentoRepository;
 use App\Infra\Repository\Empresa\TipoMercadoriaRepository;
 use App\Infra\Repository\Empresa\TipoServicoRepository;
@@ -95,4 +96,5 @@ interface RepositoryFactory
     public function createTaxaCargaAduaneiraRepository():TaxaCargaAduaneiraRepository;
     public function createEspecificacaoMercadoriaRepository():EspecificacaoMercadoriaRepository;
     public function createBancoRepository():BancoRepository;
+    public function createTaxaPesoMaximoDescolagemRepositoryRepository():TaxaPesoMaximoDescolagemRepositoryRepository;
 }

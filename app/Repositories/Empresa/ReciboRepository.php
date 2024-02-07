@@ -29,7 +29,7 @@ class ReciboRepository
     public function listarRecibo($reciboId)
     {
         $recibo = $this->recibo::latest()->with(['cliente', 'formaPagamento', 'factura'])
-            ->where('empresa_id', auth()->user()->empresa_id)->where('id', $reciboId)->first();
+            ->where('empresaId', auth()->user()->empresa_id)->where('id', $reciboId)->first();
         return $recibo;
     }
 
@@ -37,7 +37,7 @@ class ReciboRepository
     public function listarRecibos($search = null)
     {
         $recibos = $this->recibo::latest()->with(['cliente', 'formaPagamento', 'factura'])
-            ->where('empresa_id', auth()->user()->empresa_id)
+            ->where('empresaId', auth()->user()->empresa_id)
             ->search(trim($search))->paginate();
         return $recibos;
     }

@@ -91,6 +91,7 @@ use App\Http\Controllers\empresa\Clientes\ClienteExtratoController;
 use App\Http\Controllers\empresa\Clientes\ClienteIndexController;
 use App\Http\Controllers\empresa\Clientes\ClienteShowController;
 use App\Http\Controllers\empresa\Clientes\ClienteUpdateController;
+use App\Http\Controllers\empresa\Clientes\RelatorioExtratoClienteController;
 use App\Http\Controllers\empresa\ComunasFrete\ComunaFreteCreateController;
 use App\Http\Controllers\empresa\ComunasFrete\ComunaFreteIndexController;
 use App\Http\Controllers\empresa\ComunasFrete\ComunaFreteUpdateController;
@@ -140,8 +141,7 @@ use App\Http\Controllers\empresa\Marcas\MarcaIndexController;
 use App\Http\Controllers\empresa\Marcas\MarcaUpdateController;
 use App\Http\Controllers\empresa\mercadorias\MercadoriaIndexController;
 use App\Http\Controllers\empresa\mercadorias\EspecificacaoMercadoriaController;
-use App\Http\Controllers\empresa\cambio\CambioController;
-use App\Http\Controllers\empresa\Taxas\IntervaloPmdController;
+use App\Http\Controllers\empresa\Cambio\CambioController;
 
 use App\Http\Controllers\empresa\ModeloDocumentos\ModeloDocumentoController;
 use App\Http\Controllers\empresa\MotivoIvaController;
@@ -670,6 +670,9 @@ Route::group(['middleware' => ['auth:empresa']], function () {
             Route::get('/empresa/relatorios-gerais',RelatorioGeralIndexController::class)->name('relatorio.relatoriosGeral');
 
 
+            Route::get('/empresa/extrato/cliente', RelatorioExtratoClienteController::class)->name('extratoCliente');
+
+
 
             Route::post('empresa/ralarios-gerais/imprimir',[RelatorioGeralIndexController::class, 'imprimirRelatorioGeral']);
 
@@ -1001,15 +1004,16 @@ Route::group(['middleware' => ['auth:empresa']], function () {
             //Tipos de mercadorias
             Route::get('/empresa/mercadorias', MercadoriaIndexController::class);
 
+
              //Especificao de mercadorias
             Route::get('/empresa/mercadorias/especificacao', EspecificacaoMercadoriaController::class);
 
-            
+
              //Câmbio
              Route::get('/empresa/cambio', CambioController::class);
 
             //IntervaloPmd
-             Route::get('/empresa/taxas/pmd', IntervaloPmdController::class);
+             Route::get('/empresa/taxas/pmd', \App\Http\Controllers\empresa\Taxas\IntervaloPmdController::class);
 
             Route::get('empresa/facturacao', [FacturacaoController::class, 'index']);
             Route::put('empresa/facturacao/produto/editar', [FacturacaoController::class, 'editarProduto']);

@@ -4,8 +4,10 @@ namespace App\Http\Controllers\empresa\Faturacao;
 use App\Application\UseCase\Empresa\Bancos\GetBancos;
 use App\Application\UseCase\Empresa\Clientes\GetClientes;
 use App\Application\UseCase\Empresa\Faturacao\EmitirDocumentoAeroporto;
+use App\Application\UseCase\Empresa\Faturacao\EmitirDocumentoAeroportoAeronave;
 use App\Application\UseCase\Empresa\Faturacao\EmitirDocumentoAeroportoCarga;
 use App\Application\UseCase\Empresa\Faturacao\GetTipoDocumentoByFaturacao;
+use App\Application\UseCase\Empresa\Faturacao\SimuladorFaturaAeronauticoAeroporto;
 use App\Application\UseCase\Empresa\Faturacao\SimuladorFaturaCargaAeroporto;
 use App\Application\UseCase\Empresa\mercadorias\GetTiposMercadorias;
 use App\Application\UseCase\Empresa\Pais\GetPaises;
@@ -13,6 +15,7 @@ use App\Application\UseCase\Empresa\Produtos\GetProdutoPeloCentroCustoId;
 use App\Application\UseCase\Empresa\Produtos\GetProdutoPeloTipoServico;
 use App\Application\UseCase\Empresa\Produtos\GetProdutos;
 use App\Application\UseCase\Empresa\TiposServicos\GetTiposServicos;
+use App\Domain\Entity\Empresa\FaturaAeroporto\FaturaAeronautico;
 use App\Domain\Entity\Empresa\FaturaAeroporto\FaturaCarga;
 use App\Infra\Factory\Empresa\DatabaseRepositoryFactory;
 use Illuminate\Http\Request;
@@ -29,17 +32,21 @@ class EmissaoFaturaAeronauticoController extends Component
     public $empresa;
     public $item = [
         'produto' => null,
-        'tipoMercadoriaId' => 1,
-        'sujeitoDespachoId' => 1,
-        'especificacaoMercadoriaId' => 1,
     ];
     public $fatura = [
-        'cartaDePorte' => 'CVK-0001-3304',
-        'tipoDocumento' => 1, //Fatura recibo
-        'peso' => 220,
-        'dataEntrada' => '2024-01-03',
-        'dataSaida' => '2024-02-01',
-        'nDias' => 29,
+        'clienteId' => null,
+        'nomeCliente' => null,
+        'telefoneCliente' => null,
+        'nifCliente' => null,
+        'emailCliente' => null,
+        'enderecoCliente' => null,
+        'tipoDeAeronave' => 'BOING 737-800',
+        'pesoMaximoDescolagem' => 77,
+        'dataDeAterragem' => '2024-01-30',
+        'dataDeDescolagem' => '2024-01-30',
+        'horaDeAterragem' => '11:40', //11h40 UTC
+        'horaDeDescolagem' => '13:57', //13h57 UTC
+        'tipoDocumento' => 3, //Fatura Proforma
         'taxaIva' => 0,
         'cambioDia' => 0,
         'contraValor' => 0,
@@ -95,16 +102,18 @@ class EmissaoFaturaAeronauticoController extends Component
     public function addCart()
     {
         $rules = [
-            'fatura.cartaDePorte' => 'required',
-            'fatura.peso' => 'required',
-            'fatura.dataEntrada' => 'required',
-            'fatura.dataSaida' => 'required',
+            'fatura.tipoDeAeronave' => 'required',
+            'fatura.pesoMaximoDescolagem' => 'required',
+            'fatura.dataDeAterragem' => 'required',
+            'fatura.dataDeDescolagem' => 'required',
+            'fatura.horaDeAterragem' => 'required',
         ];
         $messages = [
-            'fatura.cartaDePorte.required' => 'campo obrigatório',
-            'fatura.peso.required' => 'campo obrigatório',
-            'fatura.dataEntrada.required' => 'campo obrigatório',
-            'fatura.dataSaida.required' => 'campo obrigatório',
+            'fatura.tipoDeAeronave.required' => 'campo obrigatório',
+            'fatura.pesoMaximoDescolagem.required' => 'campo obrigatório',
+            'fatura.dataDeAterragem.required' => 'campo obrigatório',
+            'fatura.dataDeDescolagem.required' => 'campo obrigatório',
+            'fatura.horaDeAterragem.required' => 'campo obrigatório',
         ];
         $this->validate($rules, $messages);
 
@@ -123,8 +132,8 @@ class EmissaoFaturaAeronauticoController extends Component
         $this->item['produto'] = $this->item['produto'];
         $this->fatura['items'][] = (array)$this->item;
 
-        $simuladorFaturaCarga = new SimuladorFaturaCargaAeroporto(new DatabaseRepositoryFactory());
-        $fatura = $simuladorFaturaCarga->execute($this->fatura);
+        $simuladorFaturaAeronautico = new SimuladorFaturaAeronauticoAeroporto(new DatabaseRepositoryFactory());
+        $fatura = $simuladorFaturaAeronautico->execute($this->fatura);
         $this->fatura = $this->conversorModelParaArray($fatura);
     }
 
@@ -137,33 +146,38 @@ class EmissaoFaturaAeronauticoController extends Component
         return $posicao;
     }
 
-    private function conversorModelParaArray(FaturaCarga $output)
+    private function conversorModelParaArray(FaturaAeronautico $output)
     {
         $fatura = [
-            'cartaDePorte' => $output->getCartaDePorte(),
-            'tipoDocumento' => $output->getTipoDocumentoId(),
-            'peso' => $output->getPeso(),
-            'dataEntrada' => $output->getDataEntrada(),
-            'dataSaida' => $output->getDataSaida(),
-            'nDias' => $output->getNDias(),
+
+            'clienteId' => $output->getClienteId(),
+            'nomeCliente' => $output->getNomeCliente(),
+            'telefoneCliente' => $output->getTelefoneCliente(),
+            'nifCliente' => $output->getNifCliente(),
+            'emailCliente' => $output->getEmailCliente(),
+            'enderecoCliente' => $output->getEnderecoCliente(),
+            'tipoDeAeronave' => $output->getTipoDeAeronave(),
+            'pesoMaximoDescolagem' => $output->getPesoMaximoDescolagem(),
+            'dataDeAterragem' => $output->getDataDeAterragem(),
+            'dataDeDescolagem' => $output->getDataDeDescolagem(),
+            'horaDeAterragem' => $output->getHoraDeAterragem(), //11h40 UTC
+            'horaDeDescolagem' => $output->getHoraDeDescolagem(), //13h57 UTC
+            'tipoDocumento' => $output->getTipoDocumento(), //Fatura recibo
             'taxaIva' => $output->getTaxaIva(),
             'cambioDia' => $output->getCambioDia(),
             'contraValor' => $output->getContraValor(),
             'valorIliquido' => $output->getValorIliquido(),
             'valorImposto' => $output->getValorImposto(),
             'total' => $output->getTotal(),
-            "items" => []
+            'items' => []
         ];
         foreach ($output->getItems() as $item) {
             array_push($fatura['items'], [
                 'produtoId' => $item->getProdutoId(),
                 'nomeProduto' => $item->getNomeProduto(),
-                'taxa' => $item->getTaxa(),
-                'nDias' => $item->getNDias(),
-                'sujeitoDespachoId' => $item->getSujeitoDespachoId(),
-                'tipoMercadoriaId' => $item->getTaxaTipoMercadoriaId(),
-                'especificacaoMercadoriaId' => $item->getEspecificacaoMercadoriaId(),
-                'desconto' => $item->getDesconto(),
+                'pmd' => $item->getPMD(),
+                'horaEstacionamento' => $item->getHoraEstacionamento(),
+                'cambioDia' => $item->getCambioDia(),
                 'valorImposto' => $item->getImposto(),
                 'total' => $item->getTotal(),
             ]);
@@ -173,16 +187,18 @@ class EmissaoFaturaAeronauticoController extends Component
     public function emitirDocumento(){
 
         $rules = [
-            'fatura.cartaDePorte' => 'required',
-            'fatura.peso' => 'required',
-            'fatura.dataEntrada' => 'required',
-            'fatura.dataSaida' => 'required',
+            'fatura.tipoDeAeronave' => 'required',
+            'fatura.pesoMaximoDescolagem' => 'required',
+            'fatura.dataDeAterragem' => 'required',
+            'fatura.dataDeDescolagem' => 'required',
+            'fatura.horaDeAterragem' => 'required',
         ];
         $messages = [
-            'fatura.cartaDePorte.required' => 'campo obrigatório',
-            'fatura.peso.required' => 'campo obrigatório',
-            'fatura.dataEntrada.required' => 'campo obrigatório',
-            'fatura.dataSaida.required' => 'campo obrigatório',
+            'fatura.tipoDeAeronave.required' => 'campo obrigatório',
+            'fatura.pesoMaximoDescolagem.required' => 'campo obrigatório',
+            'fatura.dataDeAterragem.required' => 'campo obrigatório',
+            'fatura.dataDeDescolagem.required' => 'campo obrigatório',
+            'fatura.horaDeAterragem.required' => 'campo obrigatório',
         ];
         $this->validate($rules, $messages);
         if(count($this->fatura['items']) <= 0){
@@ -194,7 +210,7 @@ class EmissaoFaturaAeronauticoController extends Component
             return;
         }
 
-        $emitirDocumento = new EmitirDocumentoAeroportoCarga(new DatabaseRepositoryFactory());
+        $emitirDocumento = new EmitirDocumentoAeroportoAeronave(new DatabaseRepositoryFactory());
         $emitirDocumento->execute(new Request($this->fatura));
 
         dd($this->fatura);

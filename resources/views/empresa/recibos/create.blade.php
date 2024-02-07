@@ -33,11 +33,11 @@
                         <div class="tab-content profile-edit-tab-content">
                             <div class="form-group has-info bold" style="left: 0%; position: relative">
                                 <div class="col-md-12">
-                                    <label class="control-label bold label-select2" for="cliente">Buscar factura<b class="red fa fa-question-circle"></b></label>
-                                    <input type="text" wire:model="numeracaoFactura" autofocus placeholder="buscar pela numeração da factura" class="form-control" style="height: 35px; font-size: 10pt;<?= $errors->has('numeracaoFactura') ? 'border-color: #ff9292;' : '' ?>" />
-                                    @if ($errors->has('numeracaoFactura'))
+                                    <label class="control-label bold label-select2" for="numeracaoFactura">Buscar factura<b class="red fa fa-question-circle"></b></label>
+                                    <input type="text" wire:model.debounce.500ms="recibo.numeracaoFactura" autofocus placeholder="buscar pela numeração da factura / código de barra" class="form-control" style="height: 35px; font-size: 10pt;<?= $errors->has('recibo.numeracaoFactura') ? 'border-color: #ff9292;' : '' ?>" />
+                                    @if ($errors->has('recibo.numeracaoFactura'))
                                     <span class="help-block" style="color: red; font-weight: bold">
-                                        <strong>{{ $errors->first('numeracaoFactura') }}</strong>
+                                        <strong>{{ $errors->first('recibo.numeracaoFactura') }}</strong>
                                     </span>
                                     @endif
                                 </div>
@@ -46,54 +46,46 @@
                                 <div class="col-md-4">
                                     <label class="control-label bold label-select2" for="nomeCliente">Nome do cliente<b class="red fa fa-question-"></b></label>
                                     <div class="input-group">
-                                        <input type="text" value="<?= $factura['nome_do_cliente'] ?>" disabled class="form-control" style="height: 35px; font-size: 10pt" />
+                                        <input type="text" value="<?= $recibo['nomeCliente'] ?>" disabled class="form-control" style="height: 35px; font-size: 10pt" />
+                                        <span class="input-group-addon" id="basic-addon1">
+                                            <i class="ace-icon fa fa-info bigger-150 text-info" data-target="form_supply_price_smartprice"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <label class="control-label bold label-select2" for="numeracaoFactura">Nº Factura</label>
+                                    <div class="input-group">
+                                        <input type="text" value="<?= $recibo['numeracaoFactura'] ?>" disabled class="form-control" style="height: 35px; font-size: 10pt" />
+                                        <span class="input-group-addon" id="basic-addon1">
+                                            <i class="ace-icon fa fa-info bigger-150 text-info" data-target="form_supply_price_smartprice"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <label class="control-label bold label-select2" for="contaCorrente">Valor Factura<b class="red fa fa-question-"></b></label>
+                                    <div class="input-group">
+                                        <input type="text" value="<?= number_format($recibo['totalFatura'], 2, ',', '.') ?>" disabled class="form-control" style="height: 35px; font-size: 10pt" />
                                         <span class="input-group-addon" id="basic-addon1">
                                             <i class="ace-icon fa fa-info bigger-150 text-info" data-target="form_supply_price_smartprice"></i>
                                         </span>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
-                                    <label class="control-label bold label-select2" for="contaCorrente">Conta corrente<b class="red fa fa-question-"></b></label>
+                                    <label class="control-label bold label-select2" for="total_debito">Total à Débitar</label>
                                     <div class="input-group">
-                                        <input type="text" value="<?= $factura['conta_corrente_cliente'] ?>" disabled class="form-control" style="height: 35px; font-size: 10pt" />
+                                        <input type="text" value="<?= $recibo['totalDebitar'] ?>" disabled class="form-control" style="height: 35px; font-size: 10pt" />
                                         <span class="input-group-addon" id="basic-addon1">
                                             <i class="ace-icon fa fa-info bigger-150 text-info" data-target="form_supply_price_smartprice"></i>
                                         </span>
                                     </div>
                                 </div>
-                                <div class="col-md-2">
-                                    <label class="control-label bold label-select2" for="saldoAtual">Nº Factura</label>
-                                    <div class="input-group">
-                                        <input type="text" value="<?= $factura['numeracaoFactura'] ?>" disabled class="form-control" style="height: 35px; font-size: 10pt" />
-                                        <span class="input-group-addon" id="basic-addon1">
-                                            <i class="ace-icon fa fa-info bigger-150 text-info" data-target="form_supply_price_smartprice"></i>
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="col-md-2">
-                                    <label class="control-label bold label-select2" for="saldoAtual">Saldo actual</label>
-                                    <div class="input-group">
-                                        <input type="text" value="<?= $factura['cliente_saldo'] ?>" disabled class="form-control" style="height: 35px; font-size: 10pt" />
-                                        <span class="input-group-addon" id="basic-addon1">
-                                            <i class="ace-icon fa fa-info bigger-150 text-info" data-target="form_supply_price_smartprice"></i>
-                                        </span>
-                                    </div>
-                                </div>
+
                             </div>
                             <div class="form-group has-info bold" style="left: 0%; position: relative">
                                 <div class="col-md-4">
-                                    <label class="control-label bold label-select2" for="contaCorrente">Valor Factura<b class="red fa fa-question-"></b></label>
-                                    <div class="input-group">
-                                        <input type="text" value="<?= number_format($factura['valor_a_pagar'], 2, ',', '.') ?>" disabled class="form-control" style="height: 35px; font-size: 10pt" />
-                                        <span class="input-group-addon" id="basic-addon1">
-                                            <i class="ace-icon fa fa-info bigger-150 text-info" data-target="form_supply_price_smartprice"></i>
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
                                     <label class="control-label bold label-select2" for="total_debito">Total Débitado</label>
                                     <div class="input-group">
-                                        <input type="text" value="<?= $factura['total_debito'] ?>" disabled class="form-control" style="height: 35px; font-size: 10pt" />
+                                        <input type="text" value="<?=number_format($recibo['totalDebitado'], 2, ',','.') ?>" disabled class="form-control" style="height: 35px; font-size: 10pt" />
                                         <span class="input-group-addon" id="basic-addon1">
                                             <i class="ace-icon fa fa-info bigger-150 text-info" data-target="form_supply_price_smartprice"></i>
                                         </span>
@@ -102,46 +94,34 @@
                                 <div class="col-md-4">
                                     <label class="control-label bold label-select2" for="formaPagamentoId">Forma pagamento<b class="red fa fa-question-circle"></b></label>
                                     <div wire:ignore>
-                                        <select wire:model="formaPagamentoId" id="formaPagamentoId" class="col-md-12" style="height:35px;">
+                                        <select wire:model="recibo.formaPagamentoId" id="formaPagamentoId" class="col-md-12" style="height:35px;">
                                             @foreach($formaPagamentos as $formaPagamento)
-                                            <option value="{{ $formaPagamento->id }}"  @if($formaPagamento->id == $formaPagamentoId) selected @endif>{{ $formaPagamento->descricao }}</option>
+                                                <option value="{{ $formaPagamento->id }}"  @if($formaPagamento->id == $recibo['formaPagamentoId']) selected @endif>{{ $formaPagamento->descricao }}</option>
                                             @endforeach
                                         </select>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="form-group has-info bold" style="left: 0%; position: relative">
                                 <div class="col-md-4">
-                                    <label class="control-label bold label-select2" for="total_debito">Total à Débitar</label>
-                                    <div class="input-group">
-                                        <input type="text" value="<?= $factura['faltante'] ?>" disabled class="form-control" style="height: 35px; font-size: 10pt" />
-                                        <span class="input-group-addon" id="basic-addon1">
-                                            <i class="ace-icon fa fa-info bigger-150 text-info" data-target="form_supply_price_smartprice"></i>
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="col-md-8">
                                     <label class="control-label bold label-select2" for="saldoAtual">Valor Entregue<b class="red fa fa-question-circle"></b></label>
                                     <div class="input-group">
-                                        <input type="number" step="any" wire:model="factura.valor_total_entregue" name="factura.valor_total_entregue" class="form-control" id="saldoAtual" data-target="form_supply_price" style="height: 35px; font-size: 10pt;<?= $errors->has('factura.valor_total_entregue') ? 'border-color: #ff9292;' : '' ?>" />
+                                        <input type="number" step="any" wire:model="recibo.totalEntregue" name="recibo.totalEntregue" class="form-control" id="saldoAtual" data-target="form_supply_price" style="height: 35px; font-size: 10pt;<?= $errors->has('recibo.totalEntregue') ? 'border-color: #ff9292;' : '' ?>" />
                                         <span class="input-group-addon" id="basic-addon1">
                                             <i class="ace-icon fa fa-info bigger-150 text-info" data-target="form_supply_price_smartprice"></i>
                                         </span>
                                     </div>
-                                    @if ($errors->has('factura.valor_total_entregue'))
-                                    <span class="help-block" style="color: red; font-weight: bold">
-                                        <strong>{{ $errors->first('factura.valor_total_entregue') }}</strong>
+                                    @if ($errors->has('recibo.totalEntregue'))
+                                        <span class="help-block" style="color: red; font-weight: bold">
+                                        <strong>{{ $errors->first('recibo.totalEntregue') }}</strong>
                                     </span>
                                     @endif
                                 </div>
-
                             </div>
                             <div class="form-group has-info bold" style="left: 0%; position: relative">
                                 <div class="col-md-12">
-                                    
-                                    <label class="control-label bold label-select2" for="saldoAtual">Observação <b class="red fa fa-question-circle"></b></label>
+
+                                    <label class="control-label bold label-select2" for="observacao">Observação</label>
                                     <div class="input-group">
-                                        <textarea wire:model="factura.observacao" id="" cols="200" rows="2" class="form-control" style="font-size: 16px; z-index: 1;"></textarea>
+                                        <textarea wire:model="recibo.observacao" id="observacao" cols="200" rows="2" class="form-control" style="font-size: 16px; z-index: 1;"></textarea>
                                     </div>
                                 </div>
                             </div>

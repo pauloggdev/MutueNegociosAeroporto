@@ -107,14 +107,14 @@
                                                                         <label>Tipo de Aeronave</label>
                                                                         <div>
                                                                             <input type="text"
-                                                                                   wire:model="fatura.cartaDePorte"
+                                                                                   wire:model="fatura.tipoDeAeronave"
                                                                                    style="width: 150px;<?= $errors->has('fatura.cartaDePorte') ? 'border-color: #ff9292;' : '' ?>"
                                                                                    class="input-small"
-                                                                                   placeholder="AWB"/>
-                                                                            @if ($errors->has('fatura.cartaDePorte'))
+                                                                                   placeholder="BOING 737-800"/>
+                                                                            @if ($errors->has('fatura.tipoDeAeronave'))
                                                                                 <span class="help-block"
                                                                                       style="color: red; font-weight: bold">
-                                                                                    <strong>{{ $errors->first('fatura.cartaDePorte') }}</strong>
+                                                                                    <strong>{{ $errors->first('fatura.tipoDeAeronave') }}</strong>
                                                                                 </span>
                                                                             @endif
                                                                         </div>
@@ -124,14 +124,14 @@
                                                                         <label>PMD (Ton)</label>
                                                                         <div>
                                                                             <input type="text"
-                                                                                   wire:model="fatura.peso"
+                                                                                   wire:model="fatura.pesoMaximoDescolagem"
                                                                                    class="input-small"
-                                                                                   style="width: 150px; <?= $errors->has('fatura.peso') ? 'border-color: #ff9292;' : '' ?>"
-                                                                                   placeholder="Peso"/>
-                                                                            @if ($errors->has('fatura.peso'))
+                                                                                   style="width: 150px; <?= $errors->has('fatura.pesoMaximoDescolagem') ? 'border-color: #ff9292;' : '' ?>"
+                                                                                   placeholder="PMD"/>
+                                                                            @if ($errors->has('fatura.pesoMaximoDescolagem'))
                                                                                 <span class="help-block"
                                                                                       style="color: red; font-weight: bold">
-                                                                                    <strong>{{ $errors->first('fatura.peso') }}</strong>
+                                                                                    <strong>{{ $errors->first('fatura.pesoMaximoDescolagem') }}</strong>
                                                                                 </span>
                                                                             @endif
                                                                         </div>
@@ -141,13 +141,13 @@
                                                                         <label>Data de Aterragem</label>
                                                                         <div>
                                                                             <input type="date"
-                                                                                   wire:model="fatura.dataEntrada"
+                                                                                   wire:model="fatura.dataDeAterragem"
                                                                                    class="input-small"
                                                                                    style="width: 150px; <?= $errors->has('fatura.dataEntrada') ? 'border-color: #ff9292;' : '' ?>"/>
-                                                                            @if ($errors->has('fatura.dataEntrada'))
+                                                                            @if ($errors->has('fatura.dataDeAterragem'))
                                                                                 <span class="help-block"
                                                                                       style="color: red; font-weight: bold">
-                                                                                    <strong>{{ $errors->first('fatura.dataEntrada') }}</strong>
+                                                                                    <strong>{{ $errors->first('fatura.dataDeAterragem') }}</strong>
                                                                                 </span>
                                                                             @endif
                                                                         </div>
@@ -158,13 +158,13 @@
                                                                         <label>Data de Descolagem</label>
                                                                         <div>
                                                                             <input type="date"
-                                                                                   wire:model="fatura.dataSaida"
+                                                                                   wire:model="fatura.dataDeDescolagem"
                                                                                    class="input-small"
                                                                                    style="width: 150px; <?= $errors->has('fatura.dataSaida') ? 'border-color: #ff9292;' : '' ?>"/>
-                                                                            @if ($errors->has('fatura.dataSaida'))
+                                                                            @if ($errors->has('fatura.dataDeDescolagem'))
                                                                                 <span class="help-block"
                                                                                       style="color: red; font-weight: bold">
-                                                                                    <strong>{{ $errors->first('fatura.dataSaida') }}</strong>
+                                                                                    <strong>{{ $errors->first('fatura.dataDeDescolagem') }}</strong>
                                                                                 </span>
                                                                             @endif
                                                                         </div>
@@ -172,14 +172,14 @@
                                                                     <div class="form-group">
                                                                         <label>Hora de Aterragem</label>
                                                                         <div>
-                                                                            <input type="date"
-                                                                                   wire:model="fatura.dataSaida"
+                                                                            <input type="time"
+                                                                                   wire:model="fatura.horaDeAterragem"
                                                                                    class="input-small"
                                                                                    style="width: 150px; <?= $errors->has('fatura.dataSaida') ? 'border-color: #ff9292;' : '' ?>"/>
-                                                                            @if ($errors->has('fatura.dataSaida'))
+                                                                            @if ($errors->has('fatura.horaDeAterragem'))
                                                                                 <span class="help-block"
                                                                                       style="color: red; font-weight: bold">
-                                                                                    <strong>{{ $errors->first('fatura.dataSaida') }}</strong>
+                                                                                    <strong>{{ $errors->first('fatura.horaDeAterragem') }}</strong>
                                                                                 </span>
                                                                             @endif
                                                                         </div>
@@ -187,14 +187,14 @@
                                                                     <div class="form-group">
                                                                         <label>Hora de Descolagem</label>
                                                                         <div>
-                                                                            <input type="date"
-                                                                                   wire:model="fatura.dataSaida"
+                                                                            <input type="time"
+                                                                                   wire:model="fatura.horaDeDescolagem"
                                                                                    class="input-small"
-                                                                                   style="width: 150px; <?= $errors->has('fatura.dataSaida') ? 'border-color: #ff9292;' : '' ?>"/>
-                                                                            @if ($errors->has('fatura.dataSaida'))
+                                                                                   style="width: 150px; <?= $errors->has('fatura.horaDeDescolagem') ? 'border-color: #ff9292;' : '' ?>"/>
+                                                                            @if ($errors->has('fatura.horaDeDescolagem'))
                                                                                 <span class="help-block"
                                                                                       style="color: red; font-weight: bold">
-                                                                                    <strong>{{ $errors->first('fatura.dataSaida') }}</strong>
+                                                                                    <strong>{{ $errors->first('fatura.horaDeDescolagem') }}</strong>
                                                                                 </span>
                                                                             @endif
                                                                         </div>
@@ -217,10 +217,8 @@
                                                             <tr>
                                                                 <th>#</th>
                                                                 <th style="width: 400px; text-align: left">
-                                                                    Produto
+                                                                    Tarifas
                                                                 </th>
-                                                                <th style="text-align: center">Taxa</th>
-                                                                <th style="text-align: center">Descontos</th>
                                                                 <th style="text-align: center">Imposto</th>
                                                                 <th style="text-align: right">Total</th>
                                                                 <th style="text-align: center"></th>
@@ -231,8 +229,6 @@
                                                                 <tr>
                                                                     <td>{{++$key}}</td>
                                                                     <td style="width: 400px; text-align: left">{{ $faturaItem['nomeProduto'] }}</td>
-                                                                    <td style="text-align: center">{{ $faturaItem['taxa'] }}</td>
-                                                                    <td style="text-align: center">{{ $faturaItem['desconto'] }}</td>
                                                                     <td style="text-align: center">{{ $faturaItem['valorImposto'] }}</td>
                                                                     <td style="text-align: right">{{ number_format($faturaItem['total'],2,',','.') }}</td>
                                                                     <td style="text-align: center">
@@ -256,10 +252,7 @@
                                                         <table class="table table-striped table-bordered">
                                                             <thead>
                                                             <tr>
-                                                                <th>Produto</th>
-                                                                <th style="width: 130px">Tipo/Mercadorias</th>
-                                                                <th>Sujeito a despacho aduaneiro</th>
-                                                                <th>Especificação da mercadoria</th>
+                                                                <th>Tarifas</th>
                                                                 <th></th>
                                                             </tr>
                                                             </thead>
@@ -279,48 +272,11 @@
                                                                         @endforeach
                                                                     </select>
                                                                 </td>
-                                                                <td class="center">
-                                                                    <select style="width: 100%"
-                                                                            wire:model="item.tipoMercadoriaId"
-                                                                            name="ship" rowid="6"
-                                                                            size="1"
-                                                                            class="editable inline-edit-cell ui-widget-content ui-corner-all">
-                                                                        @foreach($tipoMercadorias as $mercadoria)
-                                                                            <option
-                                                                                value="{{$mercadoria->id}}">{{ Str::title($mercadoria->designacao) }}</option>
-                                                                        @endforeach
-                                                                    </select>
-                                                                </td>
-                                                                <td class="center">
-                                                                    <select style="width: 100%"
-                                                                            wire:model="item.sujeitoDespachoId"
-                                                                            name="ship" rowid="6"
-                                                                            size="1"
-                                                                            class="editable inline-edit-cell ui-widget-content ui-corner-all">
-                                                                        <option role="option" value="1">Sim</option>
-                                                                        <option role="option" value="2">Não</option>
-
-                                                                    </select>
-                                                                </td>
-                                                                <td class="center">
-                                                                    <select style="width: 100%"
-                                                                            wire:model="item.especificacaoMercadoriaId"
-                                                                            name="ship" rowid="6"
-                                                                            size="1"
-                                                                            class="editable inline-edit-cell ui-widget-content ui-corner-all">
-                                                                        @foreach($especificaoMercadorias as $especificacao)
-                                                                            <option
-                                                                                value="{{$especificacao->id}}">{{ Str::limit($especificacao->designacao, 40) }}</option>
-                                                                        @endforeach
-
-                                                                    </select>
-                                                                </td>
                                                                 <td>
                                                                     <div class="hidden-sm hidden-xs btn-group">
                                                                         <button class="btn btn-xs btn-success"
                                                                                 wire:click.prevent="addCart">
                                                                             <i class="ace-icon fa fa-plus bigger-120"></i>
-
                                                                         </button>
                                                                     </div>
                                                                 </td>

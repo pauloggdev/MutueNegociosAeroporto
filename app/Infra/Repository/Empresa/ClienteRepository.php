@@ -9,6 +9,7 @@ class ClienteRepository
         return ClienteDatabase::where('empresa_id', auth()->user()->empresa_id)
             ->where('id', '!=', 1)
             ->search(trim($search))
+            ->orderBy('nome', 'asc')
             ->get();
     }
     public function getClientesSemConsumidorFinal(){

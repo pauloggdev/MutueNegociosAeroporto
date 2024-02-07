@@ -8,6 +8,7 @@ class FaturaCarga
     private $tipoDocumento;
     private $clienteId;
     private $nomeCliente;
+    private $nomeProprietario;
     private $telefoneCliente;
     private $nifCliente;
     private $emailCliente;
@@ -18,6 +19,7 @@ class FaturaCarga
     private $nDias;
     private $taxaIva;
     private $cambioDia;
+    private $moeda;
     private $items = [];
 
     /**
@@ -31,12 +33,13 @@ class FaturaCarga
      * @param $contraValor
      */
 
-    public function __construct($cartaDePorte, $tipoDocumento, $clienteId, $nomeCliente, $telefoneCliente, $nifCliente, $emailCliente, $enderecoCliente, $peso, $dataEntrada, $dataSaida, $nDias, $taxaIva, $cambioDia)
+    public function __construct($cartaDePorte, $tipoDocumento, $clienteId, $nomeCliente, $nomeProprietario, $telefoneCliente, $nifCliente, $emailCliente, $enderecoCliente, $peso, $dataEntrada, $dataSaida, $nDias, $taxaIva, $cambioDia, $moeda)
     {
         $this->cartaDePorte = $cartaDePorte;
         $this->tipoDocumento = $tipoDocumento;
         $this->clienteId = $clienteId;
         $this->nomeCliente = $nomeCliente;
+        $this->nomeProprietario = $nomeProprietario;
         $this->telefoneCliente = $telefoneCliente;
         $this->nifCliente = $nifCliente;
         $this->emailCliente = $emailCliente;
@@ -47,11 +50,15 @@ class FaturaCarga
         $this->nDias = $nDias;
         $this->taxaIva = $taxaIva;
         $this->cambioDia = $cambioDia;
+        $this->moeda = $moeda;
     }
 
     public function addItem(FaturaItemCarga $items)
     {
         $this->items[] = $items;
+    }
+    public function getNomeProprietario(){
+        return $this->nomeProprietario;
     }
 
     public function getNomeCliente()
@@ -133,6 +140,9 @@ class FaturaCarga
     public function getTaxaIva()
     {
         return $this->taxaIva;
+    }
+    public function getMoeda(){
+        return $this->moeda;
     }
 
     public function getCambioDia()

@@ -9,6 +9,29 @@ class Recibos extends Model
     protected $table = 'recibos';
     protected $connection = 'mysql2';
 
+    protected  $fillable = [
+        'numeracaoRecibo',
+        'clienteId',
+        'anulado',
+        'totalEntregue',
+        'userId',
+        'empresaId',
+        'facturaId',
+        'totalFatura',
+        'totalDebitado',
+        'totalImposto',
+        'totalDebitar',
+        'formaPagamentoId',
+        'observacao',
+        'numSequenciaRecibo',
+        'nomeCliente',
+        'telefoneCliente',
+        'nifCliente',
+        'emailCliente',
+        'enderecoCliente',
+        'hash'
+    ];
+
 
     // public function recibos_items()
     // {
@@ -16,7 +39,7 @@ class Recibos extends Model
     // }
     public function factura()
     {
-        return $this->belongsTo(Factura::class, 'factura_id');
+        return $this->belongsTo(Factura::class, 'facturaId');
     }
     public function cliente()
     {
@@ -28,7 +51,7 @@ class Recibos extends Model
     }
     public function formaPagamento()
     {
-        return $this->belongsTo(FormaPagamentoGeral::class, 'forma_pagamento_id');
+        return $this->belongsTo(FormaPagamentoGeral::class, 'formaPagamentoId');
     }
     public function tipoUser()
     {
@@ -39,11 +62,8 @@ class Recibos extends Model
         $term = "%$term%";
 
         $query->where(function ($query) use ($term) {
-            $query->where("nome_do_cliente", "like", $term)
-            ->orwhere("numeracao_recibo", "like", $term)
-            ->orwhereHas("factura", function($q) use($term){
-                $q->where('numeracaoFactura', "like", $term);
-            });
+            $query->where("nomeCliente", "like", $term)
+            ->orwhere("numeracaoRecibo", "like", $term);
         });
     }
 }

@@ -61,45 +61,42 @@
                                                             <b>DADOS DO CLIENTE</b>
                                                         </div>
                                                     </div>
-
                                                     <div>
 
                                                         <ul class="list-unstyled  spaced">
-                                                            <div style="margin-top: 10px">
+                                                            <div style="margin-top: 10px; margin-bottom: 15px;">
                                                                 <li>
                                                                     <select wire:model="fatura.clienteId"
                                                                             data="clienteId"
-                                                                            class="col-md-12"
+                                                                            class="col-md-12 select2"
                                                                             id="clienteId"
                                                                             style="height:35px;">
                                                                         <option value="">Seleciona o cliente</option>
                                                                         @foreach($clientes as $cliente)
-                                                                            <option value="{{ $cliente->id }}">{{ $cliente->nome }}</option>
+                                                                            <option
+                                                                                value="{{ $cliente->id }}">{{ $cliente->nome }}</option>
                                                                         @endforeach
                                                                     </select>
+                                                                    @if ($errors->has('fatura.clienteId'))
+                                                                        <span style="color: red; font-weight: bold">
+                                                                            <strong>{{ $errors->first('fatura.clienteId') }}</strong>
+                                                                        </span>
+                                                                    @endif
                                                                 </li>
                                                             </div>
-{{--                                                            <li>--}}
-{{--                                                                <i class="ace-icon fa fa-caret-right green"></i>Street,--}}
-{{--                                                                City--}}
-{{--                                                            </li>--}}
-
-{{--                                                            <li>--}}
-{{--                                                                <i class="ace-icon fa fa-caret-right green"></i>Zip--}}
-{{--                                                                Code--}}
-{{--                                                            </li>--}}
-
-{{--                                                            <li>--}}
-{{--                                                                <i class="ace-icon fa fa-caret-right green"></i>State,--}}
-{{--                                                                Country--}}
-{{--                                                            </li>--}}
-
-{{--                                                            <li class="divider"></li>--}}
-
-{{--                                                            <li>--}}
-{{--                                                                <i class="ace-icon fa fa-caret-right green"></i>--}}
-{{--                                                                Contact Info--}}
-{{--                                                            </li>--}}
+                                                            <div class="form-group">
+                                                                <div>
+                                                                    <input type="text"
+                                                                           wire:model="fatura.nomeProprietario"
+                                                                           style="width: 100%;<?= $errors->has('fatura.nomeProprietario') ? 'border-color: #ff9292;' : '' ?>"
+                                                                           placeholder="Proprietário..."/>
+                                                                    @if ($errors->has('fatura.nomeProprietario'))
+                                                                        <span style="color: red; font-weight: bold">
+                                                                            <strong>{{ $errors->first('fatura.nomeProprietario') }}</strong>
+                                                                        </span>
+                                                                    @endif
+                                                                </div>
+                                                            </div>
                                                         </ul>
                                                     </div>
                                                 </div><!-- /.col -->
@@ -287,7 +284,8 @@
                                                                             class="editable inline-edit-cell ui-widget-content ui-corner-all">
                                                                         <option value="">Nenhum</option>
                                                                         @foreach($servicos as $servico)
-                                                                            <option value="{{json_encode($servico->produto)}}">{{ $servico->produto->designacao }}</option>
+                                                                            <option
+                                                                                value="{{json_encode($servico->produto)}}">{{ $servico->produto->designacao }}</option>
                                                                         @endforeach
                                                                     </select>
                                                                 </td>
@@ -380,7 +378,7 @@
                                             <div class="row" style="margin-bottom: 5px">
                                                 <div class="col-sm-5 pull-right">
                                                     <h8 class="pull-right">
-                                                        TAXA DE CÂMBIO(AOA/USD) :
+                                                        TAXA DE CÂMBIO(AOA/{{$fatura['moeda']}}) :
                                                         <span>{{ number_format($fatura['cambioDia'], 2,',','.') }}</span>
                                                     </h8>
                                                 </div>
@@ -388,7 +386,7 @@
                                             <div class="row">
                                                 <div class="col-sm-5 pull-right">
                                                     <h8 class="pull-right">
-                                                        CONTRAVALOR(USD) :
+                                                        CONTRAVALOR({{$fatura['moeda']}}) :
                                                         <span><strong>${{ number_format($fatura['contraValor'], 2,',','.') }}</strong></span>
                                                     </h8>
                                                 </div>
@@ -403,6 +401,7 @@
                                                     @endforeach
                                                 </div>
                                                 <div>
+<<<<<<< HEAD
                                                     <a href="#" class="btn btn-default btn-app radius-4 btn-primary"
                                                        wire:click.prevent="emitirDocumento"
                                                        wire:keydown.enter="preventEnter"
@@ -413,7 +412,19 @@
                                                         <span class="loading"></span>
                                                         Aguarde...
                                                     </span>
+=======
+                                                    <a href="#" class="btn btn-app radius-4" style="background: #001291 !important;"
+                                                       wire:click.prevent="emitirDocumento"
+                                                       wire:keydown.enter="preventEnter"
+                                                    >
+>>>>>>> fda498c606c4800ef4a266aa6422ec853fa274d2
 
+                                                        <span wire:loading.remove wire:target="emitirDocumento">
+                                                        Finalizar
+                                                    </span>
+                                                        <span wire:loading wire:target="emitirDocumento">
+                                                        <span class="loading"></span>
+                                                        Aguarde...</span>
                                                     </a>
                                                 </div>
                                             </div>
@@ -433,6 +444,3 @@
         <i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
     </a>
 </div><!-- /.main-container -->
-
-
-</div>
