@@ -22,7 +22,7 @@
                                     <select class="col-md-12 select2" wire:model="operadorSelecionado"
                                         data="operadores"
                                         style="height:35px;<?= $errors->has('operadorSelecionado') ? 'border-color: #ff9292;' : '' ?>">
-                                        <option value="">TODOS</option>
+                                        <option value="">Selecione o Operador</option>
                                         @foreach($operadores as $operador)
                                         <option value="{{ $operador->id}}">
                                             {{ \Illuminate\Support\Str::upper($operador->name) }}
@@ -30,10 +30,10 @@
                                         @endforeach
                                     </select>
 
-                                    @if ($errors->has('operadores'))
+                                    @if ($errors->has('operadorSelecionado'))
                                     <span class="help-block"
                                         style="color: red;position: absolute;margin-top: -2px;font-size: 12px;">
-                                        <strong>{{ $errors->first('operadores') }}</strong>
+                                        <strong>{{ $errors->first('operadorSelecionado') }}</strong>
                                     </span>
                                     @endif
                                 </div>

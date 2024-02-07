@@ -78,7 +78,7 @@
               </div>
             </a>
 
-            <a href="/empresa/armazens">
+            <!-- <a href="/empresa/armazens">
               <div class="infobox infobox-pink">
                 <div class="infobox-icon">
                   <i class="ace-icon fa fa-shopping-cart"></i>
@@ -93,9 +93,9 @@
                   </div>
                 </div>
               </div>
-            </a>
+            </a> -->
 
-            <a href="/empresa/fornecedores">
+            <!-- <a href="/empresa/fornecedores">
               <div class="infobox infobox-red">
                 <div class="infobox-icon">
                   <i class="ace-icon fa fa-home"></i>
@@ -109,9 +109,9 @@
                   </div>
                 </div>
               </div>
-            </a>
+            </a> -->
 
-            <a href="/empresa/fabricantes">
+            <!-- <a href="/empresa/fabricantes">
               <div class="infobox infobox-purple">
                 <div class="infobox-icon">
                   <i class="ace-icon fa fa-flask"></i>
@@ -125,7 +125,7 @@
                   </div>
                 </div>
               </div>
-            </a>
+            </a> -->
 
             <a href="/empresa/bancos">
               <div class="infobox infobox-orange2">
@@ -151,7 +151,7 @@
                     countprodutos | formatQt
                   }}</span>
                   <div class="infobox-content" style="color: black">
-                    Produtos
+                   Serviços
                   </div>
                 </div>
               </div>
@@ -175,7 +175,7 @@
                   counttotalvendas | currency
                 }}</span>
                 <div class="infobox-content">
-                  <span class="bigger-110" style="color: black">Total de Vendas</span>
+                  <span class="bigger-110" style="color: black">Total Facturado</span>
                 </div>
               </div>
             </div>
@@ -188,7 +188,7 @@
               <div class="widget-header widget-header-flat widget-header-small">
                 <h5 class="widget-title">
                   <i class="ace-icon fa fa-signal"></i>
-                  Produtos mais vendidos  
+                Serviços Mais Facturado
                 </h5>
               </div>
 

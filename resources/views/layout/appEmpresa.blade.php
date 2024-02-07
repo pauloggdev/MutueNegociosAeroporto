@@ -559,6 +559,14 @@ if (Auth::guard('web')->check()) {
                     </li>
                 </ul>
             </li>
+
+            <li class="">
+                <a href="{{route('fechoCaixa.index')}}">
+                    <i class="menu-icon fa fa-file-pdf-o"></i>
+                    <span class="menu-text">FECHO DE CAIXA</span>
+                </a>
+            </li>
+            
             <li class="hover">
                 <a href="#" class="dropdown-toggle" style="color: #ffffff">
                     <i class="menu-icon fa fa-file-text"></i>

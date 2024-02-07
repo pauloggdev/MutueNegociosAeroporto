@@ -90,12 +90,12 @@ class FechoCaixaIndexController extends Component
             }],
             'data_fim' => 'required',
             'data_inicio' => 'required',
-            'operadores' => 'required',
+            'operadorSelecionado' => 'required',
         ];
         $messages = [
             'data_inicio.required' => 'Informe a data Inicial',
             'data_fim.required' => 'Informe a data Final',
-            'operadores.required' => 'Informe o operador',
+            'operadorSelecionado.required' => 'Informe o operador',
         ];
         $this->validate($rules, $messages);
 
@@ -117,7 +117,6 @@ class FechoCaixaIndexController extends Component
                     'data_fim' => $this->data_fim,
                     'dataInicioFormat' => $dataInicioFormat,
                     'dataFinalFormat' => $dataFinalFormat,
-
                 ]
             ]
         );
