@@ -403,16 +403,16 @@
                                                     @endforeach
                                                 </div>
                                                 <div>
-                                                    <a href="#" class="btn btn-default btn-app radius-4"
+                                                    <a href="#" class="btn btn-default btn-app radius-4 btn-primary"
                                                        wire:click.prevent="emitirDocumento"
                                                        wire:keydown.enter="preventEnter"
                                                     >
                                                         <span wire:loading wire:target="emitirDocumento"
                                                               class="loading"></span> Finalizar
                                                         <span wire:loading wire:target="emitirDocumento">
-            <span class="loading"></span>
-            Aguarde...
-        </span>
+                                                        <span class="loading"></span>
+                                                        Aguarde...
+                                                    </span>
 
                                                     </a>
                                                 </div>

@@ -44,8 +44,9 @@
 			<div class="wrap-login100">
 				
 				<div class="login100-pic js-tilt" data-tilt >
-					<p class="text-bold mb-4 text-center login100-form-title">SISTEMA DE FATURAÇÃO</p>
-					<img src="{{asset('assets/login/images/img-02.jpg')}}" alt="IMG">
+					<img src="{{asset('assets/login/images/TK3.png')}}" alt="IMG">
+					<p class="text-bold  text-center login100-form-title">SISTEMA DE FATURAÇÃO</p>
+
 				</div>
 
 				<form action="{{ route('login') }}" id="contact-form" method="POST" class="login100-form validate-form">

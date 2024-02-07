@@ -224,7 +224,7 @@ if (Auth::guard('web')->check()) {
                 <li class=""></li>
 
                 <li class="hover">
-                    <a href="#" class="dropdown-toggle" style="color: #ffffff">
+                    <a href="#" class="dropdown-toggle" style="color: #ffffff;">
                         <i class="menu-icon fa fa-list-alt"></i>
                         <span class="menu-text">CADASTROS</span>
 
