@@ -117,7 +117,6 @@ class FechoCaixaIndexController extends Component
                     'data_fim' => $this->data_fim,
                     'dataInicioFormat' => $dataInicioFormat,
                     'dataFinalFormat' => $dataFinalFormat,
-
                 ]
             ]
         );
