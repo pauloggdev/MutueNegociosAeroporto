@@ -91,6 +91,7 @@ use App\Http\Controllers\empresa\Clientes\ClienteExtratoController;
 use App\Http\Controllers\empresa\Clientes\ClienteIndexController;
 use App\Http\Controllers\empresa\Clientes\ClienteShowController;
 use App\Http\Controllers\empresa\Clientes\ClienteUpdateController;
+use App\Http\Controllers\empresa\Clientes\RelatorioExtratoClienteController;
 use App\Http\Controllers\empresa\ComunasFrete\ComunaFreteCreateController;
 use App\Http\Controllers\empresa\ComunasFrete\ComunaFreteIndexController;
 use App\Http\Controllers\empresa\ComunasFrete\ComunaFreteUpdateController;
@@ -667,6 +668,9 @@ Route::group(['middleware' => ['auth:empresa']], function () {
             Route::get('/manual-utilizador', ManualUtilizadorIndexController::class)->name('manual.index');
 
             Route::get('/empresa/relatorios-gerais',RelatorioGeralIndexController::class)->name('relatorio.relatoriosGeral');
+
+
+            Route::get('/empresa/extrato/cliente', RelatorioExtratoClienteController::class)->name('extratoCliente');
 
 
 

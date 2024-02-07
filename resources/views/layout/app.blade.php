@@ -395,7 +395,7 @@ if (Auth::guard('web')->check()) {
                     <li class="hover">
                         <a href="/empresa/emissao/fatura/carga">
                             <i class="menu-icon fa fa-wpforms"></i>
-                           SERVIÇO DE CARGA
+                            SERVIÇO DE CARGA
                         </a>
                         <b class="arrow"></b>
                     </li>
@@ -413,13 +413,13 @@ if (Auth::guard('web')->check()) {
                         </a>
                         <b class="arrow"></b>
                     </li>
-                    <li class="hover">
-                        <a href="/empresa/facturas-proformas">
-                            <i class="menu-icon glyphicon glyphicon-refresh"></i>
-                            CONVERTER FATURAS PROFORMA
-                        </a>
-                        <b class="arrow"></b>
-                    </li>
+                    {{--                    <li class="hover">--}}
+                    {{--                        <a href="/empresa/facturas-proformas">--}}
+                    {{--                            <i class="menu-icon glyphicon glyphicon-refresh"></i>--}}
+                    {{--                            CONVERTER FATURAS PROFORMA--}}
+                    {{--                        </a>--}}
+                    {{--                        <b class="arrow"></b>--}}
+                    {{--                    </li>--}}
                 </ul>
             </li>
             {{--                <li class="">--}}
@@ -457,131 +457,17 @@ if (Auth::guard('web')->check()) {
                         </a>
                         <b class="arrow"></b>
                     </li>
-                        <b class="arrow"></b>
-                    </li>
-                </ul>
+                    <b class="arrow"></b>
             </li>
+        </ul>
+        </li>
 
-            @if(Auth::user()->hasRole('Super-Admin'))
-
-                <li class="hover">
-                    <a href="#" class="dropdown-toggle" style="color: #ffffff">
-                        <i class="menu-icon fa fa-shopping-cart"></i>
-                        <span class="menu-text">VENDAS</span>
-
-                        <b class="arrow fa fa-angle-down"></b>
-                    </a>
-
-                    <b class="arrow"></b>
-
-                    <ul class="submenu">
-                        <!-- <li class="hover">
-                            <a href="/empresa/vendas-produtos">
-                                <i class="menu-icon fa fa-caret-right"></i>
-                                Lista de vendas por produtos
-                            </a>
-
-                            <b class="arrow"></b>
-                        </li> -->
-
-                        <li class="hover">
-                            <a href="/empresa/vendas-diaria">
-                                <i class="menu-icon fa fa-caret-right"></i>
-                                VENDA DIÁRIA
-                            </a>
-
-                            <b class="arrow"></b>
-                        </li>
-                        <li class="hover">
-
-                            <a href="/empresa/vendas-mensal">
-                                <i class="menu-icon fa fa-caret-right"></i>
-                                VENDAS MENSAL
-                            </a>
-
-                            <b class="arrow"></b>
-                        </li>
-                        <li class="hover">
-                            <a href="/empresa/relatorios-vendas">
-                                <i class="menu-icon fa fa-caret-right"></i>
-                                RELATÓRIOS DE VENDAS GERAIS
-                            </a>
-                            <b class="arrow"></b>
-                        </li>
-                    </ul>
-                </li>
-            @endif
-
-            @if(auth()->user()->empresa->venda_online == "Y")
-                <li class="hover">
-                    <a href="#" class="dropdown-toggle" style="color: #ffffff">
-                        <i class="menu-icon fa fa-shopping-cart"></i>
-                        <span class="menu-text">VENDAS ONLINE</span>
-
-                        <b class="arrow fa fa-angle-down"></b>
-                    </a>
-                    <b class="arrow"></b>
-                    <ul class="submenu">
-                        <li class="hover">
-                            <a href="/empresa/cupons-desconto">
-                                <i class="menu-icon fa fa-caret-right"></i>
-                                GERAR CUPON DESCONTO
-                            </a>
-                            <b class="arrow"></b>
-                        </li>
-                        <li class="hover">
-                            <a href="/empresa/produtos/destaques">
-                                <i class="menu-icon fa fa-caret-right"></i>
-                                PRODUTOS DESTAQUES
-                            </a>
-                            <b class="arrow"></b>
-                        </li>
-
-                        <li class="hover">
-
-                            <a href="{{ route('anunciosBanner.index') }}">
-                                <i class="menu-icon fa fa-caret-right"></i>
-                                ANÚNCIOS
-                            </a>
-                            <b class="arrow"></b>
-                        </li>
-
-                        <li class="hover">
-                            <a href="{{ route('comunasFrete.index') }}">
-                                <i class="menu-icon fa fa-caret-right"></i>
-                                FRETES / COMUNAS
-                            </a>
-                            <b class="arrow"></b>
-                        </li>
-                        <li class="hover">
-                            <a href="{{ route('pagamentosVendaOnlineIndex') }}">
-                                <i class="menu-icon fa fa-caret-right"></i>
-                                PAGAMENTOS VENDAS ONLINE
-                            </a>
-                            <b class="arrow"></b>
-                        </li>
-                        <li class="hover">
-                            <a href="{{ route('perguntasFrequentes') }}">
-                                <i class="menu-icon fa fa-caret-right"></i>
-                                PERGUNTAS FREQUENTES
-                            </a>
-                            <b class="arrow"></b>
-                        </li>
-                    </ul>
-                </li>
-            @endif;
-{{--            <li class="hover">--}}
-{{--                <a href="/empresa/inventarios" style="color: #ffffff">--}}
-{{--                    <i class="menu-icon glyphicon glyphicon-refresh"></i>--}}
-{{--                    <span class="menu-text">INVENTÁRIOS</span>--}}
-{{--                    <b class="arrow fa fa-angle-down"></b>--}}
-{{--                </a>--}}
-{{--            </li>--}}
+        @if(Auth::user()->hasRole('Super-Admin'))
 
             <li class="hover">
                 <a href="#" class="dropdown-toggle" style="color: #ffffff">
-                    <i class="menu-icon fa fa-cog"></i>
-                    <span class="menu-text">CONFIGURAÇÕES</span>
+                    <i class="menu-icon fa fa-shopping-cart"></i>
+                    <span class="menu-text">VENDAS</span>
 
                     <b class="arrow fa fa-angle-down"></b>
                 </a>
@@ -589,114 +475,206 @@ if (Auth::guard('web')->check()) {
                 <b class="arrow"></b>
 
                 <ul class="submenu">
-
-                    <li class="hover">
-                        <a href="/empresa/configuracao">
-                            <i class="menu-icon fa fa-pencil" style="color: white;"></i>
-                            DADOS DA EMPRESA
+                    <!-- <li class="hover">
+                        <a href="/empresa/vendas-produtos">
+                            <i class="menu-icon fa fa-caret-right"></i>
+                            Lista de vendas por produtos
                         </a>
+
                         <b class="arrow"></b>
-                    </li>
-                    <li class="hover">
-                        <a href="/empresa/modelo-documentos">
-                            <i class="menu-icon fa fa-list" style="color: white;"></i>
-                            MODELO DOCUMENTOS
-                        </a>
-                        <b class="arrow"></b>
-                    </li>
+                    </li> -->
 
                     <li class="hover">
-
-                        <a href="{{ route('parametrosIndex')}}">
-                            <i class="menu-icon fa fa-pencil" style="color: white;"></i>
-                            DEFINIR PARAMETROS
+                        <a href="/empresa/vendas-diaria">
+                            <i class="menu-icon fa fa-caret-right"></i>
+                            VENDA DIÁRIA
                         </a>
 
                         <b class="arrow"></b>
                     </li>
-                    {{--                        <li class="hover">--}}
-                    {{--                            <a href="{{ route('bonusClienteIndex') }}">--}}
-                    {{--                                <i class="menu-icon fa fa-pencil" style="color: white;"></i>--}}
-                    {{--                                DEFINIR BONUS(%) CARTÃO CLIENTE--}}
-                    {{--                            </a>--}}
-                    {{--                            <b class="arrow"></b>--}}
-                    {{--                        </li>--}}
+                    <li class="hover">
 
+                        <a href="/empresa/vendas-mensal">
+                            <i class="menu-icon fa fa-caret-right"></i>
+                            VENDAS MENSAL
+                        </a>
+
+                        <b class="arrow"></b>
+                    </li>
+                    <li class="hover">
+                        <a href="/empresa/relatorios-vendas">
+                            <i class="menu-icon fa fa-caret-right"></i>
+                            RELATÓRIOS DE VENDAS GERAIS
+                        </a>
+                        <b class="arrow"></b>
+                    </li>
                 </ul>
             </li>
-            <li class="">
-                <a href="{{route('relatorio.index')}}">
-                    <i class="menu-icon fa fa-file-pdf-o"></i>
-                    <span class="menu-text">RELATÓRIOS</span>
-                </a>
-            </li>
-            <li class="">
-                <a href="{{route('fechoCaixa.index')}}">
-                    <i class="menu-icon fa fa-file-pdf-o"></i>
-                    <span class="menu-text">FECHO DE CAIXA</span>
-                </a>
-            </li>
-{{--            <li class="">--}}
-{{--                <a href="{{route('centroCusto.index')}}">--}}
-{{--                    <i class="menu-icon fa fa-shopping-basket"></i>--}}
-{{--                    <span class="menu-text">CENTRO DE CUSTOS</span>--}}
-{{--                </a>--}}
-{{--                <b class="arrow"></b>--}}
-{{--            </li>--}}
+        @endif
+
+        @if(auth()->user()->empresa->venda_online == "Y")
             <li class="hover">
                 <a href="#" class="dropdown-toggle" style="color: #ffffff">
-                    <i class="menu-icon fa fa-file-text"></i>
-                    <span class="menu-text">IVA</span>
+                    <i class="menu-icon fa fa-shopping-cart"></i>
+                    <span class="menu-text">VENDAS ONLINE</span>
 
                     <b class="arrow fa fa-angle-down"></b>
                 </a>
-
                 <b class="arrow"></b>
-
                 <ul class="submenu">
                     <li class="hover">
-                        <a href="/empresa/taxaIva">
+                        <a href="/empresa/cupons-desconto">
                             <i class="menu-icon fa fa-caret-right"></i>
-                            DEFINIR TAXAS DO IVA
+                            GERAR CUPON DESCONTO
                         </a>
-
+                        <b class="arrow"></b>
+                    </li>
+                    <li class="hover">
+                        <a href="/empresa/produtos/destaques">
+                            <i class="menu-icon fa fa-caret-right"></i>
+                            PRODUTOS DESTAQUES
+                        </a>
                         <b class="arrow"></b>
                     </li>
 
                     <li class="hover">
-                        <a href="/empresa/motivoIva">
-                            <i class="menu-icon fa fa-caret-right"></i>
-                            MOTIVOS DE ISENÇÃO
-                        </a>
 
+                        <a href="{{ route('anunciosBanner.index') }}">
+                            <i class="menu-icon fa fa-caret-right"></i>
+                            ANÚNCIOS
+                        </a>
                         <b class="arrow"></b>
                     </li>
 
                     <li class="hover">
-                        <a href=" /empresa/gerarSaft">
+                        <a href="{{ route('comunasFrete.index') }}">
                             <i class="menu-icon fa fa-caret-right"></i>
-                            GERAR O FICHEIRO SAFT
+                            FRETES / COMUNAS
                         </a>
-
+                        <b class="arrow"></b>
+                    </li>
+                    <li class="hover">
+                        <a href="{{ route('pagamentosVendaOnlineIndex') }}">
+                            <i class="menu-icon fa fa-caret-right"></i>
+                            PAGAMENTOS VENDAS ONLINE
+                        </a>
+                        <b class="arrow"></b>
+                    </li>
+                    <li class="hover">
+                        <a href="{{ route('perguntasFrequentes') }}">
+                            <i class="menu-icon fa fa-caret-right"></i>
+                            PERGUNTAS FREQUENTES
+                        </a>
                         <b class="arrow"></b>
                     </li>
                 </ul>
             </li>
-            <li class="">
-                <a href="{{route('manual.index')}}">
-                    <i class="menu-icon fa fa-download"></i>
-                    <span class="menu-text">MANUAL UTILIZADOR</span>
-                </a>
-                <b class="arrow"></b>
-            </li>
-            <!-- <li class="hover">
-                    <a href="{{url('empresa/fechoCaixa')}}">
-                    <i class="menu-icon glyphicon glyphicon-time"></i>
-                        <span class="menu-text">Fecho de caixa</span>
-                        <b class="arrow fa fa-angle-down"></b>
+        @endif;
+        <li class="hover">
+            <a href="#" class="dropdown-toggle" style="color: #ffffff">
+                <i class="menu-icon fa fa-cog"></i>
+                <span class="menu-text">CONFIGURAÇÕES</span>
+
+                <b class="arrow fa fa-angle-down"></b>
+            </a>
+
+            <b class="arrow"></b>
+
+            <ul class="submenu">
+
+                <li class="hover">
+                    <a href="/empresa/configuracao">
+                        <i class="menu-icon fa fa-pencil" style="color: white;"></i>
+                        DADOS DA EMPRESA
                     </a>
-                </li> -->
-        </ul><!-- /.nav-list -->
+                    <b class="arrow"></b>
+                </li>
+
+
+                <li class="hover">
+
+                    <a href="{{ route('parametrosIndex')}}">
+                        <i class="menu-icon fa fa-pencil" style="color: white;"></i>
+                        DEFINIR PARAMETROS
+                    </a>
+
+                    <b class="arrow"></b>
+                </li>
+            </ul>
+        </li>
+        <li class="hover">
+            <a href="#" class="dropdown-toggle" style="color: #ffffff">
+                <i class="menu-icon fa fa-file-text"></i>
+                <span class="menu-text">RELATÓRIOS</span>
+                <b class="arrow fa fa-angle-down"></b>
+            </a>
+            <b class="arrow"></b>
+            <ul class="submenu">
+
+                <li class="hover">
+                    <a href="{{ route('extratoCliente') }}">
+                        <i class="menu-icon fa fa-file-text"></i>
+                        EXTRATO DO CLIENTE
+                    </a>
+                    <b class="arrow"></b>
+                </li>
+                <li class="hover">
+                    <a href="{{route('relatorio.relatoriosGeral')}}">
+                        <i class="menu-icon fa fa-file-text"></i>
+                        RELATÓRIO GERAL
+                    </a>
+                    <b class="arrow"></b>
+                </li>
+            </ul>
+        </li>
+
+
+        <li class="hover">
+            <a href="#" class="dropdown-toggle" style="color: #ffffff">
+                <i class="menu-icon fa fa-file-text"></i>
+                <span class="menu-text">IVA</span>
+
+                <b class="arrow fa fa-angle-down"></b>
+            </a>
+
+            <b class="arrow"></b>
+
+            <ul class="submenu">
+                <li class="hover">
+                    <a href="/empresa/taxaIva">
+                        <i class="menu-icon fa fa-caret-right"></i>
+                        DEFINIR TAXAS DO IVA
+                    </a>
+
+                    <b class="arrow"></b>
+                </li>
+
+                <li class="hover">
+                    <a href="/empresa/motivoIva">
+                        <i class="menu-icon fa fa-caret-right"></i>
+                        MOTIVOS DE ISENÇÃO
+                    </a>
+
+                    <b class="arrow"></b>
+                </li>
+
+                <li class="hover">
+                    <a href=" /empresa/gerarSaft">
+                        <i class="menu-icon fa fa-caret-right"></i>
+                        GERAR O FICHEIRO SAFT
+                    </a>
+
+                    <b class="arrow"></b>
+                </li>
+            </ul>
+        </li>
+        <li class="">
+            <a href="{{route('manual.index')}}">
+                <i class="menu-icon fa fa-download"></i>
+                <span class="menu-text">MANUAL UTILIZADOR</span>
+            </a>
+        </li>
+        </ul>
 
         <!--  MODAL MUDAR O LOGOMARCA  -->
         <div id="bs-modal-lg" class="modal fade actualizar_logomarca{{Auth::user()->id}}">

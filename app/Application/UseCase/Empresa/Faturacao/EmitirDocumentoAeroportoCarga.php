@@ -30,6 +30,7 @@ class EmitirDocumentoAeroportoCarga
     public function execute(Request $request)
     {
         $ultimaFatura = $this->faturaRepository->pegarUltimaFactura($request->tipoDocumento);
+
         $hashAnterior = "";
         if ($ultimaFatura) {
             $data_factura = Carbon::createFromFormat('Y-m-d H:i:s', $ultimaFatura->created_at);
