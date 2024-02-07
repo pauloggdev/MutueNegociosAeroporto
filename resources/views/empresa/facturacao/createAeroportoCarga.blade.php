@@ -401,11 +401,10 @@
                                                     @endforeach
                                                 </div>
                                                 <div>
-                                                    <a href="#" class="btn btn-app radius-4" style="background: #001291 !important;"
+                                                    <a href="#" class="btn btn-primary btn-app radius-4"
                                                        wire:click.prevent="emitirDocumento"
                                                        wire:keydown.enter="preventEnter"
                                                     >
-
                                                         <span wire:loading.remove wire:target="emitirDocumento">
                                                         Finalizar
                                                     </span>

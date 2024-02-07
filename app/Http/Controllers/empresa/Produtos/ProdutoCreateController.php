@@ -63,20 +63,20 @@ class ProdutoCreateController extends Component
         $getTipoServico = new GetTiposServicos(new DatabaseRepositoryFactory());
         $this->tiposServicos = $getTipoServico->execute();
 
-        $getParametroPVP = new GetParametroPeloLabelNoParametro(new DatabaseRepositoryFactory());
-        $parametroPvp = $getParametroPVP->execute('incluir_iva');
-        $this->ivaIncluido = $parametroPvp['valor'] == 'sim' ? true : false;
+//        $getParametroPVP = new GetParametroPeloLabelNoParametro(new DatabaseRepositoryFactory());
+//        $parametroPvp = $getParametroPVP->execute('incluir_iva');
+//        $this->ivaIncluido = $parametroPvp['valor'] == 'sim' ? true : false;
 
-        $getParametroPeloLabel = new GetParametroPeloLabelNoParametro(new DatabaseRepositoryFactory());
-        $margeLucroData = $getParametroPeloLabel->execute('margem_lucro');
-        $codigoProdutoData = $getParametroPeloLabel->execute('codigo_produto');
-        $codigoBarra = $getParametroPeloLabel->execute('codigo_barra');
-        $this->margemLucro = $margeLucroData['valor'];
-        $this->codigoBarra = $codigoBarra['valor'] == 'sim' ? true : false;
-        $this->codigoProduto = $codigoProdutoData['valor'] == 'sim' ? true : false;
-
-        $getCaracteristicasProduto = new GetCaracteristicasProduto(new DatabaseRepositoryFactory());
-        $this->carateristicasProduto = $getCaracteristicasProduto->execute();
+//        $getParametroPeloLabel = new GetParametroPeloLabelNoParametro(new DatabaseRepositoryFactory());
+//        $margeLucroData = $getParametroPeloLabel->execute('margem_lucro');
+//        $codigoProdutoData = $getParametroPeloLabel->execute('codigo_produto');
+//        $codigoBarra = $getParametroPeloLabel->execute('codigo_barra');
+//        $this->margemLucro = $margeLucroData['valor'];
+//        $this->codigoBarra = $codigoBarra['valor'] == 'sim' ? true : false;
+//        $this->codigoProduto = $codigoProdutoData['valor'] == 'sim' ? true : false;
+//
+//        $getCaracteristicasProduto = new GetCaracteristicasProduto(new DatabaseRepositoryFactory());
+//        $this->carateristicasProduto = $getCaracteristicasProduto->execute();
 
         $getArmazens = new GetArmazens(new DatabaseRepositoryFactory());
         $this->armazens = $getArmazens->execute();
