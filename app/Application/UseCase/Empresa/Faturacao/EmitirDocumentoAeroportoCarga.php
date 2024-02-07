@@ -29,9 +29,7 @@ class EmitirDocumentoAeroportoCarga
 
     public function execute(Request $request)
     {
-
         $ultimaFatura = $this->faturaRepository->pegarUltimaFactura($request->tipoDocumento);
-
         $hashAnterior = "";
         if ($ultimaFatura) {
             $data_factura = Carbon::createFromFormat('Y-m-d H:i:s', $ultimaFatura->created_at);
@@ -96,6 +94,7 @@ class EmitirDocumentoAeroportoCarga
         $signaturePlaintext = $rsa->sign($plaintext); //Assinando o texto $plaintext(resultado das concatenaÃ§Ãµes)
         $hashValor = base64_encode($signaturePlaintext);
 
+
         $faturaId = DB::table('facturas')->insertGetId([
             'texto_hash' => $plaintext,
             'tipo_documento' => $request->tipoDocumento,
@@ -113,18 +112,24 @@ class EmitirDocumentoAeroportoCarga
             'nDias' => $request->nDias,
             'taxaIva' => $request->taxaIva,
             'cambioDia' => $request->cambioDia,
+            'moeda' => $request->moeda,
             'contraValor' => $request->contraValor,
             'valorIliquido' => $request->valorIliquido,
             'valorImposto' => $request->valorImposto,
             'total' => $request->total,
             'clienteId' => $request->clienteId,
             'nome_do_cliente' => $request->nomeCliente,
+            'nomeProprietario' => $request->nomeProprietario,
             'telefone_cliente' => $request->telefoneCliente,
             'nif_cliente' => $request->nifCliente,
             'email_cliente' => $request->emailCliente,
-            'endereco_cliente' => $request->emailCliente,
+            'endereco_cliente' => $request->enderecoCliente,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
+        ]);
+        //Gerar o codigo de barra
+        DB::table('facturas')->where('id', $faturaId)->update([
+            'codigoBarra' => $this->getCodigoBarra($faturaId, $request->clienteId)
         ]);
         foreach ($request->items as $item) {
             $item = (object)$item;
@@ -134,6 +139,7 @@ class EmitirDocumentoAeroportoCarga
                 'nomeProduto' => $item->nomeProduto,
                 'taxa' => $item->taxa,
                 'valorIva' => $item->valorIva,
+                'taxaIva' => $item->taxaIva,
                 'nDias' => $item->nDias,
                 'sujeitoDespachoId' => $item->sujeitoDespachoId,
                 'tipoMercadoriaId' => $item->tipoMercadoriaId,
@@ -141,10 +147,16 @@ class EmitirDocumentoAeroportoCarga
                 'desconto' => $item->desconto,
                 'valorImposto' => $item->valorImposto,
                 'total' => $item->total,
+                'totalIva' => $item->totalIva,
                 'factura_id' => $faturaId,
             ]);
         }
         return $faturaId;
+    }
+
+    public function getCodigoBarra($faturaId, $clienteId)
+    {
+        return "1000" . $clienteId . "" . $faturaId . "" . auth()->user()->id;
     }
 
 }

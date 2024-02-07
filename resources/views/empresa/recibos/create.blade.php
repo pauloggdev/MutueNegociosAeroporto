@@ -34,7 +34,7 @@
                             <div class="form-group has-info bold" style="left: 0%; position: relative">
                                 <div class="col-md-12">
                                     <label class="control-label bold label-select2" for="numeracaoFactura">Buscar factura<b class="red fa fa-question-circle"></b></label>
-                                    <input type="text" wire:model.debounce.500ms="recibo.numeracaoFactura" autofocus placeholder="buscar pela numeração da factura" class="form-control" style="height: 35px; font-size: 10pt;<?= $errors->has('recibo.numeracaoFactura') ? 'border-color: #ff9292;' : '' ?>" />
+                                    <input type="text" wire:model.debounce.500ms="recibo.numeracaoFactura" autofocus placeholder="buscar pela numeração da factura / código de barra" class="form-control" style="height: 35px; font-size: 10pt;<?= $errors->has('recibo.numeracaoFactura') ? 'border-color: #ff9292;' : '' ?>" />
                                     @if ($errors->has('recibo.numeracaoFactura'))
                                     <span class="help-block" style="color: red; font-weight: bold">
                                         <strong>{{ $errors->first('recibo.numeracaoFactura') }}</strong>
@@ -119,7 +119,7 @@
                             <div class="form-group has-info bold" style="left: 0%; position: relative">
                                 <div class="col-md-12">
 
-                                    <label class="control-label bold label-select2" for="observacao">Observação <b class="red fa fa-question-circle"></b></label>
+                                    <label class="control-label bold label-select2" for="observacao">Observação</label>
                                     <div class="input-group">
                                         <textarea wire:model="recibo.observacao" id="observacao" cols="200" rows="2" class="form-control" style="font-size: 16px; z-index: 1;"></textarea>
                                     </div>

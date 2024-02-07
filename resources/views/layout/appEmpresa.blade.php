@@ -420,14 +420,14 @@ if (Auth::guard('web')->check()) {
                     <li class="hover">
                         <a href="/empresa/emissao/fatura/carga">
                             <i class="menu-icon fa fa-wpforms"></i>
-                            CARGA
+                            SERVIÇO DE CARGA
                         </a>
                         <b class="arrow"></b>
                     </li>
                     <li class="hover">
                         <a href="/empresa/emissao/fatura/aeronautica">
                             <i class="menu-icon fa fa-wpforms"></i>
-                            AERONÁUTICO
+                            SERVIÇO AEROPORTUÁRIO
                         </a>
                         <b class="arrow"></b>
                     </li>
@@ -471,7 +471,7 @@ if (Auth::guard('web')->check()) {
                     <li class="hover">
                         <a href="{{ route('recibo.index')}}">
                             <i class="menu-icon fa fa-caret-right"></i>
-                            DEPÓSITO DE VALOR - RECIBOS</a>
+                            EMITIR RECIBOS</a>
                         <b class="arrow"></b>
                     </li>
 
@@ -652,55 +652,6 @@ if (Auth::guard('web')->check()) {
 {{--                        <b class="arrow"></b>--}}
 {{--                    </li>--}}
 
-                </ul>
-            </li>
-            <li class="hover">
-                <a href="#" class="dropdown-toggle" style="color: #ffffff">
-                    <i class="menu-icon fa fa-list-alt"></i>
-                    <span class="menu-text">LISTAGENS</span>
-
-                    <b class="arrow fa fa-angle-down"></b>
-                </a>
-
-                <b class="arrow"></b>
-
-                <ul class="submenu">
-                    <li class="hover">
-
-                        <a href="/empresa/minhas-licencas">
-                            <i class="fa fa-list" aria-hidden="true"></i>
-                            MINHAS LICENÇAS
-                        </a>
-
-                        <b class="arrow"></b>
-                    </li>
-                    <!-- <li class="hover">
-
-                        <a href="/empresa/facturas-licencas">
-                            <i class="fa fa-list" aria-hidden="true"></i>
-                            Facturas de Licenças
-                        </a>
-
-                        <b class="arrow"></b>
-                    </li>
-                    <li class="hover">
-
-                        <a href="/empresa/recibos-facturas-licenca">
-                            <i class="fa fa-list" aria-hidden="true"></i>
-                            Recibos Pagamento de Licenças
-                        </a>
-
-                        <b class="arrow"></b>
-                    </li> -->
-                    <li class="hover">
-
-                        <!-- <a href="/empresa/movimento/diario">
-                            <i class="fa fa-history" aria-hidden="true"></i>
-                            Movimento diário
-                        </a> -->
-
-                        <b class="arrow"></b>
-                    </li>
                 </ul>
             </li>
             <li class="">

@@ -42,6 +42,7 @@ class EmissaoFaturaCargaController extends Component
     public $fatura = [
         'cartaDePorte' => null,
         'tipoDocumento' => 3, //Fatura recibo
+        'nomeProprietario' => null,
         'clienteId' => null,
         'nomeCliente' => null,
         'telefoneCliente' => null,
@@ -57,6 +58,7 @@ class EmissaoFaturaCargaController extends Component
         'contraValor' => 0,
         'valorIliquido' => 0,
         'valorImposto' => 0,
+        'moeda' => null,
         'total' => 0,
         'items' => []
     ];
@@ -66,9 +68,21 @@ class EmissaoFaturaCargaController extends Component
     public $paises;
     public $tiposDocumentos;
     public $especificaoMercadorias;
+    protected $listeners = ['selectedItem'];
 
+
+    public function selectedItem($item)
+    {
+        if($item['atributo'] == 'clienteId'){
+            $this->updatedFaturaClienteId($item['valor']);
+        }
+        $this->fatura[$item['atributo']] = $item['valor'];
+    }
     public function mount()
     {
+        $moedaEstrageiraUsado = new GetParametroPeloLabelNoParametro(new DatabaseRepositoryFactory());
+        $this->fatura['moeda'] = $moedaEstrageiraUsado->execute('moeda_estrageira_usada')->valor;
+
         $getClientes = new GetClientes(new DatabaseRepositoryFactory());
         $this->clientes = $getClientes->execute();
 
@@ -99,6 +113,7 @@ class EmissaoFaturaCargaController extends Component
         $this->fatura = [
             'cartaDePorte' => null,
             'tipoDocumento' => 3, //Fatura Proforma
+            'nomeProprietario' => null,
             'clienteId' => null,
             'nomeCliente' => null,
             'telefoneCliente' => null,
@@ -114,6 +129,7 @@ class EmissaoFaturaCargaController extends Component
             'contraValor' => 0,
             'valorIliquido' => 0,
             'valorImposto' => 0,
+            'moeda' => null,
             'total' => 0,
             'items' => []
         ];
@@ -122,7 +138,7 @@ class EmissaoFaturaCargaController extends Component
 
     public function render()
     {
-        $this->dispatchBrowserEvent('reloadTableJquery');
+//        $this->dispatchBrowserEvent('reloadTableJquery');
         $this->especificaoMercadorias = DB::table('especificacao_mercadorias')->get();
         return view("empresa.facturacao.createAeroportoCarga");
     }
@@ -222,7 +238,6 @@ class EmissaoFaturaCargaController extends Component
         });
         return $posicao;
     }
-
     private function conversorModelParaArray(FaturaCarga $output)
     {
         $fatura = [
@@ -230,6 +245,7 @@ class EmissaoFaturaCargaController extends Component
             'tipoDocumento' => $output->getTipoDocumentoId(),
             'clienteId' => $output->getClienteId(),
             'nomeCliente' => $output->getNomeCliente(),
+            'nomeProprietario' => $output->getNomeProprietario(),
             'telefoneCliente' => $output->getTelefone(),
             'nifCliente' => $output->getNifCliente(),
             'emailCliente' => $output->getEmailCliente(),
@@ -243,16 +259,17 @@ class EmissaoFaturaCargaController extends Component
             'contraValor' => $output->getContraValor(),
             'valorIliquido' => $output->getValorIliquido(),
             'valorImposto' => $output->getValorImposto(),
+            'moeda' => $output->getMoeda(),
             'total' => $output->getTotal(),
             "items" => []
         ];
         foreach ($output->getItems() as $item) {
-
             array_push($fatura['items'], [
                 'produtoId' => $item->getProdutoId(),
                 'nomeProduto' => $item->getNomeProduto(),
                 'taxa' => $item->getTaxa(),
-                'valorIva' => $item->getValorIva($output->getTaxaIva()),
+                'taxaIva' => $output->getTaxaIva(),
+                'valorIva' => $item->getValorIva(),
                 'nDias' => $item->getNDias(),
                 'sujeitoDespachoId' => $item->getSujeitoDespachoId(),
                 'tipoMercadoriaId' => $item->getTaxaTipoMercadoriaId(),
@@ -260,28 +277,36 @@ class EmissaoFaturaCargaController extends Component
                 'desconto' => $item->getDesconto(),
                 'valorImposto' => $item->getImposto(),
                 'total' => $item->getTotal(),
+                'totalIva' => $item->getTotalIva()
             ]);
         }
         return $fatura;
     }
+    public function hydrate()
+    {
+        $this->emit('select2');
+    }
+
 
 
     public function emitirDocumento()
     {
-
         $rules = [
             'fatura.cartaDePorte' => 'required',
+            'fatura.nomeProprietario' => 'required',
+            'fatura.clienteId' => 'required',
             'fatura.peso' => 'required',
             'fatura.dataEntrada' => 'required',
             'fatura.dataSaida' => 'required',
         ];
         $messages = [
             'fatura.cartaDePorte.required' => 'campo obrigatório',
+            'fatura.nomeProprietario.required' => 'campo obrigatório',
+            'fatura.clienteId.required' => 'campo obrigatório',
             'fatura.peso.required' => 'campo obrigatório',
             'fatura.dataEntrada.required' => 'campo obrigatório',
             'fatura.dataSaida.required' => 'campo obrigatório',
         ];
-
         $this->validate($rules, $messages);
 
         if (count($this->fatura['items']) <= 0) {
@@ -300,7 +325,6 @@ class EmissaoFaturaCargaController extends Component
             ]);
             return;
         }
-
         $emitirDocumento = new EmitirDocumentoAeroportoCarga(new DatabaseRepositoryFactory());
         $faturaId = $emitirDocumento->execute(new Request($this->fatura));
         $this->printFaturaCarga($faturaId);

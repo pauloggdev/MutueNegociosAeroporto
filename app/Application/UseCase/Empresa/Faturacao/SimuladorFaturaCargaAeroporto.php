@@ -31,13 +31,16 @@ class SimuladorFaturaCargaAeroporto
 
         $taxaIva = new GetParametroPeloLabelNoParametro(new DatabaseRepositoryFactory());
         $taxaIva = (float) $taxaIva->execute('valor_iva_aplicado')->valor;
-        $cambioDia = DB::table('cambios')->where('designacao', 'USD')->first()->valor;
+        $moedaEstrageiraUsado = new GetParametroPeloLabelNoParametro(new DatabaseRepositoryFactory());
+        $moedaEstrageiraUsado = $moedaEstrageiraUsado->execute('moeda_estrageira_usada')->valor;
+        $cambioDia = DB::table('cambios')->where('designacao', $moedaEstrageiraUsado)->first()->valor;
 
         $faturaCarga = new FaturaCarga(
             $input->cartaDePorte,
             $input->tipoDocumento,
             $input->clienteId,
             $input->nomeCliente??null,
+            $input->nomeProprietario??null,
             $input->telefoneCliente,
             $input->nifCliente,
             $input->emailCliente,
@@ -47,7 +50,8 @@ class SimuladorFaturaCargaAeroporto
             $input->dataSaida,
             $input->nDias,
             $taxaIva,
-            $cambioDia
+            $cambioDia,
+            $input->moeda
         );
         foreach ($input->items as $item){
             $item = (object)$item;
@@ -75,6 +79,7 @@ class SimuladorFaturaCargaAeroporto
                 $item->produtoId,
                 $item->nomeProduto,
                 $taxa,
+                $taxaIva,
                 $faturaCarga->getPeso(),
                 $faturaCarga->getNDias(),
                 $cambioDia,

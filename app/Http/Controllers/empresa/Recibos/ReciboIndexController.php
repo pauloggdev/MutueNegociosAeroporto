@@ -56,7 +56,7 @@ class ReciboIndexController extends Component
     {
         $recibo = $this->reciboRepository->listarRecibo($reciboId);
 
-        $logotipo = public_path() . '/upload/_logo_ATO_horizontal_negativo.png';
+        $logotipo = public_path() . '/upload/AtoNegativo1.png';
         $caminho = public_path() . '/upload/documentos/empresa/relatorios/';
 
         $getParametro = new GetParametroPeloLabelNoParametro(new DatabaseRepositoryFactory());

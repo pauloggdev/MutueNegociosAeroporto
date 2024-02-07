@@ -76,6 +76,7 @@ class ReciboCreateController extends Component
                 'numSequenciaRecibo' => 1
             ];
 
+
             $simuladorRecibo = new SimuladorRecibo(new DatabaseRepositoryFactory());
             $recibo = $simuladorRecibo->execute($data);
             $this->recibo['clienteId'] = $recibo->getClienteId();
@@ -93,6 +94,22 @@ class ReciboCreateController extends Component
             $this->recibo['observacao'] = $recibo->getObservacao();
             $this->recibo['totalDebitar'] = $recibo->getTotalDebitar();
             $this->recibo['totalDebitado'] = $recibo->getTotalDebitado();
+        }else{
+            $this->recibo = [
+                'numeracaoFactura' => $this->recibo['numeracaoFactura'],
+                'clienteId' => null,
+                'nomeCliente' => null,
+                'nifCliente' => null,
+                'telefoneCliente' => null,
+                'emailCliente' => null,
+                'enderecoCliente' => null,
+                'formaPagamentoId' => 1,
+                'totalFatura' => null,
+                'totalDebitar' => 0,
+                'totalDebitado' => 0,
+                'totalEntregue' => 0,
+                'observacao' => null,
+            ];
         }
     }
 
@@ -117,7 +134,7 @@ class ReciboCreateController extends Component
         $emitirRecibo = new EmitirRecibo(new DatabaseRepositoryFactory());
         $recibo = $emitirRecibo->execute($this->recibo);
 
-        $logotipo = public_path() . '/upload/_logo_ATO_horizontal_negativo.png';
+        $logotipo = public_path() . '/upload/AtoNegativo1.png';
 
         $getParametro = new GetParametroPeloLabelNoParametro(new DatabaseRepositoryFactory());
         $parametro = $getParametro->execute('tipoImpreensao');
