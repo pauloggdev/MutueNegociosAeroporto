@@ -27,6 +27,9 @@ class SimuladorRecibo
             $data['facturaId'],
             $data['totalFatura'],
             $data['formaPagamentoId'],
+            $data['numeroOperacaoBancaria'],
+            $data['dataOperacao'],
+            $data['comprovativoBancario'],
             $data['observacao'],
             $data['numSequenciaRecibo'],
         );

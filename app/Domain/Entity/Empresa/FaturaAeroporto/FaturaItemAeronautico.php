@@ -9,23 +9,41 @@ class FaturaItemAeronautico
     private $pmd;
     private $horaEstacionamento;
     private $taxa;
+    private $taxaLuminosa;
+    private $taxaAduaneiro;
+    private $sujeitoDespachoId;
+    private $peso;
+    private $horaExtra;
+    private $taxaAbertoAeroporto;
     private $cambioDia;
-    private $imposto;
-    private $total;
-
-    public function __construct($produtoId, $nomeProduto, $pmd, $horaEstacionamento, $taxa, $cambioDia)
+    public function __construct($produtoId, $nomeProduto, $pmd, $horaEstacionamento, $taxaEstacionamento, $taxaLuminosa, $taxaAduaneiro, $sujeitoDespachoId, $peso, $horaExtra, $horaAberturaAeroporto, $horaFechoAeroporto,$taxaAbertoAeroporto, $cambioDia)
     {
         $this->produtoId = $produtoId;
         $this->nomeProduto = $nomeProduto;
         $this->pmd = $pmd;
         $this->horaEstacionamento = $horaEstacionamento;
-        $this->taxa = $taxa;
+        $this->taxa = $taxaEstacionamento;
+        $this->taxaLuminosa = $taxaLuminosa;
+        $this->taxaAduaneiro = $taxaAduaneiro;
+        $this->sujeitoDespachoId = $sujeitoDespachoId;
+        $this->peso = $peso;
+        $this->horaExtra = $horaExtra;
+        $this->horaAberturaAeroporto = $horaAberturaAeroporto;
+        $this->horaFechoAeroporto = $horaFechoAeroporto;
+        $this->taxaAbertoAeroporto = $taxaAbertoAeroporto;
         $this->cambioDia = $cambioDia;
     }
 
-    /**
-     * @return mixed
-     */
+    public function getTaxaAduaneiro()
+    {
+        return $this->taxaAduaneiro;
+    }
+
+    public function getSujeitoDespachoId()
+    {
+        return $this->sujeitoDespachoId;
+    }
+
     public function getProdutoId()
     {
         return $this->produtoId;
@@ -42,12 +60,39 @@ class FaturaItemAeronautico
     /**
      * @return mixed
      */
-    public function getHoraEstacionamento(){
+    public function getHoraEstacionamento()
+    {
         return $this->horaEstacionamento;
     }
-    public function getTaxa(){
+
+    public function getTaxa()
+    {
         return $this->taxa;
     }
+
+    public function getTaxaLuminosa()
+    {
+        return $this->taxaLuminosa;
+    }
+
+    public function getPeso()
+    {
+        return $this->peso;
+    }
+    public function getHoraAberturaAeroporto(){
+        return $this->horaAberturaAeroporto;
+
+    }
+    public function getHoraFechoAeroporto(){
+      return $this->horaFechoAeroporto;
+    }
+    public function getTaxaAbertoAeroporto(){
+        return $this->taxaAbertoAeroporto;
+    }
+    public function getHoraExtra(){
+        return $this->horaExtra;
+    }
+
     public function getPMD()
     {
         return $this->pmd;
@@ -72,24 +117,63 @@ class FaturaItemAeronautico
      */
     public function getTotal()
     {
-        if ($this->produtoId == 4) { //Servico Estacionamento
+        if ($this->getProdutoId() == 4) { //Servico Estacionamento
             return $this->getTarifaEstacionamento();
         }
-        if ($this->produtoId == 5) { //Servico Aterragem
+        if ($this->getProdutoId() == 5) { //Servico Aterragem
             return $this->getTarifaAterragemDescolagem();
         }
+        if ($this->getProdutoId() == 6 || $this->getProdutoId() == 9) { // Servico de Luminosa1x e Luminosa2x
+            return $this->getTarifaLuminosa();
+        }
+        if ($this->getProdutoId() == 7) { //Servico de carga
+            return $this->getTarifaCarga();
+        }
+        if($this->getProdutoId() == 8){ //Servico de Abertura - Prolonngamento
+            return $this->getTarifaAbertoProlongamento();
+        }
+        if($this->getProdutoId() == 10){ //Serviço de Abertura - Anticipado
+            return $this->getTarifaAbertoAnticipado();
+        }
     }
-    public function getTarifaEstacionamento(){
 
-//        if($this->getHoraEstacionamento() <= 2){
-//            return 0;
-//        }else if($this->getHoraEstacionamento() > 2 && $this->getHoraEstacionamento() < 4){
-//            return $this->getTaxa() * $this->getPMD();
-//        }else if($this->getHoraEstacionamento() >= 4 && $this->getHoraEstacionamento() <= 6){
-//            return $this
-//        }
+    public function getTarifaEstacionamento()
+    {
+        if ($this->getHoraEstacionamento() <= 2) {
+            return 0;
+        } else if ($this->getHoraEstacionamento() > 2 && $this->getHoraEstacionamento() <= 3) {
+            return $this->getTaxa() * $this->getPMD() * $this->getCambioDia();
+        } else if ($this->getHoraEstacionamento() > 3 && $this->getHoraEstacionamento() <= 6) {
+            return ($this->getTaxa() * $this->getPMD() * ($this->getHoraEstacionamento() - 2)) * $this->getCambioDia();
+        } else if ($this->getHoraEstacionamento() > 6) {
+            return (($this->getTaxa() * $this->getPMD() * 4) + ($this->getTaxa() * 1.5) * $this->getPMD() * ($this->getHoraEstacionamento() - 6)) * $this->getCambioDia();
+        }
+    }
+
+    public function getTarifaLuminosa()
+    {
+        if ($this->getProdutoId() == 6) {
+            return $this->getTaxaLuminosa() * $this->getCambioDia();
+        } else if ($this->getProdutoId() == 9) {
+            return $this->getTaxaLuminosa() * 2 * $this->getCambioDia();
+        }
+        return 0;
+    }
+    public function getTarifaCarga()
+    {
+        if(!$this->getPeso() || $this->getPeso() <= 0) throw new \Error("Informe o peso");
+        return $this->getPeso() * $this->getTaxaAduaneiro() * $this->getCambioDia();
+    }
+    public function getTarifaAbertoProlongamento(){
+        if(!$this->getHoraExtra() || $this->getHoraExtra()<=0) throw new \Error("Informa a hora extra");
+        return ($this->getTaxaAbertoAeroporto() * (($this->getHoraExtra()+$this->getHoraFechoAeroporto()) - $this->getHoraFechoAeroporto()))  * $this->getCambioDia();
 
     }
+    public function getTarifaAbertoAnticipado(){
+        if(!$this->getHoraExtra() || $this->getHoraExtra()<=0 ) throw new \Error("Informa a hora extra");
+        return ($this->getTaxaAbertoAeroporto() * ($this->getHoraAberturaAeroporto() -  ($this->getHoraAberturaAeroporto() - $this->getHoraExtra()))) * $this->getCambioDia();
+    }
+
     public function getTarifaAterragemDescolagem()
     {
         if ($this->getPMD() >= 0 && $this->getPMD() <= 10) {

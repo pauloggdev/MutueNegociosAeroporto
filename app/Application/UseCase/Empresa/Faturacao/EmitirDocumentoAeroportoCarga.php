@@ -125,6 +125,7 @@ class EmitirDocumentoAeroportoCarga
             'nif_cliente' => $request->nifCliente,
             'email_cliente' => $request->emailCliente,
             'endereco_cliente' => $request->enderecoCliente,
+            'tipoFatura' => 1,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
         ]);

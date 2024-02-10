@@ -12,7 +12,7 @@ class TipoMercadoria extends Model
     protected $fillable = [
         'id',
         'designacao',
-        'valor',
+        'taxa',
         'statuId'
     ];
 

@@ -410,7 +410,9 @@
                                                     </span>
                                                         <span wire:loading wire:target="emitirDocumento">
                                                         <span class="loading"></span>
-                                                        Aguarde...</span>
+                                                        Aguarde...
+                                                    </span>
+                                                    
                                                     </a>
                                                 </div>
                                             </div>

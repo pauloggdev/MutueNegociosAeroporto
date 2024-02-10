@@ -35,12 +35,12 @@ class MercadoriaIndexController extends Component
 
         $rules = [
             'mercadoria.designacao' => ['required'],
-            'mercadoria.valor' => ['required'],
+            'mercadoria.taxa' => ['required'],
             'mercadoria.statuId' => ['required']
         ];
         $messages = [
             'mercadoria.designacao.required' => 'É obrigatório o nome',
-            'mercadoria.valor.required' => 'É obrigatório o preço',
+            'mercadoria.taxa.required' => 'É obrigatório o preço',
             'mercadoria.statuId.required' => 'É obrigatório o status'
         ];
         $this->validate($rules, $messages);
@@ -67,7 +67,7 @@ class MercadoriaIndexController extends Component
     }
     public function resetField(){
         $this->mercadoria['designacao'] = NULL;
-        $this->mercadoria['valor'] = 0;
+        $this->mercadoria['taxa'] = 0;
         $this->mercadoria['statuId'] = 1;
     }
 
@@ -76,7 +76,7 @@ class MercadoriaIndexController extends Component
        $tipoMercadoria = TipoMercadoria::find($id);
        $this->mercadoria['id']  = $tipoMercadoria->id;
         $this->mercadoria['designacao']  = $tipoMercadoria->designacao;
-        $this->mercadoria['valor'] = $tipoMercadoria->valor;
+        $this->mercadoria['taxa'] = $tipoMercadoria->taxa;
         $this->mercadoria['statuId'] = $tipoMercadoria->statuId;
     }
 
@@ -84,26 +84,26 @@ class MercadoriaIndexController extends Component
     {
         $rules = [
             'mercadoria.designacao' => ['required'],
-            'mercadoria.valor' => ['required'],
+            'mercadoria.taxa' => ['required'],
             'mercadoria.statuId' => ['required']
         ];
         $messages = [
             'mercadoria.designacao.required' => 'É obrigatório o nome',
-            'mercadoria.valor.required' => 'É obrigatório o preço',
+            'mercadoria.taxa.required' => 'É obrigatório o preço',
             'mercadoria.statuId.required' => 'É obrigatório o status'
         ];
-        
+
         $this->validate($rules, $messages);
 
         TipoMercadoria::updateOrcreate(
             ['id' => $this->mercadoria['id'] ],
             [
                 'designacao' => $this->mercadoria['designacao'],
-                'valor' => $this->mercadoria['valor'],
+                'taxa' => $this->mercadoria['taxa'],
                 'statuId' => $this->mercadoria['statuId']
 
             ]);
-            
+
             $this->confirm('Operação realizada com sucesso', [
                 'showConfirmButton' => false,
                 'showCancelButton' => false,

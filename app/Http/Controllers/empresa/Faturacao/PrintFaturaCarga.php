@@ -11,7 +11,7 @@ trait PrintFaturaCarga
     public function printFaturaCarga($facturaId){
 
         $factura = $this->facturaRepository->listarFactura($facturaId);
-
+        
         if ($factura['anulado'] == 2) {
             if($factura['tipo_documento'] == 3){ //proforma
                 $logotipo = public_path() . '/upload/_logo_ATO_vertical_com_TAG_color.png';
@@ -43,7 +43,7 @@ trait PrintFaturaCarga
             $getParametro = new GetParametroPeloLabelNoParametro(new DatabaseRepositoryFactory());
             $parametro = $getParametro->execute('tipoImpreensao');
 
-            $filename = "Winmarket";
+            $filename = $factura->tipoFatura == 1 ?"Winmarket":"Winmarket-Aeronave";
             if($parametro->valor == 'A5'){
                 $filename = "Winmarket_A5";
             }

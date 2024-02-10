@@ -104,44 +104,66 @@ class EmitirDocumentoAeroportoAeronave
             'centroCustoId' => session()->get('centroCustoId'),
             'user_id' => auth()->user()->id,
             'operador' => auth()->user()->name,
-            'cartaDePorte' => $request->cartaDePorte,
+            'clienteId' => $request->clienteId,
+            'nome_do_cliente' => $request->nomeCliente,
+            'nomeProprietario' => $request->nomeProprietario,
+            'telefone_cliente' => $request->telefoneCliente,
+            'nif_cliente' => $request->nifCliente,
+            'email_cliente' => $request->emailCliente,
+            'endereco_cliente' => $request->enderecoCliente,
+            'tipoDeAeronave' => $request->tipoDeAeronave,
+            'pesoMaximoDescolagem' => $request->pesoMaximoDescolagem,
+            'dataDeAterragem' => $request->dataDeAterragem,
+            'dataDeDescolagem' => $request->dataDeDescolagem,
+            'horaDeAterragem' => $request->horaDeAterragem,
+            'horaDeDescolagem' => $request->horaDeDescolagem,
             'peso' => $request->peso,
-            'dataEntrada' => $request->dataEntrada,
-            'dataSaida' => $request->dataSaida,
-            'nDias' => $request->nDias,
+            'horaExtra' => $request->horaExtra,
+            'tipoDocumento' => $request->tipoDocumento,
             'taxaIva' => $request->taxaIva,
             'cambioDia' => $request->cambioDia,
             'contraValor' => $request->contraValor,
             'valorIliquido' => $request->valorIliquido,
             'valorImposto' => $request->valorImposto,
+            'tipoFatura' => 2,
             'total' => $request->total,
-            'clienteId' => $request->clienteId,
-            'nome_do_cliente' => $request->nomeCliente,
-            'telefone_cliente' => $request->telefoneCliente,
-            'nif_cliente' => $request->nifCliente,
-            'email_cliente' => $request->emailCliente,
-            'endereco_cliente' => $request->emailCliente,
+            'moeda' => $request->moeda,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
+        ]);
+        //Gerar o codigo de barra
+        DB::table('facturas')->where('id', $faturaId)->update([
+            'codigoBarra' => $this->getCodigoBarra($faturaId, $request->clienteId)
         ]);
         foreach ($request->items as $item) {
             $item = (object)$item;
             DB::table('factura_items')->insert([
                 'produtoId' => $item->produtoId,
-                'quantidade' => 1,
                 'nomeProduto' => $item->nomeProduto,
+                'horaEstacionamento' => $item->horaEstacionamento,
                 'taxa' => $item->taxa,
-                'nDias' => $item->nDias,
+                'taxaLuminosa' => $item->taxaLuminosa,
+                'taxaAduaneiro' => $item->taxaAduaneiro,
                 'sujeitoDespachoId' => $item->sujeitoDespachoId,
-                'tipoMercadoriaId' => $item->tipoMercadoriaId,
-                'especificacaoMercadoriaId' => $item->especificacaoMercadoriaId,
-                'desconto' => $item->desconto,
+                'peso' => $request->peso??null,
+                'horaExtra' => $item->horaExtra,
+                'taxaAbertoAeroporto' => $item->taxaAbertoAeroporto,
                 'valorImposto' => $item->valorImposto,
-                'total' => $item->total,
-                'factura_id' => $faturaId,
+                'total' => $request->valorIliquido,
+                'totalIva' => $request->total,
+                'horaAberturaAeroporto' => $item->horaAberturaAeroporto,
+                'horaFechoAeroporto' => $item->horaFechoAeroporto,
+                'taxaIva' => $request->taxaIva,
+                'valorIva' => $request->valorImposto,
+                'factura_id' => $faturaId
             ]);
         }
         return $faturaId;
+    }
+
+    public function getCodigoBarra($faturaId, $clienteId)
+    {
+        return "1000" . $clienteId . "" . $faturaId . "" . auth()->user()->id;
     }
 
 }

@@ -41,7 +41,7 @@ class EmissaoFaturaCargaController extends Component
     ];
     public $fatura = [
         'cartaDePorte' => null,
-        'tipoDocumento' => 3, //Fatura recibo
+        'tipoDocumento' => 3, //Fatura proforma
         'nomeProprietario' => null,
         'clienteId' => null,
         'nomeCliente' => null,

@@ -27,6 +27,7 @@ class ReciboIndexController extends Component
 
     public $recibo;
     public $search;
+    public $comprovativoBancario;
 
     private $reciboRepository;
 
@@ -89,5 +90,11 @@ class ReciboIndexController extends Component
         unlink($report['filename']);
         flush();
 
+    }
+    public function visualizarComprovativo($recibo){
+        
+        $comprovativo = env('APP_URL')."upload/" . $recibo['comprovativoBancario'];
+        // dd($comprovativo);
+        $this->comprovativoBancario = $comprovativo;
     }
 }
