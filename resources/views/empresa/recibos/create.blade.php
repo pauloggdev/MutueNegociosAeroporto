@@ -120,25 +120,30 @@
                                 <div class="col-md-3">
                                     <label class="control-label bold label-select2" for="numeracaoFactura">Data Pagamento</label>
                                     <div class="input-group">
-                                        <input type="date" value="<?= $recibo['dataOperacao'] ?>" wire:model="recibo.dataOperacao"  class="form-control" style="height: 35px; font-size: 10pt" />
+                                        <input type="date" value="<?= $recibo['dataOperacao'] ?>" wire:model="recibo.dataOperacao"  max="{{$limiteDate}}"   class="form-control disabled" style="height: 35px; font-size: 10pt" />
                                         <span class="input-group-addon" id="basic-addon1">
                                             <i class="ace-icon fa fa-info bigger-150 text-info" data-target="form_supply_price_smartprice"></i>
                                         </span>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
-                                    <label class="control-label bold label-select2" for="numeracaoFactura">Nº Operação de Bancária </label>
+                                    <label class="control-label bold label-select2" for="numeracaoFactura">Nº de Operação Bancária <b class="{{ $isDisabled== 1 ? '' : 'red fa fa-question-circle' }}"></b> </label>
                                     <div class="input-group">
-                                        <input type="text"  wire:model="recibo.numeroOperacaoBancaria"  class="form-control" style="height: 35px; font-size: 10pt" />
+                                        <input type="text"  wire:model="recibo.numeroOperacaoBancaria"  {{$isDisabled== 1 ? 'disabled' : '' }}  class="form-control" style="height: 35px; font-size: 10pt" />
                                         <span class="input-group-addon" id="basic-addon1">
                                             <i class="ace-icon fa fa-info bigger-150 text-info" data-target="form_supply_price_smartprice"></i>
                                         </span>
                                     </div>
+                                    @if ($errors->has('recibo.numeroOperacaoBancaria'))
+                                    <span class="help-block" style="color: red; font-weight: bold">
+                                    <strong>{{ $errors->first('recibo.numeroOperacaoBancaria') }}</strong>
+                                </span>
+                                @endif
                                 </div>
                                 <div class="col-md-3">
-                                    <label class="control-label bold label-select2" for="numeracaoFactura">Anexo</label>
+                                    <label class="control-label bold label-select2" for="numeracaoFactura">Anexo <b class="{{ $isDisabled== 1 ? '' : 'red fa fa-question-circle' }}"></b></label>
                                     <div class="input-group">
-                                        <input type="file"  wire:model="recibo.comprovativoBancario"  class="form-control" style="height: 35px; font-size: 10pt" />
+                                        <input type="file"  wire:model="recibo.comprovativoBancario" {{$isDisabled== 1 ? 'disabled' : '' }}  class="form-control" style="height: 35px; font-size: 10pt" />
                                         <span class="input-group-addon" id="basic-addon1">
                                             <i class="ace-icon fa fa-info bigger-150 text-info" data-target="form_supply_price_smartprice"></i>
                                         </span>

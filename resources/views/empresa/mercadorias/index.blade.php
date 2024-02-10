@@ -44,7 +44,7 @@
                                                             <label class="control-label bold label-select2"
                                                                    for="valor">Taxa</label>
                                                             <div>
-                                                                <input type="number" wire:model="mercadoria.valor"
+                                                                <input type="number" wire:model="mercadoria.taxa"
                                                                        id="valor" class="col-md-12 col-xs-12 col-sm-4"/>
                                                             </div>
 
@@ -137,7 +137,7 @@
                                                             <label class="control-label bold label-select2"
                                                                    for="valor">Taxa</label>
                                                             <div>
-                                                                <input type="number" wire:model="mercadoria.valor"
+                                                                <input type="number" wire:model="mercadoria.taxa"
                                                                        id="valor" class="col-md-12 col-xs-12 col-sm-4"/>
                                                             </div>
 
@@ -266,7 +266,7 @@
                                                     style="border-radius: 20px;">{{$mercadoria['statuId'] == 1 ? 'Activo' : 'Inactivo' }}</span>
                                             </td>
 
-                                            <td style="text-align: right">{{ number_format($mercadoria['valor'], 2, ',', '.') }}</td>
+                                            <td style="text-align: right">{{ number_format($mercadoria['taxa'], 2, ',', '.') }}</td>
                                             <td style="text-align: center">
 
                                                 <div class="hidden-sm hidden-xs action-buttons">

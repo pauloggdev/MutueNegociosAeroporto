@@ -97,4 +97,5 @@ class ReciboIndexController extends Component
         // dd($comprovativo);
         $this->comprovativoBancario = $comprovativo;
     }
+
 }

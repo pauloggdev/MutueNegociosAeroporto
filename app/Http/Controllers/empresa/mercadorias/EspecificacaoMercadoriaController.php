@@ -4,8 +4,8 @@ namespace App\Http\Controllers\empresa\mercadorias;
 
 use App\Application\UseCase\Empresa\mercadorias\CadastrarTipoMercadoria;
 use App\Application\UseCase\Empresa\mercadorias\GetTiposMercadorias;
-use App\Empresa\EspecificacaoMercadoria;
 use App\Infra\Factory\Empresa\DatabaseRepositoryFactory;
+use App\Models\empresa\EspecificacaoMercadoria;
 use App\Models\empresa\TipoMercadoria;
 use Livewire\WithPagination;
 use Illuminate\Support\Facades\DB;
@@ -47,7 +47,7 @@ class EspecificacaoMercadoriaController extends Component
     }
     public $tiposMercadorias;
     public $countespecificacaoMercadorias;
-
+    public $especificacaoMercadorias;
     public function mount()
     {
         $this->countespecificacaoMercadorias = EspecificacaoMercadoria::all();
