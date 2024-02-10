@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\empresa\Faturacao;
+
 use App\Application\UseCase\Empresa\Bancos\GetBancos;
 use App\Application\UseCase\Empresa\Clientes\GetClientes;
 use App\Application\UseCase\Empresa\Faturacao\EmitirDocumentoAeroporto;
@@ -11,12 +12,14 @@ use App\Application\UseCase\Empresa\Faturacao\SimuladorFaturaAeronauticoAeroport
 use App\Application\UseCase\Empresa\Faturacao\SimuladorFaturaCargaAeroporto;
 use App\Application\UseCase\Empresa\mercadorias\GetTiposMercadorias;
 use App\Application\UseCase\Empresa\Pais\GetPaises;
+use App\Application\UseCase\Empresa\Parametros\GetParametroPeloLabelNoParametro;
 use App\Application\UseCase\Empresa\Produtos\GetProdutoPeloCentroCustoId;
 use App\Application\UseCase\Empresa\Produtos\GetProdutoPeloTipoServico;
 use App\Application\UseCase\Empresa\Produtos\GetProdutos;
 use App\Application\UseCase\Empresa\TiposServicos\GetTiposServicos;
 use App\Domain\Entity\Empresa\FaturaAeroporto\FaturaAeronautico;
 use App\Domain\Entity\Empresa\FaturaAeroporto\FaturaCarga;
+use App\Http\Controllers\empresa\ReportShowController;
 use App\Infra\Factory\Empresa\DatabaseRepositoryFactory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -32,8 +35,12 @@ class EmissaoFaturaAeronauticoController extends Component
     public $empresa;
     public $item = [
         'produto' => null,
+        'sujeitoDespachoId' => 1,
     ];
     public $fatura = [
+        'moeda' => null,
+        'tipoDocumento' => 3, //Fatura proforma
+        'nomeProprietario' => null,
         'clienteId' => null,
         'nomeCliente' => null,
         'telefoneCliente' => null,
@@ -46,7 +53,8 @@ class EmissaoFaturaAeronauticoController extends Component
         'dataDeDescolagem' => '2024-01-30',
         'horaDeAterragem' => '11:40', //11h40 UTC
         'horaDeDescolagem' => '13:57', //13h57 UTC
-        'tipoDocumento' => 3, //Fatura Proforma
+        'peso' => null,
+        'horaExtra' => null,
         'taxaIva' => 0,
         'cambioDia' => 0,
         'contraValor' => 0,
@@ -62,8 +70,40 @@ class EmissaoFaturaAeronauticoController extends Component
     public $tiposDocumentos;
     public $especificaoMercadorias;
 
+    protected $listeners = ['selectedItem'];
+
+
+    public function selectedItem($item)
+    {
+        if ($item['atributo'] == 'clienteId') {
+            $this->updatedFaturaClienteId($item['valor']);
+        }
+        $this->fatura[$item['atributo']] = $item['valor'];
+    }
+
+    public function hydrate()
+    {
+        $this->emit('select2');
+    }
+
+    public function updatedFaturaClienteId($clienteId)
+    {
+        $cliente = DB::table('clientes')->where('id', $clienteId)
+            ->where('empresa_id', auth()->user()->empresa_id)->first();
+        $this->fatura['clienteId'] = $cliente->id;
+        $this->fatura['nomeCliente'] = $cliente->nome;
+        $this->fatura['telefoneCliente'] = $cliente->telefone_cliente;
+        $this->fatura['nifCliente'] = $cliente->nif;
+        $this->fatura['emailCliente'] = $cliente->email;
+        $this->fatura['enderecoCliente'] = $cliente->endereco;
+
+    }
+
     public function mount()
     {
+        $moedaEstrageiraUsado = new GetParametroPeloLabelNoParametro(new DatabaseRepositoryFactory());
+        $this->fatura['moeda'] = $moedaEstrageiraUsado->execute('moeda_estrageira_usada')->valor;
+
         $getClientes = new GetClientes(new DatabaseRepositoryFactory());
         $this->clientes = $getClientes->execute();
 
@@ -72,11 +112,6 @@ class EmissaoFaturaAeronauticoController extends Component
         $getBancos = new GetBancos(new DatabaseRepositoryFactory());
         $this->bancos = $getBancos->execute();
 
-        $getTipoMercadorias = new GetTiposMercadorias(new DatabaseRepositoryFactory());
-        $this->tipoMercadorias = $getTipoMercadorias->execute();
-
-        $getTiposServicos = new GetTiposServicos(new DatabaseRepositoryFactory());
-        $this->tipoServicos = $getTiposServicos->execute();
 
         $getProdutos = new GetProdutoPeloTipoServico(new DatabaseRepositoryFactory());
         $this->servicos = $getProdutos->execute(2);
@@ -87,6 +122,7 @@ class EmissaoFaturaAeronauticoController extends Component
         $getTiposDocumentos = new GetTipoDocumentoByFaturacao(new DatabaseRepositoryFactory());
         $this->tiposDocumentos = $getTiposDocumentos->execute();
     }
+
     public function render()
     {
         $this->especificaoMercadorias = DB::table('especificacao_mercadorias')->get();
@@ -95,8 +131,12 @@ class EmissaoFaturaAeronauticoController extends Component
 
     public function removeCart($item)
     {
-        $posicao = $this->isCart(json_decode($item['produto']));
-        unset($this->fatura['items'][$posicao]);
+        foreach ($this->fatura['items'] as $key => $itemCart) {
+            if ($itemCart['produtoId'] == $item['produtoId']) {
+                unset($this->fatura['items'][$key]);
+            }
+        }
+        $this->calculadoraTotal();
     }
 
     public function addCart()
@@ -117,6 +157,15 @@ class EmissaoFaturaAeronauticoController extends Component
         ];
         $this->validate($rules, $messages);
 
+        if (!$this->item['produto']) {
+            $this->confirm('Seleciona o serviço', [
+                'showConfirmButton' => false,
+                'showCancelButton' => false,
+                'icon' => 'warning'
+            ]);
+            return;
+        }
+
         $key = $this->isCart(json_decode($this->item['produto']));
         if ($key !== false) {
             $this->confirm('O serviço já foi adicionado', [
@@ -132,6 +181,14 @@ class EmissaoFaturaAeronauticoController extends Component
         $this->item['produto'] = $this->item['produto'];
         $this->fatura['items'][] = (array)$this->item;
 
+        $this->calculadoraTotal();
+
+
+
+
+    }
+    public function calculadoraTotal()
+    {
         $simuladorFaturaAeronautico = new SimuladorFaturaAeronauticoAeroporto(new DatabaseRepositoryFactory());
         $fatura = $simuladorFaturaAeronautico->execute($this->fatura);
         $this->fatura = $this->conversorModelParaArray($fatura);
@@ -149,7 +206,7 @@ class EmissaoFaturaAeronauticoController extends Component
     private function conversorModelParaArray(FaturaAeronautico $output)
     {
         $fatura = [
-
+            'nomeProprietario' => $output->getProprietario(),
             'clienteId' => $output->getClienteId(),
             'nomeCliente' => $output->getNomeCliente(),
             'telefoneCliente' => $output->getTelefoneCliente(),
@@ -162,6 +219,8 @@ class EmissaoFaturaAeronauticoController extends Component
             'dataDeDescolagem' => $output->getDataDeDescolagem(),
             'horaDeAterragem' => $output->getHoraDeAterragem(), //11h40 UTC
             'horaDeDescolagem' => $output->getHoraDeDescolagem(), //13h57 UTC
+            'peso' => $output->getPeso(),
+            'horaExtra' => $output->getHoraExtra(),
             'tipoDocumento' => $output->getTipoDocumento(), //Fatura recibo
             'taxaIva' => $output->getTaxaIva(),
             'cambioDia' => $output->getCambioDia(),
@@ -177,32 +236,61 @@ class EmissaoFaturaAeronauticoController extends Component
                 'nomeProduto' => $item->getNomeProduto(),
                 'pmd' => $item->getPMD(),
                 'horaEstacionamento' => $item->getHoraEstacionamento(),
+                'taxa' => $item->getTaxa(),
+                'taxaLuminosa' => $item->getTaxaLuminosa(),
+                'taxaAduaneiro' => $item->getTaxaAduaneiro(),
+                'sujeitoDespachoId' => $item->getSujeitoDespachoId(),
+                'peso' => $item->getPeso(),
+                'horaExtra' => $item->getHoraExtra(),
+                'taxaAbertoAeroporto' => $item->getTaxaAbertoAeroporto(),
                 'cambioDia' => $item->getCambioDia(),
                 'valorImposto' => $item->getImposto(),
                 'total' => $item->getTotal(),
+                'horaAberturaAeroporto' => $item->getHoraAberturaAeroporto(),
+                'horaFechoAeroporto' => $item->getHoraFechoAeroporto(),
             ]);
         }
         return $fatura;
     }
-    public function emitirDocumento(){
+
+    public function emitirDocumento()
+    {
+
 
         $rules = [
+            'fatura.clienteId' => 'required',
             'fatura.tipoDeAeronave' => 'required',
+            'fatura.nomeProprietario' => 'required',
             'fatura.pesoMaximoDescolagem' => 'required',
             'fatura.dataDeAterragem' => 'required',
             'fatura.dataDeDescolagem' => 'required',
             'fatura.horaDeAterragem' => 'required',
+            'fatura.horaDeDescolagem' => 'required',
+            'fatura.peso' => 'required',
         ];
         $messages = [
+            'fatura.clienteId.required' => 'campo obrigatório',
             'fatura.tipoDeAeronave.required' => 'campo obrigatório',
+            'fatura.nomeProprietario.required' => 'campo obrigatório',
             'fatura.pesoMaximoDescolagem.required' => 'campo obrigatório',
             'fatura.dataDeAterragem.required' => 'campo obrigatório',
             'fatura.dataDeDescolagem.required' => 'campo obrigatório',
             'fatura.horaDeAterragem.required' => 'campo obrigatório',
+            'fatura.horaDeDescolagem.required' => 'campo obrigatório',
+            'fatura.peso.required' => 'campo obrigatório',
         ];
         $this->validate($rules, $messages);
-        if(count($this->fatura['items']) <= 0){
+
+        if (count($this->fatura['items']) <= 0) {
             $this->confirm('Adiciona os serviços', [
+                'showConfirmButton' => false,
+                'showCancelButton' => false,
+                'icon' => 'warning'
+            ]);
+            return;
+        }
+        if (!$this->fatura['clienteId']) {
+            $this->confirm('Seleciona o cliente', [
                 'showConfirmButton' => false,
                 'showCancelButton' => false,
                 'icon' => 'warning'
@@ -211,9 +299,83 @@ class EmissaoFaturaAeronauticoController extends Component
         }
 
         $emitirDocumento = new EmitirDocumentoAeroportoAeronave(new DatabaseRepositoryFactory());
-        $emitirDocumento->execute(new Request($this->fatura));
+        $faturaId = $emitirDocumento->execute(new Request($this->fatura));
+        $this->printFaturaCarga($faturaId);
+        $this->resetField();
+    }
+    public function printFaturaCarga($facturaId)
+    {
+        $factura = DB::table('facturas')
+            ->where('id', $facturaId)->first();
 
-        dd($this->fatura);
+        $getParametro = new GetParametroPeloLabelNoParametro(new DatabaseRepositoryFactory());
+        $parametro = $getParametro->execute('tipoImpreensao');
+
+        $filename = "Winmarket-Aeronave";
+        if ($parametro->valor == 'A5') {
+            $filename = "Winmarket_A5";
+        }
+        if ($factura->tipo_documento == 3) { //proforma
+            $logotipo = public_path() . '/upload/_logo_ATO_vertical_com_TAG_color.png';
+        } else {
+            $logotipo = public_path() . '/upload//' . auth()->user()->empresa->logotipo;
+        }
+        $DIR_SUBREPORT = "/upload/documentos/empresa/modelosFacturas/a4/";
+        $DIR = public_path() . "/upload/documentos/empresa/modelosFacturas/a4/";
+        $reportController = new ReportShowController('pdf', $DIR_SUBREPORT);
+
+        $report = $reportController->show(
+            [
+                'report_file' => $filename,
+                'report_jrxml' => $filename . '.jrxml',
+                'report_parameters' => [
+                    "viaImpressao" => 1,
+                    "logotipo" => $logotipo,
+                    "empresa_id" => auth()->user()->empresa_id,
+                    "facturaId" => $facturaId,
+                    "dirSubreportBanco" => $DIR,
+                    "dirSubreportTaxa" => $DIR,
+                    "tipo_regime" => auth()->user()->empresa->tipo_regime_id,
+                    "nVia" => 1,
+                    "DIR" => $DIR
+                ]
+            ], "pdf", $DIR_SUBREPORT
+        );
+
+
+        $this->dispatchBrowserEvent('printPdf', ['data' => base64_encode($report['response']->getContent())]);
+        // $this->dispatchBrowserEvent('printPdf', ['data' => base64_encode($report['response']->getContent())]);
+        unlink($report['filename']);
+        flush();
+    }
+    public function resetField()
+    {
+        $this->fatura = [
+            'moeda' => null,
+            'tipoDocumento' => 3, //Fatura proforma
+            'nomeProprietario' => null,
+            'clienteId' => null,
+            'nomeCliente' => null,
+            'telefoneCliente' => null,
+            'nifCliente' => null,
+            'emailCliente' => null,
+            'enderecoCliente' => null,
+            'tipoDeAeronave' => 'BOING 737-800',
+            'pesoMaximoDescolagem' => 77,
+            'dataDeAterragem' => '2024-01-30',
+            'dataDeDescolagem' => '2024-01-30',
+            'horaDeAterragem' => '11:40', //11h40 UTC
+            'horaDeDescolagem' => '13:57', //13h57 UTC
+            'peso' => null,
+            'horaExtra' => null,
+            'taxaIva' => 0,
+            'cambioDia' => 0,
+            'contraValor' => 0,
+            'valorIliquido' => 0,
+            'valorImposto' => 0,
+            'total' => 0,
+            'items' => []
+        ];
     }
 
 }

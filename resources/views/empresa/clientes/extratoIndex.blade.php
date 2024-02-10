@@ -1,4 +1,3 @@
-
 @section('title','Extrato do cliente')
 <div class="row">
     <div class="space-6"></div>
@@ -41,19 +40,28 @@
                                             style="height:35px;<?= $errors->has('centroCustoId') ? 'border-color: #ff9292;' : '' ?>">
                                         <option value="">Seleciona o cliente</option>
                                         @foreach($clientes as $cliente)
-                                            <option value="{{$cliente->id}}">{{ \Illuminate\Support\Str::upper($cliente->nome) }}</option>
+                                            <option
+                                                value="{{$cliente->id}}">{{ \Illuminate\Support\Str::upper($cliente->nome) }}</option>
                                         @endforeach
                                     </select>
+                                    @if ($errors->has('extrato.clienteId'))
+                                        <span class="help-block"
+                                              style="color: red; font-weight: bold">
+                                            <strong>{{ $errors->first('extrato.clienteId') }}</strong>
+                                        </span>
+                                    @endif
                                 </div>
                                 <div class="col-md-6">
-                                    <label class="control-label bold label-select2" for="tipoDocumentoId">TIPOS DOCUMENTO<b
+                                    <label class="control-label bold label-select2" for="tipoDocumentoId">TIPOS
+                                        DOCUMENTO<b
                                             class="red fa fa-question-circle"></b></label>
-                                    <select class="col-md-12 select2" wire:model="extrato.tipoDocumentoId" data="tipoDocumentoId"
+                                    <select class="col-md-12 select2" wire:model="extrato.tipoDocumentoId"
+                                            data="tipoDocumentoId"
                                             style="height:35px;<?= $errors->has('venda_online') ? 'border-color: #ff9292;' : '' ?>">
                                         <option value="">TODOS</option>
-                                        @foreach($tipoDocumentos as $documento)
-                                            <option value="{{ $documento->id }}">{{ $documento->designacao }}</option>
-                                        @endforeach
+{{--                                        @foreach($tipoDocumentos as $documento)--}}
+{{--                                            <option value="{{ $documento->id }}">{{ $documento->designacao }}</option>--}}
+{{--                                        @endforeach--}}
                                     </select>
                                 </div>
                             </div>
@@ -62,7 +70,8 @@
                                     <label class="control-label bold label-select2" for="dataInicio">Data Inicial<b
                                             class="red fa fa-question-circle"></b></label>
                                     <div class="input-group">
-                                        <input type="datetime-local" wire:model="extrato.dataInicio" class="form-control"
+                                        <input type="datetime-local" wire:model="extrato.dataInicio"
+                                               class="form-control"
                                                style="height: 35px; font-size: 10pt;<?= $errors->has('extrato.dataInicio') ? 'border-color: #ff9292;' : '' ?>"/>
                                         <span class="input-group-addon" id="basic-addon1">
                                             <i class="ace-icon fa fa-calendar bigger-150 text-info"
@@ -79,7 +88,9 @@
                                     <label class="control-label bold label-select2" for="dataFinal">Data Final<b
                                             class="red fa fa-question-circle"></b></label>
                                     <div class="input-group">
-                                        <input type="datetime-local" wire:model="extrato.dataFinal" class="form-control"
+                                        <input type="datetime-local"
+                                               {{ $todoPeriodo?"disable":"" }} wire:model="extrato.dataFinal"
+                                               class="form-control"
                                                style="height: 35px; font-size: 10pt;<?= $errors->has('extrato.dataFinal') ? 'border-color: #ff9292;' : '' ?>"/>
                                         <span class="input-group-addon" id="basic-addon1">
                                             <i class="ace-icon fa fa-calendar bigger-150 text-info"

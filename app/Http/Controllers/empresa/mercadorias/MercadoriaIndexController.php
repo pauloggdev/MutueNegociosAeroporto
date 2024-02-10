@@ -40,7 +40,7 @@ class MercadoriaIndexController extends Component
         ];
         $messages = [
             'mercadoria.designacao.required' => 'É obrigatório o nome',
-            'mercadoria.taxa.required' => 'É obrigatório a taxa',
+            'mercadoria.valor.required' => 'É obrigatório o preço',
             'mercadoria.statuId.required' => 'É obrigatório o status'
         ];
         $this->validate($rules, $messages);
@@ -92,7 +92,7 @@ class MercadoriaIndexController extends Component
             'mercadoria.taxa.required' => 'É obrigatório o preço',
             'mercadoria.statuId.required' => 'É obrigatório o status'
         ];
-        
+
         $this->validate($rules, $messages);
 
         TipoMercadoria::updateOrcreate(
@@ -103,7 +103,7 @@ class MercadoriaIndexController extends Component
                 'statuId' => $this->mercadoria['statuId']
 
             ]);
-            
+
             $this->confirm('Operação realizada com sucesso', [
                 'showConfirmButton' => false,
                 'showCancelButton' => false,

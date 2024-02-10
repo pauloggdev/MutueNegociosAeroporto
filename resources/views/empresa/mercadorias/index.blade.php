@@ -270,7 +270,7 @@
                                             <td style="text-align: center">
 
                                                 <div class="hidden-sm hidden-xs action-buttons">
-                                                     
+
                                                     <a wire:click="edit({{$mercadoria->id}})" href="#modalEditarTipoMercadoria" data-toggle="modal"
                                                        class="pink" title="Editar este registo">
                                                         <i class="fa fa-pencil-square-o bigger-200 blue"></i>

@@ -10,6 +10,7 @@ use App\Application\UseCase\Empresa\Recibos\GetTotalDebitadoFatura;
 use App\Application\UseCase\Empresa\Recibos\SimuladorRecibo;
 use App\Http\Controllers\empresa\ReportShowController;
 use App\Infra\Factory\Empresa\DatabaseRepositoryFactory;
+use App\Models\empresa\Recibos;
 use Livewire\Component;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\WithFileUploads;
@@ -72,6 +73,7 @@ class ReciboCreateController extends Component
             $fatura = (object) $fatura;
             $getTotalDebitadoFatura = new GetTotalDebitadoFatura(new DatabaseRepositoryFactory());
             $totalEntregue = $getTotalDebitadoFatura->execute($fatura->id);
+
             $data = [
                 'clienteId' => $fatura->clienteId,
                 'nomeCliente' => $fatura->nome_do_cliente,
@@ -110,7 +112,7 @@ class ReciboCreateController extends Component
             $this->recibo['formaPagamentoId'] = $recibo->getFormaPagamentoId();
             $this->recibo['numeroOperacaoBancaria'] = $recibo->GetNumeroOperacaoBancaria();
             $this->recibo['dataOperacao'] = $recibo->GetDataOperacao();
-            $this->recibo['comprovativoBancario'] = $recibo->GetcomprovativoBancario(); 
+            $this->recibo['comprovativoBancario'] = $recibo->GetcomprovativoBancario();
             $this->recibo['observacao'] = $recibo->getObservacao();
             $this->recibo['totalDebitar'] = $recibo->getTotalDebitar();
             $this->recibo['totalDebitado'] = $recibo->getTotalDebitado();
@@ -139,7 +141,7 @@ class ReciboCreateController extends Component
     public function emitirRecibo()
     {
 
-        
+
         $rules = [
             'recibo.numeroOperacaoBancaria' => [$this->isDisabled != 1? 'required': ''],
               'recibo.comprovativoBancario' =>  'mimes:jpg,png,jpeg,png,pdf|max:1024',
@@ -165,6 +167,7 @@ class ReciboCreateController extends Component
 
         ];
         $this->validate($rules, $messages);
+
 
 
         $emitirRecibo = new EmitirRecibo(new DatabaseRepositoryFactory());
@@ -222,7 +225,6 @@ class ReciboCreateController extends Component
 
     public function updatedReciboFormaPagamentoId($value)
     {
-        // $this->recibo['formaPagamentoId'] = $value;
             $this->isDisabled= $value;
         
     }

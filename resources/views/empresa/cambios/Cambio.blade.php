@@ -11,12 +11,9 @@
                         <h4 class="smaller">
                             NOVO CÂMBIO
                         </h4>
-
                     </div>
-
                     <div class="modal-body">
                         <div class="row" style="left: 0%; position: relative;">
-
                             <div class="col-md-12">
                                 <form class="filter-form form-horizontal validation-form">
                                     @if ($errors->any())
@@ -199,11 +196,6 @@
                                    >
                                     <i class="fa icofont-plus-circle"></i> Novo Câmbio
                                 </a>
-                                <a title="Imprimir Categoria" wire:click.prevent="imprimirCategoria"
-                                   class="btn btn-primary widget-box widget-color-blue" id="botoes">
-                                    <span wire:loading wire:target="imprimirCategoria" class="loading"></span>
-                                    <i class="fa fa-print text-default"></i> Imprimir
-                                </a>
                                 <div class="pull-right tableTools-container"></div>
                             </div>
                             <div class="table-header widget-header">
@@ -231,7 +223,7 @@
                                             <td style="text-align: center">
 
                                                 <div class="hidden-sm hidden-xs action-buttons">
-                                                     
+
                                                     <a wire:click="edit({{$cambio->id}})" href="#modalEditarTipoMercadoria" data-toggle="modal"
                                                        class="pink" title="Editar este registo">
                                                         <i class="fa fa-pencil-square-o bigger-200 blue"></i>

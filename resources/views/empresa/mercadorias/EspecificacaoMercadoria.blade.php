@@ -57,7 +57,7 @@
                                                         </div>
 
                                                         <div class="col-md-12">
-                                                            
+
                                                             <label class="control-label bold label-select2" for="saldoAtual">Descrição <b class="red fa fa-question-circle"></b></label>
                                                             <div class="input-group">
                                                                 <textarea wire:model="especificacao.designacao" id="" cols="200" rows="4" class="form-control" style="font-size: 16px; z-index: 1;"></textarea>
@@ -79,9 +79,7 @@
                                                         <span class="loading"></span>
                                                         Aguarde...</span>
                                                     </button>
-
                                                 </div>
-
                                             </div>
                                         </div>
                                     </div>
@@ -147,7 +145,7 @@
                                                         </div>
 
                                                         <div class="col-md-12">
-                                                            
+
                                                             <label class="control-label bold label-select2" for="saldoAtual">Descrição <b class="red fa fa-question-circle"></b></label>
                                                             <div class="input-group">
                                                                 <textarea wire:model="especificacao.designacao" id="" cols="200" rows="4" class="form-control" style="font-size: 16px; z-index: 1;"></textarea>
@@ -227,11 +225,6 @@
                                    >
                                     <i class="fa icofont-plus-circle"></i> Nova Especificação
                                 </a>
-                                <a title="Imprimir Categoria" wire:click.prevent="imprimirCategoria"
-                                   class="btn btn-primary widget-box widget-color-blue" id="botoes">
-                                    <span wire:loading wire:target="imprimirCategoria" class="loading"></span>
-                                    <i class="fa fa-print text-default"></i> Imprimir
-                                </a>
                                 <div class="pull-right tableTools-container"></div>
                             </div>
                             <div class="table-header widget-header">
@@ -266,7 +259,7 @@
                                             <td style="text-align: center">
 
                                                 <div class="hidden-sm hidden-xs action-buttons">
-                                                     
+
                                                     <a wire:click="edit({{$especificacao->id}})" href="#modalEditarTipoMercadoria" data-toggle="modal"
                                                        class="pink" title="Editar este registo">
                                                         <i class="fa fa-pencil-square-o bigger-200 blue"></i>

@@ -40,10 +40,10 @@ class CambioController extends Component
     }
     public function render()
     {
-        
+
         $this->cambios = Cambio::all();
         // $this->especificacaoMercadorias = $especificacaoMercadorias;
-        return view('empresa.Cambios.Cambio', compact($this->cambios));
+        return view('empresa.cambios.Cambio', compact($this->cambios));
     }
     public function store(){
         //  dd($this->cambio);

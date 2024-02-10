@@ -37,30 +37,29 @@ class ReciboRepository
         return ReciboDatabase::where('empresaId', auth()->user()->empresa_id)
             ->where('facturaId', $faturaId)->sum('totalEntregue');
     }
-    public function emitirRecibo(Recibo $recibo){
-
+    public function emitirRecibo($data){
         return ReciboDatabase::create([
-            'numeracaoRecibo' => $recibo->getNumeracaoRecibo(),
-            'clienteId' => $recibo->getClienteId(),
-            'anulado' => $recibo->getAnulado(),
-            'totalEntregue' => $recibo->getTotalEntregue(),
+            'numeracaoRecibo' => $data['numeracaoRecibo'],
+            'clienteId' => $data['clienteId'],
+            'anulado' => $data['anulado'],
+            'totalEntregue' => $data['totalEntregue'],
             'userId' => auth()->user()->id,
             'empresaId' => auth()->user()->empresa_id,
-            'facturaId' => $recibo->getFacturaId(),
-            'totalFatura' => $recibo->getTotalFatura(),
-            'totalImposto' => $recibo->getTotalImposto(),
-            'totalDebitar' => $recibo->getTotalDebitar(),
-            'formaPagamentoId' => $recibo->getFormaPagamentoId(),
-            'numeroOperacaoBancaria' => $recibo->getNumeroOperacaoBancaria(),
-            'dataOperacao' => $recibo->getDataOperacao(),
-            'comprovativoBancario' => $recibo->getComprovativoBancario(),
-            'observacao' => $recibo->getObservacao(),
-            'numSequenciaRecibo' => $recibo->getNumSequenciaRecibo(),
-            'nomeCliente' => $recibo->getNomeCliente(),
-            'telefoneCliente' => $recibo->getTelefoneCliente(),
-            'nifCliente' => $recibo->getNifCliente(),
-            'emailCliente' => $recibo->getEmailCliente(),
-            'enderecoCliente' => $recibo->getEnderecoCliente()
+            'facturaId' => $data['facturaId'],
+            'totalFatura' => $data['totalFatura'],
+            'totalImposto' => $data['totalImposto'],
+            'totalDebitar' => $data['totalDebitar'],
+            'formaPagamentoId' => $data['formaPagamentoId'],
+            'numeroOperacaoBancaria' => $data['numeroOperacaoBancaria'],
+            'dataOperacao' => $data['dataOperacao'],
+            'comprovativoBancario' => $data['comprovativoBancario'],
+            'observacao' => $data['observacao'],
+            'numSequenciaRecibo' => $data['numSequenciaRecibo'],
+            'nomeCliente' => $data['nomeCliente'],
+            'telefoneCliente' =>  $data['telefoneCliente'],
+            'nifCliente' => $data['nifCliente'],
+            'emailCliente' => $data['emailCliente'],
+            'enderecoCliente' => $data['enderecoCliente']
         ]);
     }
 }

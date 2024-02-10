@@ -41,7 +41,8 @@
                                                         <td style="width: 200px">
                                                             @if($parametro['type'] == 'number')
                                                                 <div class="input-group">
-                                                                    <input type="number" step="0.01" value="{{ $parametro['valor'] }}"
+                                                                    <input type="number" step="0.01"
+                                                                           value="{{ $parametro['valor'] }}"
                                                                            id="valorParametroId" data="valorParametro"
                                                                            class="form-control"
                                                                            style="height: 35px; font-size: 10pt;"/>
@@ -55,9 +56,22 @@
                                                                 <select class="col-md-12 select2" data="valorParametro"
                                                                         style="height:35px;">
                                                                     @foreach ($parametro['valorSelects'] as $select)
-                                                                        <option value="{{ $select }}" <?= $select == $parametro['valor']?'selected':'' ?>>{{ Str::upper($select) }}</option>
+                                                                        <option
+                                                                            value="{{ $select }}" <?= $select == $parametro['valor'] ? 'selected' : '' ?>>{{ Str::upper($select) }}</option>
                                                                     @endforeach
                                                                 </select>
+                                                            @endif
+                                                            @if($parametro['type'] == 'time')
+                                                                <div class="input-group">
+                                                                    <input type="time" value="{{ $parametro['valor'] }}"
+                                                                           id="valorParametroId" data="valorParametro"
+                                                                           class="form-control"
+                                                                           style="height: 35px; font-size: 10pt;"/>
+                                                                    <span class="input-group-addon" id="basic-addon1">
+                                                                    <i class="ace-icon fa fa-info bigger-150 text-info"
+                                                                       data-target="form_supply_price_smartprice"></i>
+                                                                </span>
+                                                                </div>
                                                             @endif
                                                         </td>
                                                         <td>
@@ -65,7 +79,8 @@
                                                                id="botoes"
                                                                style="border-radius: 10px"
                                                                wire:click.prevent="atualizarParametro({{$parametro->id}})">
-                                                                <span wire:loading.remove wire:target="atualizarParametro({{$parametro->id}})">
+                                                                <span wire:loading.remove
+                                                                      wire:target="atualizarParametro({{$parametro->id}})">
                                                                     ATUALIZAR
                                                                 </span>
                                                                 <span wire:loading

@@ -68,18 +68,8 @@ class ParametroRepository
     }
 
     public function getParametrosEmpresa(){
-        $parametros = ParametroDatabase::where('empresa_id', null)
+        $parametros = ParametroDatabase::where('empresa_id', 1)
             ->get();
-
-        $data = [];
-        foreach ($parametros as $key=>$parametro){
-            $parametroExiste = ParametroDatabase::where('label', $parametro['label'])->where('empresa_id', auth()->user()->empresa_id)->first();
-            if($parametroExiste){
-                $data[] = $parametroExiste;
-            }else{
-                $data[]= $parametro;
-            }
-        }
-        return $data;
+       return $parametros;
     }
 }

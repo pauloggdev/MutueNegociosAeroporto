@@ -13,7 +13,7 @@ class EmitirRecibo
 {
 
     use WithFileUploads;
-    
+
     private ReciboRepository $reciboRepository;
     public function __construct(RepositoryFactory $repositoryFactory){
         $this->reciboRepository = $repositoryFactory->createReciboRepository();
@@ -34,27 +34,28 @@ class EmitirRecibo
             $numSequenciaRecibo = ++$ultimoDoc->numSequenciaRecibo;
         }
         $numeracaoRecibo = 'RC ATO' . date('Y') . '/' . $numSequenciaRecibo;
-        $recibo = new Recibo(
-            $data['clienteId'],
-            $data['nomeCliente'],
-            $data['nifCliente'],
-            $data['telefoneCliente'],
-            $data['emailCliente'],
-            $data['enderecoCliente'],
-            $data['anulado'],
-            $data['totalEntregue'],
-            $data['totalImposto'],
-            $data['facturaId'],
-            $data['totalFatura'],
-            $data['formaPagamentoId'],
-            $data['numeroOperacaoBancaria'],
-            $data['dataOperacao'],
-            $data['comprovativoBancario'],
-            $data['observacao'],
-            $numSequenciaRecibo,
-            $numeracaoRecibo
-        );
 
-        return $this->reciboRepository->emitirRecibo($recibo);
+        $data = [
+            'clienteId' => $data['clienteId'],
+            'nomeCliente' => $data['nomeCliente'],
+            'nifCliente' => $data['nifCliente'],
+            'telefoneCliente' => $data['telefoneCliente'],
+            'emailCliente' => $data['emailCliente'],
+            'enderecoCliente' => $data['enderecoCliente'],
+            'anulado' => $data['anulado'],
+            'totalEntregue' => $data['totalEntregue'],
+            'totalImposto' => $data['totalImposto'],
+            'facturaId' => $data['facturaId'],
+            'totalFatura' => $data['totalFatura'],
+            'totalDebitar' => ($data['totalDebitar'] - $data['totalEntregue']),
+            'formaPagamentoId' => $data['formaPagamentoId'],
+            'numeroOperacaoBancaria' => $data['numeroOperacaoBancaria'],
+            'dataOperacao' => $data['dataOperacao'],
+            'comprovativoBancario' => $data['comprovativoBancario'],
+            'observacao' => $data['observacao'],
+            'numSequenciaRecibo' => $numSequenciaRecibo,
+            'numeracaoRecibo' => $numeracaoRecibo
+        ];
+        return $this->reciboRepository->emitirRecibo($data);
     }
 }

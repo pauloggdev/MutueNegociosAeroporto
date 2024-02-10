@@ -6,6 +6,7 @@ class FaturaAeronautico
 {
 
     private $tipoDocumento;
+    private $nomeProprietario;
     private $clienteId;
     private $nomeCliente;
     private $telefoneCliente;
@@ -19,14 +20,17 @@ class FaturaAeronautico
     private $horaDeAterragem;
     private $horaDeDescolagem;
     private $taxaIva;
+    private $peso;
+    private $horaExtra;
     private $cambioDia;
 
     private $items = [];
 
 
-    public function __construct($tipoDocumento, $clienteId, $nomeCliente, $telefoneCliente, $nifCliente, $emailCliente, $enderecoCliente, $tipoDeAeronave, $pesoMaximoDescolagem, $dataDeAterragem, $dataDeDescolagem, $horaDeAterragem, $horaDeDescolagem, $taxaIva, $cambioDia)
+    public function __construct($tipoDocumento,$nomeProprietario,$clienteId, $nomeCliente, $telefoneCliente, $nifCliente, $emailCliente, $enderecoCliente, $tipoDeAeronave, $pesoMaximoDescolagem, $dataDeAterragem, $dataDeDescolagem, $horaDeAterragem, $horaDeDescolagem, $taxaIva, $peso, $horaExtra, $cambioDia)
     {
         $this->tipoDocumento = $tipoDocumento;
+        $this->nomeProprietario = $nomeProprietario;
         $this->clienteId = $clienteId;
         $this->nomeCliente = $nomeCliente;
         $this->telefoneCliente = $telefoneCliente;
@@ -40,6 +44,8 @@ class FaturaAeronautico
         $this->horaDeAterragem = $horaDeAterragem;
         $this->horaDeDescolagem = $horaDeDescolagem;
         $this->taxaIva = $taxaIva;
+        $this->peso = $peso;
+        $this->horaExtra = $horaExtra;
         $this->cambioDia = $cambioDia;
     }
 
@@ -51,6 +57,9 @@ class FaturaAeronautico
     public function getTipoDocumento()
     {
         return $this->tipoDocumento;
+    }
+    public function getProprietario(){
+        return $this->nomeProprietario;
     }
 
     public function getClienteId()
@@ -122,7 +131,10 @@ class FaturaAeronautico
         $hora1 = new \DateTime($this->getHoraDeAterragem());
         $hora2 = new \DateTime($this->getHoraDeDescolagem());
         $diff = $hora1->diff($hora2);
-        return $diff->h <= 0 ? 1 : $diff->h;
+        if($diff->i > 14){
+            return ++$diff->h;
+        }
+        return $diff->h;
     }
 
     public function getHoraDeDescolagem()
@@ -136,6 +148,12 @@ class FaturaAeronautico
     public function getTaxaIva()
     {
         return $this->taxaIva;
+    }
+    public function getHoraExtra(){
+        return $this->horaExtra;
+    }
+    public function getPeso(){
+        return $this->peso;
     }
 
     /**

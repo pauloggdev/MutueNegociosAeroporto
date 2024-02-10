@@ -7,13 +7,21 @@ use App\Http\Controllers\empresa\ReportShowController;
 use App\Infra\Factory\Empresa\DatabaseRepositoryFactory;
 use App\Models\empresa\TipoDocumento;
 use Illuminate\Support\Facades\DB;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
 class RelatorioExtratoClienteController extends Component
 {
 
+    use LivewireAlert;
+    
     public $clientes;
-    public $extrato;
+    public $extrato = [
+        'clienteId' => null,
+        'tipoDocumentoId' => null,
+        'dataInicio' => null,
+        'dataFinal' => null,
+    ];
     public $todoPeriodo = false;
     public $tipoDocumentos;
 
@@ -44,34 +52,45 @@ class RelatorioExtratoClienteController extends Component
 
     public function imprimirExtratoCliente()
     {
-
-
-        $dataInicioFormat = $this->data_inicio;
-        $dataFinalFormat = $this->data_fim;
-        $venda_online = $this->venda_online;
-        $request = $this->data_inicio;
         $rules = [
             'extrato.clienteId' => ["required"],
             'extrato.dataInicio' => [function ($attr, $dataInicio, $fail) {
-                if(!$this->todoPeriodo){
+                if (!$this->todoPeriodo && !$dataInicio) {
                     $fail("campo obrigatório");
                 }
             }],
-            'extrato.dataFinal' => [function ($attr, $dataInicio, $fail) {
-                if(!$this->todoPeriodo){
+            'extrato.dataFinal' => [function ($attr, $dataFinal, $fail) {
+                if (!$this->todoPeriodo && !$dataFinal) {
                     $fail("campo obrigatório");
                 }
             }]
         ];
         $messages = [
-            'extrato.clienteId' => 'campo obrigatório',
-            'extrato.dataInicio' => 'campo obrigatório',
-            'extrato.dataFinal' => 'campo obrigatório'
+            'extrato.clienteId.required' => 'campo obrigatório',
+            'extrato.dataInicio.required' => 'campo obrigatório',
+            'extrato.dataFinal.required' => 'campo obrigatório'
         ];
 
         $this->validate($rules, $messages);
 
+        $factura = DB::table('facturas')->where('clienteId', $this->extrato['clienteId'])
+            ->first();
+
+        $recibo = DB::table('recibos')->where('clienteId', $this->extrato['clienteId'])
+            ->first();
+
+
+        if (!$factura && !$recibo) {
+            $this->confirm('Não existe nenhum documento para este cliente', [
+                'showConfirmButton' => false,
+                'showCancelButton' => false,
+                'icon' => 'warning'
+            ]);
+            return;
+        }
+        $formatoData = $this->extrato['dataInicio'] . " até " . $this->extrato['dataInicio'];
         $logotipo = public_path() . '/upload//' . auth()->user()->empresa->logotipo;
+
         $filename = "extratoCliente";
         $reportController = new ReportShowController();
         $report = $reportController->show(
@@ -79,14 +98,12 @@ class RelatorioExtratoClienteController extends Component
                 'report_file' => $filename,
                 'report_jrxml' => $filename . '.jrxml',
                 'report_parameters' => [
-                    'empresa_id' => auth()->user()->empresa_id,
                     'logotipo' => $logotipo,
-                    'centroCustoId' => $this->centroCustoId,
-                    'data_inicio' => $this->data_inicio,
-                    'data_fim' => $this->data_fim,
-                    'dataInicioFormat' => $dataInicioFormat,
-                    'dataFinalFormat' => $dataFinalFormat,
-                    'venda_online' => isset($venda_online) ? $venda_online : null
+                    'clienteId' => $this->extrato['clienteId'],
+                    'empresaId' => auth()->user()->empresa_id,
+                    'dataInicio' => $this->extrato['dataInicio'],
+                    'dataFinal' => $this->extrato['dataFinal'],
+                    'formatoData' => $formatoData
                 ]
             ]
         );
