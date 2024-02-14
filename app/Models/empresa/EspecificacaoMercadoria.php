@@ -10,4 +10,10 @@ class EspecificacaoMercadoria extends Model
     protected $connection = 'mysql2';
     protected $table = 'especificacao_mercadorias';
 
+    protected $fillable = [
+        "designacao",
+        "desconto",
+        "status" 
+    ];
+
 }

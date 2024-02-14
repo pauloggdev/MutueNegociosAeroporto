@@ -22,12 +22,10 @@ class EmitirRecibo
 
 
         if($data['comprovativoBancario']){
-            //  dd($data['comprovativoBancario']);
             $fileName= Str::slug($data['numeroOperacaoBancaria']) . "." .$data['comprovativoBancario']->getClientOriginalExtension();
-            // $fileName = time().'_'.$data['comprovativoBancario']->getClientOriginalName();
             $path= $data['comprovativoBancario']->storeAs('comprovativos', $fileName, 'public');
             $data['comprovativoBancario'] = $path;
-            // dd($data['comprovativoBancario']);
+   
         }
 
         $ultimoDoc = $this->reciboRepository->lastDocument();

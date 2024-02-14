@@ -41,7 +41,7 @@ class MercadoriaIndexController extends Component
         ];
         $messages = [
             'mercadoria.designacao.required' => 'É obrigatório o nome',
-            'mercadoria.taxa.required' => 'É obrigatório o preço',
+            'mercadoria.valor.required' => 'É obrigatório o preço',
             'mercadoria.statuId.required' => 'É obrigatório o status'
         ];
         $this->validate($rules, $messages);

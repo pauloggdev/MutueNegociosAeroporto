@@ -40,6 +40,8 @@ class ReciboCreateController extends Component
         'observacao' => null,
     ];
     public $anexo;
+    public $isDisabled = 1;
+    public $limiteDate;
 
     public $formaPagamentos = [];
 
@@ -51,8 +53,10 @@ class ReciboCreateController extends Component
 
     protected $listeners = ['selected' => 'selected'];
 
+
     public function mount()
     {
+        $this->limiteDate = date('Y-m-d');
         $getFormaPagamento = new GetFormaPagamentoEmitirRecibo(new DatabaseRepositoryFactory());
         $this->formaPagamentos = $getFormaPagamento->execute();
 
@@ -139,7 +143,9 @@ class ReciboCreateController extends Component
 
 
         $rules = [
-              'recibo.comprovativoBancario' =>  '',
+            'recibo.numeroOperacaoBancaria' => [$this->isDisabled != 1? 'required': ''],
+              'recibo.comprovativoBancario' =>  'mimes:jpg,png,jpeg,png,pdf|max:1024',
+              'recibo.comprovativoBancario' => [$this->isDisabled !=1? 'required': ''],
             'recibo.numeracaoFactura' => ['required'],
             'recibo.totalEntregue' => ['required', function ($attr, $totalEntregue, $fail) {
                 if ($totalEntregue <= 0) {
@@ -152,7 +158,13 @@ class ReciboCreateController extends Component
         $messages = [
             'recibo.numeracaoFactura.required' => 'Informe o numeração do documento',
             'recibo.totalEntregue.required' => 'Informe o valor entregue',
-            'recibo.comprovativoBancario.mimes' => 'O formato do arquivo não é válido'
+            'recibo.numeroOperacaoBancaria.required' => 'Informe o número de operação bancária',
+            'recibo.comprovativoBancario.mimes' => 'O formato do arquivo não é válido',
+            'recibo.comprovativoBancario.max' => 'Anexo demasiado grande',
+            'recibo.comprovativoBancario.required' => 'Introduza o anexo'
+            
+
+
         ];
         $this->validate($rules, $messages);
 
@@ -211,4 +223,9 @@ class ReciboCreateController extends Component
         ];
     }
 
+    public function updatedReciboFormaPagamentoId($value)
+    {
+            $this->isDisabled= $value;
+        
+    }
 }

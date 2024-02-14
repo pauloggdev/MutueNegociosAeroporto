@@ -48,7 +48,7 @@ class EspecificacaoMercadoriaController extends Component
     }
     public $tiposMercadorias;
     public $countespecificacaoMercadorias;
-
+    public $especificacaoMercadorias;
     public function mount()
     {
         $this->countespecificacaoMercadorias = EspecificacaoMercadoria::all();
