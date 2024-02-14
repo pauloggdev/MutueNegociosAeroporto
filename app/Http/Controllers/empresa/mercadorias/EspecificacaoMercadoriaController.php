@@ -5,6 +5,7 @@ namespace App\Http\Controllers\empresa\mercadorias;
 use App\Application\UseCase\Empresa\mercadorias\CadastrarTipoMercadoria;
 use App\Application\UseCase\Empresa\mercadorias\GetTiposMercadorias;
 use App\Empresa\EspecificacaoMercadoria;
+use App\Http\Controllers\empresa\ReportShowController;
 use App\Infra\Factory\Empresa\DatabaseRepositoryFactory;
 use App\Models\empresa\TipoMercadoria;
 use Livewire\WithPagination;
@@ -19,7 +20,7 @@ class EspecificacaoMercadoriaController extends Component
     use LivewireAlert;
     use WithPagination;
 
-    
+
     protected $paginationTheme ="bootstrap";
 
     public $search = null;
@@ -116,6 +117,29 @@ class EspecificacaoMercadoriaController extends Component
         $this->especificacao['designacao']  = $especificacao->designacao;
         $this->especificacao['desconto'] = $especificacao->desconto;
         $this->especificacao['status'] = $especificacao->status;
+    }
+    public function imprimirEspecificacao()
+    {
+
+        $logotipo = public_path() . '/upload//' . auth()->user()->empresa->logotipo;
+        $filename = "especificacaoMercadoria";
+
+        $reportController = new ReportShowController();
+        $report = $reportController->show(
+            [
+                'report_file' => $filename,
+                'report_jrxml' => $filename . '.jrxml',
+                'report_parameters' => [
+                    'empresa_id' => auth()->user()->empresa_id,
+                    'logotipo' => $logotipo,
+                ]
+
+            ]
+        );
+
+        $this->dispatchBrowserEvent('printPdf', ['data' => base64_encode($report['response']->getContent())]);
+        unlink($report['filename']);
+        flush();
     }
 
 

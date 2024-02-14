@@ -231,9 +231,9 @@
                                    class="btn btn-success widget-box widget-color-blue" id="botoes">
                                     <i class="fa icofont-plus-circle"></i> Novo tipo de mercadoria
                                 </a>
-                                <a title="Imprimir Categoria" wire:click.prevent="imprimirCategoria"
+                                <a title="Imprimir Tipos de mercadorias" wire:click.prevent="imprimirTiposMercadorias"
                                    class="btn btn-primary widget-box widget-color-blue" id="botoes">
-                                    <span wire:loading wire:target="imprimirCategoria" class="loading"></span>
+                                    <span wire:loading wire:target="imprimirTiposMercadorias" class="loading"></span>
                                     <i class="fa fa-print text-default"></i> Imprimir
                                 </a>
                                 <div class="pull-right tableTools-container"></div>
@@ -250,7 +250,7 @@
                                         <th>#</th>
                                         <th>Designação</th>
                                         <th style="text-align: center">Status</th>
-                                        <th style="text-align: right">Valor(USD)</th>
+                                        <th style="text-align: right">Taxa</th>
                                         <th style="text-align: center">Ações</th>
                                     </tr>
                                     </thead>

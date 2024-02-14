@@ -6,6 +6,9 @@ class FaturaCarga
 {
     private $cartaDePorte;
     private $tipoDocumento;
+    private $isencaoIVA;
+    private $retencao;
+    private $valorRetencao;
     private $clienteId;
     private $nomeCliente;
     private $nomeProprietario;
@@ -33,10 +36,13 @@ class FaturaCarga
      * @param $contraValor
      */
 
-    public function __construct($cartaDePorte, $tipoDocumento, $clienteId, $nomeCliente, $nomeProprietario, $telefoneCliente, $nifCliente, $emailCliente, $enderecoCliente, $peso, $dataEntrada, $dataSaida, $nDias, $taxaIva, $cambioDia, $moeda)
+    public function __construct($cartaDePorte, $tipoDocumento, $isencaoIVA, $retencao, $valorRetencao, $clienteId, $nomeCliente, $nomeProprietario, $telefoneCliente, $nifCliente, $emailCliente, $enderecoCliente, $peso, $dataEntrada, $dataSaida, $nDias, $taxaIva, $cambioDia, $moeda)
     {
         $this->cartaDePorte = $cartaDePorte;
         $this->tipoDocumento = $tipoDocumento;
+        $this->isencaoIVA = $isencaoIVA;
+        $this->retencao = $retencao;
+        $this->valorRetencao = $valorRetencao;
         $this->clienteId = $clienteId;
         $this->nomeCliente = $nomeCliente;
         $this->nomeProprietario = $nomeProprietario;
@@ -57,7 +63,9 @@ class FaturaCarga
     {
         $this->items[] = $items;
     }
-    public function getNomeProprietario(){
+
+    public function getNomeProprietario()
+    {
         return $this->nomeProprietario;
     }
 
@@ -94,6 +102,31 @@ class FaturaCarga
     {
         return $this->tipoDocumento;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getIsencaoIVA()
+    {
+        return $this->isencaoIVA;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRetencao()
+    {
+        return $this->retencao;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTaxaRetencao()
+    {
+        return $this->valorRetencao;
+    }
+
 
     public function getClienteId()
     {
@@ -139,9 +172,12 @@ class FaturaCarga
 
     public function getTaxaIva()
     {
+        if ($this->getIsencaoIVA()) return 0;
         return $this->taxaIva;
     }
-    public function getMoeda(){
+
+    public function getMoeda()
+    {
         return $this->moeda;
     }
 
@@ -150,19 +186,6 @@ class FaturaCarga
         return $this->cambioDia;
     }
 
-    /**
-     * @return mixed
-     */
-
-
-    /**
-     * @return mixed
-     */
-
-
-    /**
-     * @return mixed
-     */
     public function getContraValor()
     {
         return $this->getTotal() / $this->getCambioDia();
@@ -189,6 +212,12 @@ class FaturaCarga
 
     public function getTotal()
     {
-        return $this->getValorIliquido() + $this->getValorImposto();
+        return $this->getValorIliquido() + $this->getValorImposto() - $this->getValorRetencao();
     }
+
+    public function getValorRetencao()
+    {
+        return ($this->getValorIliquido() * $this->getTaxaRetencao()) / 100;
+    }
+
 }

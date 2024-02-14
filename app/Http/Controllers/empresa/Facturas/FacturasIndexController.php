@@ -9,6 +9,7 @@ use App\Application\UseCase\Empresa\Parametros\GetParametroPeloLabelNoParametro;
 use App\Http\Controllers\empresa\Faturacao\PrintFaturaCarga;
 use App\Http\Controllers\empresa\ReportShowController;
 use App\Infra\Factory\Empresa\DatabaseRepositoryFactory;
+use App\Models\empresa\Factura;
 use App\Repositories\Empresa\FacturaRepository;
 use App\Repositories\Empresa\ParametroRepository;
 use App\Traits\Empresa\TraitEmpresaAutenticada;
@@ -60,7 +61,10 @@ class FacturasIndexController extends Component
         $centrosCusto = auth()->user()->centrosCusto;
         if (!$centrosCusto) return redirect()->back();
         $data['centrosCusto'] = $centrosCusto;
-        $data['facturas'] = $this->facturaRepository->listarfacturas($this->filter);
+        $data['facturas'] = Factura::where('tipoFatura', 1)
+            ->where('empresa_id', auth()->user()->id)->paginate();
+
+//        $data['facturas'] = $this->facturaRepository->listarfacturas($this->filter);
         $this->dispatchBrowserEvent('reloadTableJquery');
         return view('empresa.facturas.facturasIndex', $data);
     }

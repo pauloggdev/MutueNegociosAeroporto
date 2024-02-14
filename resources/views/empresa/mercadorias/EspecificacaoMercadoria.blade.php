@@ -219,12 +219,17 @@
 
                         <div class="col-xs-12 widget-box widget-color-green" style="left: 0%">
                             <div class="clearfix">
-                                <a href="#modalCriarTipoMercadoria" data-toggle="modal"
-                                   class="btn btn-success widget-box widget-color-blue" id="botoes"
-                                   wire:click="resetField()"
-                                   >
-                                    <i class="fa icofont-plus-circle"></i> Nova Especificação
-                                </a>
+{{--                                <a href="#modalCriarTipoMercadoria" data-toggle="modal"--}}
+{{--                                   class="btn btn-success widget-box widget-color-blue" id="botoes"--}}
+{{--                                   wire:click="resetField()"--}}
+{{--                                   >--}}
+{{--                                    <i class="fa icofont-plus-circle"></i> Nova Especificação--}}
+{{--                                </a>--}}
+{{--                                <a title="Imprimir Especificações mercadorias" wire:click.prevent="imprimirEspecificacao"--}}
+{{--                                   class="btn btn-primary widget-box widget-color-blue" id="botoes">--}}
+{{--                                    <span wire:loading wire:target="imprimirEspecificacao" class="loading"></span>--}}
+{{--                                    <i class="fa fa-print text-default"></i> Imprimir--}}
+{{--                                </a>--}}
                                 <div class="pull-right tableTools-container"></div>
                             </div>
                             <div class="table-header widget-header">
@@ -239,8 +244,8 @@
                                         <th>#</th>
                                         <th>Descrição</th>
                                         <th style="text-align: center">Status</th>
-                                        <th style="text-align: right">Desconto(USD)</th>
-                                        <th style="text-align: center">Ações</th>
+                                        <th style="text-align: right">Desconto(%)</th>
+{{--                                        <th style="text-align: center">Ações</th>--}}
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -256,16 +261,16 @@
                                             </td>
 
                                             <td style="text-align: right">{{ number_format($especificacao->desconto, 2, ',', '.') }}</td>
-                                            <td style="text-align: center">
+{{--                                            <td style="text-align: center">--}}
 
-                                                <div class="hidden-sm hidden-xs action-buttons">
+{{--                                                <div class="hidden-sm hidden-xs action-buttons">--}}
 
-                                                    <a wire:click="edit({{$especificacao->id}})" href="#modalEditarTipoMercadoria" data-toggle="modal"
-                                                       class="pink" title="Editar este registo">
-                                                        <i class="fa fa-pencil-square-o bigger-200 blue"></i>
-                                                    </a>
-                                                </div>
-                                            </td>
+{{--                                                    <a wire:click="edit({{$especificacao->id}})" href="#modalEditarTipoMercadoria" data-toggle="modal"--}}
+{{--                                                       class="pink" title="Editar este registo">--}}
+{{--                                                        <i class="fa fa-pencil-square-o bigger-200 blue"></i>--}}
+{{--                                                    </a>--}}
+{{--                                                </div>--}}
+{{--                                            </td>--}}
                                         </tr>
                                     @endforeach
                                     </tbody>

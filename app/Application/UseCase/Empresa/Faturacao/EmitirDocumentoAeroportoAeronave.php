@@ -97,6 +97,9 @@ class EmitirDocumentoAeroportoAeronave
         $faturaId = DB::table('facturas')->insertGetId([
             'texto_hash' => $plaintext,
             'tipo_documento' => $request->tipoDocumento,
+            'isencaoIVA' => $request->isencaoIVA ? 'Y' : 'N',
+            'taxaRetencao' => $request->taxaRetencao,
+            'valorRetencao' => $request->valorRetencao,
             'numSequenciaFactura' => $numSequenciaFactura,
             'numeracaoFactura' => $numeracaoFactura,
             'hashValor' => $hashValor,
@@ -149,12 +152,12 @@ class EmitirDocumentoAeroportoAeronave
                 'horaExtra' => $item->horaExtra,
                 'taxaAbertoAeroporto' => $item->taxaAbertoAeroporto,
                 'valorImposto' => $item->valorImposto,
-                'total' => $request->valorIliquido,
-                'totalIva' => $request->total,
+                'total' => $item->total,
+                'totalIva' => $item->totalIva,
                 'horaAberturaAeroporto' => $item->horaAberturaAeroporto,
                 'horaFechoAeroporto' => $item->horaFechoAeroporto,
-                'taxaIva' => $request->taxaIva,
-                'valorIva' => $request->valorImposto,
+                'taxaIva' => $item->taxaIva,
+                'valorIva' => $item->valorIva,
                 'factura_id' => $faturaId
             ]);
         }

@@ -7,9 +7,9 @@ use App\Http\Controllers\empresa\ReportShowController;
 use App\Infra\Factory\Empresa\DatabaseRepositoryFactory;
 use Illuminate\Support\Facades\DB;
 
-trait PrintFaturaCarga
+trait PrintFaturaAeroportuario
 {
-    public function printFaturaCarga($facturaId){
+    public function printFaturaAeroportuario($facturaId){
 
         $factura = DB::table('facturas')
             ->where('id', $facturaId)->first();
@@ -17,7 +17,7 @@ trait PrintFaturaCarga
         $getParametro = new GetParametroPeloLabelNoParametro(new DatabaseRepositoryFactory());
         $parametro = $getParametro->execute('tipoImpreensao');
 
-        $filename = "Winmarket";
+        $filename = "Winmarket-Aeronave";
         if ($parametro->valor == 'A5') {
             $filename = "Winmarket_A5";
         }
@@ -50,7 +50,6 @@ trait PrintFaturaCarga
 
 
         $this->dispatchBrowserEvent('printPdf', ['data' => base64_encode($report['response']->getContent())]);
-        // $this->dispatchBrowserEvent('printPdf', ['data' => base64_encode($report['response']->getContent())]);
         unlink($report['filename']);
         flush();
     }

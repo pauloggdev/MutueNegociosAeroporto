@@ -11,6 +11,7 @@ use App\Infra\Repository\Empresa\EspecificacaoMercadoriaRepository;
 use App\Infra\Repository\Empresa\TaxaCargaAduaneiraRepository;
 use App\Infra\Repository\Empresa\TipoMercadoriaRepository;
 use Illuminate\Support\Facades\DB;
+use Symfony\Component\VarDumper\Cloner\Data;
 
 class SimuladorFaturaCargaAeroporto
 {
@@ -28,9 +29,19 @@ class SimuladorFaturaCargaAeroporto
     public function execute($input)
     {
         $input = (object)$input;
+        if($input->isencaoIVA){
+            $taxaIva = 0;
+        }else{
+            $taxaIva = new GetParametroPeloLabelNoParametro(new DatabaseRepositoryFactory());
+            $taxaIva = (float) $taxaIva->execute('valor_iva_aplicado')->valor;
+        }
 
-        $taxaIva = new GetParametroPeloLabelNoParametro(new DatabaseRepositoryFactory());
-        $taxaIva = (float) $taxaIva->execute('valor_iva_aplicado')->valor;
+        if($input->retencao){
+            $retencaoFonte = new GetParametroPeloLabelNoParametro(new DatabaseRepositoryFactory());
+            $valorRetencao = (float)$retencaoFonte->execute('valor_retencao_fonte')->valor;
+        }else{
+            $valorRetencao = 0;
+        }
         $moedaEstrageiraUsado = new GetParametroPeloLabelNoParametro(new DatabaseRepositoryFactory());
         $moedaEstrageiraUsado = $moedaEstrageiraUsado->execute('moeda_estrageira_usada')->valor;
         $cambioDia = DB::table('cambios')->where('designacao', $moedaEstrageiraUsado)->first()->valor;
@@ -38,6 +49,9 @@ class SimuladorFaturaCargaAeroporto
         $faturaCarga = new FaturaCarga(
             $input->cartaDePorte,
             $input->tipoDocumento,
+            $input->isencaoIVA,
+            $input->retencao,
+            $valorRetencao,
             $input->clienteId,
             $input->nomeCliente??null,
             $input->nomeProprietario??null,
@@ -51,7 +65,7 @@ class SimuladorFaturaCargaAeroporto
             $input->nDias,
             $taxaIva,
             $cambioDia,
-            $input->moeda
+            $moedaEstrageiraUsado
         );
         foreach ($input->items as $item){
             $item = (object)$item;

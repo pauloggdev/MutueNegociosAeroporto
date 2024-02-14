@@ -12,11 +12,12 @@ class FaturaItemAeronautico
     private $taxaLuminosa;
     private $taxaAduaneiro;
     private $sujeitoDespachoId;
+    private $taxaIva;
     private $peso;
     private $horaExtra;
     private $taxaAbertoAeroporto;
     private $cambioDia;
-    public function __construct($produtoId, $nomeProduto, $pmd, $horaEstacionamento, $taxaEstacionamento, $taxaLuminosa, $taxaAduaneiro, $sujeitoDespachoId, $peso, $horaExtra, $horaAberturaAeroporto, $horaFechoAeroporto,$taxaAbertoAeroporto, $cambioDia)
+    public function __construct($produtoId, $nomeProduto, $pmd, $horaEstacionamento, $taxaEstacionamento, $taxaLuminosa, $taxaAduaneiro, $sujeitoDespachoId,$taxaIva, $peso, $horaExtra, $horaAberturaAeroporto, $horaFechoAeroporto,$taxaAbertoAeroporto, $cambioDia)
     {
         $this->produtoId = $produtoId;
         $this->nomeProduto = $nomeProduto;
@@ -26,6 +27,7 @@ class FaturaItemAeronautico
         $this->taxaLuminosa = $taxaLuminosa;
         $this->taxaAduaneiro = $taxaAduaneiro;
         $this->sujeitoDespachoId = $sujeitoDespachoId;
+        $this->taxaIva = $taxaIva;
         $this->peso = $peso;
         $this->horaExtra = $horaExtra;
         $this->horaAberturaAeroporto = $horaAberturaAeroporto;
@@ -43,6 +45,21 @@ class FaturaItemAeronautico
     {
         return $this->sujeitoDespachoId;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getTaxaIva()
+    {
+        return $this->taxaIva;
+    }
+    public function getValorIva(){
+        return ($this->getTotal() * $this->getTaxaIva()) / 100;
+    }
+    public function getTotalIva(){
+        return $this->getTotal() + $this->getValorIva();
+    }
+
 
     public function getProdutoId()
     {
@@ -179,13 +196,13 @@ class FaturaItemAeronautico
         if ($this->getPMD() >= 0 && $this->getPMD() <= 10) {
             return ($this->getTaxa0a10() * $this->getPMD()) * $this->getCambioDia();
         } else if ($this->getPMD() > 10 && $this->getPMD() <= 25) {
-            return ($this->getTaxa0a10() * 10) + ($this->getTaxa10a25() * ($this->getPMD() - 10));
+            return (($this->getTaxa0a10() * 10) + ($this->getTaxa10a25() * ($this->getPMD() - 10))) * $this->getCambioDia();
         } else if ($this->getPMD() > 25 && $this->getPMD() <= 75) {
-            return ($this->getTaxa0a10() * 10) + ($this->getTaxa10a25() * 15) + ($this->getTaxa25a75() * ($this->getPMD() - 25));
+            return (($this->getTaxa0a10() * 10) + ($this->getTaxa10a25() * 15) + ($this->getTaxa25a75() * ($this->getPMD() - 25))) * $this->getCambioDia();
         } else if ($this->getPMD() > 75 && $this->getPMD() <= 150) {
             return (($this->getTaxa0a10() * 10) + ($this->getTaxa10a25() * 15) + ($this->getTaxa25a75() * 50) + ($this->getTaxa75a150() * ($this->getPMD() - 75))) * $this->getCambioDia();
         } else {
-            return ($this->getTaxa0a10() * 10) + ($this->getTaxa10a25() * 15) + ($this->getTaxa25a75() * 50) + ($this->getTaxa75a150() * 75) + ($this->getTaxa150aInfinito() * ($this->getPMD() - 150));
+            return (($this->getTaxa0a10() * 10) + ($this->getTaxa10a25() * 15) + ($this->getTaxa25a75() * 50) + ($this->getTaxa75a150() * 75) + ($this->getTaxa150aInfinito() * ($this->getPMD() - 150))) * $this->getCambioDia();
         }
     }
 

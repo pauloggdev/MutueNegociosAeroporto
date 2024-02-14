@@ -42,6 +42,10 @@ class EmissaoFaturaCargaController extends Component
     public $fatura = [
         'cartaDePorte' => null,
         'tipoDocumento' => 3, //Fatura proforma
+        'isencaoIVA' => false,
+        'retencao' => false,
+        'taxaRetencao' => 0,
+        'valorRetencao' => 0,
         'nomeProprietario' => null,
         'clienteId' => null,
         'nomeCliente' => null,
@@ -113,6 +117,10 @@ class EmissaoFaturaCargaController extends Component
         $this->fatura = [
             'cartaDePorte' => null,
             'tipoDocumento' => 3, //Fatura Proforma
+            'isencaoIVA' => false,
+            'retencao' => false,
+            'taxaRetencao' => 0,
+            'valorRetencao' => 0,
             'nomeProprietario' => null,
             'clienteId' => null,
             'nomeCliente' => null,
@@ -141,6 +149,33 @@ class EmissaoFaturaCargaController extends Component
 //        $this->dispatchBrowserEvent('reloadTableJquery');
         $this->especificaoMercadorias = DB::table('especificacao_mercadorias')->get();
         return view("empresa.facturacao.createAeroportoCarga");
+    }
+    public function updatedFaturaIsencaoIVA(){
+        $this->fatura['taxaRetencao'] = 0;
+        $this->fatura['valorRetencao'] = 0;
+        $this->fatura['taxaIva'] = 0;
+        $this->fatura['cambioDia'] = 0;
+        $this->fatura['contraValor'] = 0;
+        $this->fatura['valorIliquido'] = 0;
+        $this->fatura['valorImposto'] = 0;
+        $this->fatura['moeda'] = null;
+        $this->fatura['total'] = 0;
+        $this->fatura['items'] = [];
+
+
+    }
+    public function updatedFaturaRetencao(){
+
+        $this->fatura['taxaRetencao'] = 0;
+        $this->fatura['valorRetencao'] = 0;
+        $this->fatura['taxaIva'] = 0;
+        $this->fatura['cambioDia'] = 0;
+        $this->fatura['contraValor'] = 0;
+        $this->fatura['valorIliquido'] = 0;
+        $this->fatura['valorImposto'] = 0;
+        $this->fatura['moeda'] = null;
+        $this->fatura['total'] = 0;
+        $this->fatura['items'] = [];
     }
     public function updatedFaturaClienteId($clienteId)
     {
@@ -213,7 +248,6 @@ class EmissaoFaturaCargaController extends Component
             ]);
             return;
         }
-
         $produto = json_decode($this->item['produto']);
         $this->item['nomeProduto'] = $produto->designacao;
         $this->item['produtoId'] = $produto->id;
@@ -243,6 +277,10 @@ class EmissaoFaturaCargaController extends Component
         $fatura = [
             'cartaDePorte' => $output->getCartaDePorte(),
             'tipoDocumento' => $output->getTipoDocumentoId(),
+            'isencaoIVA' => $output->getIsencaoIVA(),
+            'retencao' => $output->getRetencao(),
+            'taxaRetencao' => $output->getTaxaRetencao(),
+            'valorRetencao' => $output->getValorRetencao(),
             'clienteId' => $output->getClienteId(),
             'nomeCliente' => $output->getNomeCliente(),
             'nomeProprietario' => $output->getNomeProprietario(),
@@ -357,50 +395,5 @@ class EmissaoFaturaCargaController extends Component
 
     }
 
-    public function printFaturaCarga($facturaId)
-    {
-        $factura = DB::table('facturas')
-            ->where('id', $facturaId)->first();
-
-        $getParametro = new GetParametroPeloLabelNoParametro(new DatabaseRepositoryFactory());
-        $parametro = $getParametro->execute('tipoImpreensao');
-
-        $filename = "Winmarket";
-        if ($parametro->valor == 'A5') {
-            $filename = "Winmarket_A5";
-        }
-        if ($factura->tipo_documento == 3) { //proforma
-            $logotipo = public_path() . '/upload/_logo_ATO_vertical_com_TAG_color.png';
-        } else {
-            $logotipo = public_path() . '/upload//' . auth()->user()->empresa->logotipo;
-        }
-        $DIR_SUBREPORT = "/upload/documentos/empresa/modelosFacturas/a4/";
-        $DIR = public_path() . "/upload/documentos/empresa/modelosFacturas/a4/";
-        $reportController = new ReportShowController('pdf', $DIR_SUBREPORT);
-
-        $report = $reportController->show(
-            [
-                'report_file' => $filename,
-                'report_jrxml' => $filename . '.jrxml',
-                'report_parameters' => [
-                    "viaImpressao" => 1,
-                    "logotipo" => $logotipo,
-                    "empresa_id" => auth()->user()->empresa_id,
-                    "facturaId" => $facturaId,
-                    "dirSubreportBanco" => $DIR,
-                    "dirSubreportTaxa" => $DIR,
-                    "tipo_regime" => auth()->user()->empresa->tipo_regime_id,
-                    "nVia" => 1,
-                    "DIR" => $DIR
-                ]
-            ], "pdf", $DIR_SUBREPORT
-        );
-
-
-        $this->dispatchBrowserEvent('printPdf', ['data' => base64_encode($report['response']->getContent())]);
-        // $this->dispatchBrowserEvent('printPdf', ['data' => base64_encode($report['response']->getContent())]);
-        unlink($report['filename']);
-        flush();
-    }
 
 }

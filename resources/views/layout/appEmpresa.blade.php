@@ -439,9 +439,16 @@ if (Auth::guard('web')->check()) {
                         <b class="arrow"></b>
                     </li>
                     <li class="hover">
-                        <a href="/empresa/facturas">
+                        <a href="/empresa/facturas/cargas">
                             <i class="menu-icon fa fa-list"></i>
-                            LISTAR FATURAS
+                            FATURAS - CARGA
+                        </a>
+                        <b class="arrow"></b>
+                    </li>
+                    <li class="hover">
+                        <a href="/empresa/facturas/aeroportuario">
+                            <i class="menu-icon fa fa-list"></i>
+                            FATURAS - AEROPORTUÁRIO
                         </a>
                         <b class="arrow"></b>
                     </li>
@@ -481,14 +488,20 @@ if (Auth::guard('web')->check()) {
                             EMITIR RECIBOS</a>
                         <b class="arrow"></b>
                     </li>
-
                     <li class="hover">
-                        <a href="{{ route('notaCreditoAnulacaoDoc.index') }}">
+                        <a href="{{ route('proformas.index')}}">
                             <i class="menu-icon fa fa-caret-right"></i>
-                            ANULAÇÃO DE DOCUMENTOS
-                        </a>
+                            CONVERTER PROFORMAS</a>
                         <b class="arrow"></b>
                     </li>
+
+{{--                    <li class="hover">--}}
+{{--                        <a href="{{ route('notaCreditoAnulacaoDoc.index') }}">--}}
+{{--                            <i class="menu-icon fa fa-caret-right"></i>--}}
+{{--                            ANULAÇÃO DE DOCUMENTOS--}}
+{{--                        </a>--}}
+{{--                        <b class="arrow"></b>--}}
+{{--                    </li>--}}
 
                 </ul>
             </li>

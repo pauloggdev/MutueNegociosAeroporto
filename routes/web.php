@@ -110,6 +110,7 @@ use App\Http\Controllers\empresa\Fabricantes\FabricanteUpdateController;
 use App\Http\Controllers\empresa\FacturacaoController;
 use App\Http\Controllers\empresa\FacturaController;
 use App\Http\Controllers\empresa\Facturas\FacturaProformaIndexController;
+use App\Http\Controllers\empresa\Facturas\FacturasAeroportuarioIndexController;
 use App\Http\Controllers\empresa\Facturas\FacturasIndexController;
 use App\Http\Controllers\empresa\Faturacao\EmissaoFaturaAeronauticoController;
 use App\Http\Controllers\empresa\Faturacao\EmissaoFaturaCargaController;
@@ -180,6 +181,7 @@ use App\Http\Controllers\empresa\Produtos\ProdutoMaisVendidosIndexController;
 use App\Http\Controllers\empresa\Produtos\ProdutoShowController;
 use App\Http\Controllers\empresa\Produtos\ProdutoStoreController;
 use App\Http\Controllers\empresa\Produtos\ProdutoUpdateController;
+use App\Http\Controllers\empresa\Proformas\ProformaIndexController;
 use App\Http\Controllers\empresa\Recibos\ReciboCreateController;
 use App\Http\Controllers\empresa\Recibos\ReciboIndexController;
 use App\Http\Controllers\empresa\RelatorioController;
@@ -872,6 +874,12 @@ Route::group(['middleware' => ['auth:empresa']], function () {
             Route::post('empresa/viaImpressao/adicionar', [EmpresaConfiguracaoController::class, 'atualizarNumeroViaImpressao']);
 
 
+            //Converter proformas
+            Route::get('empresa/converter/proformas', ProformaIndexController::class)->name('proformas.index');
+
+
+
+
             Route::post('empresa/alterarDiasVencimentoFactura', [EmpresaConfiguracaoController::class, 'alterarDiasVencimentoFactura']);
             Route::post('empresa/alterarDiasVencimentoFtProforma', [EmpresaConfiguracaoController::class, 'alterarDiasVencimentoFtProforma']);
             Route::post('empresa/alterarSerieDocumento', [EmpresaConfiguracaoController::class, 'alterarSerieDocumento']);
@@ -1031,7 +1039,8 @@ Route::group(['middleware' => ['auth:empresa']], function () {
             Route::get('empresa/facturacao/cliente_default', [FacturacaoController::class, 'listarClienteDefault']);
 
             //Listar facturas
-            Route::get('empresa/facturas', FacturasIndexController::class)->name('facturas.index');
+            Route::get('empresa/facturas/cargas', FacturasIndexController::class)->name('facturas.index');
+            Route::get('empresa/facturas/aeroportuario', FacturasAeroportuarioIndexController::class)->name('facturasAeroportuario.index');
             Route::get('empresa/listarFacturas', [FacturacaoController::class, 'listarFacturasApi']);
             Route::get('empresa/facturasCliente/{clienteId}', [FacturaController::class, 'listarFacturasPorCliente']);
             Route::get('empresa/facturas-licencas', [FacturaController::class, 'facturasLicencasIndex']);

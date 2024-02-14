@@ -135,7 +135,7 @@
                                                                          style="margin-right: 15px">
                                                                         <label>Peso(Kg)</label>
                                                                         <div>
-                                                                            <input type="text"
+                                                                            <input type="number"
                                                                                    wire:model="fatura.peso"
                                                                                    class="input-small"
                                                                                    style="width: 150px; <?= $errors->has('fatura.peso') ? 'border-color: #ff9292;' : '' ?>"
@@ -205,6 +205,22 @@
                                                                                 <option value="3">Factura Proforma
                                                                                 </option>
                                                                             </select>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group" style="margin-left: 15px">
+                                                                        <label for="isencaoIva">Isenção IVA</label>
+                                                                        <div>
+                                                                                <input name="form-field-checkbox" wire:model="fatura.isencaoIVA" id="isencaoIva" type="checkbox"
+                                                                                       class="ace input-lg"/>
+                                                                                <span class="lbl bigger-140"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group" style="margin-left: 15px">
+                                                                        <label for="retencao">Incluir Retenção</label>
+                                                                        <div>
+                                                                            <input name="form-field-checkbox" wire:model="fatura.retencao" id="retencao" type="checkbox"
+                                                                                   class="ace input-lg"/>
+                                                                            <span class="lbl bigger-140"></span>
                                                                         </div>
                                                                     </div>
                                                                 </form>
@@ -370,6 +386,22 @@
                                             <div class="row" style="margin-bottom: 5px">
                                                 <div class="col-sm-5 pull-right">
                                                     <h8 class="pull-right">
+                                                        RETENÇÃO :
+                                                        <span>{{ number_format($fatura['taxaRetencao'], 2,',','.') }}%</span>
+                                                    </h8>
+                                                </div>
+                                            </div>
+                                            <div class="row" style="margin-bottom: 5px">
+                                                <div class="col-sm-5 pull-right">
+                                                    <h8 class="pull-right">
+                                                        VALOR DA RETENÇÃO(AOA) :
+                                                        <span>{{ number_format($fatura['valorRetencao'], 2,',','.') }}Kz</span>
+                                                    </h8>
+                                                </div>
+                                            </div>
+                                            <div class="row" style="margin-bottom: 5px">
+                                                <div class="col-sm-5 pull-right">
+                                                    <h8 class="pull-right">
                                                         TOTAL(AOA) :
                                                         <span><strong>{{ number_format($fatura['total'], 2,',','.') }}Kz</strong></span>
                                                     </h8>
@@ -412,7 +444,7 @@
                                                         <span class="loading"></span>
                                                         Aguarde...
                                                     </span>
-                                                    
+
                                                     </a>
                                                 </div>
                                             </div>

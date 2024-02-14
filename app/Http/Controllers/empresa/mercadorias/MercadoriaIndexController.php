@@ -4,6 +4,7 @@ namespace App\Http\Controllers\empresa\mercadorias;
 
 use App\Application\UseCase\Empresa\mercadorias\CadastrarTipoMercadoria;
 use App\Application\UseCase\Empresa\mercadorias\GetTiposMercadorias;
+use App\Http\Controllers\empresa\ReportShowController;
 use App\Infra\Factory\Empresa\DatabaseRepositoryFactory;
 use App\Models\empresa\TipoMercadoria;
 use Illuminate\Support\Facades\DB;
@@ -114,6 +115,29 @@ class MercadoriaIndexController extends Component
             $this->mount();
             $this->dispatchBrowserEvent('reloadTableJquery');
 
+    }
+    public function imprimirTiposMercadorias()
+    {
+
+        $logotipo = public_path() . '/upload//' . auth()->user()->empresa->logotipo;
+        $filename = "tiposMercadorias";
+
+        $reportController = new ReportShowController();
+        $report = $reportController->show(
+            [
+                'report_file' => $filename,
+                'report_jrxml' => $filename . '.jrxml',
+                'report_parameters' => [
+                    'empresa_id' => auth()->user()->empresa_id,
+                    'logotipo' => $logotipo,
+                ]
+
+            ]
+        );
+
+        $this->dispatchBrowserEvent('printPdf', ['data' => base64_encode($report['response']->getContent())]);
+        unlink($report['filename']);
+        flush();
     }
 
 }

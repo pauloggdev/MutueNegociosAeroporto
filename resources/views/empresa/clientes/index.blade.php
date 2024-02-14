@@ -85,15 +85,15 @@
                                             <td>
                                                 <div class="hidden-sm hidden-xs action-buttons">
                                                     @if($cliente['diversos'] != "Sim")
-                                                    <a href="{{ route('clientes.detalhes', $cliente->id) }}" class="pink" title="Editar este registo">
-                                                        <i class="ace-icon fa fa-eye bigger-150 bolder success pink"></i>
-                                                    </a>
+{{--                                                    <a href="{{ route('clientes.detalhes', $cliente->id) }}" class="pink" title="Editar este registo">--}}
+{{--                                                        <i class="ace-icon fa fa-eye bigger-150 bolder success pink"></i>--}}
+{{--                                                    </a>--}}
                                                     <a href="{{ route('clientes.edit', $cliente->id) }}" class="pink" title="Editar este registo">
                                                         <i class="ace-icon fa fa-pencil bigger-150 bolder success text-success"></i>
                                                     </a>
-                                                    <a href="{{ route('clientes.extrato', $cliente->uuid) }}" class="pink" title="Extrato do cliente">
-                                                        <i class="ace-icon fa fa-file bigger-150 bolder primary text-primary"></i>
-                                                    </a>
+{{--                                                    <a href="{{ route('clientes.extrato', $cliente->uuid) }}" class="pink" title="Extrato do cliente">--}}
+{{--                                                        <i class="ace-icon fa fa-file bigger-150 bolder primary text-primary"></i>--}}
+{{--                                                    </a>--}}
                                                     @endif
                                                 </div>
                                             </td>

@@ -37,8 +37,20 @@ class SimuladorFaturaAeronauticoAeroporto
     {
 
         $input = (object)$input;
-        $taxaIva = new GetParametroPeloLabelNoParametro(new DatabaseRepositoryFactory());
-        $taxaIva = (float)$taxaIva->execute('valor_iva_aplicado')->valor;
+
+        if($input->isencaoIVA){
+            $taxaIva = 0;
+        }else{
+            $taxaIva = new GetParametroPeloLabelNoParametro(new DatabaseRepositoryFactory());
+            $taxaIva = (float) $taxaIva->execute('valor_iva_aplicado')->valor;
+        }
+
+        if($input->retencao){
+            $retencaoFonte = new GetParametroPeloLabelNoParametro(new DatabaseRepositoryFactory());
+            $valorRetencao = (float)$retencaoFonte->execute('valor_retencao_fonte')->valor;
+        }else{
+            $valorRetencao = 0;
+        }
 
 
         $getTaxaEstacionameno = new GetParametroPeloLabelNoParametro(new DatabaseRepositoryFactory());
@@ -67,6 +79,9 @@ class SimuladorFaturaAeronauticoAeroporto
 
         $faturaAeronautico = new FaturaAeronautico(
             $input->tipoDocumento,
+            $input->isencaoIVA,
+            $input->retencao,
+            $valorRetencao,
             $input->nomeProprietario,
             $input->clienteId,
             $input->nomeCliente,
@@ -83,7 +98,8 @@ class SimuladorFaturaAeronauticoAeroporto
             $taxaIva,
             $input->peso,
             $input->horaExtra,
-            $cambioDia
+            $cambioDia,
+            $moedaEstrageiraUsado
         );
         foreach ($input->items as $item) {
             $item = (object)$item;
@@ -105,6 +121,7 @@ class SimuladorFaturaAeronauticoAeroporto
                 $taxaLuminosa,
                 $taxaAduaneira,
                 $sujeitoDespachoId,
+                $taxaIva,
                 $input->peso,
                 $input->horaExtra,
                 $horaAberturaAeroporto,

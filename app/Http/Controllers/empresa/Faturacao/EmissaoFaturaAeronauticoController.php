@@ -40,6 +40,10 @@ class EmissaoFaturaAeronauticoController extends Component
     public $fatura = [
         'moeda' => null,
         'tipoDocumento' => 3, //Fatura proforma
+        'isencaoIVA' => false,
+        'retencao' => false,
+        'taxaRetencao' => 0,
+        'valorRetencao' => 0,
         'nomeProprietario' => null,
         'clienteId' => null,
         'nomeCliente' => null,
@@ -47,12 +51,12 @@ class EmissaoFaturaAeronauticoController extends Component
         'nifCliente' => null,
         'emailCliente' => null,
         'enderecoCliente' => null,
-        'tipoDeAeronave' => 'BOING 737-800',
-        'pesoMaximoDescolagem' => 77,
-        'dataDeAterragem' => '2024-01-30',
-        'dataDeDescolagem' => '2024-01-30',
-        'horaDeAterragem' => '11:40', //11h40 UTC
-        'horaDeDescolagem' => '13:57', //13h57 UTC
+        'tipoDeAeronave' => null,
+        'pesoMaximoDescolagem' => null,
+        'dataDeAterragem' => null,
+        'dataDeDescolagem' => null,
+        'horaDeAterragem' => null, //11h40 UTC
+        'horaDeDescolagem' => null, //13h57 UTC
         'peso' => null,
         'horaExtra' => null,
         'taxaIva' => 0,
@@ -84,6 +88,35 @@ class EmissaoFaturaAeronauticoController extends Component
     public function hydrate()
     {
         $this->emit('select2');
+    }
+
+    public function updatedFaturaIsencaoIVA()
+    {
+        $this->fatura['taxaRetencao'] = 0;
+        $this->fatura['valorRetencao'] = 0;
+        $this->fatura['taxaIva'] = 0;
+        $this->fatura['cambioDia'] = 0;
+        $this->fatura['contraValor'] = 0;
+        $this->fatura['valorIliquido'] = 0;
+        $this->fatura['valorImposto'] = 0;
+        $this->fatura['moeda'] = null;
+        $this->fatura['total'] = 0;
+        $this->fatura['items'] = [];
+    }
+
+    public function updatedFaturaRetencao()
+    {
+
+        $this->fatura['taxaRetencao'] = 0;
+        $this->fatura['valorRetencao'] = 0;
+        $this->fatura['taxaIva'] = 0;
+        $this->fatura['cambioDia'] = 0;
+        $this->fatura['contraValor'] = 0;
+        $this->fatura['valorIliquido'] = 0;
+        $this->fatura['valorImposto'] = 0;
+        $this->fatura['moeda'] = null;
+        $this->fatura['total'] = 0;
+        $this->fatura['items'] = [];
     }
 
     public function updatedFaturaClienteId($clienteId)
@@ -141,21 +174,6 @@ class EmissaoFaturaAeronauticoController extends Component
 
     public function addCart()
     {
-        $rules = [
-            'fatura.tipoDeAeronave' => 'required',
-            'fatura.pesoMaximoDescolagem' => 'required',
-            'fatura.dataDeAterragem' => 'required',
-            'fatura.dataDeDescolagem' => 'required',
-            'fatura.horaDeAterragem' => 'required',
-        ];
-        $messages = [
-            'fatura.tipoDeAeronave.required' => 'campo obrigatório',
-            'fatura.pesoMaximoDescolagem.required' => 'campo obrigatório',
-            'fatura.dataDeAterragem.required' => 'campo obrigatório',
-            'fatura.dataDeDescolagem.required' => 'campo obrigatório',
-            'fatura.horaDeAterragem.required' => 'campo obrigatório',
-        ];
-        $this->validate($rules, $messages);
 
         if (!$this->item['produto']) {
             $this->confirm('Seleciona o serviço', [
@@ -166,7 +184,38 @@ class EmissaoFaturaAeronauticoController extends Component
             return;
         }
 
-        $key = $this->isCart(json_decode($this->item['produto']));
+        $produtoData = json_decode($this->item['produto']);
+        $rules = [
+            'fatura.tipoDeAeronave' => 'required',
+            'fatura.pesoMaximoDescolagem' => 'required',
+            'fatura.dataDeAterragem' => 'required',
+            'fatura.dataDeDescolagem' => 'required',
+            'fatura.horaDeAterragem' => 'required',
+            'fatura.horaDeDescolagem' => 'required',
+            'fatura.peso' => [function ($attr, $peso, $fail) use ($produtoData) {
+                if ($produtoData->id == 7 && !$peso) {
+                    $fail("campo obrigatório");
+                }
+            }],
+            'fatura.horaExtra' => [function ($attr, $horaExtra, $fail) use ($produtoData) {
+                if (($produtoData->id == 8 || $produtoData->id == 10) && !$horaExtra) {
+                    $fail("campo obrigatório");
+                }
+            }],
+        ];
+        $messages = [
+            'fatura.tipoDeAeronave.required' => 'campo obrigatório',
+            'fatura.pesoMaximoDescolagem.required' => 'campo obrigatório',
+            'fatura.dataDeAterragem.required' => 'campo obrigatório',
+            'fatura.dataDeDescolagem.required' => 'campo obrigatório',
+            'fatura.horaDeAterragem.required' => 'campo obrigatório',
+            'fatura.horaDeDescolagem.required' => 'campo obrigatório',
+        ];
+        $this->validate($rules, $messages);
+
+
+
+        $key = $this->isCart($produtoData);
         if ($key !== false) {
             $this->confirm('O serviço já foi adicionado', [
                 'showConfirmButton' => false,
@@ -184,9 +233,8 @@ class EmissaoFaturaAeronauticoController extends Component
         $this->calculadoraTotal();
 
 
-
-
     }
+
     public function calculadoraTotal()
     {
         $simuladorFaturaAeronautico = new SimuladorFaturaAeronauticoAeroporto(new DatabaseRepositoryFactory());
@@ -222,19 +270,27 @@ class EmissaoFaturaAeronauticoController extends Component
             'peso' => $output->getPeso(),
             'horaExtra' => $output->getHoraExtra(),
             'tipoDocumento' => $output->getTipoDocumento(), //Fatura recibo
+            'isencaoIVA' => $output->getIsencaoIVA(),
+            'retencao' => $output->getRetencao(),
+            'taxaRetencao' => $output->getTaxaRetencao(),
+            'valorRetencao' => $output->getValorRetencao(),
             'taxaIva' => $output->getTaxaIva(),
             'cambioDia' => $output->getCambioDia(),
             'contraValor' => $output->getContraValor(),
             'valorIliquido' => $output->getValorIliquido(),
             'valorImposto' => $output->getValorImposto(),
             'total' => $output->getTotal(),
+            'moeda' => $output->getMoeda(),
             'items' => []
         ];
         foreach ($output->getItems() as $item) {
             array_push($fatura['items'], [
                 'produtoId' => $item->getProdutoId(),
+                'quantidade' => 1,
                 'nomeProduto' => $item->getNomeProduto(),
                 'pmd' => $item->getPMD(),
+                'valorIva' => $item->getValorIva(),
+                'taxaIva' => $item->getTaxaIva(),
                 'horaEstacionamento' => $item->getHoraEstacionamento(),
                 'taxa' => $item->getTaxa(),
                 'taxaLuminosa' => $item->getTaxaLuminosa(),
@@ -246,6 +302,7 @@ class EmissaoFaturaAeronauticoController extends Component
                 'cambioDia' => $item->getCambioDia(),
                 'valorImposto' => $item->getImposto(),
                 'total' => $item->getTotal(),
+                'totalIva' => $item->getTotalIva(),
                 'horaAberturaAeroporto' => $item->getHoraAberturaAeroporto(),
                 'horaFechoAeroporto' => $item->getHoraFechoAeroporto(),
             ]);
@@ -266,7 +323,6 @@ class EmissaoFaturaAeronauticoController extends Component
             'fatura.dataDeDescolagem' => 'required',
             'fatura.horaDeAterragem' => 'required',
             'fatura.horaDeDescolagem' => 'required',
-            'fatura.peso' => 'required',
         ];
         $messages = [
             'fatura.clienteId.required' => 'campo obrigatório',
@@ -277,7 +333,6 @@ class EmissaoFaturaAeronauticoController extends Component
             'fatura.dataDeDescolagem.required' => 'campo obrigatório',
             'fatura.horaDeAterragem.required' => 'campo obrigatório',
             'fatura.horaDeDescolagem.required' => 'campo obrigatório',
-            'fatura.peso.required' => 'campo obrigatório',
         ];
         $this->validate($rules, $messages);
 
@@ -303,6 +358,7 @@ class EmissaoFaturaAeronauticoController extends Component
         $this->printFaturaCarga($faturaId);
         $this->resetField();
     }
+
     public function printFaturaCarga($facturaId)
     {
         $factura = DB::table('facturas')
@@ -348,11 +404,16 @@ class EmissaoFaturaAeronauticoController extends Component
         unlink($report['filename']);
         flush();
     }
+
     public function resetField()
     {
         $this->fatura = [
             'moeda' => null,
             'tipoDocumento' => 3, //Fatura proforma
+            'isencaoIVA' => false,
+            'retencao' => false,
+            'taxaRetencao' => 0,
+            'valorRetencao' => 0,
             'nomeProprietario' => null,
             'clienteId' => null,
             'nomeCliente' => null,
@@ -360,12 +421,12 @@ class EmissaoFaturaAeronauticoController extends Component
             'nifCliente' => null,
             'emailCliente' => null,
             'enderecoCliente' => null,
-            'tipoDeAeronave' => 'BOING 737-800',
-            'pesoMaximoDescolagem' => 77,
-            'dataDeAterragem' => '2024-01-30',
-            'dataDeDescolagem' => '2024-01-30',
-            'horaDeAterragem' => '11:40', //11h40 UTC
-            'horaDeDescolagem' => '13:57', //13h57 UTC
+            'tipoDeAeronave' => null,
+            'pesoMaximoDescolagem' => null,
+            'dataDeAterragem' => null,
+            'dataDeDescolagem' => null,
+            'horaDeAterragem' => null, //11h40 UTC
+            'horaDeDescolagem' => null, //13h57 UTC
             'peso' => null,
             'horaExtra' => null,
             'taxaIva' => 0,

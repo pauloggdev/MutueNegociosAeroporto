@@ -3,7 +3,7 @@
     <div class="row">
         <div class="page-header" style="left: 0.5%; position: relative">
             <h1>
-                FACTURAS - CARGAS
+                FACTURAS - AEROPORTUÁRIOS
                 <small>
                     <i class="ace-icon fa fa-angle-double-right"></i>
                     Listagem
@@ -80,15 +80,14 @@
                                         <tr>
                                             <th>#</th>
                                             <th>Numeração</th>
-                                            <th style="text-align: center">Carta de Porte(AWB)</th>
-                                            <th style="text-align: center">Peso(kg)</th>
-                                            <th style="text-align: center">Data de Entrada</th>
-                                            <th style="text-align: center">Data de Saída</th>
-                                            <th style="text-align: center"> Nº Dias</th>
-                                            <th style="text-align: right">Total</th>
+                                            <th style="text-align: center">Tipo de aeronave</th>
+                                            <th style="text-align: center">PMD(Ton)</th>
+                                            <th style="text-align: center">Data de Aterragem</th>
+                                            <th style="text-align: center">Data de Descolagem</th>
+                                            <th style="text-align: center">Hora de Aterragem</th>
+                                            <th style="text-align: center">Hora de Descolagem</th>
                                             <th>Emitido</th>
                                             <th>Cliente</th>
-                                            <th>Tel.</th>
                                             <th>Ações</th>
                                         </tr>
                                     </thead>
@@ -97,15 +96,14 @@
                                             <tr>
                                                 <td>{{ ++$key }}</td>
                                                 <td>{{ $factura['numeracaoFactura'] }}</td>
-                                                <td style="text-align: center">{{ $factura['cartaDePorte'] }}</td>
-                                                <td style="text-align: center">{{ $factura['peso'] }}</td>
-                                                <td style="text-align: center">{{ $factura['dataEntrada'] }}</td>
-                                                <td style="text-align: center">{{ $factura['dataSaida'] }}</td>
-                                                <td style="text-align: center">{{ $factura['nDias'] }}</td>
-                                                <td style="text-align: right">{{ number_format($factura['total'],2,',','.') }}</td>
+                                                <td style="text-align: center">{{ $factura['tipoDeAeronave'] }}</td>
+                                                <td style="text-align: center">{{ $factura['pesoMaximoDescolagem'] }}</td>
+                                                <td style="text-align: center">{{ $factura['dataDeAterragem'] }}</td>
+                                                <td style="text-align: center">{{ $factura['dataDeDescolagem'] }}</td>
+                                                <td style="text-align: center">{{ $factura['horaDeAterragem'] }}</td>
+                                                <td style="text-align: center">{{ $factura['horaDeDescolagem'] }}</td>
                                                 <td>{{ date_format($factura['created_at'], 'd/m/Y') }}</td>
                                                 <td>{{ $factura['nome_do_cliente'] }}</td>
-                                                <td>{{ $factura['telefone_cliente'] }}</td>
                                                 <td>
                                                     <a class="blue"
                                                         wire:click="imprimirFactura({{ $factura['id'] }})"
