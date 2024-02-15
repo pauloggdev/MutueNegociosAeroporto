@@ -277,6 +277,12 @@
                                                                             <span class="lbl bigger-140"></span>
                                                                         </div>
                                                                     </div>
+                                                                    <div class="form-group">
+                                                                        <label>Observação</label>
+                                                                        <div>
+                                                                            <input type="text" style="width: 400px" wire:model="fatura.observacao" placeholder="Observação..."/>
+                                                                        </div>
+                                                                    </div>
                                                                 </form>
                                                             </div>
                                                         </div>

@@ -664,7 +664,7 @@ Route::group(['middleware' => ['auth:empresa']], function () {
             Route::get('/empresa/recibo/novo', ReciboCreateController::class)->name('recibos.create')->middleware('hasPermission:gerir recibos');
 
             //Fecho caixa
-            Route::get('/empresa/fecho-caixa', FechoCaixaIndexController::class)->name('fechoCaixa.index')->middleware('hasPermission:imprimir_fecho_caixa');
+            Route::get('/empresa/fecho-caixa', FechoCaixaIndexController::class)->name('fechoCaixa.index')->middleware('hasPermission:emitir fecho de caixa');
 
             //Manual utilizador
             Route::get('/manual-utilizador', ManualUtilizadorIndexController::class)->name('manual.index');
@@ -672,7 +672,7 @@ Route::group(['middleware' => ['auth:empresa']], function () {
             Route::get('/empresa/relatorios-gerais',RelatorioGeralIndexController::class)->name('relatorio.relatoriosGeral');
 
 
-            Route::get('/empresa/extrato/cliente', RelatorioExtratoClienteController::class)->name('extratoCliente');
+            Route::get('/empresa/extrato/cliente', RelatorioExtratoClienteController::class)->name('extratoCliente')->middleware('hasPermission:emitir extrato do cliente');
 
 
 
@@ -875,7 +875,7 @@ Route::group(['middleware' => ['auth:empresa']], function () {
 
 
             //Converter proformas
-            Route::get('empresa/converter/proformas', ProformaIndexController::class)->name('proformas.index');
+            Route::get('empresa/converter/proformas', ProformaIndexController::class)->name('proformas.index')->middleware('hasPermission:converter proforma');
 
 
 
@@ -1029,8 +1029,8 @@ Route::group(['middleware' => ['auth:empresa']], function () {
 //            Route::get('empresa/faturacao/novo', [FacturacaoController::class, 'create']);
 //            Route::get('empresa/faturacao/novo', [FaturacaoIndexController::class, 'create']);
             Route::get('empresa/faturacao/novo', FaturacaoCreateController::class);
-            Route::get('empresa/emissao/fatura/carga', EmissaoFaturaCargaController::class);
-            Route::get('empresa/emissao/fatura/aeronautica', EmissaoFaturaAeronauticoController::class);
+            Route::get('empresa/emissao/fatura/carga', EmissaoFaturaCargaController::class)->middleware('hasPermission:emitir fatura carga');
+            Route::get('empresa/emissao/fatura/aeronautica', EmissaoFaturaAeronauticoController::class)->middleware('hasPermission:emitir fatura aeronautico');
             Route::post('empresa/facturacao/salvar', [FacturacaoController::class, 'store']);
             Route::post('empresa/emitirDocumento', [EmitirDocumentoController::class, 'store']);
             Route::get('empresa/facturacao/produtos/{armazen_id}', [FacturacaoController::class, 'listarProdutos']);

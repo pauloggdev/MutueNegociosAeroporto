@@ -42,6 +42,7 @@ class EmissaoFaturaCargaController extends Component
     public $fatura = [
         'cartaDePorte' => null,
         'tipoDocumento' => 3, //Fatura proforma
+        'observacao' => null,
         'isencaoIVA' => false,
         'retencao' => false,
         'taxaRetencao' => 0,
@@ -117,6 +118,7 @@ class EmissaoFaturaCargaController extends Component
         $this->fatura = [
             'cartaDePorte' => null,
             'tipoDocumento' => 3, //Fatura Proforma
+            'observacao' => null,
             'isencaoIVA' => false,
             'retencao' => false,
             'taxaRetencao' => 0,
@@ -179,7 +181,6 @@ class EmissaoFaturaCargaController extends Component
     }
     public function updatedFaturaClienteId($clienteId)
     {
-
         $cliente = DB::table('clientes')->where('id', $clienteId)
             ->where('empresa_id', auth()->user()->empresa_id)->first();
         $this->fatura['clienteId'] = $cliente->id;
@@ -188,7 +189,6 @@ class EmissaoFaturaCargaController extends Component
         $this->fatura['nifCliente'] = $cliente->nif;
         $this->fatura['emailCliente'] = $cliente->email;
         $this->fatura['enderecoCliente'] = $cliente->endereco;
-
     }
     public function removeCart($item)
     {
@@ -298,6 +298,7 @@ class EmissaoFaturaCargaController extends Component
             'valorIliquido' => $output->getValorIliquido(),
             'valorImposto' => $output->getValorImposto(),
             'moeda' => $output->getMoeda(),
+            'observacao' => $output->getObservacao(),
             'total' => $output->getTotal(),
             "items" => []
         ];
@@ -346,6 +347,7 @@ class EmissaoFaturaCargaController extends Component
             'fatura.dataSaida.required' => 'campo obrigatório',
         ];
         $this->validate($rules, $messages);
+
 
         if (count($this->fatura['items']) <= 0) {
             $this->confirm('Adiciona os serviços', [

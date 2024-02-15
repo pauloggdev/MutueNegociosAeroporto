@@ -105,7 +105,6 @@ class ReciboCreateController extends Component
             $this->recibo['emailCliente'] = $recibo->getEmailCliente();
             $this->recibo['enderecoCliente'] = $recibo->getEnderecoCliente();
             $this->recibo['anulado'] = $recibo->getAnulado();
-            $this->recibo['totalEntregue'] = null;
             $this->recibo['facturaId'] = $recibo->getFacturaId();
             $this->recibo['totalFatura'] = $recibo->getTotalFatura();
             $this->recibo['totalImposto'] = $recibo->getTotalImposto();
@@ -115,6 +114,7 @@ class ReciboCreateController extends Component
             $this->recibo['comprovativoBancario'] = $recibo->GetcomprovativoBancario();
             $this->recibo['observacao'] = $recibo->getObservacao();
             $this->recibo['totalDebitar'] = $recibo->getTotalDebitar();
+            $this->recibo['totalEntregue'] = $recibo->getTotalDebitar();
             $this->recibo['totalDebitado'] = $recibo->getTotalDebitado();
         }else{
             $this->recibo = [
@@ -162,7 +162,7 @@ class ReciboCreateController extends Component
             'recibo.comprovativoBancario.mimes' => 'O formato do arquivo não é válido',
             'recibo.comprovativoBancario.max' => 'Anexo demasiado grande',
             'recibo.comprovativoBancario.required' => 'Introduza o anexo'
-            
+
 
 
         ];
@@ -226,6 +226,6 @@ class ReciboCreateController extends Component
     public function updatedReciboFormaPagamentoId($value)
     {
             $this->isDisabled= $value;
-        
+
     }
 }

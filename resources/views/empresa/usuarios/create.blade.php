@@ -26,11 +26,11 @@
                 <span wire:loading wire:target="salvarUtilizador">
                     <span class="loading"></span>
                     Aguarde...
-                   
+
                 </span>
             </button>
             </div>
-    
+
           </div>
         </div>
       </div>
@@ -42,7 +42,7 @@
         </h1>
     </div>
     <div class="row">
-        <div class="col-xs-12"> 
+        <div class="col-xs-12">
             <div class="alert alert-warning hidden-sm hidden-xs">
                 <button type="button" class="close" data-dismiss="alert">
                     <i class="ace-icon fa fa-times"></i>
@@ -167,12 +167,16 @@
                     </div>
                     <div class="clearfix form-actions">
                         <div class="col-md-offset-3 col-md-9">
-                           
-                            <button  type="button" class="search-btn" style="border-radius: 10px" data-toggle="modal" data-target="#exampleModalCenter">
-                                Salvar
-                              </button>
 
-                            &nbsp; &nbsp;
+                            <button class="search-btn" type="submit" style="border-radius: 10px" wire:click.prevent="salvarUtilizador">
+                                <span wire:loading.remove wire:target="salvarUtilizador">
+                                    <i class="ace-icon fa fa-check bigger-110"></i>
+                                    Salvar
+                                </span>
+                                <span wire:loading wire:target="salvarUtilizador">
+                                    <span class="loading"></span>
+                                    Aguarde...</span>
+                            </button>&nbsp; &nbsp;
                             <a href="{{ route('users.index') }}" class="btn btn-danger" type="reset" style="border-radius: 10px">
                                 <i class="ace-icon fa fa-undo bigger-110"></i>
                                 Cancelar
@@ -182,7 +186,7 @@
                 </div>
             </form>
         </div>
-    
+
     </div>
 </div>
 

@@ -186,24 +186,24 @@
 
                             </div>
                             <div class="form-group has-info bold" style="left: 0%; position: relative">
-                                <div class="col-md-4">
-                                    <label class="control-label bold label-select2" for="taxaDesconto">Taxa de Desconto</label>
-                                    <div class="input-group">
-                                        <input type="number" wire:model="cliente.taxa_de_desconto" class="form-control" id="taxaDesconto" autofocus style="height: 35px; font-size: 10pt" />
-                                        <span class="input-group-addon" id="basic-addon1">
-                                            <i class="ace-icon fa fa-info bigger-150 text-info" data-target="form_supply_price_smartprice"></i>
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <label class="control-label bold label-select2" for="LimiteCredito">Limite de Crédito</label>
-                                    <div class="input-group">
-                                        <input type="number" wire:model="cliente.limite_de_credito" id="LimiteCredito" class="form-control" style="height: 35px; font-size: 10pt" />
-                                        <span class="input-group-addon" id="basic-addon1">
-                                            <i class="ace-icon fa fa-info bigger-150 text-info" data-target="form_supply_price_smartprice"></i>
-                                        </span>
-                                    </div>
-                                </div>
+{{--                                <div class="col-md-4">--}}
+{{--                                    <label class="control-label bold label-select2" for="taxaDesconto">Taxa de Desconto</label>--}}
+{{--                                    <div class="input-group">--}}
+{{--                                        <input type="number" wire:model="cliente.taxa_de_desconto" class="form-control" id="taxaDesconto" autofocus style="height: 35px; font-size: 10pt" />--}}
+{{--                                        <span class="input-group-addon" id="basic-addon1">--}}
+{{--                                            <i class="ace-icon fa fa-info bigger-150 text-info" data-target="form_supply_price_smartprice"></i>--}}
+{{--                                        </span>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                                <div class="col-md-4">--}}
+{{--                                    <label class="control-label bold label-select2" for="LimiteCredito">Limite de Crédito</label>--}}
+{{--                                    <div class="input-group">--}}
+{{--                                        <input type="number" wire:model="cliente.limite_de_credito" id="LimiteCredito" class="form-control" style="height: 35px; font-size: 10pt" />--}}
+{{--                                        <span class="input-group-addon" id="basic-addon1">--}}
+{{--                                            <i class="ace-icon fa fa-info bigger-150 text-info" data-target="form_supply_price_smartprice"></i>--}}
+{{--                                        </span>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
                                 <div class="col-md-4">
                                     <label class="control-label bold label-select2" for="dataContracto">Data Contracto<b class="red fa fa-question-circle"></b></label>
                                     <div class="input-group">

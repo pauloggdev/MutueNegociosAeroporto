@@ -98,6 +98,7 @@ class EmitirDocumentoAeroportoCarga
         $faturaId = DB::table('facturas')->insertGetId([
             'texto_hash' => $plaintext,
             'tipo_documento' => $request->tipoDocumento,
+            'tipoDocumento' => $request->tipoDocumento,
             'isencaoIVA' => $request->isencaoIVA ? 'Y' : 'N',
             'taxaRetencao' => $request->taxaRetencao,
             'valorRetencao' => $request->valorRetencao,
@@ -128,6 +129,7 @@ class EmitirDocumentoAeroportoCarga
             'email_cliente' => $request->emailCliente,
             'endereco_cliente' => $request->enderecoCliente,
             'tipoFatura' => 1,
+            'observacao' => $request->observacao,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
         ]);

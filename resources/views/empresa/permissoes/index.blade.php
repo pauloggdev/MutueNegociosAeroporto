@@ -62,10 +62,10 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach($permissoes as $permissao)
+                                        @foreach($permissoes as $key=>$permissao)
                                         <tr>
-                                            <td>{{$permissao['id']}}</td>
-                                            <td>{{$permissao['name']}}</td>
+                                            <td>{{++$key}}</td>
+                                            <td>{{\Illuminate\Support\Str::title($permissao['name']) }}</td>
                                         </tr>
                                         @endforeach
                                     </tbody>

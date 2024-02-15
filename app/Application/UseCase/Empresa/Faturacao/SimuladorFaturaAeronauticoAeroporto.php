@@ -79,6 +79,7 @@ class SimuladorFaturaAeronauticoAeroporto
 
         $faturaAeronautico = new FaturaAeronautico(
             $input->tipoDocumento,
+            $input->observacao,
             $input->isencaoIVA,
             $input->retencao,
             $valorRetencao,

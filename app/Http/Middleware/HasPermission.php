@@ -18,9 +18,9 @@ class HasPermission
         if (auth()->user()->hasPermission($ability)) {
             return $next($request);
         }
-        if (auth()->user()->tipo_user_id) {
-            return redirect()->route('semPermissaoAdmin.index');
-        }
+//        if (auth()->user()->tipo_user_id) {
+//            return redirect()->route('semPermissaoAdmin.index');
+//        }
         return redirect()->route('semPermissao.index');
     }
 }

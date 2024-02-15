@@ -34,16 +34,16 @@ class UserRepository
         } else {
             $data['foto'] = 'utilizadores/cliente/avatarEmpresa.png';
         }
-        $qtyUser = $this->quantidadeUsers();
+//        $qtyUser = $this->quantidadeUsers();
         $user = $this->entity->create([
             'name' => $data['name'],
             'username' => $data['username'] ?: $data['name'],
             'email' => $data['email'],
             'telefone' => $data['telefone'],
-            'password' => Hash::make('mutue123'),
+            'password' => Hash::make('ato123'),
             'tipo_user_id' => 2,
             'status_id' => $data['status_id'],
-            'statusUserAdicional' => $qtyUser >= 2 ? 3 : 1,
+            'statusUserAdicional' => 1,
             'status_senha_id' => 1,
             'canal_id' => 2,
             'empresa_id' => auth()->user()->empresa_id,

@@ -562,49 +562,49 @@ if (Auth::guard('web')->check()) {
                         </a>
                         <b class="arrow"></b>
                     </li>
-                    <li class="hover">
-                        <a href="{{route('relatorio.relatoriosGeral')}}">
-                            <i class="menu-icon fa fa-file-text"></i>
-                            RELATÓRIO GERAL
-                        </a>
-                        <b class="arrow"></b>
-                    </li>
+{{--                    <li class="hover">--}}
+{{--                        <a href="{{route('relatorio.relatoriosGeral')}}">--}}
+{{--                            <i class="menu-icon fa fa-file-text"></i>--}}
+{{--                            RELATÓRIO GERAL--}}
+{{--                        </a>--}}
+{{--                        <b class="arrow"></b>--}}
+{{--                    </li>--}}
                 </ul>
             </li>
-            <li class="hover">
-                <a href="#" class="dropdown-toggle" style="color: #ffffff">
-                    <i class="menu-icon fa fa-file-text"></i>
-                    <span class="menu-text">IVA</span>
-                </a>
-                <ul class="submenu">
-                    <li class="hover">
-                        <a href="/empresa/taxaIva">
-                            <i class="menu-icon fa fa-caret-right"></i>
-                            TAXAS DO IVA
-                        </a>
+{{--            <li class="hover">--}}
+{{--                <a href="#" class="dropdown-toggle" style="color: #ffffff">--}}
+{{--                    <i class="menu-icon fa fa-file-text"></i>--}}
+{{--                    <span class="menu-text">IVA</span>--}}
+{{--                </a>--}}
+{{--                <ul class="submenu">--}}
+{{--                    <li class="hover">--}}
+{{--                        <a href="/empresa/taxaIva">--}}
+{{--                            <i class="menu-icon fa fa-caret-right"></i>--}}
+{{--                            TAXAS DO IVA--}}
+{{--                        </a>--}}
 
-                        <b class="arrow"></b>
-                    </li>
+{{--                        <b class="arrow"></b>--}}
+{{--                    </li>--}}
 
-                    <li class="hover">
-                        <a href="/empresa/motivoIva">
-                            <i class="menu-icon fa fa-caret-right"></i>
-                            MOTIVOS DE ISENÇÃO
-                        </a>
+{{--                    <li class="hover">--}}
+{{--                        <a href="/empresa/motivoIva">--}}
+{{--                            <i class="menu-icon fa fa-caret-right"></i>--}}
+{{--                            MOTIVOS DE ISENÇÃO--}}
+{{--                        </a>--}}
 
-                        <b class="arrow"></b>
-                    </li>
+{{--                        <b class="arrow"></b>--}}
+{{--                    </li>--}}
 
-                    <li class="hover">
-                        <a href="/empresa/gerarSaft">
-                            <i class="menu-icon fa fa-caret-right"></i>
-                            GERAR FICHEIRO SAFT
-                        </a>
+{{--                    <li class="hover">--}}
+{{--                        <a href="/empresa/gerarSaft">--}}
+{{--                            <i class="menu-icon fa fa-caret-right"></i>--}}
+{{--                            GERAR FICHEIRO SAFT--}}
+{{--                        </a>--}}
 
-                        <b class="arrow"></b>
-                    </li>
-                </ul>
-            </li>
+{{--                        <b class="arrow"></b>--}}
+{{--                    </li>--}}
+{{--                </ul>--}}
+{{--            </li>--}}
             <li class="">
                 <a href="{{route('manual.index')}}">
                     <i class="menu-icon fa fa-download"></i>

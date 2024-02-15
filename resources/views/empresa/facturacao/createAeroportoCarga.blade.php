@@ -8,7 +8,6 @@
                     <div class="col-xs-12">
                         <!-- PAGE CONTENT BEGINS -->
                         <div class="space-6"></div>
-
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="widget-box transparent">
@@ -18,7 +17,6 @@
                                             <span class="blue">{{ date('d/m/Y') }}</span>
                                         </div>
                                     </div>
-
                                     <div class="widget-body">
                                         <div class="widget-main padding-24">
                                             <div class="row">
@@ -97,6 +95,7 @@
                                                                     @endif
                                                                 </div>
                                                             </div>
+
                                                         </ul>
                                                     </div>
                                                 </div><!-- /.col -->
@@ -221,6 +220,12 @@
                                                                             <input name="form-field-checkbox" wire:model="fatura.retencao" id="retencao" type="checkbox"
                                                                                    class="ace input-lg"/>
                                                                             <span class="lbl bigger-140"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group" style="margin-left: 15px;">
+                                                                        <label>Observação</label>
+                                                                        <div>
+                                                                            <input type="text" style="width: 400px" wire:model="fatura.observacao" placeholder="Observação..."/>
                                                                         </div>
                                                                     </div>
                                                                 </form>

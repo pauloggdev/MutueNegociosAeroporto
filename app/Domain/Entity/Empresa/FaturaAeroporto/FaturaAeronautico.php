@@ -6,6 +6,7 @@ class FaturaAeronautico
 {
 
     private $tipoDocumento;
+    private $observacao;
     private $nomeProprietario;
     private $clienteId;
     private $nomeCliente;
@@ -27,9 +28,10 @@ class FaturaAeronautico
     private $items = [];
 
 
-    public function __construct($tipoDocumento, $isencaoIVA, $retencao, $valorRetencao, $nomeProprietario,$clienteId, $nomeCliente, $telefoneCliente, $nifCliente, $emailCliente, $enderecoCliente, $tipoDeAeronave, $pesoMaximoDescolagem, $dataDeAterragem, $dataDeDescolagem, $horaDeAterragem, $horaDeDescolagem, $taxaIva, $peso, $horaExtra, $cambioDia, $moeda)
+    public function __construct($tipoDocumento, $observacao, $isencaoIVA, $retencao, $valorRetencao, $nomeProprietario,$clienteId, $nomeCliente, $telefoneCliente, $nifCliente, $emailCliente, $enderecoCliente, $tipoDeAeronave, $pesoMaximoDescolagem, $dataDeAterragem, $dataDeDescolagem, $horaDeAterragem, $horaDeDescolagem, $taxaIva, $peso, $horaExtra, $cambioDia, $moeda)
     {
         $this->tipoDocumento = $tipoDocumento;
+        $this->observacao = $observacao;
         $this->isencaoIVA = $isencaoIVA;
         $this->retencao = $retencao;
         $this->valorRetencao = $valorRetencao;
@@ -71,6 +73,9 @@ class FaturaAeronautico
     public function getTipoDocumento()
     {
         return $this->tipoDocumento;
+    }
+    public function getObservacao(){
+        return $this->observacao;
     }
 
     /**

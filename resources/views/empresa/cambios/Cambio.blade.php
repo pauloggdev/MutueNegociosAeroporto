@@ -1,5 +1,5 @@
 @php use Illuminate\Support\Str; @endphp
-@section('title','Especificação de mercadorias')
+@section('title','Novo Cambio')
 
 <div>
     <div class="row">
@@ -84,12 +84,9 @@
                         <h4 class="smaller">
                             EDITAR CÂMBIO
                         </h4>
-
                     </div>
-
                     <div class="modal-body">
                         <div class="row" style="left: 0%; position: relative;">
-
                             <div class="col-md-12">
                                 <form class="filter-form form-horizontal validation-form">
                                     @if ($errors->any())
@@ -114,13 +111,11 @@
                                                     </div>
                                                     <div class="form-group has-info">
                                                         <div class="col-md-12">
-                                                            <label class="control-label bold label-select2"
-                                                                   for="valor">Valor</label>
+                                                            <label class="control-label bold label-select2" for="valor">Valor</label>
                                                             <div>
                                                                 <input type="number" wire:model="cambio.valor"
                                                                        id="valor" class="col-md-12 col-xs-12 col-sm-4"/>
                                                             </div>
-
                                                         </div>
                                                     </div>
                                                 </div>
@@ -190,12 +185,16 @@
 
                         <div class="col-xs-12 widget-box widget-color-green" style="left: 0%">
                             <div class="clearfix">
-                                <a href="#modalCriarTipoMercadoria" data-toggle="modal"
-                                   class="btn btn-success widget-box widget-color-blue" id="botoes"
-                                   wire:click="resetField()"
-                                   >
-                                    <i class="fa icofont-plus-circle"></i> Novo Câmbio
-                                </a>
+
+                                @if(Auth::user()->hasPermission('gerir cambio') || Auth::user()->isSuperAdmin())
+                                    <a href="#modalCriarTipoMercadoria" data-toggle="modal"
+                                       class="btn btn-success widget-box widget-color-blue" id="botoes"
+                                       wire:click="resetField()"
+                                    >
+                                        <i class="fa icofont-plus-circle"></i> Novo Câmbio
+                                    </a>
+                                @endif
+
                                 <div class="pull-right tableTools-container"></div>
                             </div>
                             <div class="table-header widget-header">
@@ -223,11 +222,13 @@
                                             <td style="text-align: center">
 
                                                 <div class="hidden-sm hidden-xs action-buttons">
-
-                                                    <a wire:click="edit({{$cambio->id}})" href="#modalEditarTipoMercadoria" data-toggle="modal"
-                                                       class="pink" title="Editar este registo">
-                                                        <i class="fa fa-pencil-square-o bigger-200 blue"></i>
-                                                    </a>
+                                                    @if(Auth::user()->hasPermission('gerir cambio') || Auth::user()->isSuperAdmin())
+                                                        <a wire:click="edit({{$cambio->id}})"
+                                                           href="#modalEditarTipoMercadoria" data-toggle="modal"
+                                                           class="pink" title="Editar este registo">
+                                                            <i class="fa fa-pencil-square-o bigger-200 blue"></i>
+                                                        </a>
+                                                    @endif
                                                 </div>
                                             </td>
                                         </tr>
@@ -245,7 +246,7 @@
 </div>
 @push('scripts')
     <script>
-        window.addEventListener('close-modal', event =>{
+        window.addEventListener('close-modal', event => {
             $('#modalEditarTipoMercadoria').modal('hide');
         })
     </script>

@@ -136,7 +136,7 @@ class UsuarioCreateController extends Component
 
         $dado = [
             'email' => $this->user['email'],
-            'senha' => 'mutue123'
+            'senha' => 'ato123'
         ];
         try {
             Mail::send(new MailCreateNewUser($dado));
@@ -153,9 +153,9 @@ class UsuarioCreateController extends Component
             'showCancelButton' => false,
             'icon' => 'success'
         ]);
-        if ($this->qtyUser >= 2) {
-            $this->gerarFacturaPagamentoAdicionalLicencaCadastradoUtilizador($user);
-        }
+//        if ($this->qtyUser >= 2) {
+//            $this->gerarFacturaPagamentoAdicionalLicencaCadastradoUtilizador($user);
+//        }
     }
     public function gerarFacturaPagamentoAdicionalLicencaCadastradoUtilizador($user)
     {

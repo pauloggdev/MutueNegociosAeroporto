@@ -40,6 +40,7 @@ class EmissaoFaturaAeronauticoController extends Component
     public $fatura = [
         'moeda' => null,
         'tipoDocumento' => 3, //Fatura proforma
+        'observacao' => null,
         'isencaoIVA' => false,
         'retencao' => false,
         'taxaRetencao' => 0,
@@ -256,6 +257,7 @@ class EmissaoFaturaAeronauticoController extends Component
         $fatura = [
             'nomeProprietario' => $output->getProprietario(),
             'clienteId' => $output->getClienteId(),
+            'observacao' => $output->getObservacao(),
             'nomeCliente' => $output->getNomeCliente(),
             'telefoneCliente' => $output->getTelefoneCliente(),
             'nifCliente' => $output->getNifCliente(),
@@ -410,6 +412,7 @@ class EmissaoFaturaAeronauticoController extends Component
         $this->fatura = [
             'moeda' => null,
             'tipoDocumento' => 3, //Fatura proforma
+            'observacao' => null,
             'isencaoIVA' => false,
             'retencao' => false,
             'taxaRetencao' => 0,

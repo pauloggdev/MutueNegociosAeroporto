@@ -92,7 +92,7 @@
                                 <div class="col-md-3">
                                     <label class="control-label bold label-select2" for="saldoAtual">Valor Entregue<b class="red fa fa-question-circle"></b></label>
                                     <div class="input-group">
-                                        <input type="number" step="any" wire:model="recibo.totalEntregue" name="recibo.totalEntregue" class="form-control" id="saldoAtual" data-target="form_supply_price" style="height: 35px; font-size: 10pt;<?= $errors->has('recibo.totalEntregue') ? 'border-color: #ff9292;' : '' ?>" />
+                                        <input type="text" disabled step="any" value="{{ number_format($recibo['totalEntregue'], 2, ',', '.') }}" name="recibo.totalEntregue" class="form-control" id="saldoAtual" data-target="form_supply_price" style="height: 35px; font-size: 10pt;<?= $errors->has('recibo.totalEntregue') ? 'border-color: #ff9292;' : '' ?>" />
                                         <span class="input-group-addon" id="basic-addon1">
                                             <i class="ace-icon fa fa-info bigger-150 text-info" data-target="form_supply_price_smartprice"></i>
                                         </span>

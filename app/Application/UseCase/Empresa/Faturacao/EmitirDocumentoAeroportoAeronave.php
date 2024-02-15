@@ -97,6 +97,7 @@ class EmitirDocumentoAeroportoAeronave
         $faturaId = DB::table('facturas')->insertGetId([
             'texto_hash' => $plaintext,
             'tipo_documento' => $request->tipoDocumento,
+            'observacao' => $request->observacao,
             'isencaoIVA' => $request->isencaoIVA ? 'Y' : 'N',
             'taxaRetencao' => $request->taxaRetencao,
             'valorRetencao' => $request->valorRetencao,

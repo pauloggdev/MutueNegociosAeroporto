@@ -128,15 +128,15 @@ class HomeController extends Controller
 
         $data['countvendas'] = DB::connection('mysql2')->table('facturas')
             ->where('empresa_id', $empresa['empresa']['id'])->where(function ($query) use ($TIPO_FACTURA, $TIPO_FACTURA_RECIBO) {
-                $query->where('tipo_documento', $TIPO_FACTURA)
-                    ->orwhere('tipo_documento', $TIPO_FACTURA_RECIBO);
+//                $query->where('tipo_documento', $TIPO_FACTURA)
+                    $query->where('tipo_documento', $TIPO_FACTURA_RECIBO);
             })
             ->count();
 
         $data['counttotalvendas'] = DB::connection('mysql2')->table('facturas')
             ->where('empresa_id', $empresa['empresa']['id'])->where(function ($query) use ($TIPO_FACTURA, $TIPO_FACTURA_RECIBO) {
-                $query->where('tipo_documento', $TIPO_FACTURA)
-                    ->orwhere('tipo_documento', $TIPO_FACTURA_RECIBO);
+//                $query->where('tipo_documento', $TIPO_FACTURA)
+                    $query->where('tipo_documento', $TIPO_FACTURA_RECIBO);
             })->sum('total');
 
 

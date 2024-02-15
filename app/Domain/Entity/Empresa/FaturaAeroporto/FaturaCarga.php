@@ -23,6 +23,7 @@ class FaturaCarga
     private $taxaIva;
     private $cambioDia;
     private $moeda;
+    private $observacao;
     private $items = [];
 
     /**
@@ -36,7 +37,7 @@ class FaturaCarga
      * @param $contraValor
      */
 
-    public function __construct($cartaDePorte, $tipoDocumento, $isencaoIVA, $retencao, $valorRetencao, $clienteId, $nomeCliente, $nomeProprietario, $telefoneCliente, $nifCliente, $emailCliente, $enderecoCliente, $peso, $dataEntrada, $dataSaida, $nDias, $taxaIva, $cambioDia, $moeda)
+    public function __construct($cartaDePorte, $tipoDocumento, $isencaoIVA, $retencao, $valorRetencao, $clienteId, $nomeCliente, $nomeProprietario, $telefoneCliente, $nifCliente, $emailCliente, $enderecoCliente, $peso, $dataEntrada, $dataSaida, $nDias, $taxaIva, $cambioDia, $moeda, $observacao)
     {
         $this->cartaDePorte = $cartaDePorte;
         $this->tipoDocumento = $tipoDocumento;
@@ -57,6 +58,7 @@ class FaturaCarga
         $this->taxaIva = $taxaIva;
         $this->cambioDia = $cambioDia;
         $this->moeda = $moeda;
+        $this->observacao = $observacao;
     }
 
     public function addItem(FaturaItemCarga $items)
@@ -179,6 +181,9 @@ class FaturaCarga
     public function getMoeda()
     {
         return $this->moeda;
+    }
+    public function getObservacao(){
+        return $this->observacao;
     }
 
     public function getCambioDia()

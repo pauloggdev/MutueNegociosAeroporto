@@ -221,9 +221,9 @@
                                                 </a>
                                                 @endif
                                                 @endcan
-                                                <a href="{{ route('permissaoCentroCustoIndex', $user->uuid)}}" title="Gerir Centro de Custo" style="cursor:pointer;">
-                                                    <i class=" fa fa-building-o bigger-130 bolder  success text-info"></i>
-                                                </a>
+{{--                                                <a href="{{ route('permissaoCentroCustoIndex', $user->uuid)}}" title="Gerir Centro de Custo" style="cursor:pointer;">--}}
+{{--                                                    <i class=" fa fa-building-o bigger-130 bolder  success text-info"></i>--}}
+{{--                                                </a>--}}
                                                 <a title="Eliminar este Registro" style="cursor:pointer;" wire:click="modalDel({{$user->id}})">
                                                     <i class="ace-icon fa fa-trash-o bigger-150 bolder danger red"></i>
                                                 </a>

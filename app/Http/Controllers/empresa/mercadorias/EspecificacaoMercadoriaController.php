@@ -57,6 +57,7 @@ class EspecificacaoMercadoriaController extends Component
     public function render()
     {
 
+
         $this->especificacaoMercadorias = EspecificacaoMercadoria::all();
         // $this->especificacaoMercadorias = $especificacaoMercadorias;
         return view('empresa.mercadorias.EspecificacaoMercadoria', compact($this->especificacaoMercadorias));

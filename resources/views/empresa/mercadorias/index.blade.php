@@ -11,12 +11,9 @@
                         <h4 class="smaller">
                             NOVO TIPO DE MERCADORIAS
                         </h4>
-
                     </div>
-
                     <div class="modal-body">
                         <div class="row" style="left: 0%; position: relative;">
-
                             <div class="col-md-12">
                                 <form class="filter-form form-horizontal validation-form">
                                     @if ($errors->any())
@@ -227,10 +224,12 @@
 
                         <div class="col-xs-12 widget-box widget-color-green" style="left: 0%">
                             <div class="clearfix">
-                                <a href="#modalCriarTipoMercadoria" data-toggle="modal"
-                                   class="btn btn-success widget-box widget-color-blue" id="botoes">
-                                    <i class="fa icofont-plus-circle"></i> Novo tipo de mercadoria
-                                </a>
+                                @if(Auth::user()->hasPermission('gerir mercadorias') || Auth::user()->isSuperAdmin())
+                                    <a href="#modalCriarTipoMercadoria" data-toggle="modal"
+                                       class="btn btn-success widget-box widget-color-blue" id="botoes">
+                                        <i class="fa icofont-plus-circle"></i> Novo tipo de mercadoria
+                                    </a>
+                                @endif
                                 <a title="Imprimir Tipos de mercadorias" wire:click.prevent="imprimirTiposMercadorias"
                                    class="btn btn-primary widget-box widget-color-blue" id="botoes">
                                     <span wire:loading wire:target="imprimirTiposMercadorias" class="loading"></span>
@@ -270,11 +269,13 @@
                                             <td style="text-align: center">
 
                                                 <div class="hidden-sm hidden-xs action-buttons">
-
-                                                    <a wire:click="edit({{$mercadoria->id}})" href="#modalEditarTipoMercadoria" data-toggle="modal"
-                                                       class="pink" title="Editar este registo">
-                                                        <i class="fa fa-pencil-square-o bigger-200 blue"></i>
-                                                    </a>
+                                                    @if(Auth::user()->hasPermission('gerir mercadorias') || Auth::user()->isSuperAdmin())
+                                                        <a wire:click="edit({{$mercadoria->id}})"
+                                                           href="#modalEditarTipoMercadoria" data-toggle="modal"
+                                                           class="pink" title="Editar este registo">
+                                                            <i class="fa fa-pencil-square-o bigger-200 blue"></i>
+                                                        </a>
+                                                    @endif
                                                 </div>
                                             </td>
                                         </tr>

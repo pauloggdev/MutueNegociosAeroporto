@@ -47,10 +47,7 @@ class ReciboIndexController extends Component
         if ($this->isAdmin()) {
             return view('admin.dashboard');
         }
-
         $data['recibos'] = $this->reciboRepository->listarRecibos($this->search);
-
-//        dd($data['recibos']);
         return view('empresa.recibos.index', $data);
     }
     public function printRecibo($reciboId)
@@ -92,7 +89,7 @@ class ReciboIndexController extends Component
 
     }
     public function visualizarComprovativo($recibo){
-        
+
         $comprovativo = env('APP_URL')."upload/" . $recibo['comprovativoBancario'];
         // dd($comprovativo);
         $this->comprovativoBancario = $comprovativo;

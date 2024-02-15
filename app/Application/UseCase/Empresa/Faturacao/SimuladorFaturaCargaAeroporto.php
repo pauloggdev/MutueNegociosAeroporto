@@ -65,7 +65,8 @@ class SimuladorFaturaCargaAeroporto
             $input->nDias,
             $taxaIva,
             $cambioDia,
-            $moedaEstrageiraUsado
+            $moedaEstrageiraUsado,
+            $input->observacao
         );
         foreach ($input->items as $item){
             $item = (object)$item;
