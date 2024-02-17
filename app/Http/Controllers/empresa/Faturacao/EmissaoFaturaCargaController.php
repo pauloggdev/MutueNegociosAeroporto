@@ -260,7 +260,6 @@ class EmissaoFaturaCargaController extends Component
         $this->calculadoraTotal();
     }
     public function updatedFaturaTipoDocumento($tipoDocumento){
-
         if($tipoDocumento == 1){
             $this->fatura['formaPagamentoId'] = 1;
             $getFormaPagamentoByFaturacao = new GetFormasPagamentoByFaturacao(new DatabaseRepositoryFactory());
@@ -269,7 +268,6 @@ class EmissaoFaturaCargaController extends Component
             $this->fatura['formaPagamentoId'] = null;
             $this->formasPagamentos = [];
         }
-
         $simuladorFaturaCarga = new SimuladorFaturaCargaAeroporto(new DatabaseRepositoryFactory());
         $fatura = $simuladorFaturaCarga->execute($this->fatura);
         $this->fatura = $this->conversorModelParaArray($fatura);
