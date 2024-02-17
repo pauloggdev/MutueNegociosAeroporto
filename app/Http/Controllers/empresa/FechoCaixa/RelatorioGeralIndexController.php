@@ -46,7 +46,7 @@ class RelatorioGeralIndexController extends Component
 
 
 
-        $data_inicio = $this->data_inicio. ' 06:59:00';   
+        $data_inicio = $this->data_inicio. ' 06:59:00';     
         $data_fim = $this->data_fim. ' 23:59:00';
         $dataInicioFormat = date_format(date_create($data_inicio), "d/m/Y");
         $dataFinalFormat = date_format(date_create($data_fim), "d/m/Y");
