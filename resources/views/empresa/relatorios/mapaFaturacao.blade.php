@@ -34,7 +34,7 @@
                     <div class="tabbable">
                         <div class="tab-content profile-edit-tab-content">
                             <div class="form-group has-info bold" style="left: 0%; position: relative">
-                                <div class="col-md-4">
+                                <div class="col-md-6">
                                     <label class="control-label bold label-select2" for="data_inicio">Data Inicial<b
                                             class="red fa fa-question-circle"></b></label>
                                     <div class="input-group">
@@ -51,7 +51,7 @@
                                     </span>
                                     @endif
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-6">
                                     <label class="control-label bold label-select2" for="data_fim">Data Final<b
                                             class="red fa fa-question-circle"></b></label>
                                     <div class="input-group">
@@ -88,11 +88,11 @@
                                     @endif
                                 </div>
                                 <div class="col-md-2">
-                                    <label class="control-label bold label-select2" for="centroCusto">Selecione o Tipo de Carga<b
+                                    <label class="control-label bold label-select2" for="centroCusto"> Tipo de Carga<b
                                             class="red fa fa-question-circle"></b></label>
                                     <select class="col-md-12 select2" wire:model="tipoMercadoriaId" data="tipoMercadoriaId"
                                             style="height:35px;<?= $errors->has('tipoMercadoriaId') ? 'border-color: #ff9292;' : '' ?>">
-                                        <option value="">TODOS</option>
+                                            <option value="">Selecione...</option>
                                         @foreach($tipoMercadoria as $tipoMercadoria)
                                             <option
                                                 value="{{ $tipoMercadoria->id}}">{{ \Illuminate\Support\Str::upper($tipoMercadoria->designacao) }}</option>
@@ -102,6 +102,22 @@
                                         <span class="help-block"
                                               style="color: red;position: absolute;margin-top: -2px;font-size: 12px;">
                                             <strong>{{ $errors->first('tipoMercadoriaId') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                                <div class="col-md-2">
+                                    <label class="control-label bold label-select2" for="centroCusto">Tipo de Operação<b
+                                            class="red fa fa-question-circle"></b></label>
+                                    <select class="col-md-12 select2" wire:model="tipoOperacaoId" data="tipoOperacaoId"
+                                            style="height:35px;<?= $errors->has('tipoOperacaoId') ? 'border-color: #ff9292;' : '' ?>">
+                                        <option value="">Selecione...</option>
+                                        <option value="1">Importação</option>
+                                        <option value="2">Exportação</option>
+                                    </select>
+                                    @if ($errors->has('tipoOperacaoId'))
+                                        <span class="help-block"
+                                              style="color: red;position: absolute;margin-top: -2px;font-size: 12px;">
+                                            <strong>{{ $errors->first('tipoOperacaoId') }}</strong>
                                         </span>
                                     @endif
                                 </div>
