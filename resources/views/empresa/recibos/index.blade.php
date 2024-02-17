@@ -98,12 +98,14 @@
                                                     <i class="ace-icon fa fa-print bigger-160"></i>
                                                 </span>
                                             </a>
+                                            @if($recibo['comprovativoBancario'])
                                             <a class="blue ml-4" href="#visualizarComprovativo" data-toggle="modal" wire:click="visualizarComprovativo({{$recibo}})" title="ver recibo" style="cursor: pointer; margin-left:4px">
                                                 <i class="ace-icon fa fa-file bigger-160"></i>
                                                 <span wire:loading wire:target="printRecibo({{$recibo->id}})" class="loading">
                                                     <i class="ace-icon fa fa-print bigger-160"></i>
                                                 </span>
                                             </a>
+                                            @endif
                                         </td>
                                     </tr>
                                     @endforeach

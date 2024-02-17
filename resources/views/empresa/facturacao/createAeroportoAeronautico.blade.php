@@ -89,12 +89,18 @@
                                                                     <input type="text"
                                                                            wire:model="fatura.nomeProprietario"
                                                                            style="width: 100%;<?= $errors->has('fatura.nomeProprietario') ? 'border-color: #ff9292;' : '' ?>"
-                                                                           placeholder="Proprietário..."/>
+                                                                           placeholder="Companhia Aérea/Operadora..."/>
                                                                     @if ($errors->has('fatura.nomeProprietario'))
                                                                         <span style="color: red; font-weight: bold">
                                                                             <strong>{{ $errors->first('fatura.nomeProprietario') }}</strong>
                                                                         </span>
                                                                     @endif
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label>Observação</label>
+                                                                <div>
+                                                                    <input type="text" style="width: 100%" wire:model="fatura.observacao" placeholder="Observação..."/>
                                                                 </div>
                                                             </div>
                                                         </ul>
@@ -135,7 +141,7 @@
                                                                          style="margin-right: 15px;width: 80px">
                                                                         <label>PMD (Ton)</label>
                                                                         <div>
-                                                                            <input type="text"
+                                                                            <input type="number"
                                                                                    wire:model="fatura.pesoMaximoDescolagem"
                                                                                    class="input-small"
                                                                                    style="width: 150px; <?= $errors->has('fatura.pesoMaximoDescolagem') ? 'border-color: #ff9292;' : '' ?>"
@@ -214,10 +220,10 @@
                                                                          style="margin-right: 15px">
                                                                         <label>Peso(Kg)</label>
                                                                         <div>
-                                                                            <input type="text"
+                                                                            <input type="number"
                                                                                    wire:model="fatura.peso"
                                                                                    class="input-small"
-                                                                                   style="width: 150px; <?= $errors->has('fatura.peso') ? 'border-color: #ff9292;' : '' ?>"
+                                                                                   style="width: 80px; <?= $errors->has('fatura.peso') ? 'border-color: #ff9292;' : '' ?>"
                                                                                    placeholder="Peso"/>
                                                                             @if ($errors->has('fatura.peso'))
                                                                                 <span class="help-block"
@@ -261,6 +267,21 @@
                                                                             </select>
                                                                         </div>
                                                                     </div>
+                                                                    <div class="form-group">
+                                                                        <label>Forma Pagamento</label>
+                                                                        <div>
+                                                                            <select style="width: 100%;height: 34px"
+                                                                                    wire:model="fatura.formaPagamentoId"
+                                                                                    name="ship"
+                                                                                    rowid="6"
+                                                                                    size="1"
+                                                                                    class="editable inline-edit-cell ui-widget-content ui-corner-all">
+                                                                                @foreach($formasPagamentos as $formaPagamento)
+                                                                                    <option value="{{ $formaPagamento->id }}" <?= $formaPagamento['id'] == $fatura['formaPagamentoId']?'selected':''?>>{{ $formaPagamento->descricao }}</option>
+                                                                                @endforeach
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
                                                                     <div class="form-group" style="margin-left: 15px">
                                                                         <label for="isencaoIva">Isenção IVA</label>
                                                                         <div>
@@ -277,12 +298,7 @@
                                                                             <span class="lbl bigger-140"></span>
                                                                         </div>
                                                                     </div>
-                                                                    <div class="form-group">
-                                                                        <label>Observação</label>
-                                                                        <div>
-                                                                            <input type="text" style="width: 400px" wire:model="fatura.observacao" placeholder="Observação..."/>
-                                                                        </div>
-                                                                    </div>
+
                                                                 </form>
                                                             </div>
                                                         </div>
@@ -396,7 +412,7 @@
                                             <div class="row" style="margin-bottom: 5px">
                                                 <div class="col-sm-5 pull-right">
                                                     <h8 class="pull-right">
-                                                        IVA :
+                                                        IVA(%) :
                                                         <span>{{ number_format($fatura['taxaIva'], 2,',','.') }}%</span>
                                                     </h8>
                                                 </div>
@@ -412,7 +428,7 @@
                                             <div class="row" style="margin-bottom: 5px">
                                                 <div class="col-sm-5 pull-right">
                                                     <h8 class="pull-right">
-                                                        RETENÇÃO :
+                                                        RETENÇÃO(%) :
                                                         <span>{{ number_format($fatura['taxaRetencao'], 2,',','.') }}%</span>
                                                     </h8>
                                                 </div>

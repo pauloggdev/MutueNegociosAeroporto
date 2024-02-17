@@ -49,6 +49,8 @@ class SimuladorFaturaCargaAeroporto
         $faturaCarga = new FaturaCarga(
             $input->cartaDePorte,
             $input->tipoDocumento,
+            $input->tipoOperacao,
+            $input->formaPagamentoId,
             $input->isencaoIVA,
             $input->retencao,
             $valorRetencao,

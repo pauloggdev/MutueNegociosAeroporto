@@ -88,7 +88,6 @@ class ConverterProformaByFaturaRecibo
             ->update([
                 'convertido' => 'Y'
             ]);
-
         $faturaId = DB::table('facturas')->insertGetId([
             'texto_hash' => $plaintext,
             'codigo_moeda' => $fatura->codigo_moeda,
@@ -138,7 +137,8 @@ class ConverterProformaByFaturaRecibo
             'convertido' => 'N',
             'taxaRetencao' => $fatura->taxaRetencao,
             'valorRetencao' => $fatura->valorRetencao,
-            'tipoFatura' => $fatura->tipoFatura
+            'tipoFatura' => $fatura->tipoFatura,
+            'observacao' => $fatura->observacao??null
         ]);
         //Gerar o codigo de barra
         DB::table('facturas')->where('id', $faturaId)->update([

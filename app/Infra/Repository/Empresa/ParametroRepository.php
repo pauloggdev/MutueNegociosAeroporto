@@ -13,6 +13,14 @@ class ParametroRepository
             ->orwhere('empresa_id', null)
             ->first();
     }
+    public function getNumeroSerieDocumento(){
+        return Parametro::where('label', 'numero_serie_documento')
+            ->where('empresa_id', auth()->user()->empresa_id)->first();
+    }
+    public function getAnoFaturacao(){
+        return Parametro::where('label', 'ano_de_faturacao')
+            ->where('empresa_id', auth()->user()->empresa_id)->first();
+    }
     public function getHabilitadoNotaEntrega(){
         return Parametro::where('label','habilitar_nota_entrega')
             ->where('empresa_id', auth()->user()->empresa_id)

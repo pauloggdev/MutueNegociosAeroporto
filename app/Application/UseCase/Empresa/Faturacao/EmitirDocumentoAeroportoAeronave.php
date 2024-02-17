@@ -2,6 +2,8 @@
 
 namespace App\Application\UseCase\Empresa\Faturacao;
 
+use App\Application\UseCase\Empresa\Faturas\GetAnoDeFaturacao;
+use App\Application\UseCase\Empresa\Faturas\GetNumeroSerieDocumento;
 use App\Application\UseCase\Empresa\Parametros\GetParametroPeloLabelNoParametro;
 use App\Domain\Entity\Empresa\FaturaAeroporto\FaturaCarga;
 use App\Domain\Factory\Empresa\RepositoryFactory;
@@ -55,13 +57,20 @@ class EmitirDocumentoAeroportoAeronave
             $numSequenciaFactura = 1;
         }
 
-        $getYearNow = new GetParametroPeloLabelNoParametro(new DatabaseRepositoryFactory());
-        $getYearNow = $getYearNow->execute('ano_de_faturacao');
+        $getAnoFaturacao = new GetAnoDeFaturacao(new DatabaseRepositoryFactory());
+        $getYearNow = $getAnoFaturacao->execute();
         $yearNow = Carbon::parse(Carbon::now())->format('Y');
-
         if ($getYearNow) {
             $yearNow = $getYearNow->valor;
         }
+        $getNumeroSerieDocumento = new GetNumeroSerieDocumento(new DatabaseRepositoryFactory());
+        $numeroSerieDocumento = $getNumeroSerieDocumento->execute();
+        if($numeroSerieDocumento){
+            $numeroSerieDocumento = $numeroSerieDocumento->valor;
+        }else{
+            $numeroSerieDocumento = "ATO";
+        }
+
         if ($request->tipoDocumento == 1) {
             $doc = "FR ";
         } else if ($request->tipoDocumento == 2) {
@@ -70,7 +79,7 @@ class EmitirDocumentoAeroportoAeronave
             $doc = "FP ";
         }
 
-        $numeracaoFactura = $doc . "ATO" . $yearNow . '/' . $numSequenciaFactura; //retirar somente 3 primeiros caracteres na facturaSerie da factura: substr('abcdef', 0, 3);
+        $numeracaoFactura = $doc . $numeroSerieDocumento . $yearNow . '/' . $numSequenciaFactura; //retirar somente 3 primeiros caracteres na facturaSerie da factura: substr('abcdef', 0, 3);
 
         $statusFatura = 2;//Pago
         $dataVencimento = null;
@@ -97,6 +106,7 @@ class EmitirDocumentoAeroportoAeronave
         $faturaId = DB::table('facturas')->insertGetId([
             'texto_hash' => $plaintext,
             'tipo_documento' => $request->tipoDocumento,
+            'formaPagamentoId' => $request->formaPagamentoId,
             'observacao' => $request->observacao,
             'isencaoIVA' => $request->isencaoIVA ? 'Y' : 'N',
             'taxaRetencao' => $request->taxaRetencao,

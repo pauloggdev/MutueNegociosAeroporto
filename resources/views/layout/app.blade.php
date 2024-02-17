@@ -452,6 +452,18 @@ if (Auth::guard('web')->check()) {
                             CONVERTER PROFORMAS</a>
                         <b class="arrow"></b>
                     </li>
+                    <li class="hover">
+                        <a href="{{ route('anulacaoDocumentoFatura.index')}}">
+                            <i class="menu-icon fa fa-caret-right"></i>
+                            FATURAS ANULADAS</a>
+                        <b class="arrow"></b>
+                    </li>
+                    <li class="hover">
+                        <a href="{{ route('anulacaoDocumentoRecibo.index')}}">
+                            <i class="menu-icon fa fa-caret-right"></i>
+                            RECIBOS ANULADOS</a>
+                        <b class="arrow"></b>
+                    </li>
 
 {{--                    <li class="hover">--}}
 {{--                        <a href="{{ route('notaCreditoAnulacaoDoc.index') }}">--}}
@@ -515,6 +527,13 @@ if (Auth::guard('web')->check()) {
                     <a href="{{ route('extratoCliente') }}">
                         <i class="menu-icon fa fa-file-text"></i>
                         EXTRATO DO CLIENTE
+                    </a>
+                    <b class="arrow"></b>
+                </li>
+                <li class="hover">
+                    <a href="{{route('relatorio.mapaFaturacao')}}">
+                        <i class="menu-icon fa fa-file-text"></i>
+                        MAPA DE FATURAÇÃO
                     </a>
                     <b class="arrow"></b>
                 </li>

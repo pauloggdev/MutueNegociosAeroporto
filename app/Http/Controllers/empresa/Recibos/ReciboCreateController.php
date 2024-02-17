@@ -151,6 +151,7 @@ class ReciboCreateController extends Component
                 if ($totalEntregue <= 0) {
                     $fail("Informe o valor entregue");
                 } else if ($totalEntregue > $this->recibo['totalDebitar']) {
+                    dd('teste');
                     $fail("O valor entregue não deve ser maior ao total a debitar");
                 }
             }]
@@ -167,8 +168,6 @@ class ReciboCreateController extends Component
 
         ];
         $this->validate($rules, $messages);
-
-
 
         $emitirRecibo = new EmitirRecibo(new DatabaseRepositoryFactory());
         $recibo = $emitirRecibo->execute($this->recibo);

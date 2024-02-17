@@ -2,9 +2,13 @@
 
 namespace App\Application\UseCase\Empresa\Recibos;
 
+use App\Application\UseCase\Empresa\Faturas\GetAnoDeFaturacao;
+use App\Application\UseCase\Empresa\Faturas\GetNumeroSerieDocumento;
 use App\Domain\Entity\Empresa\Recibos\Recibo;
 use App\Domain\Factory\Empresa\RepositoryFactory;
+use App\Infra\Factory\Empresa\DatabaseRepositoryFactory;
 use App\Infra\Repository\Empresa\ReciboRepository;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
 use illuminate\Support\Str;
 use Livewire\WithFileUploads;
@@ -25,15 +29,30 @@ class EmitirRecibo
             $fileName= Str::slug($data['numeroOperacaoBancaria']) . "." .$data['comprovativoBancario']->getClientOriginalExtension();
             $path= $data['comprovativoBancario']->storeAs('comprovativos', $fileName, 'public');
             $data['comprovativoBancario'] = $path;
-   
+
+        }
+
+        $getAnoFaturacao = new GetAnoDeFaturacao(new DatabaseRepositoryFactory());
+        $getYearNow = $getAnoFaturacao->execute();
+        $yearNow = Carbon::parse(Carbon::now())->format('Y');
+        if ($getYearNow) {
+            $yearNow = $getYearNow->valor;
+        }
+        $getNumeroSerieDocumento = new GetNumeroSerieDocumento(new DatabaseRepositoryFactory());
+        $numeroSerieDocumento = $getNumeroSerieDocumento->execute();
+        if($numeroSerieDocumento){
+            $numeroSerieDocumento = $numeroSerieDocumento->valor;
+        }else{
+            $numeroSerieDocumento = "ATO";
         }
 
         $ultimoDoc = $this->reciboRepository->lastDocument();
+
         $numSequenciaRecibo = 1;
         if ($ultimoDoc) {
             $numSequenciaRecibo = ++$ultimoDoc->numSequenciaRecibo;
         }
-        $numeracaoRecibo = 'RC ATO' . date('Y') . '/' . $numSequenciaRecibo;
+        $numeracaoRecibo = 'RC '.$numeroSerieDocumento . $yearNow . '/' . $numSequenciaRecibo;
 
         $data = [
             'clienteId' => $data['clienteId'],

@@ -95,21 +95,24 @@
                                                                     @endif
                                                                 </div>
                                                             </div>
-
+                                                            <div class="form-group">
+                                                                <label>Observação</label>
+                                                                <div>
+                                                                    <input type="text" style="width: 100%"
+                                                                           wire:model="fatura.observacao"
+                                                                           placeholder="Observação..."/>
+                                                                </div>
+                                                            </div>
                                                         </ul>
                                                     </div>
-                                                </div><!-- /.col -->
-                                            </div><!-- /.row -->
-
+                                                </div>
+                                            </div>
                                             <div class="space"></div>
-
-
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <div class="widget-box">
                                                         <div class="widget-header">
                                                         </div>
-
                                                         <div class="widget-body">
                                                             <div class="widget-main" style="margin-bottom: 10px">
                                                                 <form class="form-inline">
@@ -117,11 +120,8 @@
                                                                          style="margin-right: 15px">
                                                                         <label>Carta de Porte(AWB)</label>
                                                                         <div>
-                                                                            <input type="text"
-                                                                                   wire:model="fatura.cartaDePorte"
-                                                                                   style="width: 150px;<?= $errors->has('fatura.cartaDePorte') ? 'border-color: #ff9292;' : '' ?>"
-                                                                                   class="input-small"
-                                                                                   placeholder="AWB"/>
+                                                                            <input type="text" wire:model="fatura.cartaDePorte" style="width: 150px;<?= $errors->has('fatura.cartaDePorte') ? 'border-color: #ff9292;' : '' ?>"
+                                                                                   class="input-small" placeholder="AWB"/>
                                                                             @if ($errors->has('fatura.cartaDePorte'))
                                                                                 <span class="help-block"
                                                                                       style="color: red; font-weight: bold">
@@ -189,7 +189,7 @@
                                                                                    style="width: 50px"/>
                                                                         </div>
                                                                     </div>
-                                                                    <div class="form-group">
+                                                                    <div class="form-group" style="margin-right: 15px">
                                                                         <label>Tipo Documento</label>
                                                                         <div>
                                                                             <select style="width: 100%;height: 34px"
@@ -206,26 +206,54 @@
                                                                             </select>
                                                                         </div>
                                                                     </div>
+                                                                    <div class="form-group" style="margin-right: 15px">
+                                                                        <label>Tipo de Operação</label>
+                                                                        <div>
+                                                                            <select style="width: 100%;height: 34px"
+                                                                                    wire:model="fatura.tipoOperacao"
+                                                                                    name="ship"
+                                                                                    rowid="6"
+                                                                                    size="1"
+                                                                                    class="editable inline-edit-cell ui-widget-content ui-corner-all">
+                                                                                <option value="1">Importação
+                                                                                </option>
+                                                                                <option value="2">Exportação</option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label>Forma Pagamento</label>
+                                                                        <div>
+                                                                            <select style="width: 100%;height: 34px"
+                                                                                    wire:model="fatura.formaPagamentoId"
+                                                                                    name="ship"
+                                                                                    rowid="6"
+                                                                                    size="1"
+                                                                                    class="editable inline-edit-cell ui-widget-content ui-corner-all">
+                                                                                @foreach($formasPagamentos as $formaPagamento)
+                                                                                    <option value="{{ $formaPagamento->id }}" <?= $formaPagamento['id'] == $fatura['formaPagamentoId']?'selected':''?>>{{ $formaPagamento->descricao }}</option>
+                                                                                @endforeach
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
                                                                     <div class="form-group" style="margin-left: 15px">
                                                                         <label for="isencaoIva">Isenção IVA</label>
                                                                         <div>
-                                                                                <input name="form-field-checkbox" wire:model="fatura.isencaoIVA" id="isencaoIva" type="checkbox"
-                                                                                       class="ace input-lg"/>
-                                                                                <span class="lbl bigger-140"></span>
+                                                                            <input name="form-field-checkbox"
+                                                                                   wire:model="fatura.isencaoIVA"
+                                                                                   id="isencaoIva" type="checkbox"
+                                                                                   class="ace input-lg"/>
+                                                                            <span class="lbl bigger-140"></span>
                                                                         </div>
                                                                     </div>
                                                                     <div class="form-group" style="margin-left: 15px">
                                                                         <label for="retencao">Incluir Retenção</label>
                                                                         <div>
-                                                                            <input name="form-field-checkbox" wire:model="fatura.retencao" id="retencao" type="checkbox"
+                                                                            <input name="form-field-checkbox"
+                                                                                   wire:model="fatura.retencao"
+                                                                                   id="retencao" type="checkbox"
                                                                                    class="ace input-lg"/>
                                                                             <span class="lbl bigger-140"></span>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="form-group" style="margin-left: 15px;">
-                                                                        <label>Observação</label>
-                                                                        <div>
-                                                                            <input type="text" style="width: 400px" wire:model="fatura.observacao" placeholder="Observação..."/>
                                                                         </div>
                                                                     </div>
                                                                 </form>
@@ -375,7 +403,7 @@
                                             <div class="row" style="margin-bottom: 5px">
                                                 <div class="col-sm-5 pull-right">
                                                     <h8 class="pull-right">
-                                                        IVA :
+                                                        IVA(%) :
                                                         <span>{{ number_format($fatura['taxaIva'], 2,',','.') }}%</span>
                                                     </h8>
                                                 </div>
@@ -391,7 +419,7 @@
                                             <div class="row" style="margin-bottom: 5px">
                                                 <div class="col-sm-5 pull-right">
                                                     <h8 class="pull-right">
-                                                        RETENÇÃO :
+                                                        RETENÇÃO(%) :
                                                         <span>{{ number_format($fatura['taxaRetencao'], 2,',','.') }}%</span>
                                                     </h8>
                                                 </div>

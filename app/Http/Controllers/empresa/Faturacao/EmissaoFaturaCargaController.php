@@ -8,6 +8,7 @@ use App\Application\UseCase\Empresa\Faturacao\EmitirDocumentoAeroporto;
 use App\Application\UseCase\Empresa\Faturacao\EmitirDocumentoAeroportoCarga;
 use App\Application\UseCase\Empresa\Faturacao\GetTipoDocumentoByFaturacao;
 use App\Application\UseCase\Empresa\Faturacao\SimuladorFaturaCargaAeroporto;
+use App\Application\UseCase\Empresa\FormasPagamento\GetFormasPagamentoByFaturacao;
 use App\Application\UseCase\Empresa\mercadorias\GetTiposMercadorias;
 use App\Application\UseCase\Empresa\Pais\GetPaises;
 use App\Application\UseCase\Empresa\Parametros\GetParametroPeloLabelNoParametro;
@@ -23,7 +24,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
-
 
 class EmissaoFaturaCargaController extends Component
 {
@@ -42,6 +42,8 @@ class EmissaoFaturaCargaController extends Component
     public $fatura = [
         'cartaDePorte' => null,
         'tipoDocumento' => 3, //Fatura proforma
+        'tipoOperacao' => 1, //Importação
+        'formaPagamentoId' => null, //Fatura proforma
         'observacao' => null,
         'isencaoIVA' => false,
         'retencao' => false,
@@ -72,6 +74,7 @@ class EmissaoFaturaCargaController extends Component
     public $servicos;
     public $paises;
     public $tiposDocumentos;
+    public $formasPagamentos = [];
     public $especificaoMercadorias;
     protected $listeners = ['selectedItem'];
 
@@ -118,6 +121,8 @@ class EmissaoFaturaCargaController extends Component
         $this->fatura = [
             'cartaDePorte' => null,
             'tipoDocumento' => 3, //Fatura Proforma
+            'formaPagamentoId' => null, //Fatura proforma
+            'tipoOperacao' => 1, //Importação
             'observacao' => null,
             'isencaoIVA' => false,
             'retencao' => false,
@@ -143,6 +148,7 @@ class EmissaoFaturaCargaController extends Component
             'total' => 0,
             'items' => []
         ];
+        $this->formasPagamentos = [];
     }
 
 
@@ -163,11 +169,8 @@ class EmissaoFaturaCargaController extends Component
         $this->fatura['moeda'] = null;
         $this->fatura['total'] = 0;
         $this->fatura['items'] = [];
-
-
     }
     public function updatedFaturaRetencao(){
-
         $this->fatura['taxaRetencao'] = 0;
         $this->fatura['valorRetencao'] = 0;
         $this->fatura['taxaIva'] = 0;
@@ -256,6 +259,27 @@ class EmissaoFaturaCargaController extends Component
 
         $this->calculadoraTotal();
     }
+    public function updatedFaturaTipoDocumento($tipoDocumento){
+
+        if($tipoDocumento == 1){
+            $this->fatura['formaPagamentoId'] = 1;
+            $getFormaPagamentoByFaturacao = new GetFormasPagamentoByFaturacao(new DatabaseRepositoryFactory());
+            $this->formasPagamentos = $getFormaPagamentoByFaturacao->execute();
+        }else{
+            $this->fatura['formaPagamentoId'] = null;
+            $this->formasPagamentos = [];
+        }
+
+        $simuladorFaturaCarga = new SimuladorFaturaCargaAeroporto(new DatabaseRepositoryFactory());
+        $fatura = $simuladorFaturaCarga->execute($this->fatura);
+        $this->fatura = $this->conversorModelParaArray($fatura);
+    }
+    public function updatedFaturaFormaPagamentoId($formaPagamentoId){
+        $this->fatura['formaPagamentoId'] = $formaPagamentoId;
+        $simuladorFaturaCarga = new SimuladorFaturaCargaAeroporto(new DatabaseRepositoryFactory());
+        $fatura = $simuladorFaturaCarga->execute($this->fatura);
+        $this->fatura = $this->conversorModelParaArray($fatura);
+    }
 
     public function calculadoraTotal()
     {
@@ -277,6 +301,8 @@ class EmissaoFaturaCargaController extends Component
         $fatura = [
             'cartaDePorte' => $output->getCartaDePorte(),
             'tipoDocumento' => $output->getTipoDocumentoId(),
+            'tipoOperacao' => $output->getTipoOperacao(),
+            'formaPagamentoId' => $output->getFormaPagamentoId(),
             'isencaoIVA' => $output->getIsencaoIVA(),
             'retencao' => $output->getRetencao(),
             'taxaRetencao' => $output->getTaxaRetencao(),
@@ -379,6 +405,7 @@ class EmissaoFaturaCargaController extends Component
             $this->fatura['nDias'] = $this->diff($dataEntrada, $dataSaida);
         }
     }
+
 
     public function diff($dataEntrada, $dataSaida)
     {

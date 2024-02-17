@@ -41,7 +41,7 @@
         </div>
 
         <div class="row">
-          <div class="col-md-7">
+          <div class="col-md-12">
             <!-- Usuarios -->
             <a href="/empresa/usuarios">
               <div class="infobox infobox-green">
@@ -151,7 +151,7 @@
                     countprodutos | formatQt
                   }}</span>
                   <div class="infobox-content" style="color: black">
-                   Serviços
+               Produtos
                   </div>
                 </div>
               </div>
@@ -165,7 +165,7 @@
                 <span class="infobox-data-number">{{
                   countvendas | formatQt
                 }}</span>
-                <div class="infobox-content" style="color: black">Vendas</div>
+                <div class="infobox-content" style="color: black">Facturas Recibos</div>
               </div>
             </div>
 
@@ -183,24 +183,7 @@
 
           <div class="vspace-12-sm"></div>
 
-          <div class="col-md-5">
-            <div class="widget-box">
-              <div class="widget-header widget-header-flat widget-header-small">
-                <h5 class="widget-title">
-                  <i class="ace-icon fa fa-signal"></i>
-                Serviços Mais Facturado
-                </h5>
-              </div>
-
-              <div class="widget-body">
-                <div class="widget-main">
-                  <div id="piechart-placeholder"></div>
-                </div>
-              </div>
-              <!-- /.widget-body -->
-            </div>
-            <!-- /.widget-box -->
-          </div>
+         
           <!-- /.col -->
         </div>
         <!-- /.row -->

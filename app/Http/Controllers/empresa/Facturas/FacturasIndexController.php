@@ -62,7 +62,7 @@ class FacturasIndexController extends Component
         if (!$centrosCusto) return redirect()->back();
         $data['centrosCusto'] = $centrosCusto;
         $data['facturas'] = Factura::where('tipoFatura', 1)
-            ->where('empresa_id', auth()->user()->id)->paginate();
+            ->where('empresa_id', auth()->user()->empresa_id)->paginate();
 
 //        $data['facturas'] = $this->facturaRepository->listarfacturas($this->filter);
         $this->dispatchBrowserEvent('reloadTableJquery');

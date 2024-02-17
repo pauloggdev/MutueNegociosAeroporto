@@ -70,43 +70,39 @@
                                         </span>
                                     </div>
                                 </div>
-                                <div class="col-md-3">
-                                    <label class="control-label bold label-select2" for="total_debito">Total à Débitar</label>
-                                    <div class="input-group">
-                                        <input type="text" value="<?=number_format($recibo['totalDebitar'], 2, ',','.') ?>" disabled class="form-control" style="height: 35px; font-size: 10pt" />
-                                        <span class="input-group-addon" id="basic-addon1">
-                                            <i class="ace-icon fa fa-info bigger-150 text-info" data-target="form_supply_price_smartprice"></i>
-                                        </span>
-                                    </div>
-                                </div>
+{{--                                <div class="col-md-3">--}}
+{{--                                    <label class="control-label bold label-select2" for="total_debito">Total à Débitar</label>--}}
+{{--                                    <div class="input-group">--}}
+{{--                                        <input type="text" value="<?=number_format($recibo['totalDebitar'], 2, ',','.') ?>" disabled class="form-control" style="height: 35px; font-size: 10pt" />--}}
+{{--                                        <span class="input-group-addon" id="basic-addon1">--}}
+{{--                                            <i class="ace-icon fa fa-info bigger-150 text-info" data-target="form_supply_price_smartprice"></i>--}}
+{{--                                        </span>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
 
-                                <div class="col-md-3">
-                                    <label class="control-label bold label-select2" for="total_debito">Total Débitado</label>
-                                    <div class="input-group">
-                                        <input type="text" value="<?=number_format($recibo['totalDebitado'], 2, ',','.') ?>" disabled class="form-control" style="height: 35px; font-size: 10pt" />
-                                        <span class="input-group-addon" id="basic-addon1">
-                                            <i class="ace-icon fa fa-info bigger-150 text-info" data-target="form_supply_price_smartprice"></i>
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <label class="control-label bold label-select2" for="saldoAtual">Valor Entregue<b class="red fa fa-question-circle"></b></label>
-                                    <div class="input-group">
-                                        <input type="text" disabled step="any" value="{{ number_format($recibo['totalEntregue'], 2, ',', '.') }}" name="recibo.totalEntregue" class="form-control" id="saldoAtual" data-target="form_supply_price" style="height: 35px; font-size: 10pt;<?= $errors->has('recibo.totalEntregue') ? 'border-color: #ff9292;' : '' ?>" />
-                                        <span class="input-group-addon" id="basic-addon1">
-                                            <i class="ace-icon fa fa-info bigger-150 text-info" data-target="form_supply_price_smartprice"></i>
-                                        </span>
-                                    </div>
-                                    @if ($errors->has('recibo.totalEntregue'))
-                                        <span class="help-block" style="color: red; font-weight: bold">
-                                        <strong>{{ $errors->first('recibo.totalEntregue') }}</strong>
-                                    </span>
-                                    @endif
-                                </div>
-
-                            </div>
-                            <div class="form-group has-info bold" style="left: 0%; position: relative">
-
+{{--                                <div class="col-md-3">--}}
+{{--                                    <label class="control-label bold label-select2" for="total_debito">Total Débitado</label>--}}
+{{--                                    <div class="input-group">--}}
+{{--                                        <input type="text" value="<?=number_format($recibo['totalDebitado'], 2, ',','.') ?>" disabled class="form-control" style="height: 35px; font-size: 10pt" />--}}
+{{--                                        <span class="input-group-addon" id="basic-addon1">--}}
+{{--                                            <i class="ace-icon fa fa-info bigger-150 text-info" data-target="form_supply_price_smartprice"></i>--}}
+{{--                                        </span>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                                <div class="col-md-3">--}}
+{{--                                    <label class="control-label bold label-select2" for="saldoAtual">Valor Entregue<b class="red fa fa-question-circle"></b></label>--}}
+{{--                                    <div class="input-group">--}}
+{{--                                        <input type="text" disabled step="any" value="{{ number_format($recibo['totalEntregue'], 2, ',', '.') }}" name="recibo.totalEntregue" class="form-control" id="saldoAtual" data-target="form_supply_price" style="height: 35px; font-size: 10pt;<?= $errors->has('recibo.totalEntregue') ? 'border-color: #ff9292;' : '' ?>" />--}}
+{{--                                        <span class="input-group-addon" id="basic-addon1">--}}
+{{--                                            <i class="ace-icon fa fa-info bigger-150 text-info" data-target="form_supply_price_smartprice"></i>--}}
+{{--                                        </span>--}}
+{{--                                    </div>--}}
+{{--                                    @if ($errors->has('recibo.totalEntregue'))--}}
+{{--                                        <span class="help-block" style="color: red; font-weight: bold">--}}
+{{--                                        <strong>{{ $errors->first('recibo.totalEntregue') }}</strong>--}}
+{{--                                    </span>--}}
+{{--                                    @endif--}}
+{{--                                </div>--}}
                                 <div class="col-md-3">
                                     <label class="control-label bold label-select2" for="formaPagamentoId">Forma pagamento<b class="red fa fa-question-circle"></b></label>
                                     <div wire:ignore>
@@ -135,11 +131,17 @@
                                         </span>
                                     </div>
                                     @if ($errors->has('recibo.numeroOperacaoBancaria'))
-                                    <span class="help-block" style="color: red; font-weight: bold">
+                                        <span class="help-block" style="color: red; font-weight: bold">
                                     <strong>{{ $errors->first('recibo.numeroOperacaoBancaria') }}</strong>
                                 </span>
-                                @endif
+                                    @endif
                                 </div>
+
+                            </div>
+                            <div class="form-group has-info bold" style="left: 0%; position: relative">
+
+
+
                                 <div class="col-md-3">
                                     <label class="control-label bold label-select2" for="numeracaoFactura">Anexo <b class="{{ $isDisabled== 1 ? '' : 'red fa fa-question-circle' }}"></b></label>
                                     <div class="input-group">

@@ -10,6 +10,7 @@ use App\Application\UseCase\Empresa\Faturacao\EmitirDocumentoAeroportoCarga;
 use App\Application\UseCase\Empresa\Faturacao\GetTipoDocumentoByFaturacao;
 use App\Application\UseCase\Empresa\Faturacao\SimuladorFaturaAeronauticoAeroporto;
 use App\Application\UseCase\Empresa\Faturacao\SimuladorFaturaCargaAeroporto;
+use App\Application\UseCase\Empresa\FormasPagamento\GetFormasPagamentoByFaturacao;
 use App\Application\UseCase\Empresa\mercadorias\GetTiposMercadorias;
 use App\Application\UseCase\Empresa\Pais\GetPaises;
 use App\Application\UseCase\Empresa\Parametros\GetParametroPeloLabelNoParametro;
@@ -37,9 +38,12 @@ class EmissaoFaturaAeronauticoController extends Component
         'produto' => null,
         'sujeitoDespachoId' => 1,
     ];
+    public $formasPagamentos = [];
+
     public $fatura = [
         'moeda' => null,
         'tipoDocumento' => 3, //Fatura proforma
+        'formaPagamentoId' => null, //Fatura proforma
         'observacao' => null,
         'isencaoIVA' => false,
         'retencao' => false,
@@ -118,6 +122,25 @@ class EmissaoFaturaAeronauticoController extends Component
         $this->fatura['moeda'] = null;
         $this->fatura['total'] = 0;
         $this->fatura['items'] = [];
+    }
+    public function updatedFaturaTipoDocumento($tipoDocumento){
+        if($tipoDocumento == 1){
+            $this->fatura['formaPagamentoId'] = 1;
+            $getFormaPagamentoByFaturacao = new GetFormasPagamentoByFaturacao(new DatabaseRepositoryFactory());
+            $this->formasPagamentos = $getFormaPagamentoByFaturacao->execute();
+        }else{
+            $this->fatura['formaPagamentoId'] = null;
+            $this->formasPagamentos = [];
+        }
+        $simuladorFaturaCarga = new SimuladorFaturaAeronauticoAeroporto(new DatabaseRepositoryFactory());
+        $fatura = $simuladorFaturaCarga->execute($this->fatura);
+        $this->fatura = $this->conversorModelParaArray($fatura);
+    }
+    public function updatedFaturaFormaPagamentoId($formaPagamentoId){
+        $this->fatura['formaPagamentoId'] = $formaPagamentoId;
+        $simuladorFaturaCarga = new SimuladorFaturaAeronauticoAeroporto(new DatabaseRepositoryFactory());
+        $fatura = $simuladorFaturaCarga->execute($this->fatura);
+        $this->fatura = $this->conversorModelParaArray($fatura);
     }
 
     public function updatedFaturaClienteId($clienteId)
@@ -214,8 +237,6 @@ class EmissaoFaturaAeronauticoController extends Component
         ];
         $this->validate($rules, $messages);
 
-
-
         $key = $this->isCart($produtoData);
         if ($key !== false) {
             $this->confirm('O serviço já foi adicionado', [
@@ -230,10 +251,7 @@ class EmissaoFaturaAeronauticoController extends Component
         $this->item['produtoId'] = $produto->id;
         $this->item['produto'] = $this->item['produto'];
         $this->fatura['items'][] = (array)$this->item;
-
         $this->calculadoraTotal();
-
-
     }
 
     public function calculadoraTotal()
@@ -251,7 +269,6 @@ class EmissaoFaturaAeronauticoController extends Component
         });
         return $posicao;
     }
-
     private function conversorModelParaArray(FaturaAeronautico $output)
     {
         $fatura = [
@@ -272,6 +289,7 @@ class EmissaoFaturaAeronauticoController extends Component
             'peso' => $output->getPeso(),
             'horaExtra' => $output->getHoraExtra(),
             'tipoDocumento' => $output->getTipoDocumento(), //Fatura recibo
+            'formaPagamentoId' => $output->getFormaPagamentoId(),
             'isencaoIVA' => $output->getIsencaoIVA(),
             'retencao' => $output->getRetencao(),
             'taxaRetencao' => $output->getTaxaRetencao(),
@@ -314,8 +332,6 @@ class EmissaoFaturaAeronauticoController extends Component
 
     public function emitirDocumento()
     {
-
-
         $rules = [
             'fatura.clienteId' => 'required',
             'fatura.tipoDeAeronave' => 'required',
@@ -406,12 +422,12 @@ class EmissaoFaturaAeronauticoController extends Component
         unlink($report['filename']);
         flush();
     }
-
     public function resetField()
     {
         $this->fatura = [
             'moeda' => null,
             'tipoDocumento' => 3, //Fatura proforma
+            'formaPagamentoId' => null, //Fatura proforma
             'observacao' => null,
             'isencaoIVA' => false,
             'retencao' => false,
@@ -440,6 +456,8 @@ class EmissaoFaturaAeronauticoController extends Component
             'total' => 0,
             'items' => []
         ];
+        $this->formasPagamentos = [];
+
     }
 
 }

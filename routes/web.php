@@ -160,6 +160,9 @@ use App\Http\Controllers\empresa\NotaDebitoSaldoCliente\NotaDebitoCreateControll
 use App\Http\Controllers\empresa\NotaDebitoSaldoCliente\NotaDebitoIndexController;
 use App\Http\Controllers\empresa\NotasEntrega\NotaEntregaIndexController;
 use App\Http\Controllers\empresa\NotificacaoController as EmpresaNotificacaoController;
+use App\Http\Controllers\empresa\Operacao\AnulacaoDocumentoFaturaCreateController;
+use App\Http\Controllers\empresa\Operacao\AnulacaoDocumentoFaturaIndexController;
+use App\Http\Controllers\empresa\Operacao\AnulacaoDocumentoReciboIndexController;
 use App\Http\Controllers\empresa\Operacao\TransferenciaStockController;
 use App\Http\Controllers\empresa\OperacaoController;
 use App\Http\Controllers\empresa\PagamentoController;
@@ -877,7 +880,13 @@ Route::group(['middleware' => ['auth:empresa']], function () {
             //Converter proformas
             Route::get('empresa/converter/proformas', ProformaIndexController::class)->name('proformas.index')->middleware('hasPermission:converter proforma');
 
+            //Anulação de documentos
+            Route::get('empresa/documentos/anulado/faturas', AnulacaoDocumentoFaturaIndexController::class)->name('anulacaoDocumentoFatura.index');
+            Route::get('empresa/anulacao/fatura/novo', AnulacaoDocumentoFaturaCreateController::class)->name('anulacaoFaturaCreate')->middleware('hasPermission:anulacao documentos');
+            Route::get('empresa/documentos/anulado/recibos', AnulacaoDocumentoReciboIndexController::class)->name('anulacaoDocumentoRecibo.index');
+            Route::get('empresa/anulacao/recibo/novo', \App\Http\Controllers\empresa\Operacao\AnulacaoDocumentoReciboCreateController::class)->name('recibosAnulados.create')->middleware('hasPermission:anulacao documentos');
 
+            Route::get('/empresa/relatorios-mapa-faturacao',RelatorioGeralIndexController::class)->name('relatorio.mapaFaturacao')->middleware('hasPermission:imprimir mapa faturacao');
 
 
             Route::post('empresa/alterarDiasVencimentoFactura', [EmpresaConfiguracaoController::class, 'alterarDiasVencimentoFactura']);

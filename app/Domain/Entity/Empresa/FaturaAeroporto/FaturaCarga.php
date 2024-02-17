@@ -6,6 +6,8 @@ class FaturaCarga
 {
     private $cartaDePorte;
     private $tipoDocumento;
+    private $tipoOperacao;
+    private $formaPagamentoId;
     private $isencaoIVA;
     private $retencao;
     private $valorRetencao;
@@ -37,10 +39,12 @@ class FaturaCarga
      * @param $contraValor
      */
 
-    public function __construct($cartaDePorte, $tipoDocumento, $isencaoIVA, $retencao, $valorRetencao, $clienteId, $nomeCliente, $nomeProprietario, $telefoneCliente, $nifCliente, $emailCliente, $enderecoCliente, $peso, $dataEntrada, $dataSaida, $nDias, $taxaIva, $cambioDia, $moeda, $observacao)
+    public function __construct($cartaDePorte, $tipoDocumento, $tipoOperacao, $formaPagamentoId, $isencaoIVA, $retencao, $valorRetencao, $clienteId, $nomeCliente, $nomeProprietario, $telefoneCliente, $nifCliente, $emailCliente, $enderecoCliente, $peso, $dataEntrada, $dataSaida, $nDias, $taxaIva, $cambioDia, $moeda, $observacao)
     {
         $this->cartaDePorte = $cartaDePorte;
         $this->tipoDocumento = $tipoDocumento;
+        $this->tipoOperacao = $tipoOperacao;
+        $this->formaPagamentoId = $formaPagamentoId;
         $this->isencaoIVA = $isencaoIVA;
         $this->retencao = $retencao;
         $this->valorRetencao = $valorRetencao;
@@ -108,6 +112,22 @@ class FaturaCarga
     /**
      * @return mixed
      */
+    public function getTipoOperacao()
+    {
+        return $this->tipoOperacao;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFormaPagamentoId()
+    {
+        if ($this->getTipoDocumentoId() == 3) return null;
+        if ($this->getTipoDocumentoId() == 2) return 2;
+        return $this->formaPagamentoId;
+    }
+
+
     public function getIsencaoIVA()
     {
         return $this->isencaoIVA;
@@ -182,7 +202,9 @@ class FaturaCarga
     {
         return $this->moeda;
     }
-    public function getObservacao(){
+
+    public function getObservacao()
+    {
         return $this->observacao;
     }
 

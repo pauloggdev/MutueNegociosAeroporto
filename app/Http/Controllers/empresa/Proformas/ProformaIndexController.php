@@ -41,32 +41,50 @@ class ProformaIndexController extends Component
         $fatura = FaturaDatabase::where(function ($query) use ($numeracao) {
             $query->where('numeracaoFactura', 'LIKE', '%' . $numeracao)
                 ->orWhere('codigoBarra', 'LIKE', '%' . $numeracao);
-        })->where('empresa_id', auth()->user()->empresa_id)
+        })
+            ->where('empresa_id', auth()->user()->empresa_id)
             ->where('tipo_documento', 3)
-            ->where('convertido', 'N')
             ->first();
 
         if ($fatura && strlen($numeracao) > 4) {
-            $fatura = (object) $fatura;
-            $this->temProforma = true;
-            $this->proforma['id'] = $fatura['id'];
-            $this->proforma['nomeCliente'] = $fatura['nome_do_cliente'];
-            $this->proforma['tipoFatura'] = $fatura['tipoFatura'];
-            $this->proforma['nifCliente'] = $fatura['nif_cliente'];
-            $this->proforma['numeracaoFactura'] = $fatura['numeracaoFactura'];
-            $this->proforma['nomeProprietario'] = $fatura['nomeProprietario'];
-            $this->proforma['valorIliquido'] = $fatura['valorIliquido'];
-            $this->proforma['taxaIva'] = $fatura['taxaIva'];
-            $this->proforma['valorImposto'] = $fatura['valorImposto'];
-            $this->proforma['taxaRetencao'] = $fatura['taxaRetencao'];
-            $this->proforma['valorRetencao'] = $fatura['valorRetencao'];
-            $this->proforma['total'] = $fatura['total'];
-            $this->proforma['moeda'] = $fatura['moeda'];
-            $this->proforma['cambioDia'] = $fatura['cambioDia'];
-            $this->proforma['contraValor'] = $fatura['contraValor'];
-        }else{
+            if ($fatura->anulado === 'Y') {
+                $this->confirm('Não permitido converter, documento já foi anulado', [
+                    'showConfirmButton' => true,
+                    'showCancelButton' => false,
+                    'icon' => 'warning'
+                ]);
+                return;
+            }
+            if ($fatura->convertido === 'Y') {
+                $this->confirm('Fatura já convertida', [
+                    'showConfirmButton' => true,
+                    'showCancelButton' => false,
+                    'icon' => 'warning'
+                ]);
+
+                return;
+            } else {
+                $fatura = (object) $fatura;
+                $this->temProforma = true;
+                $this->proforma['id'] = $fatura['id'];
+                $this->proforma['nomeCliente'] = $fatura['nome_do_cliente'];
+                $this->proforma['tipoFatura'] = $fatura['tipoFatura'];
+                $this->proforma['nifCliente'] = $fatura['nif_cliente'];
+                $this->proforma['numeracaoFactura'] = $fatura['numeracaoFactura'];
+                $this->proforma['nomeProprietario'] = $fatura['nomeProprietario'];
+                $this->proforma['valorIliquido'] = $fatura['valorIliquido'];
+                $this->proforma['taxaIva'] = $fatura['taxaIva'];
+                $this->proforma['valorImposto'] = $fatura['valorImposto'];
+                $this->proforma['taxaRetencao'] = $fatura['taxaRetencao'];
+                $this->proforma['valorRetencao'] = $fatura['valorRetencao'];
+                $this->proforma['total'] = $fatura['total'];
+                $this->proforma['moeda'] = $fatura['moeda'];
+                $this->proforma['cambioDia'] = $fatura['cambioDia'];
+                $this->proforma['contraValor'] = $fatura['contraValor'];
+            }
+        } else {
             $this->resetField();
-            $this->temProforma = false;
+            $this->temProforma = true;
         }
     }
     public function resetField(){

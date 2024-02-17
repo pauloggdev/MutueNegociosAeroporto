@@ -27,6 +27,7 @@ use App\Infra\Repository\Empresa\InventarioRepository;
 use App\Infra\Repository\Empresa\MotivosIsencaoRepository;
 use App\Infra\Repository\Empresa\NotaCreditoFaturaRepository;
 use App\Infra\Repository\Empresa\NotaCreditoReciboRepository;
+use App\Infra\Repository\Empresa\NotaCreditoRepository;
 use App\Infra\Repository\Empresa\NotaEntregaRepository;
 use App\Infra\Repository\Empresa\OrderByProdutoRepository;
 use App\Infra\Repository\Empresa\PaisRepository;
@@ -97,4 +98,5 @@ interface RepositoryFactory
     public function createEspecificacaoMercadoriaRepository():EspecificacaoMercadoriaRepository;
     public function createBancoRepository():BancoRepository;
     public function createTaxaPesoMaximoDescolagemRepositoryRepository():TaxaPesoMaximoDescolagemRepositoryRepository;
+    public function createNotaCreditoRepository():NotaCreditoRepository;
 }

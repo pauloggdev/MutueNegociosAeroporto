@@ -391,13 +391,13 @@ if (Auth::guard('web')->check()) {
                         </a>
                         <b class="arrow"></b>
                     </li>
-                    <li class="hover">
-                        <a href="/empresa/produtos-mais-vendidos">
-                            <i class="menu-icon fa fa-list"></i>
-                            LISTAR PRODUTOS MAIS VENDIDOS
-                        </a>
-                        <b class="arrow"></b>
-                    </li>
+{{--                    <li class="hover">--}}
+{{--                        <a href="/empresa/produtos-mais-vendidos">--}}
+{{--                            <i class="menu-icon fa fa-list"></i>--}}
+{{--                            LISTAR PRODUTOS MAIS VENDIDOS--}}
+{{--                        </a>--}}
+{{--                        <b class="arrow"></b>--}}
+{{--                    </li>--}}
 
                 </ul>
             </li>
@@ -494,6 +494,18 @@ if (Auth::guard('web')->check()) {
                             CONVERTER PROFORMAS</a>
                         <b class="arrow"></b>
                     </li>
+                    <li class="hover">
+                        <a href="{{ route('anulacaoDocumentoFatura.index')}}">
+                            <i class="menu-icon fa fa-caret-right"></i>
+                            FATURAS ANULADAS</a>
+                        <b class="arrow"></b>
+                    </li>
+                    <li class="hover">
+                        <a href="{{ route('anulacaoDocumentoRecibo.index')}}">
+                            <i class="menu-icon fa fa-caret-right"></i>
+                            RECIBOS ANULADOS</a>
+                        <b class="arrow"></b>
+                    </li>
 
 {{--                    <li class="hover">--}}
 {{--                        <a href="{{ route('notaCreditoAnulacaoDoc.index') }}">--}}
@@ -559,6 +571,13 @@ if (Auth::guard('web')->check()) {
                         <a href="{{ route('extratoCliente') }}">
                             <i class="menu-icon fa fa-file-text"></i>
                             EXTRATO DO CLIENTE
+                        </a>
+                        <b class="arrow"></b>
+                    </li>
+                    <li class="hover">
+                        <a href="{{route('relatorio.mapaFaturacao')}}">
+                            <i class="menu-icon fa fa-file-text"></i>
+                            MAPA DE FATURAÇÃO
                         </a>
                         <b class="arrow"></b>
                     </li>

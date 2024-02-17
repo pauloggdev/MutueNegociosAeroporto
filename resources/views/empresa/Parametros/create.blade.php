@@ -73,6 +73,18 @@
                                                                 </span>
                                                                 </div>
                                                             @endif
+                                                                @if($parametro['type'] == 'text')
+                                                                    <div class="input-group">
+                                                                        <input type="text" value="{{ $parametro['valor'] }}"
+                                                                               id="valorParametroId" data="valorParametro"
+                                                                               class="form-control"
+                                                                               style="height: 35px; font-size: 10pt;"/>
+                                                                        <span class="input-group-addon" id="basic-addon1">
+                                                                    <i class="ace-icon fa fa-info bigger-150 text-info"
+                                                                       data-target="form_supply_price_smartprice"></i>
+                                                                </span>
+                                                                    </div>
+                                                                @endif
                                                         </td>
                                                         <td>
                                                             <a class="btn btn-primary widget-box widget-color-blue"

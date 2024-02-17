@@ -1,4 +1,4 @@
-@section('title', 'Facturas')
+@section('title', 'Facturas de cargas')
 <div>
     <div class="row">
         <div class="page-header" style="left: 0.5%; position: relative">
@@ -88,8 +88,8 @@
                                             <th style="text-align: right">Total</th>
                                             <th>Emitido</th>
                                             <th>Cliente</th>
-                                            <th>Tel.</th>
-                                            <th>Ações</th>
+                                            <th style="text-align: center">Status</th>
+                                            <th style="text-align: center">Ações</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -105,8 +105,12 @@
                                                 <td style="text-align: right">{{ number_format($factura['total'],2,',','.') }}</td>
                                                 <td>{{ date_format($factura['created_at'], 'd/m/Y') }}</td>
                                                 <td>{{ $factura['nome_do_cliente'] }}</td>
-                                                <td>{{ $factura['telefone_cliente'] }}</td>
-                                                <td>
+                                                <td style="text-align: center">
+                                                    <span
+                                                        class="label label-sm <?= $factura['anulado'] == 'Y'?'label-danger':'label-success'?>">{{ $factura['anulado'] == 'Y'?"Anulada":"Válida" }}
+                                                    </span>
+                                                </td>
+                                                <td style="text-align: center">
                                                     <a class="blue"
                                                         wire:click="imprimirFactura({{ $factura['id'] }})"
                                                         title="Reimprimir o factura" style="cursor: pointer">

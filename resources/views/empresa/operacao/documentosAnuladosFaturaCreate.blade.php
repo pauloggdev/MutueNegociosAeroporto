@@ -1,9 +1,9 @@
-@section('title','Converter proformas')
+@section('title','Anulação de facturas')
 <div class="row">
     <div class="space-6"></div>
     <div class="page-header" style="left: 0.5%; position: relative">
         <h1>
-            CONVERTER PROFORMAS
+            ANULAÇÃO DE FATURAS
         </h1>
     </div>
     <div class="row">
@@ -46,7 +46,7 @@
                                 <div class="col-md-4">
                                     <label class="control-label bold label-select2" for="nomeCliente">Nome do cliente<b class="red fa fa-question-"></b></label>
                                     <div class="input-group">
-                                        <input type="text" value="<?= $proforma['nomeCliente'] ?>" disabled class="form-control" style="height: 35px; font-size: 10pt" />
+                                        <input type="text" value="<?= $fatura['nomeCliente'] ?>" disabled class="form-control" style="height: 35px; font-size: 10pt" />
                                         <span class="input-group-addon" id="basic-addon1">
                                             <i class="ace-icon fa fa-info bigger-150 text-info" data-target="form_supply_price_smartprice"></i>
                                         </span>
@@ -55,7 +55,7 @@
                                 <div class="col-md-4">
                                     <label class="control-label bold label-select2" for="nifCliente">NIF</label>
                                     <div class="input-group">
-                                        <input type="text" value="<?= $proforma['nifCliente'] ?>" disabled class="form-control" style="height: 35px; font-size: 10pt" />
+                                        <input type="text" value="<?= $fatura['nifCliente'] ?>" disabled class="form-control" style="height: 35px; font-size: 10pt" />
                                         <span class="input-group-addon" id="basic-addon1">
                                             <i class="ace-icon fa fa-info bigger-150 text-info" data-target="form_supply_price_smartprice"></i>
                                         </span>
@@ -64,7 +64,7 @@
                                 <div class="col-md-4">
                                     <label class="control-label bold label-select2" for="nifCliente">Proprietário/Companhia Aérea</label>
                                     <div class="input-group">
-                                        <input type="text" value="<?= $proforma['nomeProprietario'] ?>" disabled class="form-control" style="height: 35px; font-size: 10pt" />
+                                        <input type="text" value="<?= $fatura['nomeProprietario'] ?>" disabled class="form-control" style="height: 35px; font-size: 10pt" />
                                         <span class="input-group-addon" id="basic-addon1">
                                             <i class="ace-icon fa fa-info bigger-150 text-info" data-target="form_supply_price_smartprice"></i>
                                         </span>
@@ -76,7 +76,7 @@
                                     <div class="col-sm-5 pull-right">
                                         <h8 class="pull-right">
                                             VALOR ILIQUIDO(AOA) :
-                                            <span>{{ number_format($proforma['valorIliquido'], 2, ',', '.') }}</span>
+                                            <span>{{ number_format($fatura['valorIliquido'], 2, ',', '.') }}</span>
                                         </h8>
                                     </div>
                                 </div>
@@ -85,7 +85,7 @@
                                     <div class="col-sm-5 pull-right">
                                         <h8 class="pull-right">
                                             IVA(%) :
-                                            <span>{{ number_format($proforma['taxaIva'], 2,',','.') }}%</span>
+                                            <span>{{ number_format($fatura['taxaIva'], 2,',','.') }}%</span>
                                         </h8>
                                     </div>
                                 </div>
@@ -93,7 +93,7 @@
                                     <div class="col-sm-5 pull-right">
                                         <h8 class="pull-right">
                                             VALOR DO IMPOSTO(AOA) :
-                                            <span>{{ number_format($proforma['valorImposto'], 1,',','.') }}Kz</span>
+                                            <span>{{ number_format($fatura['valorImposto'], 1,',','.') }}Kz</span>
                                         </h8>
                                     </div>
                                 </div>
@@ -101,7 +101,7 @@
                                     <div class="col-sm-5 pull-right">
                                         <h8 class="pull-right">
                                             RETENÇÃO(%) :
-                                            <span>{{ number_format($proforma['taxaRetencao'], 2,',','.') }}%</span>
+                                            <span>{{ number_format($fatura['taxaRetencao'], 2,',','.') }}%</span>
                                         </h8>
                                     </div>
                                 </div>
@@ -109,7 +109,7 @@
                                     <div class="col-sm-5 pull-right">
                                         <h8 class="pull-right">
                                             VALOR DA RETENÇÃO(AOA) :
-                                            <span>{{ number_format($proforma['valorRetencao'], 2,',','.') }}Kz</span>
+                                            <span>{{ number_format($fatura['valorRetencao'], 2,',','.') }}Kz</span>
                                         </h8>
                                     </div>
                                 </div>
@@ -117,23 +117,23 @@
                                     <div class="col-sm-5 pull-right">
                                         <h8 class="pull-right">
                                             TOTAL(AOA) :
-                                            <span><strong>{{ number_format($proforma['total'], 2,',','.') }}Kz</strong></span>
+                                            <span><strong>{{ number_format($fatura['total'], 2,',','.') }}Kz</strong></span>
                                         </h8>
                                     </div>
                                 </div>
                                 <div class="row" style="margin-bottom: 5px">
                                     <div class="col-sm-5 pull-right">
                                         <h8 class="pull-right">
-                                            TAXA DE CÂMBIO(AOA/{{$proforma['moeda'] ??'?'}}) :
-                                            <span>{{ number_format($proforma['cambioDia'], 2,',','.') }}</span>
+                                            TAXA DE CÂMBIO(AOA/{{$fatura['moeda'] ??'?'}}) :
+                                            <span>{{ number_format($fatura['cambioDia'], 2,',','.') }}</span>
                                         </h8>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-5 pull-right">
                                         <h8 class="pull-right">
-                                            CONTRAVALOR({{$proforma['moeda'] ??'?'}}) :
-                                            <span><strong>${{ number_format($proforma['contraValor'], 2,',','.') }}</strong></span>
+                                            CONTRAVALOR({{$fatura['moeda'] ??'?'}}) :
+                                            <span><strong>${{ number_format($fatura['contraValor'], 2,',','.') }}</strong></span>
                                         </h8>
                                     </div>
                                 </div>
@@ -143,17 +143,17 @@
 
                     <div class="clearfix form-actions">
                         <div class="col-md-offset-3 col-md-9">
-                            <button class="search-btn" type="submit" style="border-radius: 10px" wire:click.prevent="converterProforma">
-                                <span wire:loading.remove wire:target="converterProforma">
+                            <button class="search-btn" type="submit" style="border-radius: 10px" wire:click.prevent="anularFatura">
+                                <span wire:loading.remove wire:target="anularFatura">
                                     <i class="ace-icon fa fa-check bigger-110"></i>
                                     Finalizar
                                 </span>
-                                <span wire:loading wire:target="converterProforma">
+                                <span wire:loading wire:target="anularFatura">
                                     <span class="loading"></span>
                                     Aguarde...</span>
                             </button>
 
-                            <a href="/empresa/home" class="btn btn-danger" type="reset" style="border-radius: 10px">
+                            <a href="/empresa/documentos/anulado/faturas" class="btn btn-danger" type="reset" style="border-radius: 10px">
                                 <i class="ace-icon fa fa-undo bigger-110"></i>
                                 Voltar
                             </a>

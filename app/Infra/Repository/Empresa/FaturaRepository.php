@@ -2,6 +2,8 @@
 
 namespace App\Infra\Repository\Empresa;
 
+use App\Application\UseCase\Empresa\Faturas\GetAnoDeFaturacao;
+use App\Application\UseCase\Empresa\Faturas\GetNumeroSerieDocumento;
 use App\Application\UseCase\Empresa\Parametros\GetParametroPeloLabelNoParametro;
 use App\Domain\Entity\Empresa\Faturacao\Fatura;
 use App\Domain\Entity\Empresa\Faturacao\FaturaEmitida;
@@ -109,15 +111,23 @@ class FaturaRepository
 
     public function pegarUltimaFactura($tipoDocumento)
     {
-        $getYearNow = new GetParametroPeloLabelNoParametro(new DatabaseRepositoryFactory());
-        $getYearNow = $getYearNow->execute('ano_de_faturacao');
+        $getAnoFaturacao = new GetAnoDeFaturacao(new DatabaseRepositoryFactory());
+        $getYearNow = $getAnoFaturacao->execute();
         $yearNow = Carbon::parse(Carbon::now())->format('Y');
         if ($getYearNow) {
             $yearNow = $getYearNow->valor;
         }
+        $getNumeroSerieDocumento = new GetNumeroSerieDocumento(new DatabaseRepositoryFactory());
+        $numeroSerieDocumento = $getNumeroSerieDocumento->execute();
+        if($numeroSerieDocumento){
+            $numeroSerieDocumento = $numeroSerieDocumento->valor;
+        }else{
+            $numeroSerieDocumento = "ATO";
+        }
+
         $resultados = DB::connection('mysql2')->select("SELECT *
           FROM facturas
-          WHERE empresa_id = " . auth()->user()->empresa_id . " and  SUBSTRING_INDEX(numeracaoFactura, '/', 1) LIKE '%" . $yearNow . "%' and numeracaoFactura  LIKE '%" . $this->mostrarSerieDocumento() . "%'
+          WHERE empresa_id = " . auth()->user()->empresa_id . " and  SUBSTRING_INDEX(numeracaoFactura, '/', 1) LIKE '%" . $yearNow . "%' and numeracaoFactura  LIKE '%" . $numeroSerieDocumento . "%'
             AND tipo_documento = $tipoDocumento
           ORDER BY id DESC
           LIMIT 1");
