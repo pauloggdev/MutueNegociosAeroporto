@@ -28,6 +28,9 @@ trait PrintFaturaCarga
         }
         $DIR_SUBREPORT = "/upload/documentos/empresa/modelosFacturas/a4/";
         $DIR = public_path() . "/upload/documentos/empresa/modelosFacturas/a4/";
+        $marcaDaAgua = public_path() . "/marca_agua.png";
+
+     
         $reportController = new ReportShowController('pdf', $DIR_SUBREPORT);
 
         $report = $reportController->show(
@@ -43,11 +46,13 @@ trait PrintFaturaCarga
                     "dirSubreportTaxa" => $DIR,
                     "tipo_regime" => auth()->user()->empresa->tipo_regime_id,
                     "nVia" => 1,
-                    "DIR" => $DIR
+                    "DIR" => $DIR,
+                    "marcaDaAgua"=>$marcaDaAgua
                 ]
             ], "pdf", $DIR_SUBREPORT
         );
 
+        
 
         $this->dispatchBrowserEvent('printPdf', ['data' => base64_encode($report['response']->getContent())]);
         // $this->dispatchBrowserEvent('printPdf', ['data' => base64_encode($report['response']->getContent())]);

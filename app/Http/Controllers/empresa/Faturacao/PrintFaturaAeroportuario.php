@@ -29,6 +29,7 @@ trait PrintFaturaAeroportuario
         $DIR_SUBREPORT = "/upload/documentos/empresa/modelosFacturas/a4/";
         $DIR = public_path() . "/upload/documentos/empresa/modelosFacturas/a4/";
         $reportController = new ReportShowController('pdf', $DIR_SUBREPORT);
+        $marcaDaAgua = public_path() . "/marca_agua.png";
 
         $report = $reportController->show(
             [
@@ -43,7 +44,8 @@ trait PrintFaturaAeroportuario
                     "dirSubreportTaxa" => $DIR,
                     "tipo_regime" => auth()->user()->empresa->tipo_regime_id,
                     "nVia" => 1,
-                    "DIR" => $DIR
+                    "DIR" => $DIR,
+                    "marcaDaAgua"=>$marcaDaAgua
                 ]
             ], "pdf", $DIR_SUBREPORT
         );

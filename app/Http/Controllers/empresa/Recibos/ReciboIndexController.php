@@ -56,6 +56,7 @@ class ReciboIndexController extends Component
 
         $logotipo = public_path() . '/upload/AtoNegativo1.png';
         $caminho = public_path() . '/upload/documentos/empresa/relatorios/';
+        $marcaDaAgua = public_path() . "/marca_agua.png";
 
         $getParametro = new GetParametroPeloLabelNoParametro(new DatabaseRepositoryFactory());
         $parametro = $getParametro->execute('tipoImpreensao');
@@ -78,7 +79,8 @@ class ReciboIndexController extends Component
                     'empresa_id' => auth()->user()->empresa_id,
                     'recibo_id' => $recibo['id'],
                     'factura_id' => $recibo['facturaId'],
-                    'logotipo' => $logotipo
+                    'logotipo' => $logotipo,
+                    "marcaDaAgua"=>$marcaDaAgua
                 ]
         ]
         );
