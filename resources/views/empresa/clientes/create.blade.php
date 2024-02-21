@@ -55,9 +55,9 @@
                                     </div>
                                 </div>
                                 <div class="col-md-4">
-                                    <label class="control-label bold label-select2" for="telefoneCliente">Telefone<b class="red fa fa-question-circle"></b></label>
+                                    <label class="control-label bold label-select2" for="telefoneCliente">Telefone</label>
                                     <div class="input-group">
-                                        <input type="text" wire:model="cliente.telefone_cliente" maxlength="9" id="telefoneCliente" class="form-control" style="height: 35px; font-size: 10pt;<?= $errors->has('cliente.telefone_cliente') ? 'border-color: #ff9292;' : '' ?>" />
+                                        <input type="text" wire:model="cliente.telefone_cliente" id="telefoneCliente" class="form-control" style="height: 35px; font-size: 10pt;<?= $errors->has('cliente.telefone_cliente') ? 'border-color: #ff9292;' : '' ?>" />
                                         <span class="input-group-addon" id="basic-addon1">
                                             <i class="ace-icon fa fa-info bigger-150 text-info" data-target="form_supply_price_smartprice"></i>
                                         </span>
@@ -81,7 +81,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-4">
-                                    <label class="control-label bold label-select2" for="enderecoCliente">Endereço<b class="red fa fa-question-circle"></b></label>
+                                    <label class="control-label bold label-select2" for="enderecoCliente">Endereço</label>
                                     <div class="input-group">
                                         <input type="text" wire:model="cliente.endereco" class="form-control" id="enderecoCliente" style="height: 35px; font-size: 10pt;<?= $errors->has('cliente.endereco') ? 'border-color: #ff9292;' : '' ?>" />
                                         <span class="input-group-addon" id="basic-addon1">
@@ -95,7 +95,7 @@
                                     @endif
                                 </div>
                                 <div class="col-md-4">
-                                    <label class="control-label bold label-select2" for="cidadeCliente">Cidade<b class="red fa fa-question-circle"></b></label>
+                                    <label class="control-label bold label-select2" for="cidadeCliente">Cidade</label>
                                     <div class="input-group">
                                         <input type="text" wire:model="cliente.cidade" class="form-control" id="cidadeCliente" style="height: 35px; font-size: 10pt;<?= $errors->has('cliente.cidade') ? 'border-color: #ff9292;' : '' ?>" />
                                         <span class="input-group-addon" id="basic-addon1">
@@ -120,7 +120,7 @@
                                     </select>
                                 </div>
                                 <div class="col-md-4">
-                                    <label class="control-label bold label-select2" for="nifCliente">NIF</b></label>
+                                    <label class="control-label bold label-select2" for="nifCliente">NIF</label>
                                     <div class="input-group">
                                         <input type="text" wire:model="cliente.nif" class="form-control" id="nifCliente" style="height: 35px; font-size: 10pt;<?= $errors->has('cliente.nif') ? 'border-color: #ff9292;' : '' ?>" />
                                         <span class="input-group-addon" id="basic-addon1">
@@ -207,7 +207,7 @@
 {{--                                    </div>--}}
 {{--                                </div>--}}
                                 <div class="col-md-4">
-                                    <label class="control-label bold label-select2" for="dataContracto">Data Contracto<b class="red fa fa-question-circle"></b></label>
+                                    <label class="control-label bold label-select2" for="dataContracto">Data Contracto</label>
                                     <div class="input-group">
                                         <input type="date" wire:model="cliente.data_contrato" id="dataContracto" class="form-control" style="height: 35px; font-size: 10pt;<?= $errors->has('cliente.data_contrato') ? 'border-color: #ff9292;' : '' ?> " />
                                         <span class="input-group-addon" id="basic-addon1">

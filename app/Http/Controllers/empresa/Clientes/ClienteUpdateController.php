@@ -43,9 +43,6 @@ class ClienteUpdateController extends Component
     }
     public function updateCliente()
     {
-
-
-
         $this->validate($this->rules(), $this->messages());
         $this->clienteRepository->update($this->cliente, $this->cliente->id);
         $this->alert('success', 'Operação realizada com sucesso');

@@ -91,6 +91,9 @@
                                                     <a href="{{ route('clientes.edit', $cliente->id) }}" class="pink" title="Editar este registo">
                                                         <i class="ace-icon fa fa-pencil bigger-150 bolder success text-success"></i>
                                                     </a>
+                                                        <a title="Eliminar este Registro" style="cursor:pointer;" wire:click="modalDel({{$cliente->id}})">
+                                                            <i class="ace-icon fa fa-trash-o bigger-150 bolder danger red"></i>
+                                                        </a>
 {{--                                                    <a href="{{ route('clientes.extrato', $cliente->uuid) }}" class="pink" title="Extrato do cliente">--}}
 {{--                                                        <i class="ace-icon fa fa-file bigger-150 bolder primary text-primary"></i>--}}
 {{--                                                    </a>--}}

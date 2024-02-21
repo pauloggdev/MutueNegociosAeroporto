@@ -17,7 +17,8 @@ class FaturaItemAeronautico
     private $horaExtra;
     private $taxaAbertoAeroporto;
     private $cambioDia;
-    public function __construct($produtoId, $nomeProduto, $pmd, $horaEstacionamento, $taxaEstacionamento, $taxaLuminosa, $taxaAduaneiro, $sujeitoDespachoId,$taxaIva, $peso, $horaExtra, $horaAberturaAeroporto, $horaFechoAeroporto,$taxaAbertoAeroporto, $cambioDia)
+    private $taxaReaberturaComercial;
+    public function __construct($produtoId, $nomeProduto, $pmd, $horaEstacionamento, $taxaEstacionamento, $taxaLuminosa, $taxaAduaneiro, $sujeitoDespachoId,$taxaIva, $peso, $horaExtra, $horaAberturaAeroporto, $horaFechoAeroporto,$taxaAbertoAeroporto, $cambioDia, $taxaReaberturaComercial)
     {
         $this->produtoId = $produtoId;
         $this->nomeProduto = $nomeProduto;
@@ -34,6 +35,7 @@ class FaturaItemAeronautico
         $this->horaFechoAeroporto = $horaFechoAeroporto;
         $this->taxaAbertoAeroporto = $taxaAbertoAeroporto;
         $this->cambioDia = $cambioDia;
+        $this->taxaReaberturaComercial = $taxaReaberturaComercial;
     }
 
     public function getTaxaAduaneiro()
@@ -100,6 +102,9 @@ class FaturaItemAeronautico
         return $this->horaAberturaAeroporto;
 
     }
+    public function getTaxaReaberturaComercial(){
+        return $this->taxaReaberturaComercial;
+    }
     public function getHoraFechoAeroporto(){
       return $this->horaFechoAeroporto;
     }
@@ -107,7 +112,7 @@ class FaturaItemAeronautico
         return $this->taxaAbertoAeroporto;
     }
     public function getHoraExtra(){
-        return $this->horaExtra;
+        return (float) $this->horaExtra;
     }
 
     public function getPMD()
@@ -152,6 +157,9 @@ class FaturaItemAeronautico
         if($this->getProdutoId() == 10){ //Serviço de Abertura - Anticipado
             return $this->getTarifaAbertoAnticipado();
         }
+        if($this->getProdutoId() == 11){ //Serviço de Reabertura comercial
+            return $this->getReaberturaComercial();
+        }
     }
 
     public function getTarifaEstacionamento()
@@ -189,6 +197,9 @@ class FaturaItemAeronautico
     public function getTarifaAbertoAnticipado(){
         if(!$this->getHoraExtra() || $this->getHoraExtra()<=0 ) throw new \Error("Informa a hora extra");
         return ($this->getTaxaAbertoAeroporto() * ($this->getHoraAberturaAeroporto() -  ($this->getHoraAberturaAeroporto() - $this->getHoraExtra()))) * $this->getCambioDia();
+    }
+    public function getReaberturaComercial(){
+        return ($this->getTaxaReaberturaComercial() * $this->getHoraExtra() * $this->getCambioDia());
     }
 
     public function getTarifaAterragemDescolagem()

@@ -129,15 +129,19 @@ class ConverterProformaByFaturaRecibo
             'horaExtra' => $fatura->horaExtra,
             'contraValor' => $fatura->contraValor,
             'valorIliquido' => $fatura->valorIliquido,
+            'valorImposto' => $fatura->valorImposto,
             'total' => $fatura->total,
-            'anulado' => $fatura->anulado,
             'codigoBarra' => $fatura->codigoBarra,
             'tipoDocumento' => 1,
+            'formaPagamentoId' => 1,
+            'tipoOperacao' => $fatura->tipoOperacao,
             'isencaoIVA' => $fatura->isencaoIVA,
             'convertido' => 'N',
+            'anulado' => $fatura->anulado,
             'taxaRetencao' => $fatura->taxaRetencao,
             'valorRetencao' => $fatura->valorRetencao,
             'tipoFatura' => $fatura->tipoFatura,
+            'tipoMercadoria' => $fatura->tipoMercadoria,
             'observacao' => $fatura->observacao??null
         ]);
         //Gerar o codigo de barra

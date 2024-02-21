@@ -72,70 +72,73 @@
                                 </div>
                             </div>
                             <div class="form-group has-info bold" style="left: 0%; position: relative">
-                                <div class="row" style="margin-bottom: 5px">
-                                    <div class="col-sm-5 pull-right">
-                                        <h8 class="pull-right">
-                                            VALOR ILIQUIDO(AOA) :
-                                            <span>{{ number_format($proforma['valorIliquido'], 2, ',', '.') }}</span>
-                                        </h8>
+                                <div class="col-md-12">
+                                    <div class="row" style="margin-bottom: 5px">
+                                        <div class="col-sm-5 pull-right">
+                                            <h8 class="pull-right">
+                                                VALOR ILIQUIDO(AOA) :
+                                                <span>{{ number_format($proforma['valorIliquido'], 2, ',', '.') }}</span>
+                                            </h8>
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="row" style="margin-bottom: 5px">
-                                    <div class="col-sm-5 pull-right">
-                                        <h8 class="pull-right">
-                                            IVA(%) :
-                                            <span>{{ number_format($proforma['taxaIva'], 2,',','.') }}%</span>
-                                        </h8>
+                                    <div class="row" style="margin-bottom: 5px">
+                                        <div class="col-sm-5 pull-right">
+                                            <h8 class="pull-right">
+                                                IVA(%) :
+                                                <span>{{ number_format($proforma['taxaIva'], 2,',','.') }}%</span>
+                                            </h8>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="row" style="margin-bottom: 5px">
-                                    <div class="col-sm-5 pull-right">
-                                        <h8 class="pull-right">
-                                            VALOR DO IMPOSTO(AOA) :
-                                            <span>{{ number_format($proforma['valorImposto'], 1,',','.') }}Kz</span>
-                                        </h8>
+                                    <div class="row" style="margin-bottom: 5px">
+                                        <div class="col-sm-5 pull-right">
+                                            <h8 class="pull-right">
+                                                VALOR DO IMPOSTO(AOA) :
+                                                <span>{{ number_format($proforma['valorImposto'], 1,',','.') }}Kz</span>
+                                            </h8>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="row" style="margin-bottom: 5px">
-                                    <div class="col-sm-5 pull-right">
-                                        <h8 class="pull-right">
-                                            RETENÇÃO(%) :
-                                            <span>{{ number_format($proforma['taxaRetencao'], 2,',','.') }}%</span>
-                                        </h8>
+                                    <div class="row" style="margin-bottom: 5px">
+                                        <div class="col-sm-5 pull-right">
+                                            <h8 class="pull-right">
+                                                RETENÇÃO(%) :
+                                                <span>{{ number_format($proforma['taxaRetencao'], 2,',','.') }}%</span>
+                                            </h8>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="row" style="margin-bottom: 5px">
-                                    <div class="col-sm-5 pull-right">
-                                        <h8 class="pull-right">
-                                            VALOR DA RETENÇÃO(AOA) :
-                                            <span>{{ number_format($proforma['valorRetencao'], 2,',','.') }}Kz</span>
-                                        </h8>
+                                    <div class="row" style="margin-bottom: 5px">
+                                        <div class="col-sm-5 pull-right">
+                                            <h8 class="pull-right">
+                                                VALOR DA RETENÇÃO(AOA) :
+                                                <span>{{ number_format($proforma['valorRetencao'], 2,',','.') }}Kz</span>
+                                            </h8>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="row" style="margin-bottom: 5px">
-                                    <div class="col-sm-5 pull-right">
-                                        <h8 class="pull-right">
-                                            TOTAL(AOA) :
-                                            <span><strong>{{ number_format($proforma['total'], 2,',','.') }}Kz</strong></span>
-                                        </h8>
+                                    <div class="row" style="margin-bottom: 5px">
+                                        <div class="col-sm-5 pull-right">
+                                            <h8 class="pull-right">
+                                                TOTAL(AOA) :
+                                                <span><strong>{{ number_format($proforma['total'], 2,',','.') }}Kz</strong></span>
+                                            </h8>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="row" style="margin-bottom: 5px">
-                                    <div class="col-sm-5 pull-right">
-                                        <h8 class="pull-right">
-                                            TAXA DE CÂMBIO(AOA/{{$proforma['moeda'] ??'?'}}) :
-                                            <span>{{ number_format($proforma['cambioDia'], 2,',','.') }}</span>
-                                        </h8>
+                                    <div class="row" style="margin-bottom: 5px">
+                                        <div class="col-sm-5 pull-right">
+                                            <h8 class="pull-right">
+                                                TAXA DE CÂMBIO(AOA/{{$proforma['moeda'] ??'?'}}) :
+                                                <span>{{ number_format($proforma['cambioDia'], 2,',','.') }}</span>
+                                            </h8>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-5 pull-right">
-                                        <h8 class="pull-right">
-                                            CONTRAVALOR({{$proforma['moeda'] ??'?'}}) :
-                                            <span><strong>${{ number_format($proforma['contraValor'], 2,',','.') }}</strong></span>
-                                        </h8>
+                                    <div class="row">
+                                        <div class="col-sm-5 pull-right">
+                                            <h8 class="pull-right">
+                                                CONTRAVALOR({{$proforma['moeda'] ??'?'}}) :
+                                                <span><strong>${{ number_format($proforma['contraValor'], 2,',','.') }}</strong></span>
+                                            </h8>
+                                        </div>
                                     </div>
+
                                 </div>
                             </div>
                         </div>

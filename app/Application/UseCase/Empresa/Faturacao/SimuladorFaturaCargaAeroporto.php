@@ -68,6 +68,7 @@ class SimuladorFaturaCargaAeroporto
             $taxaIva,
             $cambioDia,
             $moedaEstrageiraUsado,
+            $input->moedaPagamento,
             $input->observacao
         );
         foreach ($input->items as $item){

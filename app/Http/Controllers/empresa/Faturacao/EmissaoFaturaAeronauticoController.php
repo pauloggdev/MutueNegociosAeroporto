@@ -22,6 +22,7 @@ use App\Domain\Entity\Empresa\FaturaAeroporto\FaturaAeronautico;
 use App\Domain\Entity\Empresa\FaturaAeroporto\FaturaCarga;
 use App\Http\Controllers\empresa\ReportShowController;
 use App\Infra\Factory\Empresa\DatabaseRepositoryFactory;
+use App\Models\empresa\Moeda;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
@@ -33,6 +34,7 @@ class EmissaoFaturaAeronauticoController extends Component
 
     public $clientes;
     public $bancos;
+    public $moedas;
     public $empresa;
     public $item = [
         'produto' => null,
@@ -44,6 +46,7 @@ class EmissaoFaturaAeronauticoController extends Component
         'moeda' => null,
         'tipoDocumento' => 3, //Fatura proforma
         'formaPagamentoId' => null, //Fatura proforma
+        'moedaPagamento' => 'AOA',
         'observacao' => null,
         'isencaoIVA' => false,
         'retencao' => false,
@@ -178,6 +181,9 @@ class EmissaoFaturaAeronauticoController extends Component
 
         $getTiposDocumentos = new GetTipoDocumentoByFaturacao(new DatabaseRepositoryFactory());
         $this->tiposDocumentos = $getTiposDocumentos->execute();
+
+        $this->moedas = Moeda::get();
+
     }
 
     public function render()
@@ -301,6 +307,7 @@ class EmissaoFaturaAeronauticoController extends Component
             'valorImposto' => $output->getValorImposto(),
             'total' => $output->getTotal(),
             'moeda' => $output->getMoeda(),
+            'moedaPagamento' => $output->getMoedaPagamento(),
             'items' => []
         ];
         foreach ($output->getItems() as $item) {
@@ -428,6 +435,7 @@ class EmissaoFaturaAeronauticoController extends Component
             'moeda' => null,
             'tipoDocumento' => 3, //Fatura proforma
             'formaPagamentoId' => null, //Fatura proforma
+            'moedaPagamento' => 'AOA',
             'observacao' => null,
             'isencaoIVA' => false,
             'retencao' => false,

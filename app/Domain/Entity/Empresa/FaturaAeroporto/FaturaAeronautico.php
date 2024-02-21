@@ -26,10 +26,12 @@ class FaturaAeronautico
     private $horaExtra;
     private $cambioDia;
     private $moeda;
+    private $moedaPagamento;
+    private $considera1hDepois14min;
     private $items = [];
 
 
-    public function __construct($tipoDocumento,$formaPagamentoId, $observacao, $isencaoIVA, $retencao, $valorRetencao, $nomeProprietario,$clienteId, $nomeCliente, $telefoneCliente, $nifCliente, $emailCliente, $enderecoCliente, $tipoDeAeronave, $pesoMaximoDescolagem, $dataDeAterragem, $dataDeDescolagem, $horaDeAterragem, $horaDeDescolagem, $taxaIva, $peso, $horaExtra, $cambioDia, $moeda)
+    public function __construct($tipoDocumento, $formaPagamentoId, $observacao, $isencaoIVA, $retencao, $valorRetencao, $nomeProprietario, $clienteId, $nomeCliente, $telefoneCliente, $nifCliente, $emailCliente, $enderecoCliente, $tipoDeAeronave, $pesoMaximoDescolagem, $dataDeAterragem, $dataDeDescolagem, $horaDeAterragem, $horaDeDescolagem, $taxaIva, $peso, $horaExtra, $cambioDia, $moeda, $moedaPagamento, $considera1hDepois14min)
     {
         $this->tipoDocumento = $tipoDocumento;
         $this->formaPagamentoId = $formaPagamentoId;
@@ -55,6 +57,8 @@ class FaturaAeronautico
         $this->horaExtra = $horaExtra;
         $this->cambioDia = $cambioDia;
         $this->moeda = $moeda;
+        $this->moedaPagamento = $moedaPagamento;
+        $this->considera1hDepois14min = $considera1hDepois14min;
     }
 
     public function addItem(FaturaItemAeronautico $items)
@@ -70,6 +74,22 @@ class FaturaAeronautico
         return $this->moeda;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getConsidera1hDepois14min()
+    {
+        return $this->considera1hDepois14min;
+    }
+
+
+    /**
+     * @return mixed
+     */
+    public function getMoedaPagamento()
+    {
+        return $this->moedaPagamento;
+    }
 
 
     public function getTipoDocumento()
@@ -87,7 +107,8 @@ class FaturaAeronautico
         return $this->formaPagamentoId;
     }
 
-    public function getObservacao(){
+    public function getObservacao()
+    {
         return $this->observacao;
     }
 
@@ -115,13 +136,15 @@ class FaturaAeronautico
         return ($this->getValorIliquido() * $this->getTaxaRetencao()) / 100;
 
     }
+
     public function getTaxaRetencao()
     {
         return $this->valorRetencao;
     }
 
 
-    public function getProprietario(){
+    public function getProprietario()
+    {
         return $this->nomeProprietario;
     }
 
@@ -191,15 +214,16 @@ class FaturaAeronautico
 
     public function getHoraEstacionamento()
     {
-        $dataInicial = $this->getDataDeAterragem(). " ".$this->getHoraDeAterragem();
-        $dataFinal = $this->getDataDeDescolagem(). " ".$this->getHoraDeDescolagem();
+        $dataInicial = $this->getDataDeAterragem() . " " . $this->getHoraDeAterragem();
+        $dataFinal = $this->getDataDeDescolagem() . " " . $this->getHoraDeDescolagem();
         $hora1 = new \DateTime($dataInicial);
         $hora2 = new \DateTime($dataFinal);
         $diff = $hora1->diff($hora2);
         $horas = $diff->h + $diff->days * 24;
-        if($diff->i > 14){
+        if ($this->getConsidera1hDepois14min() == 'SIM' && $diff->i > 14) {
             $horas = ++$horas;
         }
+        
         return $horas;
     }
 
@@ -215,10 +239,14 @@ class FaturaAeronautico
     {
         return $this->taxaIva;
     }
-    public function getHoraExtra(){
+
+    public function getHoraExtra()
+    {
         return $this->horaExtra;
     }
-    public function getPeso(){
+
+    public function getPeso()
+    {
         return $this->peso;
     }
 

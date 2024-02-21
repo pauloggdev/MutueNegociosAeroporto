@@ -61,7 +61,7 @@
                                         </span>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-2">
                                     <label class="control-label bold label-select2" for="numFatura">Nº Factura</label>
                                     <div class="input-group">
                                         <input type="text" value="<?= $recibo['numFatura'] ?>" disabled class="form-control" style="height: 35px; font-size: 10pt" />
@@ -70,16 +70,21 @@
                                         </span>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="form-group has-info bold" style="left: 0%; position: relative">
-
-                                <div class="col-md-4">
+                                <div class="col-md-2">
                                     <label class="control-label bold label-select2" for="totalFatura">Total Factura</label>
                                     <div class="input-group">
                                         <input type="text" value="<?= number_format($recibo['totalFatura'], 2, ',', '.') ?>" disabled class="form-control" style="height: 35px; font-size: 10pt" />
                                         <span class="input-group-addon" id="basic-addon1">
                                             <i class="ace-icon fa fa-info bigger-150 text-info" data-target="form_supply_price_smartprice"></i>
                                         </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group has-info bold" style="left: 0%; position: relative">
+                                <div class="col-md-12">
+                                    <label class="control-label bold label-select2" for="nifCliente">Observação</label>
+                                    <div>
+                                        <input type="text" wire:model="recibo.descricao" class="form-control col-md-12" style="height: 35px; font-size: 10pt" />
                                     </div>
                                 </div>
                             </div>

@@ -19,6 +19,7 @@ use App\Application\UseCase\Empresa\TiposServicos\GetTiposServicos;
 use App\Domain\Entity\Empresa\FaturaAeroporto\FaturaCarga;
 use App\Http\Controllers\empresa\ReportShowController;
 use App\Infra\Factory\Empresa\DatabaseRepositoryFactory;
+use App\Models\empresa\Moeda;
 use App\Repositories\Empresa\FacturaRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -32,6 +33,7 @@ class EmissaoFaturaCargaController extends Component
 
     public $clientes;
     public $bancos;
+    public $moedas;
     public $empresa;
     public $item = [
         'produto' => null,
@@ -43,7 +45,9 @@ class EmissaoFaturaCargaController extends Component
         'cartaDePorte' => null,
         'tipoDocumento' => 3, //Fatura proforma
         'tipoOperacao' => 1, //Importação
+        'tipoMercadoriaId' => 1,
         'formaPagamentoId' => null, //Fatura proforma
+        'moedaPagamento' => 'AOA',
         'observacao' => null,
         'isencaoIVA' => false,
         'retencao' => false,
@@ -114,6 +118,7 @@ class EmissaoFaturaCargaController extends Component
 
         $getTiposDocumentos = new GetTipoDocumentoByFaturacao(new DatabaseRepositoryFactory());
         $this->tiposDocumentos = $getTiposDocumentos->execute();
+        $this->moedas = Moeda::get();
     }
 
     public function resetField()
@@ -122,6 +127,8 @@ class EmissaoFaturaCargaController extends Component
             'cartaDePorte' => null,
             'tipoDocumento' => 3, //Fatura Proforma
             'formaPagamentoId' => null, //Fatura proforma
+            'moedaPagamento' => 'AOA',
+            'tipoMercadoriaId' => 1,
             'tipoOperacao' => 1, //Importação
             'observacao' => null,
             'isencaoIVA' => false,
@@ -322,6 +329,7 @@ class EmissaoFaturaCargaController extends Component
             'valorIliquido' => $output->getValorIliquido(),
             'valorImposto' => $output->getValorImposto(),
             'moeda' => $output->getMoeda(),
+            'moedaPagamento' => $output->getMoedaPagamento(),
             'observacao' => $output->getObservacao(),
             'total' => $output->getTotal(),
             "items" => []
@@ -390,6 +398,7 @@ class EmissaoFaturaCargaController extends Component
             return;
         }
         $emitirDocumento = new EmitirDocumentoAeroportoCarga(new DatabaseRepositoryFactory());
+        $this->fatura['tipoMercadoria'] = $this->item['tipoMercadoriaId'];
         $faturaId = $emitirDocumento->execute(new Request($this->fatura));
         $this->printFaturaCarga($faturaId);
         $this->resetField();

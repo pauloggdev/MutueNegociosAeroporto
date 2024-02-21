@@ -99,8 +99,8 @@
                                                 <td>{{ $factura['numeracaoFactura'] }}</td>
                                                 <td style="text-align: center">{{ $factura['cartaDePorte'] }}</td>
                                                 <td style="text-align: center">{{ $factura['peso'] }}</td>
-                                                <td style="text-align: center">{{ $factura['dataEntrada'] }}</td>
-                                                <td style="text-align: center">{{ $factura['dataSaida'] }}</td>
+                                                <td style="text-align: center">{{ date_format(new DateTime($factura['dataEntrada']), 'd-m-Y') }}</td>
+                                                <td style="text-align: center">{{ date_format(new DateTime($factura['dataSaida']), 'd-m-Y') }}</td>
                                                 <td style="text-align: center">{{ $factura['nDias'] }}</td>
                                                 <td style="text-align: right">{{ number_format($factura['total'],2,',','.') }}</td>
                                                 <td>{{ date_format($factura['created_at'], 'd/m/Y') }}</td>

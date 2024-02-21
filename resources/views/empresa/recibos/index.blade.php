@@ -75,7 +75,7 @@
                                         <th style="text-align: right">Valor entregue</th>
                                         <th>Forma pagamento</th>
                                         <th>Emitido</th>
-                                        <th style="text-align: center">Anulado</th>
+                                        <th style="text-align: center">Status</th>
                                         <th style="text-align: center">Ações</th>
                                     </tr>
                                 </thead>
@@ -89,7 +89,7 @@
                                         <td>{{$recibo->formaPagamento->descricao}}</td>
                                         <td>{{date_format($recibo->created_at,'d/m/Y')}}</td>
                                         <td style="text-align: center">
-                                            <span class="label label-sm <?= $recibo->anulado == 1 ? 'label-success' : 'label-danger' ?>"><?= $recibo->anulado == 1 ? "Não" : "Sim" ?></span>
+                                            <span class="label label-sm <?= $recibo->anulado == 'N' ? 'label-success' : 'label-danger' ?>"><?= $recibo->anulado == 'Y' ? "Anulado" : "Válido" ?></span>
                                         </td>
                                         <td style="text-align: center">
                                             <a class="blue" wire:click="printRecibo({{$recibo->id}})" title="Reimprimir o recibo" style="cursor: pointer">

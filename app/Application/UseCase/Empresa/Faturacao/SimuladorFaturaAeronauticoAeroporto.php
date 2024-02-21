@@ -73,6 +73,11 @@ class SimuladorFaturaAeronauticoAeroporto
         $getTaxaAbertoAeroporto = new GetParametroPeloLabelNoParametro(new DatabaseRepositoryFactory());
         $taxaAbertoAeroporto = $getTaxaAbertoAeroporto->execute('tarifa_abertura_aeroporto')->valor;
 
+        $considera1hDepois14min = new GetParametroPeloLabelNoParametro(new DatabaseRepositoryFactory());
+        $considera1hDepois14min = $considera1hDepois14min->execute('considerar1hdepois14min')->valor;
+
+        $getTaxaReaberturaComercial = new GetParametroPeloLabelNoParametro(new DatabaseRepositoryFactory());
+        $taxaReaberturaComercial = (float) $getTaxaReaberturaComercial->execute('tarifa_reabertura_comercial')->valor;
 
         $horaAberturaAeroporto = $this->conversorHora($horaAberturaAeroporto);
         $horaFechoAeroporto = $this->conversorHora($horaFechoAeroporto);
@@ -101,7 +106,9 @@ class SimuladorFaturaAeronauticoAeroporto
             $input->peso,
             $input->horaExtra,
             $cambioDia,
-            $moedaEstrageiraUsado
+            $moedaEstrageiraUsado,
+            $input->moedaPagamento,
+            $considera1hDepois14min
         );
         foreach ($input->items as $item) {
             $item = (object)$item;
@@ -129,7 +136,8 @@ class SimuladorFaturaAeronauticoAeroporto
                 $horaAberturaAeroporto,
                 $horaFechoAeroporto,
                 $taxaAbertoAeroporto,
-                $cambioDia
+                $cambioDia,
+                $taxaReaberturaComercial
             );
             $faturaAeronautico->addItem($faturaItemAeronautico);
         }

@@ -221,7 +221,7 @@
                                                                             </select>
                                                                         </div>
                                                                     </div>
-                                                                    <div class="form-group">
+                                                                    <div class="form-group" style="margin-right: 15px">
                                                                         <label>Forma Pagamento</label>
                                                                         <div>
                                                                             <select style="width: 100%;height: 34px"
@@ -232,6 +232,21 @@
                                                                                     class="editable inline-edit-cell ui-widget-content ui-corner-all">
                                                                                 @foreach($formasPagamentos as $formaPagamento)
                                                                                     <option value="{{ $formaPagamento->id }}" <?= $formaPagamento['id'] == $fatura['formaPagamentoId']?'selected':''?>>{{ $formaPagamento->descricao }}</option>
+                                                                                @endforeach
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label>Moeda</label>
+                                                                        <div>
+                                                                            <select style="width: 100%;height: 34px"
+                                                                                    wire:model="fatura.moedaPagamento"
+                                                                                    name="ship"
+                                                                                    rowid="6"
+                                                                                    size="1"
+                                                                                    class="editable inline-edit-cell ui-widget-content ui-corner-all">
+                                                                                @foreach($moedas as $moeda)
+                                                                                    <option value="{{ $moeda['designacao'] }}" <?= $moeda['designacao'] == $fatura['moedaPagamento']?'selected':''?>>{{ $moeda['designacao'] }}</option>
                                                                                 @endforeach
                                                                             </select>
                                                                         </div>

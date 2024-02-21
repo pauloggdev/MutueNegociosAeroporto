@@ -25,6 +25,7 @@ class FaturaCarga
     private $taxaIva;
     private $cambioDia;
     private $moeda;
+    private $moedaPagamento;
     private $observacao;
     private $items = [];
 
@@ -39,7 +40,7 @@ class FaturaCarga
      * @param $contraValor
      */
 
-    public function __construct($cartaDePorte, $tipoDocumento, $tipoOperacao, $formaPagamentoId, $isencaoIVA, $retencao, $valorRetencao, $clienteId, $nomeCliente, $nomeProprietario, $telefoneCliente, $nifCliente, $emailCliente, $enderecoCliente, $peso, $dataEntrada, $dataSaida, $nDias, $taxaIva, $cambioDia, $moeda, $observacao)
+    public function __construct($cartaDePorte, $tipoDocumento, $tipoOperacao, $formaPagamentoId, $isencaoIVA, $retencao, $valorRetencao, $clienteId, $nomeCliente, $nomeProprietario, $telefoneCliente, $nifCliente, $emailCliente, $enderecoCliente, $peso, $dataEntrada, $dataSaida, $nDias, $taxaIva, $cambioDia, $moedaEstrageiraUsado, $moedaPagamento, $observacao)
     {
         $this->cartaDePorte = $cartaDePorte;
         $this->tipoDocumento = $tipoDocumento;
@@ -61,7 +62,8 @@ class FaturaCarga
         $this->nDias = $nDias;
         $this->taxaIva = $taxaIva;
         $this->cambioDia = $cambioDia;
-        $this->moeda = $moeda;
+        $this->moeda = $moedaEstrageiraUsado;
+        $this->moedaPagamento = $moedaPagamento;
         $this->observacao = $observacao;
     }
 
@@ -202,6 +204,15 @@ class FaturaCarga
     {
         return $this->moeda;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getMoedaPagamento()
+    {
+        return $this->moedaPagamento;
+    }
+
 
     public function getObservacao()
     {

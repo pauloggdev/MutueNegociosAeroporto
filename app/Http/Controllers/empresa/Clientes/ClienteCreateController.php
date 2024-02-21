@@ -35,15 +35,6 @@ class ClienteCreateController extends Component
     {
         $rules = [
             'cliente.nome' => 'required',
-            'cliente.telefone_cliente' => ['required', function ($attr, $telefone_cliente, $fail) {
-                $unique = $this->unique2('clientes', 'telefone_cliente', $telefone_cliente);
-                if($unique){
-                    $fail("Cliente já cadastrado");
-                }
-            }],
-            'cliente.endereco' => 'required',
-            'cliente.cidade' => 'required',
-            'cliente.data_contrato' => 'required',
             'cliente.nif' => [function ($attr, $nif, $fail) {
                 if ($this->clienteRepository->getClientePeloNifStore($this->cliente)) {
                     $fail('Cliente já cadastrado');
@@ -54,11 +45,6 @@ class ClienteCreateController extends Component
         ];
         $messages = [
             'cliente.nome.required' => 'Informe o nome do cliente',
-            'cliente.telefone_cliente.required' => 'Informe o telefone',
-            'cliente.endereco.required' => 'Informe o endereço',
-            'cliente.cidade.required' => 'Informe a cidade',
-            'cliente.data_contrato.required' => 'Informe a data de contrato',
-            // 'cliente.nif.required' => 'Informe o nif',
             'cliente.tipo_cliente_id.required' => 'Informe o tipo cliente',
             'cliente.pessoa_contacto.required' => 'Informe a pessoa de contato',
         ];

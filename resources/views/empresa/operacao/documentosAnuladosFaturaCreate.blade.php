@@ -72,69 +72,80 @@
                                 </div>
                             </div>
                             <div class="form-group has-info bold" style="left: 0%; position: relative">
-                                <div class="row" style="margin-bottom: 5px">
-                                    <div class="col-sm-5 pull-right">
-                                        <h8 class="pull-right">
-                                            VALOR ILIQUIDO(AOA) :
-                                            <span>{{ number_format($fatura['valorIliquido'], 2, ',', '.') }}</span>
-                                        </h8>
+                                <div class="col-md-12">
+                                    <label class="control-label bold label-select2" for="nifCliente">Observação</label>
+                                    <div>
+                                        <input type="text" wire:model="fatura.descricao" class="form-control col-md-12" style="height: 35px; font-size: 10pt" />
                                     </div>
                                 </div>
+                            </div>
 
-                                <div class="row" style="margin-bottom: 5px">
-                                    <div class="col-sm-5 pull-right">
-                                        <h8 class="pull-right">
-                                            IVA(%) :
-                                            <span>{{ number_format($fatura['taxaIva'], 2,',','.') }}%</span>
-                                        </h8>
+                            <div class="form-group has-info bold" style="left: 0%; position: relative">
+                                <div class="col-md-12">
+                                    <div class="row" style="margin-bottom: 5px">
+                                        <div class="col-sm-5 pull-right">
+                                            <h8 class="pull-right">
+                                                VALOR ILIQUIDO(AOA) :
+                                                <span>{{ number_format($fatura['valorIliquido'], 2, ',', '.') }}</span>
+                                            </h8>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="row" style="margin-bottom: 5px">
-                                    <div class="col-sm-5 pull-right">
-                                        <h8 class="pull-right">
-                                            VALOR DO IMPOSTO(AOA) :
-                                            <span>{{ number_format($fatura['valorImposto'], 1,',','.') }}Kz</span>
-                                        </h8>
+
+                                    <div class="row" style="margin-bottom: 5px">
+                                        <div class="col-sm-5 pull-right">
+                                            <h8 class="pull-right">
+                                                IVA(%) :
+                                                <span>{{ number_format($fatura['taxaIva'], 2,',','.') }}%</span>
+                                            </h8>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="row" style="margin-bottom: 5px">
-                                    <div class="col-sm-5 pull-right">
-                                        <h8 class="pull-right">
-                                            RETENÇÃO(%) :
-                                            <span>{{ number_format($fatura['taxaRetencao'], 2,',','.') }}%</span>
-                                        </h8>
+                                    <div class="row" style="margin-bottom: 5px">
+                                        <div class="col-sm-5 pull-right">
+                                            <h8 class="pull-right">
+                                                VALOR DO IMPOSTO(AOA) :
+                                                <span>{{ number_format($fatura['valorImposto'], 1,',','.') }}Kz</span>
+                                            </h8>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="row" style="margin-bottom: 5px">
-                                    <div class="col-sm-5 pull-right">
-                                        <h8 class="pull-right">
-                                            VALOR DA RETENÇÃO(AOA) :
-                                            <span>{{ number_format($fatura['valorRetencao'], 2,',','.') }}Kz</span>
-                                        </h8>
+                                    <div class="row" style="margin-bottom: 5px">
+                                        <div class="col-sm-5 pull-right">
+                                            <h8 class="pull-right">
+                                                RETENÇÃO(%) :
+                                                <span>{{ number_format($fatura['taxaRetencao'], 2,',','.') }}%</span>
+                                            </h8>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="row" style="margin-bottom: 5px">
-                                    <div class="col-sm-5 pull-right">
-                                        <h8 class="pull-right">
-                                            TOTAL(AOA) :
-                                            <span><strong>{{ number_format($fatura['total'], 2,',','.') }}Kz</strong></span>
-                                        </h8>
+                                    <div class="row" style="margin-bottom: 5px">
+                                        <div class="col-sm-5 pull-right">
+                                            <h8 class="pull-right">
+                                                VALOR DA RETENÇÃO(AOA) :
+                                                <span>{{ number_format($fatura['valorRetencao'], 2,',','.') }}Kz</span>
+                                            </h8>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="row" style="margin-bottom: 5px">
-                                    <div class="col-sm-5 pull-right">
-                                        <h8 class="pull-right">
-                                            TAXA DE CÂMBIO(AOA/{{$fatura['moeda'] ??'?'}}) :
-                                            <span>{{ number_format($fatura['cambioDia'], 2,',','.') }}</span>
-                                        </h8>
+                                    <div class="row" style="margin-bottom: 5px">
+                                        <div class="col-sm-5 pull-right">
+                                            <h8 class="pull-right">
+                                                TOTAL(AOA) :
+                                                <span><strong>{{ number_format($fatura['total'], 2,',','.') }}Kz</strong></span>
+                                            </h8>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-5 pull-right">
-                                        <h8 class="pull-right">
-                                            CONTRAVALOR({{$fatura['moeda'] ??'?'}}) :
-                                            <span><strong>${{ number_format($fatura['contraValor'], 2,',','.') }}</strong></span>
-                                        </h8>
+                                    <div class="row" style="margin-bottom: 5px">
+                                        <div class="col-sm-5 pull-right">
+                                            <h8 class="pull-right">
+                                                TAXA DE CÂMBIO(AOA/{{$fatura['moeda'] ??'?'}}) :
+                                                <span>{{ number_format($fatura['cambioDia'], 2,',','.') }}</span>
+                                            </h8>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-5 pull-right">
+                                            <h8 class="pull-right">
+                                                CONTRAVALOR({{$fatura['moeda'] ??'?'}}) :
+                                                <span><strong>${{ number_format($fatura['contraValor'], 2,',','.') }}</strong></span>
+                                            </h8>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

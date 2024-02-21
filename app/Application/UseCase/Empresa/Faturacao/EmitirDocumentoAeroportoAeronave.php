@@ -142,6 +142,7 @@ class EmitirDocumentoAeroportoAeronave
             'tipoFatura' => 2,
             'total' => $request->total,
             'moeda' => $request->moeda,
+            'moedaPagamento' => $request->moedaPagamento,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
         ]);
