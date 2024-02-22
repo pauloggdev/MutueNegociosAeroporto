@@ -133,7 +133,7 @@ class ConverterProformaByFaturaRecibo
             'total' => $fatura->total,
             'codigoBarra' => $fatura->codigoBarra,
             'tipoDocumento' => 1,
-            'formaPagamentoId' => 1,
+            'formaPagamentoId' => $proforma['formaPagamentoId'],
             'tipoOperacao' => $fatura->tipoOperacao,
             'isencaoIVA' => $fatura->isencaoIVA,
             'convertido' => 'N',

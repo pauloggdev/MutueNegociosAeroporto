@@ -64,7 +64,7 @@ class FacturasAeroportuarioIndexController extends Component
         if (!$centrosCusto) return redirect()->back();
         $data['centrosCusto'] = $centrosCusto;
         $data['facturas'] = Factura::where('tipoFatura', 2)
-            ->where('empresa_id', auth()->user()->id)->paginate();
+            ->where('empresa_id', auth()->user()->empresa_id)->paginate();
 
         $this->dispatchBrowserEvent('reloadTableJquery');
         return view('empresa.facturas.facturasAeroportuarioIndex', $data);

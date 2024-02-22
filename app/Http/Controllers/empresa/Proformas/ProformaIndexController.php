@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\empresa\Proformas;
 
+use App\Application\UseCase\Empresa\FormasPagamento\GetFormaPagamentoEmitirRecibo;
 use App\Application\UseCase\Empresa\Proformas\ConverterProformaByFaturaRecibo;
 use App\Http\Controllers\empresa\Faturacao\PrintFaturaAeroportuario;
 use App\Http\Controllers\empresa\Faturacao\PrintFaturaCarga;
@@ -19,9 +20,11 @@ class ProformaIndexController extends Component
     use PrintFaturaAeroportuario;
 
     public $numeracaoFactura = null;
+    public $formaPagamentos;
     public $temProforma = false;
     public $proforma = [
         'nomeCliente' => null,
+        'formaPagamentoId' => 1,
         'nifCliente' => null,
         'numeracaoFactura' => null,
         'nomeProprietario' => null,
@@ -35,6 +38,11 @@ class ProformaIndexController extends Component
         'cambioDia' => 0,
         'contraValor' => 0,
     ];
+
+    public function mount(){
+        $getFormaPagamento = new GetFormaPagamentoEmitirRecibo(new DatabaseRepositoryFactory());
+        $this->formaPagamentos = $getFormaPagamento->execute();
+    }
 
     public function updatedNumeracaoFactura($numeracao)
     {
@@ -90,6 +98,7 @@ class ProformaIndexController extends Component
     public function resetField(){
         $this->proforma = [
             'nomeCliente' => null,
+            'formaPagamentoId' => 1,
             'nifCliente' => null,
             'numeracaoFactura' => null,
             'nomeProprietario' => null,

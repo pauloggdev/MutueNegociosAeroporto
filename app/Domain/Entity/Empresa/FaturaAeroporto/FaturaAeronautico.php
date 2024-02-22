@@ -223,7 +223,6 @@ class FaturaAeronautico
         if ($this->getConsidera1hDepois14min() == 'SIM' && $diff->i > 14) {
             $horas = ++$horas;
         }
-        
         return $horas;
     }
 

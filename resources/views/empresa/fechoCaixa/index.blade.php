@@ -85,14 +85,14 @@
                                 wire:click.prevent="imprimirFechoCaixa">
                                 <span wire:loading.remove wire:target="imprimirFechoCaixa">
                                     <i class="ace-icon fa fa-check bigger-110"></i>
-                                    Salvar
+                                    Visualizar PDF
                                 </span>
                                 <span wire:loading wire:target="imprimirFechoCaixa">
                                     <span class="loading"></span>
                                     Aguarde...</span>
                             </button>
 
-                            <a href="{{ route('relatorio.relatoriosGeral') }}" class="btn btn-danger"
+                            <a href="{{ route('funcionario/home') }}" class="btn btn-danger"
                                 type="reset" style="border-radius: 10px">
                                 <i class="ace-icon fa fa-undo bigger-110"></i>
                                 Voltar

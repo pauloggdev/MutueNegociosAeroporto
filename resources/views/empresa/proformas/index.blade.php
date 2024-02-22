@@ -43,6 +43,16 @@
                                 </div>
                             </div>
                             <div class="form-group has-info bold" style="left: 0%; position: relative">
+                                <div class="col-md-3">
+                                    <label class="control-label bold label-select2" for="formaPagamentoId">Forma pagamento<b class="red fa fa-question-circle"></b></label>
+                                    <div>
+                                        <select wire:model="proforma.formaPagamentoId" id="formaPagamentoId" class="col-md-12" style="height:35px;">
+                                            @foreach($formaPagamentos as $formaPagamento)
+                                                <option value="{{ $formaPagamento->id }}"  @if($formaPagamento->id == $proforma['formaPagamentoId']) selected @endif>{{ $formaPagamento->descricao }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
                                 <div class="col-md-4">
                                     <label class="control-label bold label-select2" for="nomeCliente">Nome do cliente<b class="red fa fa-question-"></b></label>
                                     <div class="input-group">
@@ -52,7 +62,7 @@
                                         </span>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-2">
                                     <label class="control-label bold label-select2" for="nifCliente">NIF</label>
                                     <div class="input-group">
                                         <input type="text" value="<?= $proforma['nifCliente'] ?>" disabled class="form-control" style="height: 35px; font-size: 10pt" />
@@ -61,7 +71,7 @@
                                         </span>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <label class="control-label bold label-select2" for="nifCliente">Proprietário/Companhia Aérea</label>
                                     <div class="input-group">
                                         <input type="text" value="<?= $proforma['nomeProprietario'] ?>" disabled class="form-control" style="height: 35px; font-size: 10pt" />

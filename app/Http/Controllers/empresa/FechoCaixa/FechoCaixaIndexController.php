@@ -52,20 +52,14 @@ class FechoCaixaIndexController extends Component
 
     public function mount()
     {
-    
         $this->operadores = User::where('empresa_id', auth()->user()->empresa_id)->get();
         if (!$this->operadores) {
             return redirect()->back();
         }
-
-       
-
-
     }
 
     public function boot()
     {
-
         $this->venda['dataFim'] = NULL;
         $this->venda['dataInicio'] = NULL;
     }
@@ -76,7 +70,7 @@ class FechoCaixaIndexController extends Component
     }
     public function imprimirFechoCaixa()
     {
-      
+
         $dataInicioFormat = date_format(date_create($this->data_inicio), "d/m/Y H:i:s");
         $dataFinalFormat = date_format(date_create($this->data_fim), "d/m/Y H:i:s");
         $request = $this->data_inicio;
@@ -102,6 +96,49 @@ class FechoCaixaIndexController extends Component
 
         $logotipo = public_path() . '/upload//' . auth()->user()->empresa->logotipo;
         $filename = "relatorioFechoCaixa";
+
+        $qtdFt = DB::table('facturas')
+            ->where('user_id', auth()->user()->id)
+            ->where('tipoDocumento', 2)
+            ->where(function($query){
+                $query->where('created_at', '>=', $this->data_inicio)
+                    ->where('created_at', '<=', $this->data_fim);
+            })
+            ->where('anulado', 'N')
+            ->count();
+
+        $qtdFr = DB::table('facturas')
+            ->where('user_id', auth()->user()->id)
+            ->where('tipoDocumento', 1)
+            ->where(function($query){
+                $query->where('created_at', '>=', $this->data_inicio)
+                ->where('created_at', '<=', $this->data_fim);
+            })
+            ->where('anulado', 'N')
+            ->count();
+
+        $qtdFp = DB::table('facturas')
+            ->where('user_id', auth()->user()->id)
+            ->where('tipoDocumento', 3)
+            ->where('anulado', 'N')
+            ->where(function($query){
+                $query->where('created_at', '>=', $this->data_inicio)
+                    ->where('created_at', '<=', $this->data_fim);
+            })
+            ->count();
+
+        $qtdRc = DB::table('recibos')
+            ->where('userId', auth()->user()->id)
+            ->where('anulado', 'N')
+            ->where(function($query){
+                $query->where('created_at', '>=', $this->data_inicio)
+                    ->where('created_at', '<=', $this->data_fim);
+            })
+            ->count();
+
+
+
+
         $reportController = new ReportShowController();
 
         $report = $reportController->show(
@@ -117,6 +154,10 @@ class FechoCaixaIndexController extends Component
                     'data_fim' => $this->data_fim,
                     'dataInicioFormat' => $dataInicioFormat,
                     'dataFinalFormat' => $dataFinalFormat,
+                    'qtdFt' => $qtdFt,
+                    'qtdFr' => $qtdFr,
+                    'qtdFp' => $qtdFp,
+                    'qtdRc' => $qtdRc,
                 ]
             ]
         );
