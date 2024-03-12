@@ -78,7 +78,6 @@ class Factura extends Model
 
     public static function boot()
     {
-
         parent::boot();
         self::creating(function ($model) {
             $model->faturaReference = mb_strtoupper(Keygen::numeric(9)->generate());
@@ -100,12 +99,20 @@ class Factura extends Model
     }
     public function formaPagamento()
     {
-        return $this->belongsTo(FormaPagamentoGeral::class, 'formas_pagamento_id');
+        return $this->belongsTo(FormaPagamentoGeral::class, 'formaPagamentoId');
     }
 
     public function tipoDocumento()
     {
         return $this->belongsTo(TipoDocumento::class, 'tipo_documento');
+    }
+    public function tipoDocumentoSigla()
+    {
+        return $this->belongsTo(TipoDocumento::class, 'tipo_documento');
+    }
+    public function tipoDocumentoFatura()
+    {
+        return $this->belongsTo(TipoDocumento::class, 'tipoDocumento');
     }
     public function empresa()
     {
@@ -159,10 +166,9 @@ class Factura extends Model
             if ($search) {
                 $query->where('numeracaoFactura', 'like', '%' . $search . '%')
                     ->orwhere("telefone_cliente", "like", $search)
+                    ->orwhere("nome_do_cliente", "like", $search)
                     ->orwhere("nif_cliente", "like", $search)
-                    ->orwhere("email_cliente", "like", $search)
-                    ->orwhere("conta_corrente_cliente", "like", $search)
-                    ->orwhere("numeracaoFactura", "like", $search);
+                    ->orwhere("email_cliente", "like", $search);
             }
         });
     }

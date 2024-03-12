@@ -80,8 +80,12 @@ class EmissaoFaturaCargaController extends Component
     public $tiposDocumentos;
     public $formasPagamentos = [];
     public $especificaoMercadorias;
-    protected $listeners = ['selectedItem'];
+    protected $listeners = ['selectedItem', 'moneyInput'];
 
+
+//    public function moneyInput($money){
+//        $this->fatura['peso'] = $money;
+//    }
 
     public function selectedItem($item)
     {
@@ -232,6 +236,7 @@ class EmissaoFaturaCargaController extends Component
         ];
         $this->validate($rules, $messages);
 
+
         $key = $this->isCart(json_decode($this->item['produto']));
         if ($key !== false) {
             $this->confirm('O serviço já foi adicionado', [
@@ -292,6 +297,9 @@ class EmissaoFaturaCargaController extends Component
         $fatura = $simuladorFaturaCarga->execute($this->fatura);
         $this->fatura = $this->conversorModelParaArray($fatura);
     }
+//    public function updatedFaturaPeso($peso){
+//        dd($peso);
+//    }
 
     private function isCart($item)
     {

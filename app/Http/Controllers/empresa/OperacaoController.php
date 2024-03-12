@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\empresa;
 
+use App\Http\Controllers\TraitLogAcesso;
 use App\Repositories\Empresa\FacturaRepositorio;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
@@ -41,6 +42,7 @@ class OperacaoController extends Controller
     use VerificaSeEmpresaTipoAdmin;
     use TraitEmpresaAutenticada;
     use VerificaSeUsuarioAlterouSenha;
+    use TraitLogAcesso;
 
 
 
@@ -189,7 +191,7 @@ class OperacaoController extends Controller
         $infoNotificacao = $this->alertarActivacaoLicenca();
         $data['alertaAtivacaoLicenca'] = $infoNotificacao;
 
-       
+
         if ($this->isAdmin()) {
             return view('admin.dashboard');
         }
@@ -688,7 +690,7 @@ class OperacaoController extends Controller
         $infoNotificacao = $this->alertarActivacaoLicenca();
         $data['alertaAtivacaoLicenca'] = $infoNotificacao;
 
-        
+
         if ($this->isAdmin()) {
             return view('admin.dashboard');
         }
@@ -726,7 +728,7 @@ class OperacaoController extends Controller
                     'showCancelButton' => false
 
                 ])
-               
+
             ];
         }
 
@@ -764,7 +766,7 @@ class OperacaoController extends Controller
                     'showCancelButton' => false
 
                 ])
-               
+
             ];
         }
 
@@ -1317,7 +1319,7 @@ class OperacaoController extends Controller
         // dd($data);
         return view('empresa.operacao.anulacaoFacturaIndex', $data);
     }
-    
+
     public function criarRectificacaoFactura()
     {
 

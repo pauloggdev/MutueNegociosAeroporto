@@ -160,10 +160,17 @@ class FaturaItemAeronautico
         if($this->getProdutoId() == 11){ //Serviço de Reabertura comercial
             return $this->getReaberturaComercial();
         }
+        if ($this->getProdutoId() == 12) { //Servico de carga Importação
+            return $this->getTarifaCarga();
+        }
+        if ($this->getProdutoId() == 13) { //Servico de carga Exportação
+            return $this->getTarifaCarga();
+        }
     }
 
     public function getTarifaEstacionamento()
     {
+//        return $this->getPMD() * $this->getCambioDia();
         if ($this->getHoraEstacionamento() <= 2) {
             return 0;
         } else if ($this->getHoraEstacionamento() > 2 && $this->getHoraEstacionamento() <= 3) {

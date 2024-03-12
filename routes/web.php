@@ -112,9 +112,11 @@ use App\Http\Controllers\empresa\FacturaController;
 use App\Http\Controllers\empresa\Facturas\FacturaProformaIndexController;
 use App\Http\Controllers\empresa\Facturas\FacturasAeroportuarioIndexController;
 use App\Http\Controllers\empresa\Facturas\FacturasIndexController;
+use App\Http\Controllers\empresa\Facturas\FacturasOutroServicoIndexController;
 use App\Http\Controllers\empresa\Faturacao\EmissaoFaturaAeronauticoController;
 use App\Http\Controllers\empresa\Faturacao\EmissaoFaturaCargaController;
 use App\Http\Controllers\empresa\Faturacao\EmissaoFaturaController;
+use App\Http\Controllers\empresa\Faturacao\EmissaoFaturaOutroServicoController;
 use App\Http\Controllers\empresa\Faturacao\EmitirDocumentoController;
 use App\Http\Controllers\empresa\Faturacao\FaturacaoCreateController;
 use App\Http\Controllers\empresa\Faturacao\FaturacaoIndexController;
@@ -135,6 +137,7 @@ use App\Http\Controllers\empresa\Inventarios\InventarioCreateController;
 use App\Http\Controllers\empresa\Inventarios\InventarioIndexController;
 use App\Http\Controllers\empresa\LicencaController as EmpresaLicencaController;
 use App\Http\Controllers\empresa\Licencas\MinhaLicencaController;
+use App\Http\Controllers\empresa\LogAcesso\LogAcessoIndexController;
 use App\Http\Controllers\empresa\ManualUtilizador\ManualUtilizadorIndexController;
 use App\Http\Controllers\empresa\MarcaController;
 use App\Http\Controllers\empresa\Marcas\MarcaCreateController;
@@ -223,6 +226,7 @@ use App\Mail\MailCreateNewUser;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+
 // Fabricantes
 
 // Bancos
@@ -265,8 +269,11 @@ Auth::routes();
 Route::get('/select2', [\App\Http\Controllers\Select2::class]);
 
 
-Route::get('/testeImpressao', function () {
+Route::get('/saft', function () {
 
+
+    $currectHash = new \App\Domain\Entity\Empresa\CorrectHash\CurrectHash('PP', 'facturas', false);
+    dd($currectHash->execute());
 
 
 //    // Conteúdo que você deseja imprimir
@@ -307,9 +314,9 @@ Route::get('/uuid', function () {
        'created_at'=> '$motivo->created_at',
        'updated_at'=> '$motivo->updated_at',
        ],";
-   }
+    }
 
-   dd($string);
+    dd($string);
 
     //$userRepository = new \App\Infra\Repository\UserRepository();
     //$user = $userRepository->getUser('211f5b80-f0f9-4efe-ab7e-db6e06a49eba');
@@ -343,7 +350,6 @@ Route::get('/user_perfil', function () {
 });
 
 
-
 // Route::get('/csrf-cookie', function (Request $request) {
 //     return response()->json(['csrf_token' => csrf_token()]);
 // });
@@ -365,7 +371,7 @@ Route::get('/cadastro-empresa', [AdminEmpresaController::class, 'create']);
 Route::get('/criar-empresa', EmpresaIndexController::class);
 
 
-Route::post('baixar-manual',[BaixarManualController::class,'imprimirManualUtilizador'])->name('baixar.manual');
+Route::post('baixar-manual', [BaixarManualController::class, 'imprimirManualUtilizador'])->name('baixar.manual');
 
 
 // FIM ROTAS NOVAS V1
@@ -415,7 +421,7 @@ Route::group(['middleware' => ['auth']], function () {
 //usuários admin
 // Route::group(['middleware' => ['role_or_permission:Super-Admin|Admin', 'auth']], function () {
 
-Route::get('Unauthorized', function(){
+Route::get('Unauthorized', function () {
     return response()->json(['error' => 'Unauthorized'], 401);
 })->name('Unauthorized');
 
@@ -471,7 +477,7 @@ Route::group(['middleware' => ['auth:web']], function () {
         Route::get('/empresa/conta', AdminMinhaContaIndexController::class)->name('configContaEmpresa')->middleware('hasPermission:Atualizar dados da empresa');
 
         //Resetar senha
-        Route::get('/resetar/senha',ResetarSenhaEmpresaIndexController::class)->name('resetarSenhaClienteIndex')->middleware('hasPermission:Resetar a senha dos clientes');
+        Route::get('/resetar/senha', ResetarSenhaEmpresaIndexController::class)->name('resetarSenhaClienteIndex')->middleware('hasPermission:Resetar a senha dos clientes');
         Route::get('/resetar/senha/novo', ResetarSenhaEmpresaCreateController::class)->name('resetarSenhaClienteCreate')->middleware('hasPermission:Resetar a senha dos clientes');
 
 
@@ -505,7 +511,6 @@ Route::group(['middleware' => ['auth:web']], function () {
         //numeracao Documento
 
 
-
         //Utilizador
         Route::get('admin/usuarios', [AdminUserController::class, 'index'])->name('AdminUserIndex');
         Route::post('admin/utilizador/adicionar', [AdminUserController::class, 'store']);
@@ -513,7 +518,6 @@ Route::group(['middleware' => ['auth:web']], function () {
         Route::get('admin/usuarios/delete/{id}', [AdminUserController::class, 'destroy']);
         Route::get('admin/usuario/perfil', [AdminUserController::class, 'perfilUtilizador']);
         Route::post('admin/usuario/updateSenha/{userId}', [AdminUserController::class, 'updateSenha']);
-
 
 
         // Route::resource('/admin/licencas', 'admin\LicencaController');
@@ -575,14 +579,11 @@ Route::group(['middleware' => ['auth:web']], function () {
     });
 
 
-
-
     // Route::get('/admin/gerarSaft', [GerarSaftController::class, 'index']);
     // Route::get('/admin/gerarSaftXml', [GerarSaftController::class, 'xmlSaft']);
     // // Route::get('/empresa/gerarSaftXml', 'empresa\GerarSaftController@gerarSaft');
     // Route::get('gerarSaftXml', [GerarSaftController::class, 'gerarSaft']);
 });
-
 
 
 // ======================================================================================================================================
@@ -672,14 +673,13 @@ Route::group(['middleware' => ['auth:empresa']], function () {
             //Manual utilizador
             Route::get('/manual-utilizador', ManualUtilizadorIndexController::class)->name('manual.index');
 
-            Route::get('/empresa/relatorios-gerais',RelatorioGeralIndexController::class)->name('relatorio.relatoriosGeral');
+            Route::get('/empresa/relatorios-gerais', RelatorioGeralIndexController::class)->name('relatorio.relatoriosGeral');
 
 
             Route::get('/empresa/extrato/cliente', RelatorioExtratoClienteController::class)->name('extratoCliente')->middleware('hasPermission:emitir extrato do cliente');
 
 
-
-            Route::post('empresa/ralarios-gerais/imprimir',[RelatorioGeralIndexController::class, 'imprimirRelatorioGeral']);
+            Route::post('empresa/ralarios-gerais/imprimir', [RelatorioGeralIndexController::class, 'imprimirRelatorioGeral']);
 
             //Nota Credito (Dar saldo ao cliente)
             Route::get('/empresa/notacredito', NotaCreditoIndexController::class)->name('notaCredito.index');
@@ -797,7 +797,6 @@ Route::group(['middleware' => ['auth:empresa']], function () {
             // Route::post('/empresa/produto/editar/{uuid}', [ProdutoUpdateController::class, 'update'])->name('produto.update')->middleware('hasPermission:gerir produtos');
 
 
-
             Route::get('empresa/centro-custos', CentroCustoIndexController::class)->name('centroCusto.index');
             Route::get('empresa/centro/custos', CentroCustoRelatorioIndexController::class)->name('centroCustosIndex');
             // Route::get('empresa/centro/custos', [CentroCustoController::class, 'centroCustosIndex'])->name('centroCustosIndex');
@@ -886,7 +885,7 @@ Route::group(['middleware' => ['auth:empresa']], function () {
             Route::get('empresa/documentos/anulado/recibos', AnulacaoDocumentoReciboIndexController::class)->name('anulacaoDocumentoRecibo.index');
             Route::get('empresa/anulacao/recibo/novo', \App\Http\Controllers\empresa\Operacao\AnulacaoDocumentoReciboCreateController::class)->name('recibosAnulados.create')->middleware('hasPermission:anulacao documentos');
 
-            Route::get('/empresa/relatorios-mapa-faturacao',RelatorioGeralIndexController::class)->name('relatorio.mapaFaturacao')->middleware('hasPermission:imprimir mapa faturacao');
+            Route::get('/empresa/relatorios-mapa-faturacao', RelatorioGeralIndexController::class)->name('relatorio.mapaFaturacao')->middleware('hasPermission:imprimir mapa faturacao');
 
 
             Route::post('empresa/alterarDiasVencimentoFactura', [EmpresaConfiguracaoController::class, 'alterarDiasVencimentoFactura']);
@@ -1022,15 +1021,17 @@ Route::group(['middleware' => ['auth:empresa']], function () {
             Route::get('/empresa/mercadorias', MercadoriaIndexController::class);
 
 
-             //Especificao de mercadorias
+            //Especificao de mercadorias
             Route::get('/empresa/mercadorias/especificacao', EspecificacaoMercadoriaController::class);
 
+            //Logs de acesso
+            Route::get('/empresa/logs/acesso', LogAcessoIndexController::class)->name('logAcessoIndex')->middleware('hasPermission:visualizar logs de acesso');
 
-             //Câmbio
-             Route::get('/empresa/cambio', CambioController::class);
+            //Câmbio
+            Route::get('/empresa/cambio', CambioController::class);
 
             //IntervaloPmd
-             Route::get('/empresa/taxas/pmd', \App\Http\Controllers\empresa\Taxas\IntervaloPmdController::class);
+            Route::get('/empresa/taxas/pmd', \App\Http\Controllers\empresa\Taxas\IntervaloPmdController::class);
 
             Route::get('empresa/facturacao', [FacturacaoController::class, 'index']);
             Route::put('empresa/facturacao/produto/editar', [FacturacaoController::class, 'editarProduto']);
@@ -1040,6 +1041,7 @@ Route::group(['middleware' => ['auth:empresa']], function () {
             Route::get('empresa/faturacao/novo', FaturacaoCreateController::class);
             Route::get('empresa/emissao/fatura/carga', EmissaoFaturaCargaController::class)->middleware('hasPermission:emitir fatura carga');
             Route::get('empresa/emissao/fatura/aeronautica', EmissaoFaturaAeronauticoController::class)->middleware('hasPermission:emitir fatura aeronautico');
+            Route::get('empresa/emissao/fatura/outros/servicos', EmissaoFaturaOutroServicoController::class)->middleware('hasPermission:emitir fatura outros servicos');
             Route::post('empresa/facturacao/salvar', [FacturacaoController::class, 'store']);
             Route::post('empresa/emitirDocumento', [EmitirDocumentoController::class, 'store']);
             Route::get('empresa/facturacao/produtos/{armazen_id}', [FacturacaoController::class, 'listarProdutos']);
@@ -1050,6 +1052,7 @@ Route::group(['middleware' => ['auth:empresa']], function () {
             //Listar facturas
             Route::get('empresa/facturas/cargas', FacturasIndexController::class)->name('facturas.index');
             Route::get('empresa/facturas/aeroportuario', FacturasAeroportuarioIndexController::class)->name('facturasAeroportuario.index');
+            Route::get('empresa/facturas/outros/servicos', FacturasOutroServicoIndexController::class)->name('facturasOutrosServico.index');
             Route::get('empresa/listarFacturas', [FacturacaoController::class, 'listarFacturasApi']);
             Route::get('empresa/facturasCliente/{clienteId}', [FacturaController::class, 'listarFacturasPorCliente']);
             Route::get('empresa/facturas-licencas', [FacturaController::class, 'facturasLicencasIndex']);
@@ -1199,15 +1202,15 @@ Route::group(['middleware' => ['auth:empresa']], function () {
             Route::post('/empresa/update_logomarca/{id}', [EmpresaController::class, 'alterarLogotipo']);
         });
     });
-    Route::middleware(['AcessoCentroCusto','ControlProduto'])->group(function () {
+    Route::middleware(['AcessoCentroCusto', 'ControlProduto'])->group(function () {
         Route::get('empresa/home', [EmpresaHomeController::class, 'index'])->name('funcionario/home');
     });
     // Route::get('/baixar-manual',[BaixarManualController::class,'imprimirManualUtilizador']);
 
 
-    Route::get('/empresa/infoDashboard',[AuthController::class, 'infoDashboard']);
+    Route::get('/empresa/infoDashboard', [AuthController::class, 'infoDashboard']);
     Route::post('/empresa/update_senha/{id}', [UserController::class, 'alterarPassword']);
-    Route::get('empresa/perfil', [AuthController::class,'perfil']);
+    Route::get('empresa/perfil', [AuthController::class, 'perfil']);
 
 });
 

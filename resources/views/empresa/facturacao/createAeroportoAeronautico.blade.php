@@ -13,10 +13,11 @@
                             <div class="col-md-12">
                                 <div class="widget-box transparent">
                                     <div class="widget-header widget-header-large">
-                                        <div class="widget-toolbar no-border invoice-info">
+                                        <div class="widget-toolbar no-border invoice-info" wire:ignore>
                                             <span class="invoice-info-label">Data:</span>
-                                            <span class="blue">{{ date('d/m/Y') }}</span>
+                                            <span class="blue" id="contador"></span>
                                         </div>
+                                        <h5>SERVIÇOS AEROPORTUÁRIO</h5>
                                     </div>
 
                                     <div class="widget-body">
@@ -107,10 +108,7 @@
                                                     </div>
                                                 </div><!-- /.col -->
                                             </div><!-- /.row -->
-
                                             <div class="space"></div>
-
-
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <div class="widget-box">
@@ -435,7 +433,7 @@
                                                 <div class="col-sm-5 pull-right">
                                                     <h8 class="pull-right">
                                                         VALOR DO IMPOSTO(AOA) :
-                                                        <span>{{ number_format($fatura['valorImposto'], 1,',','.') }}Kz</span>
+                                                        <span>{{ number_format($fatura['valorImposto'], 2,',','.') }}Kz</span>
                                                     </h8>
                                                 </div>
                                             </div>
@@ -522,3 +520,39 @@
 
 
 </div>
+
+<script>
+    // Função para formatar a data no formato "dd/mm/aaaa hh:mm"
+    function formatarData(data) {
+        var dia = String(data.getDate()).padStart(2, '0');
+        var mes = String(data.getMonth() + 1).padStart(2, '0');
+        var ano = data.getFullYear();
+        var hora = String(data.getHours()).padStart(2, '0');
+        var minuto = String(data.getMinutes()).padStart(2, '0');
+        var segundo = String(data.getSeconds()).padStart(2, '0');
+        return dia + '/' + mes + '/' + ano + ' ' + hora + ':' + minuto + ':' + segundo;
+    }
+
+    // Função para atualizar o contador de tempo
+    function atualizarContador() {
+        // Obter a data e hora atual
+        var agora = new Date();
+
+        // Definir a data e hora inicial (pode ser uma data específica no passado)
+        var horaInicial = new Date('2024-02-27T08:00:00');
+
+        // Calcular a diferença em milissegundos entre agora e a hora inicial
+        var diferenca = agora - horaInicial;
+
+        // Calcular as horas, minutos e segundos a partir da diferença em milissegundos
+        var horas = Math.floor(diferenca / (1000 * 60 * 60));
+        var minutos = Math.floor((diferenca % (1000 * 60 * 60)) / (1000 * 60));
+        var segundos = Math.floor((diferenca % (1000 * 60)) / 1000);
+
+        // Atualizar o conteúdo do elemento HTML com o contador
+        document.getElementById('contador').textContent = formatarData(agora);
+    }
+
+    // Chamar a função para atualizar o contador a cada segundo
+    setInterval(atualizarContador, 1000);
+</script>

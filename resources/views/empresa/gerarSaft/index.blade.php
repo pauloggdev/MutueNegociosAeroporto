@@ -16,9 +16,9 @@
                                 <div id="dados_motivo" class="tab-pane in active">
                                     <div class="form-group has-info">
                                         <div class="col-md-6">
-                                            <label class="control-label bold label-select2" for="dataInicio">Escolha a data Inferior<b class="red fa fa-question-circle"></b></label>
-                                            <div>
-                                                <input type="date" lang="pt"  wire:model="saft.dataInicio" id="dataInicio" class="col-md-12 col-xs-12 col-sm-4" style="height:35px;<?= $errors->has('saft.dataInicio') ? 'border-color: #ff9292;' : '' ?>" />
+                                            <label class="control-label bold label-select2" for="dataInicio">Data inicial<b class="red fa fa-question-circle"></b></label>
+                                            <div class="input-group col-md-12">
+                                                <input type="date" lang="pt"  wire:model="saft.dataInicio" id="dataInicio" class="form-control" style="height:35px;<?= $errors->has('saft.dataInicio') ? 'border-color: #ff9292;' : '' ?>" />
                                             </div>
                                             @if ($errors->has('saft.dataInicio'))
                                             <span class="help-block" style="color: red; font-weight: bold">
@@ -27,15 +27,16 @@
                                             @endif
                                         </div>
                                         <div class="col-md-6">
-                                            <label class="control-label bold label-select2" for="dataFim">Escolha a data Superior<b class="red fa fa-question-circle"></b></label>
-                                            <div>
+                                            <label class="control-label bold label-select2" for="dataFim">Data final<b class="red fa fa-question-circle"></b></label>
+                                            <div class="input-group col-md-12">
                                                 <input type="date" wire:model="saft.dataFinal" id="dataFim" class="col-md-12 col-xs-12 col-sm-4" style="height:35px;<?= $errors->has('saft.dataFinal') ? 'border-color: #ff9292;' : '' ?>" />
                                             </div>
                                             @if ($errors->has('saft.dataFinal'))
-                                            <span class="help-block" style="color: red; font-weight: bold">
+                                                <span class="help-block" style="color: red; font-weight: bold">
                                                 <strong>{{ $errors->first('saft.dataFinal') }}</strong>
                                             </span>
                                             @endif
+
                                         </div>
                                     </div>
 

@@ -88,10 +88,8 @@ class EmitirDocumentoAeroportoCarga
 
         $privatekey = $this->pegarChavePrivada();
         $publickey = $this->pegarChavePublica();
-
         // Lendo a private key
         $rsa->loadKey($privatekey);
-
         $plaintext = str_replace(date(' H:i:s'), '', $datactual) . ';' . str_replace(' ', 'T', $datactual) . ';' . $numeracaoFactura . ';' . number_format($request->total, 2, ".", "") . ';' . $hashAnterior;
 
         // HASH

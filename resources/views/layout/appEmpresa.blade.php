@@ -439,6 +439,12 @@ if (Auth::guard('web')->check()) {
                         <b class="arrow"></b>
                     </li>
                     <li class="hover">
+                        <a href="/empresa/emissao/fatura/outros/servicos">
+                            <i class="menu-icon fa fa-wpforms"></i>OUTROS SERVIÇOS
+                        </a>
+                        <b class="arrow"></b>
+                    </li>
+                    <li class="hover">
                         <a href="/empresa/facturas/cargas">
                             <i class="menu-icon fa fa-list"></i>
                             FATURAS - CARGA
@@ -452,6 +458,14 @@ if (Auth::guard('web')->check()) {
                         </a>
                         <b class="arrow"></b>
                     </li>
+                    <li class="hover">
+                        <a href="/empresa/facturas/outros/servicos">
+                            <i class="menu-icon fa fa-list"></i>
+                            FATURAS - OUTROS SERVIÇOS
+                        </a>
+                        <b class="arrow"></b>
+                    </li>
+
 {{--                    <li class="hover">--}}
 {{--                        <a href="/empresa/facturas-proformas">--}}
 {{--                            <i class="menu-icon glyphicon glyphicon-refresh"></i>--}}
@@ -548,6 +562,13 @@ if (Auth::guard('web')->check()) {
 
                         <b class="arrow"></b>
                     </li>
+                    <li class="hover">
+                        <a href="{{ route('logAcessoIndex')}}">
+                            <i class="menu-icon fa fa-pencil" style="color: white;"></i>
+                            LOG DE ACESSOS
+                        </a>
+                        <b class="arrow"></b>
+                    </li>
                 </ul>
             </li>
 
@@ -590,40 +611,23 @@ if (Auth::guard('web')->check()) {
 {{--                    </li>--}}
                 </ul>
             </li>
-{{--            <li class="hover">--}}
-{{--                <a href="#" class="dropdown-toggle" style="color: #ffffff">--}}
-{{--                    <i class="menu-icon fa fa-file-text"></i>--}}
-{{--                    <span class="menu-text">IVA</span>--}}
-{{--                </a>--}}
-{{--                <ul class="submenu">--}}
-{{--                    <li class="hover">--}}
-{{--                        <a href="/empresa/taxaIva">--}}
-{{--                            <i class="menu-icon fa fa-caret-right"></i>--}}
-{{--                            TAXAS DO IVA--}}
-{{--                        </a>--}}
+            <li class="hover">
+                <a href="#" class="dropdown-toggle" style="color: #ffffff">
+                    <i class="menu-icon fa fa-file-text"></i>
+                    <span class="menu-text">IVA</span>
 
-{{--                        <b class="arrow"></b>--}}
-{{--                    </li>--}}
-
-{{--                    <li class="hover">--}}
-{{--                        <a href="/empresa/motivoIva">--}}
-{{--                            <i class="menu-icon fa fa-caret-right"></i>--}}
-{{--                            MOTIVOS DE ISENÇÃO--}}
-{{--                        </a>--}}
-
-{{--                        <b class="arrow"></b>--}}
-{{--                    </li>--}}
-
-{{--                    <li class="hover">--}}
-{{--                        <a href="/empresa/gerarSaft">--}}
-{{--                            <i class="menu-icon fa fa-caret-right"></i>--}}
-{{--                            GERAR FICHEIRO SAFT--}}
-{{--                        </a>--}}
-
-{{--                        <b class="arrow"></b>--}}
-{{--                    </li>--}}
-{{--                </ul>--}}
-{{--            </li>--}}
+                    <b class="arrow fa fa-angle-down"></b>
+                </a>
+                <ul class="submenu">
+                    <li class="hover">
+                        <a href=" /empresa/gerarSaft">
+                            <i class="menu-icon fa fa-caret-right"></i>
+                            GERAR O FICHEIRO SAFT
+                        </a>
+                        <b class="arrow"></b>
+                    </li>
+                </ul>
+            </li>
             <li class="">
                 <a href="{{route('manual.index')}}">
                     <i class="menu-icon fa fa-download"></i>
@@ -771,6 +775,8 @@ if (Auth::guard('web')->check()) {
 <script src="{{ asset('assets/js/jquery.knob.min.js')}}"></script>
 <script src="{{ asset('assets/js/autosize.min.js')}}"></script>
 <script src="{{ asset('assets/js/jquery.inputlimiter.min.js')}}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-maskmoney/3.0.2/jquery.maskMoney.min.js"></script>
+
 <!-- ---- FIM --- -->
 
 <!--Scripts para validaÃ§Ã£o em tempo real do formulÃ¡rio -->
@@ -807,6 +813,7 @@ if (Auth::guard('web')->check()) {
                     ]);
     };
 </script>
+
 <!--FIM DO SCRIPT PARA MANDAR INFORMAÃ‡Ã•ES NO COMPONENT VUE-->
 
 <!-- Scripts para grÃ¡ficos estatisticos do dashboard -->

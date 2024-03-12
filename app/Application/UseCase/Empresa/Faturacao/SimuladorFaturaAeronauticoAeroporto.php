@@ -27,7 +27,7 @@ class SimuladorFaturaAeronauticoAeroporto
     public function conversorHora($string)
     {
         $data = getDate(strtotime($string));
-        if($data['minutes'] > 14){
+        if ($data['minutes'] > 14) {
             return ++$data['hours'];
         }
         return $data['hours'];
@@ -35,20 +35,19 @@ class SimuladorFaturaAeronauticoAeroporto
 
     public function execute($input)
     {
-
         $input = (object)$input;
 
-        if($input->isencaoIVA){
+        if ($input->isencaoIVA) {
             $taxaIva = 0;
-        }else{
+        } else {
             $taxaIva = new GetParametroPeloLabelNoParametro(new DatabaseRepositoryFactory());
-            $taxaIva = (float) $taxaIva->execute('valor_iva_aplicado')->valor;
+            $taxaIva = (float)$taxaIva->execute('valor_iva_aplicado')->valor;
         }
 
-        if($input->retencao){
+        if ($input->retencao) {
             $retencaoFonte = new GetParametroPeloLabelNoParametro(new DatabaseRepositoryFactory());
             $valorRetencao = (float)$retencaoFonte->execute('valor_retencao_fonte')->valor;
-        }else{
+        } else {
             $valorRetencao = 0;
         }
 
@@ -77,7 +76,7 @@ class SimuladorFaturaAeronauticoAeroporto
         $considera1hDepois14min = $considera1hDepois14min->execute('considerar1hdepois14min')->valor;
 
         $getTaxaReaberturaComercial = new GetParametroPeloLabelNoParametro(new DatabaseRepositoryFactory());
-        $taxaReaberturaComercial = (float) $getTaxaReaberturaComercial->execute('tarifa_reabertura_comercial')->valor;
+        $taxaReaberturaComercial = (float)$getTaxaReaberturaComercial->execute('tarifa_reabertura_comercial')->valor;
 
         $horaAberturaAeroporto = $this->conversorHora($horaAberturaAeroporto);
         $horaFechoAeroporto = $this->conversorHora($horaFechoAeroporto);
@@ -110,9 +109,18 @@ class SimuladorFaturaAeronauticoAeroporto
             $input->moedaPagamento,
             $considera1hDepois14min
         );
+        $peso = 0;
         foreach ($input->items as $item) {
             $item = (object)$item;
+            if ($item->produtoId == 12 || $item->produtoId == 13) {
+                $peso += $item->peso;
+                $faturaAeronautico->setPeso($item->peso);
+                $faturaAeronautico->setPesoTotal($peso);
+            }
             if ($item->produtoId == 7) {
+                $faturaAeronautico->setPesoTotal($item->peso);
+            }
+            if ($item->produtoId == 7 || $item->produtoId == 12 || $item->produtoId == 13) {
                 $taxaAduaneiraData = $this->taxaCargaAduaneiraRepository->getTaxaCargaById($item->sujeitoDespachoId);
                 $taxaAduaneira = $taxaAduaneiraData['taxa'];
                 $sujeitoDespachoId = $taxaAduaneiraData['id'];
@@ -120,7 +128,6 @@ class SimuladorFaturaAeronauticoAeroporto
                 $taxaAduaneira = 0;
                 $sujeitoDespachoId = null;
             }
-
             $faturaItemAeronautico = new FaturaItemAeronautico(
                 $item->produtoId,
                 $item->nomeProduto,
@@ -131,7 +138,7 @@ class SimuladorFaturaAeronauticoAeroporto
                 $taxaAduaneira,
                 $sujeitoDespachoId,
                 $taxaIva,
-                $input->peso,
+                $item->peso,
                 $input->horaExtra,
                 $horaAberturaAeroporto,
                 $horaFechoAeroporto,
@@ -139,6 +146,7 @@ class SimuladorFaturaAeronauticoAeroporto
                 $cambioDia,
                 $taxaReaberturaComercial
             );
+
             $faturaAeronautico->addItem($faturaItemAeronautico);
         }
         return $faturaAeronautico;

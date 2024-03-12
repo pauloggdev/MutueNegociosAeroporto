@@ -433,6 +433,13 @@ if (Auth::guard('web')->check()) {
                             <b class="arrow"></b>
                         </li>
                         <li class="hover">
+                            <a href="/empresa/emissao/fatura/outros/servicos">
+                                <i class="menu-icon fa fa-wpforms"></i>OUTROS SERVIÇOS
+                            </a>
+                            <b class="arrow"></b>
+                        </li>
+
+                        <li class="hover">
                             <a href="/empresa/facturas/cargas">
                                 <i class="menu-icon fa fa-list"></i>
                                 FATURAS - CARGA
@@ -443,6 +450,13 @@ if (Auth::guard('web')->check()) {
                             <a href="/empresa/facturas/aeroportuario">
                                 <i class="menu-icon fa fa-list"></i>
                                 FATURAS - AEROPORTUÁRIO
+                            </a>
+                            <b class="arrow"></b>
+                        </li>
+                        <li class="hover">
+                            <a href="/empresa/facturas/outros/servicos">
+                                <i class="menu-icon fa fa-list"></i>
+                                FATURAS - OUTROS SERVIÇOS
                             </a>
                             <b class="arrow"></b>
                         </li>
@@ -525,6 +539,13 @@ if (Auth::guard('web')->check()) {
 
                             <b class="arrow"></b>
                         </li>
+                        <li class="hover">
+                            <a href="{{ route('logAcessoIndex')}}">
+                                <i class="menu-icon fa fa-pencil" style="color: white;"></i>
+                                LOG DE ACESSOS
+                            </a>
+                            <b class="arrow"></b>
+                        </li>
                     </ul>
                 </li>
                 <li class="">
@@ -565,47 +586,23 @@ if (Auth::guard('web')->check()) {
 {{--                        </li>--}}
                     </ul>
                 </li>
+                <li class="hover">
+                    <a href="#" class="dropdown-toggle" style="color: #ffffff">
+                        <i class="menu-icon fa fa-file-text"></i>
+                        <span class="menu-text">IVA</span>
 
-
-{{--                <li class="hover">--}}
-{{--                    <a href="#" class="dropdown-toggle" style="color: #ffffff">--}}
-{{--                        <i class="menu-icon fa fa-file-text"></i>--}}
-{{--                        <span class="menu-text">IVA</span>--}}
-
-{{--                        <b class="arrow fa fa-angle-down"></b>--}}
-{{--                    </a>--}}
-
-{{--                    <b class="arrow"></b>--}}
-
-{{--                    <ul class="submenu">--}}
-{{--                        <li class="hover">--}}
-{{--                            <a href="/empresa/taxaIva">--}}
-{{--                                <i class="menu-icon fa fa-caret-right"></i>--}}
-{{--                                DEFINIR TAXAS DO IVA--}}
-{{--                            </a>--}}
-
-{{--                            <b class="arrow"></b>--}}
-{{--                        </li>--}}
-
-{{--                        <li class="hover">--}}
-{{--                            <a href="/empresa/motivoIva">--}}
-{{--                                <i class="menu-icon fa fa-caret-right"></i>--}}
-{{--                                MOTIVO ISENÇÃO--}}
-{{--                            </a>--}}
-
-{{--                            <b class="arrow"></b>--}}
-{{--                        </li>--}}
-
-{{--                        <li class="hover">--}}
-{{--                            <a href=" /empresa/gerarSaft">--}}
-{{--                                <i class="menu-icon fa fa-caret-right"></i>--}}
-{{--                                GERAR O FICHEIRO SAFT--}}
-{{--                            </a>--}}
-
-{{--                            <b class="arrow"></b>--}}
-{{--                        </li>--}}
-{{--                    </ul>--}}
-{{--                </li>--}}
+                        <b class="arrow fa fa-angle-down"></b>
+                    </a>
+                    <ul class="submenu">
+                        <li class="hover">
+                            <a href=" /empresa/gerarSaft">
+                                <i class="menu-icon fa fa-caret-right"></i>
+                                GERAR O FICHEIRO SAFT
+                            </a>
+                            <b class="arrow"></b>
+                        </li>
+                    </ul>
+                </li>
                 <li class="">
                     <a href="{{route('manual.index')}}">
                         <i class="menu-icon fa fa-download"></i>
@@ -716,6 +713,7 @@ if (Auth::guard('web')->check()) {
     <!-- COLLAPSE BOOTSTRAP -->
     <script src="{{ asset('assets/js/jquery-ui.min.js')}}"></script>
 
+
     <!-- ==================================================================================== -->
 
     <!-- SCRIPT PARA FORMULÃRIOS DE REGISTO, COM TODOS ELEMENTOS NECESSÃRIOS-->
@@ -738,12 +736,34 @@ if (Auth::guard('web')->check()) {
     <script src="{{ asset('assets/js/jquery.knob.min.js')}}"></script>
     <script src="{{ asset('assets/js/autosize.min.js')}}"></script>
     <script src="{{ asset('assets/js/jquery.inputlimiter.min.js')}}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-maskmoney/3.0.2/jquery.maskMoney.min.js"></script>
+
     <!-- ---- FIM --- -->
 
     <!--Scripts para validaÃ§Ã£o em tempo real do formulÃ¡rio -->
     <script src="{{ asset('assets/js/jquery.validate.min.js')}}"></script>
     <!-- ========================================================================================= -->
 
+
+{{--    <script>--}}
+
+{{--        document.addEventListener('DOMContentLoaded', function() {--}}
+{{--            var moneyInput = document.getElementById('money');--}}
+{{--            // Aplique a máscara de dinheiro usando jQuery MaskMoney--}}
+{{--            $(moneyInput).maskMoney({--}}
+{{--                allowNegative: false,--}}
+{{--                thousands: '.',--}}
+{{--                decimal: ',',--}}
+{{--                affixesStay: false--}}
+{{--            }).on('change', function(){--}}
+{{--                var moneyInput = document.getElementById('money').value;--}}
+{{--                livewire.emit('moneyInput', moneyInput)--}}
+
+{{--                // console.log(moneyInput)--}}
+{{--            });--}}
+
+{{--        });--}}
+{{--    </script>--}}
 
     <!-- Script para tabelas Simples & DinÃ¢mica(Para listagem dos dados) -->
     @yield('js_tabela_simples_dinamico')

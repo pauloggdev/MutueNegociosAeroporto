@@ -29,7 +29,7 @@ class FacturasAeroportuarioIndexController extends Component
     use WithPagination;
     use PrintFaturaAeroportuario;
     protected $paginationTheme = 'bootstrap';
-    public $search;
+    public $search = null;
     private $facturaRepository;
     private $parametroRepository;
     public $filter = [
@@ -57,6 +57,33 @@ class FacturasAeroportuarioIndexController extends Component
         $this->facturaRepository = $facturaRepository;
         $this->parametroRepository = $parametroRepository;
     }
+    public function imprimirFaturasAeroportuário($formato){
+
+        $logotipo = public_path() . '/upload//' . auth()->user()->empresa->logotipo;
+        $filename = "faturaAeroportuarios";
+        $reportController = new ReportShowController($formato);
+        $report = $reportController->show(
+            [
+                'report_file' => $filename,
+                'report_jrxml' => $filename . '.jrxml',
+                'report_parameters' => [
+                    'empresa_id' => auth()->user()->empresa_id,
+                    'diretorio' => $logotipo,
+                ]
+            ]
+        );
+
+        if($formato == 'pdf'){
+            $this->dispatchBrowserEvent('printPdf', ['data' => base64_encode($report['response']->getContent())]);
+            unlink($report['filename']);
+            flush();
+        }else{
+            $headers = array(
+                'Content-Type: application/xls',
+            );
+            return \Illuminate\Support\Facades\Response::download($report['filename'], 'faturas-aeroportuario.xls', $headers);
+        }
+    }
 
     public function render()
     {
@@ -64,8 +91,10 @@ class FacturasAeroportuarioIndexController extends Component
         if (!$centrosCusto) return redirect()->back();
         $data['centrosCusto'] = $centrosCusto;
         $data['facturas'] = Factura::where('tipoFatura', 2)
-            ->where('empresa_id', auth()->user()->empresa_id)->paginate();
-
+            ->where('empresa_id', auth()->user()->empresa_id)
+            ->filter($this->filter)
+            ->search(trim($this->search))
+            ->paginate();
         $this->dispatchBrowserEvent('reloadTableJquery');
         return view('empresa.facturas.facturasAeroportuarioIndex', $data);
     }

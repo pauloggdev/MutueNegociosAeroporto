@@ -126,12 +126,14 @@ class EmissaoFaturaAeronauticoController extends Component
         $this->fatura['total'] = 0;
         $this->fatura['items'] = [];
     }
-    public function updatedFaturaTipoDocumento($tipoDocumento){
-        if($tipoDocumento == 1){
+
+    public function updatedFaturaTipoDocumento($tipoDocumento)
+    {
+        if ($tipoDocumento == 1) {
             $this->fatura['formaPagamentoId'] = 1;
             $getFormaPagamentoByFaturacao = new GetFormasPagamentoByFaturacao(new DatabaseRepositoryFactory());
             $this->formasPagamentos = $getFormaPagamentoByFaturacao->execute();
-        }else{
+        } else {
             $this->fatura['formaPagamentoId'] = null;
             $this->formasPagamentos = [];
         }
@@ -139,7 +141,9 @@ class EmissaoFaturaAeronauticoController extends Component
         $fatura = $simuladorFaturaCarga->execute($this->fatura);
         $this->fatura = $this->conversorModelParaArray($fatura);
     }
-    public function updatedFaturaFormaPagamentoId($formaPagamentoId){
+
+    public function updatedFaturaFormaPagamentoId($formaPagamentoId)
+    {
         $this->fatura['formaPagamentoId'] = $formaPagamentoId;
         $simuladorFaturaCarga = new SimuladorFaturaAeronauticoAeroporto(new DatabaseRepositoryFactory());
         $fatura = $simuladorFaturaCarga->execute($this->fatura);
@@ -256,6 +260,7 @@ class EmissaoFaturaAeronauticoController extends Component
         $this->item['nomeProduto'] = $produto->designacao;
         $this->item['produtoId'] = $produto->id;
         $this->item['produto'] = $this->item['produto'];
+        $this->item['peso'] = $this->fatura['peso'] ? (double)$this->fatura['peso'] : 0;
         $this->fatura['items'][] = (array)$this->item;
         $this->calculadoraTotal();
     }
@@ -275,6 +280,7 @@ class EmissaoFaturaAeronauticoController extends Component
         });
         return $posicao;
     }
+
     private function conversorModelParaArray(FaturaAeronautico $output)
     {
         $fatura = [
@@ -293,6 +299,7 @@ class EmissaoFaturaAeronauticoController extends Component
             'horaDeAterragem' => $output->getHoraDeAterragem(), //11h40 UTC
             'horaDeDescolagem' => $output->getHoraDeDescolagem(), //13h57 UTC
             'peso' => $output->getPeso(),
+            'pesoTotal' => $output->getPesoTotal(),
             'horaExtra' => $output->getHoraExtra(),
             'tipoDocumento' => $output->getTipoDocumento(), //Fatura recibo
             'formaPagamentoId' => $output->getFormaPagamentoId(),
@@ -339,6 +346,7 @@ class EmissaoFaturaAeronauticoController extends Component
 
     public function emitirDocumento()
     {
+
         $rules = [
             'fatura.clienteId' => 'required',
             'fatura.tipoDeAeronave' => 'required',
@@ -429,6 +437,7 @@ class EmissaoFaturaAeronauticoController extends Component
         unlink($report['filename']);
         flush();
     }
+
     public function resetField()
     {
         $this->fatura = [

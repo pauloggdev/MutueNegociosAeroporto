@@ -20,6 +20,7 @@ use NumberFormatter;
 class EmitirDocumentoAeroportoAeronave
 {
     use TraitChavesEmpresa;
+
     private FaturaRepository $faturaRepository;
 
     public function __construct(RepositoryFactory $repositoryFactory)
@@ -65,9 +66,9 @@ class EmitirDocumentoAeroportoAeronave
         }
         $getNumeroSerieDocumento = new GetNumeroSerieDocumento(new DatabaseRepositoryFactory());
         $numeroSerieDocumento = $getNumeroSerieDocumento->execute();
-        if($numeroSerieDocumento){
+        if ($numeroSerieDocumento) {
             $numeroSerieDocumento = $numeroSerieDocumento->valor;
-        }else{
+        } else {
             $numeroSerieDocumento = "ATO";
         }
 
@@ -131,7 +132,7 @@ class EmitirDocumentoAeroportoAeronave
             'dataDeDescolagem' => $request->dataDeDescolagem,
             'horaDeAterragem' => $request->horaDeAterragem,
             'horaDeDescolagem' => $request->horaDeDescolagem,
-            'peso' => $request->peso,
+            'peso' => $request->pesoTotal,
             'horaExtra' => $request->horaExtra,
             'tipoDocumento' => $request->tipoDocumento,
             'taxaIva' => $request->taxaIva,
@@ -152,6 +153,10 @@ class EmitirDocumentoAeroportoAeronave
         ]);
         foreach ($request->items as $item) {
             $item = (object)$item;
+            $peso = null;
+            if ($item->produtoId == 7 || $item->produtoId == 12 || $item->produtoId == 13) {
+                $peso = $item->peso;
+            }
             DB::table('factura_items')->insert([
                 'produtoId' => $item->produtoId,
                 'nomeProduto' => $item->nomeProduto,
@@ -160,7 +165,7 @@ class EmitirDocumentoAeroportoAeronave
                 'taxaLuminosa' => $item->taxaLuminosa,
                 'taxaAduaneiro' => $item->taxaAduaneiro,
                 'sujeitoDespachoId' => $item->sujeitoDespachoId,
-                'peso' => $request->peso??null,
+                'peso' => $peso ?? null,
                 'horaExtra' => $item->horaExtra,
                 'taxaAbertoAeroporto' => $item->taxaAbertoAeroporto,
                 'valorImposto' => $item->valorImposto,

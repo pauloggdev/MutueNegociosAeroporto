@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\empresa\Empresa;
 
+use App\Http\Controllers\TraitLogAcesso;
 use App\Http\Requests\Admin\UpdateEmpresaRequest;
 use App\Repositories\Empresa\EmpresaRepository;
 use App\Repositories\Empresa\RegimeRepository;
@@ -17,6 +18,7 @@ class EmpresaUpdateController extends Component
     use WithFileUploads;
     use UpdateEmpresaRequest;
     use LivewireAlert;
+    use TraitLogAcesso;
 
 
     public $tipoEmpresas;
@@ -74,6 +76,7 @@ class EmpresaUpdateController extends Component
         $this->empresa['newFileNIF'] = $this->newFileNIF;
         $this->validate($this->rules(), $this->messages());
         $this->empresaRepository->store($this->empresa);
+        $this->logAcesso();
         $this->emitSelf('refresh-me');
         $this->confirm('Operação realizada com sucesso', ['showConfirmButton' => false, 'showCancelButton' => false, 'icon' => 'success']);
     }

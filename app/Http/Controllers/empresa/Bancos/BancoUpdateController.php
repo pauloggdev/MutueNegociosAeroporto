@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\empresa\Bancos;
+use App\Http\Controllers\TraitLogAcesso;
 use App\Http\Requests\UpdateBancoRequest;
 use App\Repositories\Empresa\BancoRepository;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
@@ -11,6 +12,7 @@ class BancoUpdateController extends Component
 
     use LivewireAlert;
     use UpdateBancoRequest;
+    use TraitLogAcesso;
 
     public $banco;
     private $bancoRepository;
@@ -34,7 +36,7 @@ class BancoUpdateController extends Component
     {
         $this->validate($this->rules(), $this->messages());
         $this->bancoRepository->update($this->banco);
-        
+        $this->logAcesso();
         $this->confirm('Operação realizada com sucesso', [
             'showConfirmButton' => false,
             'showCancelButton' => false,

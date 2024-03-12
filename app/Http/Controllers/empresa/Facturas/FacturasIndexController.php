@@ -62,11 +62,42 @@ class FacturasIndexController extends Component
         if (!$centrosCusto) return redirect()->back();
         $data['centrosCusto'] = $centrosCusto;
         $data['facturas'] = Factura::where('tipoFatura', 1)
-            ->where('empresa_id', auth()->user()->empresa_id)->paginate();
+            ->where('empresa_id', auth()->user()->empresa_id)
+            ->filter($this->filter)
+            ->search(trim($this->search))
+            ->paginate();
 
 //        $data['facturas'] = $this->facturaRepository->listarfacturas($this->filter);
         $this->dispatchBrowserEvent('reloadTableJquery');
         return view('empresa.facturas.facturasIndex', $data);
+    }
+    public function imprimirFaturasCarga($formato){
+
+        $logotipo = public_path() . '/upload//' . auth()->user()->empresa->logotipo;
+        $filename = "faturaCargas";
+        $reportController = new ReportShowController($formato);
+        $report = $reportController->show(
+            [
+                'report_file' => $filename,
+                'report_jrxml' => $filename . '.jrxml',
+                'report_parameters' => [
+                    'empresa_id' => auth()->user()->empresa_id,
+                    'diretorio' => $logotipo,
+                ]
+
+            ]
+        );
+
+        if($formato == 'pdf'){
+            $this->dispatchBrowserEvent('printPdf', ['data' => base64_encode($report['response']->getContent())]);
+            unlink($report['filename']);
+            flush();
+        }else{
+            $headers = array(
+                'Content-Type: application/xls',
+            );
+            return \Illuminate\Support\Facades\Response::download($report['filename'], 'faturas-cargas.xls', $headers);
+        }
     }
 
 

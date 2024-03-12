@@ -6,6 +6,7 @@ use App\Application\UseCase\Empresa\FormasPagamento\GetFormaPagamentoEmitirRecib
 use App\Application\UseCase\Empresa\Proformas\ConverterProformaByFaturaRecibo;
 use App\Http\Controllers\empresa\Faturacao\PrintFaturaAeroportuario;
 use App\Http\Controllers\empresa\Faturacao\PrintFaturaCarga;
+use App\Http\Controllers\TraitLogAcesso;
 use App\Infra\Factory\Empresa\DatabaseRepositoryFactory;
 use App\Models\empresa\Factura as FaturaDatabase;
 use Illuminate\Support\Facades\DB;
@@ -18,6 +19,7 @@ class ProformaIndexController extends Component
     use LivewireAlert;
     use PrintFaturaCarga;
     use PrintFaturaAeroportuario;
+    use TraitLogAcesso;
 
     public $numeracaoFactura = null;
     public $formaPagamentos;
@@ -138,6 +140,7 @@ class ProformaIndexController extends Component
             $this->printFaturaAeroportuario($faturaId);
         }
         $this->resetField();
+        $this->logAcesso();
         $this->numeracaoFactura = null;
         $this->temProforma = false;
     }

@@ -21,7 +21,7 @@
                                 </span>
                                 <input type="text" wire:model="filter.search" autofocus autocomplete="on"
                                     class="form-control search-query"
-                                    placeholder="Buscar pela numeração da factura, nome do cliente" />
+                                    placeholder="Buscar pela numeração da factura" />
                                 <span class="input-group-btn">
                                     <button type="submit" class="btn btn-primary btn-lg upload">
                                         <span class="ace-icon fa fa-search icon-on-right bigger-130"></span>
@@ -40,7 +40,14 @@
 
                         <div class="col-xs-12 widget-box widget-color-green" style="left: 0%">
                             <div class="clearfix" style="display: flex;padding: 5px 5px; align-items: center">
-
+                                <a title="imprimir faturas de cargas" href="#" wire:click.prevent="imprimirFaturasCarga('pdf')" class="btn btn-primary widget-box widget-color-blue" id="botoes">
+                                    <span wire:loading wire:target="imprimirFaturasCarga('pdf')" class="loading"></span>
+                                    <i class="fa fa-print text-default"></i> Imprimir PDF
+                                </a>
+                                <a title="imprimir faturas de cargas" href="#" wire:click.prevent="imprimirFaturasCarga('xls')" class="btn btn-primary widget-box widget-color-blue" id="botoes">
+                                    <span wire:loading wire:target="imprimirFaturasCarga('xls')" class="loading"></span>
+                                    <i class="fa fa-print text-default"></i> Imprimir EXCEL
+                                </a>
                                 <div class="input-group input-group-sm" style="margin-left: 10px; width: 300px" >
                                     <select wire:model="filter.tipoDocumentoId" data="tipoDocumentoId" class="col-md-12 select2">
                                         <option value="">Filtrar tipo documento</option>

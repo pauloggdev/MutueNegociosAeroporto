@@ -104,10 +104,8 @@
 							a sua senha?
 						</a>
 					</div>
-
-
 					<div class="text-center p-t-136">
-						<a class="txt2" href="#">
+						<a class="txt2" href="https://www.ramossoft.com/contatos">
 							Contacta o Suporte Técnico
 							<i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
 						</a>
@@ -116,10 +114,7 @@
 			</div>
 		</div>
 	</div>
-	
-	
 
-	
 <!--===============================================================================================-->	
 	<script src="{{asset('assets/login/vendor/jquery/jquery-3.2.1.min.js')}}"></script>
 <!--===============================================================================================-->

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\empresa\Bancos;
 
+use App\Http\Controllers\TraitLogAcesso;
 use App\Repositories\Empresa\BancoRepository;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Illuminate\Support\Facades\DB;
@@ -11,6 +12,7 @@ class BancoCreateController extends Component
 {
 
     use LivewireAlert;
+    use TraitLogAcesso;
 
     public $banco;
     private $bancoRepository;
@@ -61,6 +63,7 @@ class BancoCreateController extends Component
         $this->validate($rules, $messages);
         $this->bancoRepository->store($this->banco);
         $this->setarValorPadrao();
+        $this->logAcesso();
         $this->confirm('Operação realizada com sucesso', [
             'showConfirmButton' => false,
             'showCancelButton' => false,

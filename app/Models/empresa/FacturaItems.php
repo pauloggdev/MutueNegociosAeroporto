@@ -30,7 +30,7 @@ class FacturaItems extends Model
     ];
     const UPDATED_AT = NULL;
     public function produto(){
-        return $this->belongsTo(Produto::class,'produto_id');
+        return $this->belongsTo(Produto::class,'produtoId');
     }
     public function factura(){
         return $this->belongsTo(Factura::class,'factura_id');

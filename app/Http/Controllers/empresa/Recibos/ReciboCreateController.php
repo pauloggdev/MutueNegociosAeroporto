@@ -9,6 +9,7 @@ use App\Application\UseCase\Empresa\Recibos\EmitirRecibo;
 use App\Application\UseCase\Empresa\Recibos\GetTotalDebitadoFatura;
 use App\Application\UseCase\Empresa\Recibos\SimuladorRecibo;
 use App\Http\Controllers\empresa\ReportShowController;
+use App\Http\Controllers\TraitLogAcesso;
 use App\Infra\Factory\Empresa\DatabaseRepositoryFactory;
 use App\Models\empresa\Recibos;
 use Livewire\Component;
@@ -20,6 +21,7 @@ class ReciboCreateController extends Component
 {
     use LivewireAlert;
     use WithFileUploads;
+    use TraitLogAcesso;
 
     public $recibo = [
         'numeracaoFactura' => null,
@@ -171,6 +173,8 @@ class ReciboCreateController extends Component
 
         $emitirRecibo = new EmitirRecibo(new DatabaseRepositoryFactory());
         $recibo = $emitirRecibo->execute($this->recibo);
+
+        $this->logAcesso();
 
         $logotipo = public_path() . '/upload/AtoNegativo1.png';
 

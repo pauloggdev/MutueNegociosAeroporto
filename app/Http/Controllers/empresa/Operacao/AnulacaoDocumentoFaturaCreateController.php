@@ -3,15 +3,18 @@
 namespace App\Http\Controllers\empresa\Operacao;
 
 use App\Application\UseCase\Empresa\Operacao\EmitirAnulacaoFatura;
+use App\Http\Controllers\TraitLogAcesso;
 use App\Infra\Factory\Empresa\DatabaseRepositoryFactory;
 use App\Models\empresa\Factura as FaturaDatabase;
 use Illuminate\Support\Facades\DB;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
+
 class AnulacaoDocumentoFaturaCreateController extends Component
 {
     use LivewireAlert;
+    use TraitLogAcesso;
 
     public $numeracaoFactura = null;
     public $temFatura = false;
@@ -113,6 +116,7 @@ class AnulacaoDocumentoFaturaCreateController extends Component
             $emitirAnulacaoFatura = new EmitirAnulacaoFatura(new DatabaseRepositoryFactory());
             $anulacaoDocumento = $emitirAnulacaoFatura->execute($this->fatura);
             if ($anulacaoDocumento) {
+                $this->logAcesso();
                 $this->resetField();
                 $this->confirm('Operação realizada com sucesso', [
                     'showConfirmButton' => true,

@@ -6,6 +6,7 @@ use App\Infra\Repository\Admin\AnuncioRepository;
 use App\Infra\Repository\Admin\AtivacaoLicencaRepository;
 use App\Infra\Repository\Admin\BancoRepository;
 use App\Infra\Repository\Admin\ClienteRepository;
+use App\Infra\Repository\Admin\EmpresaRepository;
 use App\Infra\Repository\Admin\FaturaRepository;
 use App\Infra\Repository\Admin\FormaPagamentoRepository;
 use App\Infra\Repository\Admin\LicencaRepository;
@@ -73,5 +74,10 @@ class DatabaseRepositoryFactory implements RepositoryFactory{
     public function createPermissaoRepository(): PermissaoRepository
     {
         return new PermissaoRepository();
+    }
+
+    public function createEmpresaRepository(): EmpresaRepository
+    {
+        return new EmpresaRepository();
     }
 }

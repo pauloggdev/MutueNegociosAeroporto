@@ -23,6 +23,7 @@ class FaturaAeronautico
     private $horaDeDescolagem;
     private $taxaIva;
     private $peso;
+    private $totalPeso = 0;
     private $horaExtra;
     private $cambioDia;
     private $moeda;
@@ -248,6 +249,17 @@ class FaturaAeronautico
     {
         return $this->peso;
     }
+
+    public function setPeso($peso){
+        $this->peso = $peso;
+    }
+    public function setPesoTotal($peso){
+        $this->totalPeso = $peso;
+    }
+    public function getPesoTotal(){
+        return $this->totalPeso;
+    }
+
 
     /**
      * @return mixed

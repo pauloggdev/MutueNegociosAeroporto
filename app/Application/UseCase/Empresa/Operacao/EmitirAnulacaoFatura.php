@@ -76,7 +76,12 @@ class EmitirAnulacaoFatura
             $numSequencia,
             $input->descricao
         );
-        $notaCredito = $this->notaCreditoRepository->salvar($notaCredito);
+
+        //Nao emitr credito de notas para proformas, atualizar apenas o estado para anulado
+        $fatura = DB::table('facturas')->where('id', $input->facturaId)->first();
+        if($fatura->tipoDocumento !== 3){
+            $notaCredito = $this->notaCreditoRepository->salvar($notaCredito);
+        }
         //Atualizar status da fatura para anulado;
         DB::table('facturas')->where('id', $input->facturaId)->update([
             'anulado' => 'Y'

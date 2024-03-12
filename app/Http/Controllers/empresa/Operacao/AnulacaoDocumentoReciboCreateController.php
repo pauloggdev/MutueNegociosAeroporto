@@ -4,6 +4,7 @@ namespace App\Http\Controllers\empresa\Operacao;
 
 use App\Application\UseCase\Empresa\Operacao\EmitirAnulacaoFatura;
 use App\Application\UseCase\Empresa\Operacao\EmitirAnulacaoRecibo;
+use App\Http\Controllers\TraitLogAcesso;
 use App\Infra\Factory\Empresa\DatabaseRepositoryFactory;
 use App\Models\empresa\Factura as FaturaDatabase;
 use App\Models\empresa\Recibos;
@@ -14,6 +15,7 @@ use Livewire\Component;
 class AnulacaoDocumentoReciboCreateController extends Component
 {
     use LivewireAlert;
+    use TraitLogAcesso;
 
     public $numeracaoRecibo = null;
     public $temRecibo = false;
@@ -93,6 +95,7 @@ class AnulacaoDocumentoReciboCreateController extends Component
 
             $emitirAnulacaoRecibo = new EmitirAnulacaoRecibo(new DatabaseRepositoryFactory());
             $anulacaoDocumento = $emitirAnulacaoRecibo->execute($this->recibo);
+            $this->logAcesso();
             if ($anulacaoDocumento) {
                 $this->resetField();
                 $this->confirm('Operação realizada com sucesso', [

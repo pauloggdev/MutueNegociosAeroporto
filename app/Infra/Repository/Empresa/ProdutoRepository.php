@@ -165,7 +165,7 @@ class ProdutoRepository
             ->where('id', $id)->first();
 
     }
-    public function getProdutos($filter)
+    public function getProdutos($filter = null)
     {
 
         return ProdutoDatabase::with(['tipoTaxa', 'statuGeral', 'motivoIsencao', 'categoria'])

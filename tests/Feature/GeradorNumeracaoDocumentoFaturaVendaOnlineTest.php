@@ -15,7 +15,6 @@ use Tests\TestCase;
 
 class GeradorNumeracaoDocumentoFaturaVendaOnlineTest extends TestCase
 {
-    use RefreshDatabase;
 
     use TraitSerieDocumento;
 

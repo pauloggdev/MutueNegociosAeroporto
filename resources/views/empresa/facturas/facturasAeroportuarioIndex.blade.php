@@ -21,7 +21,7 @@
                                 </span>
                                 <input type="text" wire:model="filter.search" autofocus autocomplete="on"
                                        class="form-control search-query"
-                                       placeholder="Buscar pela numeração da factura, nome do cliente"/>
+                                       placeholder="Buscar pela numeração da factura"/>
                                 <span class="input-group-btn">
                                     <button type="submit" class="btn btn-primary btn-lg upload">
                                         <span class="ace-icon fa fa-search icon-on-right bigger-130"></span>
@@ -40,6 +40,14 @@
 
                         <div class="col-xs-12 widget-box widget-color-green" style="left: 0%">
                             <div class="clearfix" style="display: flex;padding: 5px 5px; align-items: center">
+                                <a title="imprimir faturas aeroportuário" href="#" wire:click.prevent="imprimirFaturasAeroportuário('pdf')" class="btn btn-primary widget-box widget-color-blue" id="botoes">
+                                    <span wire:loading wire:target="imprimirFaturasAeroportuário('pdf')" class="loading"></span>
+                                    <i class="fa fa-print text-default"></i> Imprimir PDF
+                                </a>
+                                <a title="imprimir faturas aeroportuário" href="#" wire:click.prevent="imprimirFaturasAeroportuário('xls')" class="btn btn-primary widget-box widget-color-blue" id="botoes">
+                                    <span wire:loading wire:target="imprimirFaturasAeroportuário('xls')" class="loading"></span>
+                                    <i class="fa fa-print text-default"></i> Imprimir EXCEL
+                                </a>
 
                                 <div class="input-group input-group-sm" style="margin-left: 10px; width: 300px">
                                     <select wire:model="filter.tipoDocumentoId" data="tipoDocumentoId"
@@ -94,6 +102,7 @@
                                         <th style="text-align: center">Data de Descolagem</th>
                                         <th style="text-align: center">Hora de Aterragem</th>
                                         <th style="text-align: center">Hora de Descolagem</th>
+                                        <th style="text-align: right">Total</th>
                                         <th>Emitido</th>
                                         <th>Cliente</th>
                                         <th style="text-align: center">Status</th>
@@ -111,6 +120,8 @@
                                             <td style="text-align: center">{{ $factura['dataDeDescolagem'] }}</td>
                                             <td style="text-align: center">{{ $factura['horaDeAterragem'] }}</td>
                                             <td style="text-align: center">{{ $factura['horaDeDescolagem'] }}</td>
+                                            <td style="text-align: right">{{ number_format($factura['total'],2,',','.') }}</td>
+
                                             <td>{{ date_format($factura['created_at'], 'd/m/Y') }}</td>
                                             <td>{{ $factura['nome_do_cliente'] }}</td>
                                             <td style="text-align: center">
