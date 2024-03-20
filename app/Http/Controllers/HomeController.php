@@ -71,6 +71,7 @@ class HomeController extends Controller
         $TIPO_ADMIN = 2;
         $TIPO_FACTURA = 2;
         $TIPO_FACTURA_RECIBO = 1;
+        $TIPO_FACTURA_PROFORMA=3;
 
         $data['auth'] = Auth::user();
 
@@ -133,11 +134,39 @@ class HomeController extends Controller
             })
             ->count();
 
+            $data['countfacturas'] = DB::connection('mysql2')->table('facturas')
+            ->where('empresa_id', $empresa['empresa']['id'])->where(function ($query) use ($TIPO_FACTURA) {
+//                $query->where('tipo_documento', $TIPO_FACTURA)
+                    $query->where('tipo_documento', $TIPO_FACTURA);
+            })
+            ->count();
+
+            $data['countproforma'] = DB::connection('mysql2')->table('facturas')
+            ->where('empresa_id', $empresa['empresa']['id'])->where(function ($query) use ($TIPO_FACTURA_PROFORMA) {
+//                $query->where('tipo_documento', $TIPO_FACTURA)
+                    $query->where('tipo_documento',$TIPO_FACTURA_PROFORMA);
+            })
+            ->count();
+
         $data['counttotalvendas'] = DB::connection('mysql2')->table('facturas')
             ->where('empresa_id', $empresa['empresa']['id'])->where(function ($query) use ($TIPO_FACTURA, $TIPO_FACTURA_RECIBO) {
 //                $query->where('tipo_documento', $TIPO_FACTURA)
                     $query->where('tipo_documento', $TIPO_FACTURA_RECIBO);
             })->sum('total');
+
+            $data['counttotalproforma'] = DB::connection('mysql2')->table('facturas')
+            ->where('empresa_id', $empresa['empresa']['id'])->where(function ($query) use ($TIPO_FACTURA, $TIPO_FACTURA_PROFORMA) {
+//                $query->where('tipo_documento', $TIPO_FACTURA)
+                    $query->where('tipo_documento', $TIPO_FACTURA_PROFORMA);
+            })->sum('total');
+
+            
+            $data['counttotalfactura'] = DB::connection('mysql2')->table('facturas')
+            ->where('empresa_id', $empresa['empresa']['id'])->where(function ($query) use ($TIPO_FACTURA) {
+//                $query->where('tipo_documento', $TIPO_FACTURA)
+                    $query->where('tipo_documento', $TIPO_FACTURA);
+            })->sum('total');
+
 
 
         if ($empresa['tipo_user_id'] === $TIPO_FUNCIONARIO) {

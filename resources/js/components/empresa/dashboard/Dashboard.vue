@@ -41,7 +41,7 @@
         </div>
 
         <div class="row">
-          <div class="col-md-12">
+          <div class="col-md-7">
             <!-- Usuarios -->
             <a href="/empresa/usuarios">
               <div class="infobox infobox-green">
@@ -159,7 +159,7 @@
 
             <div class="infobox infobox-green2">
               <div class="infobox-icon">
-                <i class="ace-icon fa fa-product-hunt"></i>
+                <i class="ace-icon fa fa-registered"></i>
               </div>
               <div class="infobox-data">
                 <span class="infobox-data-number">{{
@@ -169,17 +169,67 @@
               </div>
             </div>
 
+            <div class="infobox infobox-green2">
+              <div class="infobox-icon">
+                <i class="ace-icon fa fa-product-hunt"></i>
+              </div>
+              <div class="infobox-data">
+                <span class="infobox-data-number">{{
+                  countfacturas | formatQt
+                }}</span>
+                <div class="infobox-content" style="color: black">Facturas</div>
+              </div>
+            </div>
+
+            <div class="infobox infobox-green2">
+              <div class="infobox-icon">
+                <i class="ace-icon fa fa-product-hunt"></i>
+              </div>
+              <div class="infobox-data">
+                <span class="infobox-data-number">{{
+                  countproforma| formatQt
+                }}</span>
+                <div class="infobox-content" style="color: black">Proformas</div>
+              </div>
+            </div>
+
             <div class="infobox infobox-red" v-if="window.isSuperAdmin">
               <div class="infobox-data">
                 <span class="infobox-data-number">{{
                   counttotalvendas | currency
                 }}</span>
                 <div class="infobox-content">
-                  <span class="bigger-110" style="color: black">Total Facturado</span>
+                  <span class="bigger-110" style="color: black">Total Recibo</span>
                 </div>
               </div>
             </div>
+
+            
+            <div class="infobox infobox-red" v-if="window.isSuperAdmin">
+              <div class="infobox-data">
+                <span class="infobox-data-number">{{
+                  counttotalfactura | currency
+                }}</span>
+                <div class="infobox-content">
+                  <span class="bigger-110" style="color: black">Total Factura</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="infobox infobox-red" v-if="window.isSuperAdmin">
+              <div class="infobox-data">
+                <span class="infobox-data-number">{{
+                  counttotalproforma | currency
+                }}</span>
+                <div class="infobox-content">
+                  <span class="bigger-110" style="color: black">Total Proforma</span>
+                </div>
+              </div>
+            </div>
+
           </div>
+
+          
 
           <div class="vspace-12-sm"></div>
 
@@ -309,6 +359,7 @@ export default {
   },
 
   props: [
+
     "dashboards",
     "countbancos",
     "countprodutos",
@@ -322,6 +373,10 @@ export default {
     "auth",
     "guard",
     "vendasmensal",
+    "counttotalproforma",
+    "counttotalfactura",
+    "countfacturas",
+    "countproforma",
   ],
 
   data() {
@@ -355,6 +410,9 @@ export default {
       this.guard.tipo_user_id == this.USUARIO_EMPRESA
         ? window.location.origin + `/empresa`
         : window.location.origin + `/empresa/funcionario`;
+
+        console.log(this.counttotalproforma)
+        
   },
 
   mounted() {

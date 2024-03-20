@@ -564,34 +564,6 @@ if (Auth::guard('web')->check()) {
                     </a>
                     <b class="arrow"></b>
                 </li>
-<<<<<<< HEAD
-{{--                <li class="hover">--}}
-{{--                    <a href="{{route('relatorio.relatoriosGeral')}}">--}}
-{{--                        <i class="menu-icon fa fa-file-text"></i>--}}
-{{--                        RELATÓRIO GERAL--}}
-{{--                    </a>--}}
-{{--                    <b class="arrow"></b>--}}
-{{--                </li>--}}
-            </ul>
-        </li>
-        <li class="hover">
-            <a href="#" class="dropdown-toggle" style="color: #ffffff">
-                <i class="menu-icon fa fa-file-text"></i>
-                <span class="menu-text">IVA</span>
-
-                <b class="arrow fa fa-angle-down"></b>
-            </a>
-            <ul class="submenu">
-                <li class="hover">
-                    <a href=" /empresa/gerarSaft">
-                        <i class="menu-icon fa fa-caret-right"></i>
-                        GERAR O FICHEIRO SAFT
-                    </a>
-                    <b class="arrow"></b>
-                </li>
-            </ul>
-        </li>
-=======
             </li>
             <li class="hover">
                 <a href="{{route('relatorio.gerais')}}">
@@ -639,7 +611,6 @@ if (Auth::guard('web')->check()) {
 {{--                </li>--}}
 {{--            </ul>--}}
 {{--        </li>--}}
->>>>>>> df5dbda (puxar)
         <li class="">
             <a href="{{route('manual.index')}}">
                 <i class="menu-icon fa fa-download"></i>
