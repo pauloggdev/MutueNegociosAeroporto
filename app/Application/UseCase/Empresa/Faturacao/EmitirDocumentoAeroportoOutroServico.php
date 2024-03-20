@@ -74,7 +74,7 @@ class EmitirDocumentoAeroportoOutroServico
         } else if ($request->tipoDocumento == 2) {
             $doc = "FT ";
         } else {
-            $doc = "FP ";
+            $doc = "PP ";
         }
 
         $numeracaoFactura = $doc . $numeroSerieDocumento . $yearNow . '/' . $numSequenciaFactura; //retirar somente 3 primeiros caracteres na facturaSerie da factura: substr('abcdef', 0, 3);
@@ -106,7 +106,7 @@ class EmitirDocumentoAeroportoOutroServico
             'taxaRetencao' => $request->taxaRetencao,
             'valorRetencao' => $request->valorRetencao,
             'numSequenciaFactura' => $numSequenciaFactura,
-            'numeracaoFactura' => $numeracaoFactura,
+            'numeracaoFactura' => str_replace("PP", "FP", $numeracaoFactura),
             'hashValor' => $hashValor,
             'empresa_id' => auth()->user()->empresa_id,
             'centroCustoId' => session()->get('centroCustoId'),

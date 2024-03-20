@@ -52,7 +52,7 @@
                                         <td>{{ $ft['factura']['numeracaoFactura'] }}</td>
                                         <td>{{ $ft['factura']['nome_do_cliente'] }}</td>
                                         <td>{{ $ft['factura']['nomeProprietario'] }}</td>
-                                        <td>{{ $ft['factura']['user']['name'] }}</td>
+                                        <td>{{ $ft['user']['name'] }}</td>
                                         <td style="text-align: right">{{ number_format($ft['factura']['valorIliquido'], 2, ',', '.') }}</td>
                                         <td style="text-align: right">{{ number_format($ft['factura']['valorImposto'], 2, ',', '.') }}</td>
                                         <td style="text-align: right">{{ number_format($ft['factura']['contraValor'], 2, ',', '.') }}</td>

@@ -15,6 +15,7 @@ class AnulacaoDocumentoFaturaCreateController extends Component
 {
     use LivewireAlert;
     use TraitLogAcesso;
+    use TraitPrintAnulacaoFatura;
 
     public $numeracaoFactura = null;
     public $temFatura = false;
@@ -105,6 +106,7 @@ class AnulacaoDocumentoFaturaCreateController extends Component
 
             $recibo = DB::table('recibos')->where('facturaId', $this->fatura['id'])
                 ->where('anulado', 'N')->first();
+
             if ($recibo) {
                 $this->confirm('Fatura não pode ser anulado, contém recibo', [
                     'showConfirmButton' => true,
@@ -114,16 +116,11 @@ class AnulacaoDocumentoFaturaCreateController extends Component
                 return;
             }
             $emitirAnulacaoFatura = new EmitirAnulacaoFatura(new DatabaseRepositoryFactory());
-            $anulacaoDocumento = $emitirAnulacaoFatura->execute($this->fatura);
-            if ($anulacaoDocumento) {
+            $notaCredito = $emitirAnulacaoFatura->execute($this->fatura);
+            if ($notaCredito) {
                 $this->logAcesso();
                 $this->resetField();
-                $this->confirm('Operação realizada com sucesso', [
-                    'showConfirmButton' => true,
-                    'showCancelButton' => false,
-                    'icon' => 'success'
-                ]);
-                return;
+                $this->printAnulacaoFatura($notaCredito->id);
             }
         }
     }

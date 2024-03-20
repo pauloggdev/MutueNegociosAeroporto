@@ -113,10 +113,12 @@ use App\Http\Controllers\empresa\Facturas\FacturaProformaIndexController;
 use App\Http\Controllers\empresa\Facturas\FacturasAeroportuarioIndexController;
 use App\Http\Controllers\empresa\Facturas\FacturasIndexController;
 use App\Http\Controllers\empresa\Facturas\FacturasOutroServicoIndexController;
+use App\Http\Controllers\empresa\Facturas\FacturasServicoComercialIndexController;
 use App\Http\Controllers\empresa\Faturacao\EmissaoFaturaAeronauticoController;
 use App\Http\Controllers\empresa\Faturacao\EmissaoFaturaCargaController;
 use App\Http\Controllers\empresa\Faturacao\EmissaoFaturaController;
 use App\Http\Controllers\empresa\Faturacao\EmissaoFaturaOutroServicoController;
+use App\Http\Controllers\empresa\Faturacao\EmissaoFaturaServicoComercialController;
 use App\Http\Controllers\empresa\Faturacao\EmitirDocumentoController;
 use App\Http\Controllers\empresa\Faturacao\FaturacaoCreateController;
 use App\Http\Controllers\empresa\Faturacao\FaturacaoIndexController;
@@ -272,7 +274,7 @@ Route::get('/select2', [\App\Http\Controllers\Select2::class]);
 Route::get('/saft', function () {
 
 
-    $currectHash = new \App\Domain\Entity\Empresa\CorrectHash\CurrectHash('PP', 'facturas', false);
+    $currectHash = new \App\Domain\Entity\Empresa\CorrectHash\CurrectHash('FR', 'facturas', false);
     dd($currectHash->execute());
 
 
@@ -854,10 +856,8 @@ Route::group(['middleware' => ['auth:empresa']], function () {
             Route::get('/reimprimirFactura', [FacturaController::class, 'reimprimirFactura']);
             Route::get('/imprimirFacturaTicket', [FacturaController::class, 'imprimirFacturaTicket']);
             Route::post('empresa/fechocaixaVenda/imprimir', [FechoCaixaController::class, 'imprimirFechoCaixaVenda']);
-
             Route::post('empresa/pedido-licenca/{id}', [EmpresaLicencaController::class, 'pedidoAtivacaoLicenca']);
             Route::get('/empresa/planos-assinaturas/pegar-dependecias', [EmpresaLicencaController::class, 'pegarDependencias']);
-
             // Route::get('empresa/planos-assinaturas', 'empresa\LicencaController@index');
             Route::post('/empresa/planos-assinaturas/salvar-factura', [LicencaController::class, 'salvarPedidoFactura']);
 
@@ -1042,6 +1042,9 @@ Route::group(['middleware' => ['auth:empresa']], function () {
             Route::get('empresa/emissao/fatura/carga', EmissaoFaturaCargaController::class)->middleware('hasPermission:emitir fatura carga');
             Route::get('empresa/emissao/fatura/aeronautica', EmissaoFaturaAeronauticoController::class)->middleware('hasPermission:emitir fatura aeronautico');
             Route::get('empresa/emissao/fatura/outros/servicos', EmissaoFaturaOutroServicoController::class)->middleware('hasPermission:emitir fatura outros servicos');
+            Route::get('empresa/emissao/fatura/servicos/comerciais', EmissaoFaturaServicoComercialController::class)->middleware('hasPermission:emitir fatura servicos comerciais');
+
+
             Route::post('empresa/facturacao/salvar', [FacturacaoController::class, 'store']);
             Route::post('empresa/emitirDocumento', [EmitirDocumentoController::class, 'store']);
             Route::get('empresa/facturacao/produtos/{armazen_id}', [FacturacaoController::class, 'listarProdutos']);
@@ -1053,6 +1056,8 @@ Route::group(['middleware' => ['auth:empresa']], function () {
             Route::get('empresa/facturas/cargas', FacturasIndexController::class)->name('facturas.index');
             Route::get('empresa/facturas/aeroportuario', FacturasAeroportuarioIndexController::class)->name('facturasAeroportuario.index');
             Route::get('empresa/facturas/outros/servicos', FacturasOutroServicoIndexController::class)->name('facturasOutrosServico.index');
+            Route::get('empresa/facturas/fatura/servicos/comerciais', FacturasServicoComercialIndexController::class)->name('facturasServicoComercial.index');
+
             Route::get('empresa/listarFacturas', [FacturacaoController::class, 'listarFacturasApi']);
             Route::get('empresa/facturasCliente/{clienteId}', [FacturaController::class, 'listarFacturasPorCliente']);
             Route::get('empresa/facturas-licencas', [FacturaController::class, 'facturasLicencasIndex']);

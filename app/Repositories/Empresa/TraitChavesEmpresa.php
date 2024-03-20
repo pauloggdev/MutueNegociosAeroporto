@@ -1,15 +1,10 @@
 <?php
 
 namespace App\Repositories\Empresa;
-
-
 trait TraitChavesEmpresa
 {
-
     public function pegarChavePrivada()
     {
-
-
         $privatekey = "MIICXQIBAAKBgQDLCBFpQtDzVaCRm6PR3QZRb+v5jVROVMsB79HeEjkEVFxOnKD2
         WBolwYMvKHsNh6xEMnyL8sLqTc1MX1gSx/7PTOy7Umq6pnn2N37JYRg6J2i7r65T
         UaHZ7QikB+smhaCtwKK7dgL31elWXK5yD1TwpHOqSpiacQbGy79CwMfP2QIDAQAB
@@ -28,13 +23,10 @@ trait TraitChavesEmpresa
     }
     public function pegarChavePublica()
     {
-
-
         $publickey = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDLCBFpQtDzVaCRm6PR3QZRb+v5
         jVROVMsB79HeEjkEVFxOnKD2WBolwYMvKHsNh6xEMnyL8sLqTc1MX1gSx/7PTOy7
         Umq6pnn2N37JYRg6J2i7r65TUaHZ7QikB+smhaCtwKK7dgL31elWXK5yD1TwpHOq
         SpiacQbGy79CwMfP2QIDAQAB";
-
         return $publickey;
     }
 }

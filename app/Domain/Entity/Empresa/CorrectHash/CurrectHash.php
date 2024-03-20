@@ -38,7 +38,7 @@ class CurrectHash
             $dataCarbon = Carbon::createFromFormat('Y-m-d H:i:s', $document->created_at);
 
 
-            $plaintext = $dataCarbon->format('Y-m-d') . ';' . str_replace(' ', 'T', $document->created_at) . ';' . $numberInvoice . ';' . number_format($document->total, 2, ".", "") . ';' . $hashAnterior;
+            $plaintext = $dataCarbon->format('Y-m-d') . ';' . str_replace(' ', 'T', $document->created_at) . ';' . str_replace("FP", "PP", $numberInvoice) . ';' . number_format($document->total, 2, ".", "") . ';' . $hashAnterior;
             // HASH
             $hash = 'sha1'; // Tipo de Hash
             $rsa->setHash(strtolower($hash)); // Configurando para o tipo Hash especificado em cima

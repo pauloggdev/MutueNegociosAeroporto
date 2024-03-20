@@ -10,14 +10,10 @@ use Livewire\Component;
 class GerarSaftController extends Component
 {
     use TraitLogAcesso;
-    public $saft;
-
-    public function __construct()
-    {
-        $this->saft['dataInicio'] = '2023-01-01';
-        $this->saft['dataFinal'] = '2024-03-12';
-    }
-
+    public $saft = [
+        'dataInicio' => null,
+        'dataFinal' => null,
+    ];
     public function render()
     {
         return view('empresa.gerarSaft.index');
@@ -35,12 +31,9 @@ class GerarSaftController extends Component
         ];
         $this->validate($rules, $messages);
         $this->logAcesso();
-        return $this->gerarSaft($this->saft);
+        $gerarSaft = new GeradorDoFicheiroSaft();
+        return ($gerarSaft->execute($this->saft));
     }
 
-    public function gerarSaft($saft)
-    {
-        $gerarSaft = new GeradorDoFicheiroSaft();
-        return ($gerarSaft->execute());
-    }
+
 }

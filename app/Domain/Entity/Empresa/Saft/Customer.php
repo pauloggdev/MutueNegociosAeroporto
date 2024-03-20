@@ -38,7 +38,8 @@ class Customer
         $xmlWriter->endElement();
 
         $xmlWriter->startElement('CustomerTaxID');
-        $xmlWriter->text($this->customerTaxID);
+        $xmlWriter->text("999999999");
+//        $xmlWriter->text($this->customerTaxID);
         $xmlWriter->endElement();
 
         $xmlWriter->startElement('CompanyName');

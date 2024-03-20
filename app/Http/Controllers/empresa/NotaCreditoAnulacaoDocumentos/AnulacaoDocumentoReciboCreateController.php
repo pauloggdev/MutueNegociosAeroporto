@@ -73,6 +73,7 @@ class AnulacaoDocumentoReciboCreateController extends Component
 
     public function emitirNotaCreditoAnularRecibo()
     {
+        dd('teste');
         $verificadorDocumento = new VerificadorDocumento('facturas');
         if (!$verificadorDocumento->comparaDataDocumentoAnteriorComActual()) {
             return [
@@ -81,11 +82,8 @@ class AnulacaoDocumentoReciboCreateController extends Component
                     'showCancelButton' => false
 
                 ])
-
             ];
         }
-
-
         $rules = [
             'notaCredito.descricao' => 'required',
             'reciboSearch' => [function ($attr, $reciboSearch, $fail) {

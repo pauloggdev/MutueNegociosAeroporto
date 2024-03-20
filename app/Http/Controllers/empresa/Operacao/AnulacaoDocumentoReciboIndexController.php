@@ -13,8 +13,6 @@ class AnulacaoDocumentoReciboIndexController extends Component
             ->paginate();
         return view('empresa.operacao.documentosAnuladosReciboIndex', $data);
     }
-    public function printNotaCredito(){
 
-    }
 
 }

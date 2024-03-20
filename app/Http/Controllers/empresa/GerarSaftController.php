@@ -55,7 +55,7 @@ class GerarSaftController extends Controller
         $EndDate = date("Y-m-d", strtotime($request->dataFinal));
 
 
-       
+
 
         // $StartDate = "2022-10-04 00:00";
         // $EndDate = "2022-10-04 20:00";
@@ -196,8 +196,7 @@ class GerarSaftController extends Controller
             ->where(function ($query) {
                 $query->where('facturas.tipo_documento', 1)
                     ->orWhere('facturas.tipo_documento', 2);
-            })
-            ->count();
+            })->count();
 
         //OBS: adicionar aqui Qtds notas de creditos (facturas e facturas recibos anulados ou retificados)
 
@@ -212,7 +211,6 @@ class GerarSaftController extends Controller
 
         $sourceDocuments = $dom->createElement('SourceDocuments');
         $salesInvoices = $dom->createElement('SalesInvoices');
-
 
         //LISTAR FACTURAS E FACTURAS RECIBOS
         $facturas = Factura::with(['facturas_items', 'formaPagamento', 'facturas_items.produto', 'facturas_items.produto.unidade', 'facturas_items.produto.motivoIsencao', 'tipoDocumento'])

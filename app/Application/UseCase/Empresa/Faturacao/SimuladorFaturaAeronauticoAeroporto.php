@@ -36,7 +36,6 @@ class SimuladorFaturaAeronauticoAeroporto
     public function execute($input)
     {
         $input = (object)$input;
-
         if ($input->isencaoIVA) {
             $taxaIva = 0;
         } else {

@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Application\UseCase\Empresa\Saft;
-
 use App\Domain\Entity\Empresa\Saft\BillingAddress;
 use App\Domain\Entity\Empresa\Saft\CompanyAddress;
 use App\Domain\Entity\Empresa\Saft\CreditNotes;
@@ -22,18 +21,19 @@ use App\Models\empresa\NotaCredito;
 use App\Models\empresa\Recibos;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Response;
 
 
 class GeradorDoFicheiroSaft
 {
-    public function execute()
+    public function execute($periodo)
     {
-        $startDate = '2023-01-01 01:00';
-        $endDate = '2024-03-12 23:59';
+
+        $startDate = $periodo['dataInicio'].' 00:00';
+        $endDate = $periodo['dataFinal'].' 23:59';
 
         $empresaAdmin = DB::connection('mysql')->table('empresas')->where('id', 1)->first();
         $companyAddress = new CompanyAddress($empresaAdmin->endereco, 'Luanda', 'Luanda', 'AO');
+
         $header = new Header(
             '1.01_01',
             $empresaAdmin->nif,
@@ -55,9 +55,6 @@ class GeradorDoFicheiroSaft
             $empresaAdmin->email,
             $empresaAdmin->website
         );
-
-
-
         //Start MasterFiles
         $masterFiles = new MasterFiles();
         //Customers
@@ -116,12 +113,19 @@ class GeradorDoFicheiroSaft
             $masterFiles->addTaxTableEntry($taxTableEntriy);
         }
         //End MasterFiles
+        $facturaIds = DB::table('facturas')->where('empresa_id', auth()->user()->empresa_id)
+            ->whereBetween(DB::raw('DATE(facturas.created_at)'), array($startDate, $endDate))
+            ->pluck('id')->toArray();
+
         //Start SourcesDocuments
         $faturasData = Factura::with(['tipoDocumentoSigla', 'facturas_items', 'facturas_items.produto.motivoIsencao'])
+            ->whereBetween(DB::raw('DATE(facturas.created_at)'), array($startDate, $endDate))
             ->whereIn('tipoDocumento', [1, 2])
             ->orderBy('created_at', 'asc')
             ->get();
         $notasCreditoData = NotaCredito::with(['factura', 'factura.facturas_items'])->whereNotNull('facturaId')
+            ->whereBetween(DB::raw('DATE(notas_creditos.created_at)'), array($startDate, $endDate))
+            ->whereIn('facturaId', $facturaIds)
             ->orderBy('created_at', 'asc')
             ->get();
 
@@ -129,13 +133,16 @@ class GeradorDoFicheiroSaft
 
         $TotalDebit = DB::table('notas_creditos')
             ->join('facturas', 'facturas.id', '=', 'notas_creditos.facturaId')
+            ->whereBetween(DB::raw('DATE(notas_creditos.created_at)'), array($startDate, $endDate))
             ->whereNotNull('facturaId')
+            ->whereIn('facturaId', $facturaIds)
             ->orderBy('created_at', 'asc')
             ->sum('facturas.valorIliquido');
 
         $TotalCredit = DB::table('facturas')
             ->where('anulado', 'N')
             ->whereIn('tipoDocumento', [1, 2])
+            ->whereBetween(DB::raw('DATE(facturas.created_at)'), array($startDate, $endDate))
             ->orderBy('created_at', 'asc')
             ->sum('valorIliquido');
 
@@ -289,12 +296,13 @@ class GeradorDoFicheiroSaft
         //start WorkDocuments
         $faturasProformaData = Factura::with(['tipoDocumentoSigla', 'facturas_items', 'facturas_items.produto.motivoIsencao'])
             ->orderBy('created_at', 'asc')
+            ->whereBetween(DB::raw('DATE(facturas.created_at)'), array($startDate, $endDate))
             ->where('tipoDocumento', 3)
             ->get();
-
         $WorkTotalDebit = 0;
         $WorkTotalCredit = DB::table('facturas')
             ->where('anulado', 'N')
+            ->whereBetween(DB::raw('DATE(facturas.created_at)'), array($startDate, $endDate))
             ->where('tipoDocumento', 3)
             ->orderBy('created_at', 'asc')
             ->sum('valorIliquido');
@@ -375,6 +383,7 @@ class GeradorDoFicheiroSaft
         //start Payments
         $recibosData = Recibos::with(['factura'])
             ->where('empresaId', auth()->user()->empresa_id)
+            ->whereBetween(DB::raw('DATE(recibos.created_at)'), array($startDate, $endDate))
             ->orderBy('created_at', 'asc')
             ->get();
 
@@ -383,6 +392,7 @@ class GeradorDoFicheiroSaft
         $PaymentTotalCredit = DB::table('recibos')
             ->where('anulado', "N") //recibo não anulado
             ->where('empresaId', auth()->user()->empresa_id)
+            ->whereBetween(DB::raw('DATE(recibos.created_at)'), array($startDate, $endDate))
             ->orderBy('created_at', 'asc')
             ->sum('totalEntregue');
 

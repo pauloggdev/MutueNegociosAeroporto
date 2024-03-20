@@ -33,34 +33,34 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Nº Documento</th>
-                                    <th>Recibo referente</th>
+{{--                                    <th>Recibo referente</th>--}}
                                     <th>Nome do cliente</th>
                                     <th>Operador</th>
                                     <th style="text-align: right">Total Factura</th>
                                     <th>Emitido</th>
-                                    <th style="text-align: center">Ações</th>
+{{--                                    <th style="text-align: center">Ações</th>--}}
                                 </tr>
                                 </thead>
                                 <tbody>
                                 @foreach($recibos as $key=>$rc)
                                     <tr>
                                         <td>{{ ++$key }}</td>
-                                        <td>{{ $rc['numDoc'] }}</td>
+{{--                                        <td>{{ $rc['numDoc'] }}</td>--}}
                                         <td>{{ $rc['recibo']['numeracaoRecibo'] }}</td>
                                         <td>{{ $rc['recibo']['nomeCliente'] }}</td>
                                         <td>{{ $rc['user']['name'] }}</td>
                                         <td style="text-align: right">{{ number_format($rc['recibo']['totalFatura'], 2, ',', '.') }}</td>
                                         <td>{{date_format($rc->created_at,'d/m/Y')}}</td>
-                                        <td style="text-align: center">
-                                            <a class="blue" wire:click="printNotaCredito({{$rc->id}})"
-                                               title="Reimprimir nota credito" style="cursor: pointer">
-                                                <i class="ace-icon fa fa-print bigger-160"></i>
-                                                <span wire:loading wire:target="printNotaCredito({{$rc->id}})"
-                                                      class="loading">
-                                                    <i class="ace-icon fa fa-print bigger-160"></i>
-                                                </span>
-                                            </a>
-                                        </td>
+{{--                                        <td style="text-align: center">--}}
+{{--                                            <a class="blue" wire:click="printNotaCredito({{$rc->id}})"--}}
+{{--                                               title="Reimprimir nota credito" style="cursor: pointer">--}}
+{{--                                                <i class="ace-icon fa fa-print bigger-160"></i>--}}
+{{--                                                <span wire:loading wire:target="printNotaCredito({{$rc->id}})"--}}
+{{--                                                      class="loading">--}}
+{{--                                                    <i class="ace-icon fa fa-print bigger-160"></i>--}}
+{{--                                                </span>--}}
+{{--                                            </a>--}}
+{{--                                        </td>--}}
                                     </tr>
                                 @endforeach
 

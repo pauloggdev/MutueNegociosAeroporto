@@ -118,7 +118,6 @@ class ProdutoRepository
                 $query->where('tipoServicoId', $tipoServicoId);
             })->where('empresa_id', auth()->user()->empresa_id)
             ->get();
-
     }
     public function getProdutoArmazemIdPeloCentroCustoId2($centroCustoId, $armazemId)
     {

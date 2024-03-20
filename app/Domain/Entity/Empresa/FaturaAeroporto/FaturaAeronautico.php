@@ -67,26 +67,15 @@ class FaturaAeronautico
         $this->items[] = $items;
     }
 
-    /**
-     * @return mixed
-     */
     public function getMoeda()
     {
         return $this->moeda;
     }
-
-    /**
-     * @return mixed
-     */
     public function getConsidera1hDepois14min()
     {
         return $this->considera1hDepois14min;
     }
 
-
-    /**
-     * @return mixed
-     */
     public function getMoedaPagamento()
     {
         return $this->moedaPagamento;
