@@ -5,19 +5,28 @@ namespace App\Http\Controllers\empresa\FechoCaixa;
 use App\Http\Controllers\empresa\ReportShowController;
 use App\Models\empresa\CentroCusto;
 use App\Models\empresa\Cliente;
+use App\Models\empresa\FormaPagamentoGeral;
+use App\Models\empresa\FormaPagamentos;
+use App\Models\empresa\Moeda;
+use App\Models\empresa\TipoDocumento;
+use App\Models\empresa\Tipodocumentosequencia;
 use App\Models\empresa\TipoMercadoria;
+use App\Models\empresa\TipoServico;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
 
-class RelatorioGeralIndexController extends Component
+class RelatorioGeraisTodosController extends Component
 {
     public $clienteId;
     public $data_inicio;
     public $data_fim;
-    public $venda_online;
     public $venda;
-    public $tipoMercadoriaId;
+    public $tipoServicoId;
+    public $formapagamentoId;
+    public $tipoMoedaId;
+    public $tipoDocumetoId;
+
 
     protected $listeners = [
         'selectedItem'
@@ -37,14 +46,19 @@ class RelatorioGeralIndexController extends Component
     public function render()
     {
         $cliente = Cliente::where('empresa_id', auth()->user()->empresa_id)->get();
-        $tipoMercadoria = TipoMercadoria::get();
+        $tipoServico = TipoServico::get();
+        $tipoDocumeto= TipoDocumento::get();
+        $tipoMoeda=Moeda::get();
+        $formapagamento=FormaPagamentoGeral::get();
 
-        return view('empresa.relatorios.mapaFaturacao', compact('cliente', 'tipoMercadoria'));
+        return view('empresa.relatorios.relatoriosGeral', compact('cliente', 'tipoDocumeto','tipoServico','tipoMoeda','formapagamento'));
         
     }
 
-    public function imprimirMapaFaturacao()
+    public function imprimirRelatorioGeral()
     {
+      
+        
         $data_inicio = $this->data_inicio . ' 00:00:00';
         $data_fim = $this->data_fim . ' 23:59:59';
         $dataInicioFormat = date_format(date_create($data_inicio), "d/m/Y");
@@ -70,7 +84,7 @@ class RelatorioGeralIndexController extends Component
 
         $this->validate($rules, $messages);
         $logotipo = public_path() . '/upload//' . auth()->user()->empresa->logotipo;
-        $filename = "mapadeFaturacao";
+        $filename = "relatorioGeralTodos";
         $reportController = new ReportShowController();
 
         $report = $reportController->show(
@@ -85,10 +99,14 @@ class RelatorioGeralIndexController extends Component
                     'dataInicioFormat' => $dataInicioFormat,
                     'dataFinalFormat' => $dataFinalFormat,
                     'clienteId' => $this->clienteId,
-                    'tipoMercadoriaId' => $this->tipoMercadoriaId,
+                    'tipoServicoId' => $this->tipoServicoId,
+                    'tipoDocumetoId'=>$this->tipoDocumetoId,
+                    'tipoMoedaId'=>$this->tipoMoedaId,
+                    'formapagamentoId'=>$this->formapagamentoId
                 ]
             ]
         );
+
 
 
         $this->dispatchBrowserEvent('printPdf', ['data' => base64_encode($report['response']->getContent())]);
@@ -121,7 +139,7 @@ class RelatorioGeralIndexController extends Component
         ];
         $this->validate($rules, $messages);
         $logotipo = public_path() . '/upload//' . auth()->user()->empresa->logotipo;
-        $filename = "mapadeFaturacao";
+        $filename = "relatorioGeralTodos";
         $reportController = new ReportShowController('xls');
         $report = $reportController->show(
             [

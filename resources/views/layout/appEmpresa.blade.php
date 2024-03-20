@@ -608,13 +608,14 @@ if (Auth::guard('web')->check()) {
                         </a>
                         <b class="arrow"></b>
                     </li>
-{{--                    <li class="hover">--}}
-{{--                        <a href="{{route('relatorio.relatoriosGeral')}}">--}}
-{{--                            <i class="menu-icon fa fa-file-text"></i>--}}
-{{--                            RELATÓRIO GERAL--}}
-{{--                        </a>--}}
-{{--                        <b class="arrow"></b>--}}
-{{--                    </li>--}}
+
+                    <li class="hover">
+                        <a href="{{route('relatorio.gerais')}}">
+                            <i class="menu-icon fa fa-file-text"></i>
+                            RELATÓRIO GERAL
+                        </a>
+                        <b class="arrow"></b>
+                    </li>
                 </ul>
             </li>
             <li class="hover">
