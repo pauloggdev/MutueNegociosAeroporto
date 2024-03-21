@@ -36,10 +36,9 @@ class RelatorioGeralIndexController extends Component
 
     public function render()
     {
-        $cliente = Cliente::where('empresa_id', auth()->user()->empresa_id)->get();
-        $tipoMercadoria = TipoMercadoria::get();
-
-        return view('empresa.relatorios.mapaFaturacao', compact('cliente', 'tipoMercadoria'));
+        $data['clientes'] = Cliente::where('empresa_id', auth()->user()->empresa_id)->get();
+        $data['tiposServicos'] = DB::table('tipos_servicos')->get();
+        return view('empresa.relatorios.relatoriosGeral', $data);
     }
 
     public function imprimirMapaFaturacao()
