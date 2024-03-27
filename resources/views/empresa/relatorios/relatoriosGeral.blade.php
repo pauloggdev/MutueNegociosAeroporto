@@ -3,7 +3,7 @@
     <div class="space-6"></div>
     <div class="page-header" style="left: 0.5%; position: relative">
         <h1>
-            RELATÓRIOS GERAIS
+            RELATORIOS GERAIS
         </h1>
     </div>
     <div class="row">

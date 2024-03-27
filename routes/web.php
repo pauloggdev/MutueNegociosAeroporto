@@ -148,7 +148,7 @@ use App\Http\Controllers\empresa\Marcas\MarcaUpdateController;
 use App\Http\Controllers\empresa\mercadorias\MercadoriaIndexController;
 use App\Http\Controllers\empresa\mercadorias\EspecificacaoMercadoriaController;
 use App\Http\Controllers\empresa\Cambio\CambioController;
-
+use App\Http\Controllers\empresa\FechoCaixa\RelatorioGeraisTodosController;
 use App\Http\Controllers\empresa\ModeloDocumentos\ModeloDocumentoController;
 use App\Http\Controllers\empresa\MotivoIvaController;
 use App\Http\Controllers\empresa\MunicipiosFrete\MunicipioFreteCreateController;
@@ -677,12 +677,8 @@ Route::group(['middleware' => ['auth:empresa']], function () {
 
             Route::get('/empresa/relatorios-gerais', RelatorioGeralIndexController::class)->name('relatorio.relatoriosGeral');
 
-
             Route::get('/empresa/extrato/cliente', RelatorioExtratoClienteController::class)->name('extratoCliente')->middleware('hasPermission:emitir extrato do cliente');
-
-
             Route::post('empresa/ralarios-gerais/imprimir', [RelatorioGeralIndexController::class, 'imprimirRelatorioGeral']);
-
             //Nota Credito (Dar saldo ao cliente)
             Route::get('/empresa/notacredito', NotaCreditoIndexController::class)->name('notaCredito.index');
             Route::get('/empresa/notacredito/novo', NotaCreditoCreateController::class)->name('notaCredito.create')->middleware('hasPermission:gerir nota credito');
@@ -887,6 +883,7 @@ Route::group(['middleware' => ['auth:empresa']], function () {
 
             Route::get('/empresa/relatorios-mapa-faturacao', RelatorioGeralIndexController::class)->name('relatorio.mapaFaturacao')->middleware('hasPermission:imprimir mapa faturacao');
 
+            Route::get('/empresa/relatorios-gerais',RelatorioGeraisTodosController::class)->name('relatorio.gerais')->middleware('hasPermission:imprimir mapa faturacao');
 
             Route::post('empresa/alterarDiasVencimentoFactura', [EmpresaConfiguracaoController::class, 'alterarDiasVencimentoFactura']);
             Route::post('empresa/alterarDiasVencimentoFtProforma', [EmpresaConfiguracaoController::class, 'alterarDiasVencimentoFtProforma']);
@@ -1019,7 +1016,6 @@ Route::group(['middleware' => ['auth:empresa']], function () {
 
             //Tipos de mercadorias
             Route::get('/empresa/mercadorias', MercadoriaIndexController::class);
-
 
             //Especificao de mercadorias
             Route::get('/empresa/mercadorias/especificacao', EspecificacaoMercadoriaController::class);

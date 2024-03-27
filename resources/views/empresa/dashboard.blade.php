@@ -14,8 +14,13 @@
                 :countbancos="{{$countbancos}}"
                 :countprodutos="{{$countprodutos}}"
                 :countvendas="{{$countvendas}}"
+                :tiposservicos="{{$tiposservicos}}"
                 :counttotalvendas="{{$counttotalvendas}}"
                 :vendasmensal="{{$vendasmensal}}"
+                :counttotalproforma="{{$counttotalproforma}}"
+                :counttotalfactura="{{$counttotalfactura}}"
+                :countfacturas="{{$countfacturas}}"
+                :countproforma="{{$countproforma}}"
                 :auth="{{$auth}}" :guard="{{$guard}}">
             </Dashboard-component>
         </section>

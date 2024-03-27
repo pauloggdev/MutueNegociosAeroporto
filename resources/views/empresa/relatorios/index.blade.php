@@ -618,7 +618,7 @@
                                                 Aguarde...</span>
                                         </button>
 
-                                        <a href="{{ route('relatorio.relatoriosGeral') }}" class="btn btn-danger"
+                                        <a href="/empresa/relatorios-gerais" class="btn btn-danger"
                                             type="reset" style="border-radius: 10px">
                                             <i class="ace-icon fa fa-undo bigger-110"></i>
                                             Voltar

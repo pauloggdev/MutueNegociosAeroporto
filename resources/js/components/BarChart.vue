@@ -31,7 +31,7 @@ export default {
 
     const datasets = [
       {
-        label: "Vendas Mensal - " + new Date().getFullYear(),
+        label: "Vendas Mensais - " + new Date().getFullYear(),
         backgroundColor: dynamicColors,
         data: [],
         options: {

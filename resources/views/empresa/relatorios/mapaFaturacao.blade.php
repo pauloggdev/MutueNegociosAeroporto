@@ -107,22 +107,6 @@
                                         </span>
                                     @endif
                                 </div>
-{{--                                <div class="col-md-3">--}}
-{{--                                    <label class="control-label bold label-select2" for="centroCusto">Tipo de Operação<b--}}
-{{--                                            class="red fa fa-question-circle"></b></label>--}}
-{{--                                    <select class="col-md-12 select2" wire:model="tipoOperacaoId" data="tipoOperacaoId"--}}
-{{--                                            style="height:35px;<?= $errors->has('tipoOperacaoId') ? 'border-color: #ff9292;' : '' ?>">--}}
-{{--                                        <option value="">TODOS</option>--}}
-{{--                                        <option value="1">Importação</option>--}}
-{{--                                        <option value="2">Exportação</option>--}}
-{{--                                    </select>--}}
-{{--                                    @if ($errors->has('tipoOperacaoId'))--}}
-{{--                                        <span class="help-block"--}}
-{{--                                              style="color: red;position: absolute;margin-top: -2px;font-size: 12px;">--}}
-{{--                                            <strong>{{ $errors->first('tipoOperacaoId') }}</strong>--}}
-{{--                                        </span>--}}
-{{--                                    @endif--}}
-{{--                                </div>--}}
                             </div>
                         </div>
                     </div>

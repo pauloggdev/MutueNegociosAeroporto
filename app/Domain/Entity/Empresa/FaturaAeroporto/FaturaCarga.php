@@ -29,17 +29,6 @@ class FaturaCarga
     private $observacao;
     private $items = [];
 
-    /**
-     * @param $CartaDePorte
-     * @param $peso
-     * @param $dataEntrada
-     * @param $dataSaida
-     * @param $nDias
-     * @param $valorIliquido
-     * @param $valorImposto
-     * @param $contraValor
-     */
-
     public function __construct($cartaDePorte, $tipoDocumento, $tipoOperacao, $formaPagamentoId, $isencaoIVA, $retencao, $valorRetencao, $clienteId, $nomeCliente, $nomeProprietario, $telefoneCliente, $nifCliente, $emailCliente, $enderecoCliente, $peso, $dataEntrada, $dataSaida, $nDias, $taxaIva, $cambioDia, $moedaEstrageiraUsado, $moedaPagamento, $observacao)
     {
         $this->cartaDePorte = $cartaDePorte;
