@@ -123,6 +123,8 @@ class EmitirDocumentoAeroportoOutroServico
             'taxaIva' => $request->taxaIva,
             'cambioDia' => $request->cambioDia,
             'contraValor' => $request->contraValor,
+            'valorliquido' => $request->valorliquido,
+            'totalDesconto' => $request->valorDesconto,
             'valorIliquido' => $request->valorIliquido,
             'valorImposto' => $request->valorImposto,
             'tipoFatura' => 3,

@@ -76,7 +76,7 @@ class ResetPassword extends Notification implements ShouldQueue
         return (new MailMessage)
             ->subject('Notificação de redefinição de senha')
             ->view('mail.resetarSenha',[
-                'url'=>env('APP_URL')."password/reset/".$this->token."?email=".$notifiable->getEmailForPasswordReset(),
+                'url'=>env('APP_URL')."/password/reset/".$this->token."?email=".$notifiable->getEmailForPasswordReset(),
 
             ]);
         // ->line(Lang::get('If you did not request a password reset, no further action is required.'));

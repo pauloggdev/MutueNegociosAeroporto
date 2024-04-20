@@ -52,6 +52,7 @@ class SimuladorFaturaCargaAeroporto
             $input->tipoOperacao,
             $input->formaPagamentoId,
             $input->isencaoIVA,
+            $input->isencaoCargaTransito,
             $input->retencao,
             $valorRetencao,
             $input->clienteId,
@@ -103,7 +104,11 @@ class SimuladorFaturaCargaAeroporto
                 $cambioDia,
                 $item->sujeitoDespachoId,
                 $item->tipoMercadoriaId,
-                $item->especificacaoMercadoriaId
+                $item->especificacaoMercadoriaId,
+                $input->dataEntrada,
+                $input->dataSaida,
+                $input->tipoOperacao,
+                $input->isencaoCargaTransito
             );
             $faturaCarga->addItem($faturaItemCarga);
         }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\empresa\Facturas;
 use App\Http\Controllers\empresa\Faturacao\PrintFaturaAeroportuario;
+use App\Http\Controllers\empresa\Faturacao\PrintFaturaServicoComerciais;
 use App\Http\Controllers\empresa\ReportShowController;
 use App\Models\empresa\Factura;
 use App\Repositories\Empresa\FacturaRepository;
@@ -14,7 +15,7 @@ class FacturasServicoComercialIndexController extends Component
 {
     use TraitEmpresaAutenticada;
     use WithPagination;
-    use PrintFaturaAeroportuario;
+    use PrintFaturaServicoComerciais;
 
     protected $paginationTheme = 'bootstrap';
     public $search = null;
@@ -84,13 +85,13 @@ class FacturasServicoComercialIndexController extends Component
             ->search(trim($this->search))
             ->paginate();
         $this->dispatchBrowserEvent('reloadTableJquery');
-        return view('empresa.facturas.facturasAeroportuarioIndex', $data);
+        return view('empresa.facturas.facturasServicosComerciaisIndex', $data);
     }
 
 
     public function imprimirFactura($facturaId)
     {
-        $this->printFaturaAeroportuario($facturaId);
+        $this->printFaturaServicoComercias($facturaId);
 
     }
 

@@ -3,7 +3,7 @@
     <div class="row">
         <div class="page-header" style="left: 0.5%; position: relative">
             <h1>
-                FACTURAS - AEROPORTUÁRIOS
+                FACTURAS - SERVIÇOS COMERCIAIS
                 <small>
                     <i class="ace-icon fa fa-angle-double-right"></i>
                     Listagem
@@ -90,6 +90,7 @@
                                         <th style="text-align: right">Total</th>
                                         <th>Emitido</th>
                                         <th>Cliente</th>
+                                        <th>Telefone</th>
                                         <th style="text-align: center">Status</th>
                                         <th style="text-align: center">Ações</th>
                                     </tr>
@@ -103,6 +104,7 @@
 
                                             <td>{{ date_format($factura['created_at'], 'd/m/Y') }}</td>
                                             <td>{{ $factura['nome_do_cliente'] }}</td>
+                                            <td>{{ $factura['telefone_cliente'] }}</td>
                                             <td style="text-align: center">
                                                     <span
                                                         class="label label-sm <?= $factura['anulado'] == 'Y'?'label-danger':'label-success'?>">{{ $factura['anulado'] == 'Y'?"Anulada":"Válida" }}

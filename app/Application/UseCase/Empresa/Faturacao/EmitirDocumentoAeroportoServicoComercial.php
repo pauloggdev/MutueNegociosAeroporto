@@ -4,8 +4,6 @@ namespace App\Application\UseCase\Empresa\Faturacao;
 
 use App\Application\UseCase\Empresa\Faturas\GetAnoDeFaturacao;
 use App\Application\UseCase\Empresa\Faturas\GetNumeroSerieDocumento;
-use App\Application\UseCase\Empresa\Parametros\GetParametroPeloLabelNoParametro;
-use App\Domain\Entity\Empresa\FaturaAeroporto\FaturaCarga;
 use App\Domain\Factory\Empresa\RepositoryFactory;
 use App\Infra\Factory\Empresa\DatabaseRepositoryFactory;
 use App\Infra\Repository\Empresa\FaturaRepository;
@@ -14,18 +12,19 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use phpseclib\Crypt\RSA;
-use phpseclib\Crypt\RSA as Crypt_RSA;
 use NumberFormatter;
 
-class EmitirDocumentoAeroportoCarga
+class EmitirDocumentoAeroportoServicoComercial
 {
     use TraitChavesEmpresa;
+
     private FaturaRepository $faturaRepository;
 
     public function __construct(RepositoryFactory $repositoryFactory)
     {
         $this->faturaRepository = $repositoryFactory->createFaturaRepository();
     }
+
     public function execute(Request $request)
     {
         $ultimaFatura = $this->faturaRepository->pegarUltimaFactura($request->tipoDocumento);
@@ -39,7 +38,6 @@ class EmitirDocumentoAeroportoCarga
         //ManipulaÃ§Ã£o de datas: data da factura e data actual
         //$data_factura = Carbon::createFromFormat('Y-m-d H:i:s', $facturas->created_at);
         $datactual = Carbon::createFromFormat('Y-m-d H:i:s', date('Y-m-d H:i:s'));
-
         /*Recupera a sequÃªncia numÃ©rica da Ãºltima factura cadastrada no banco de dados e adiona sempre 1 na sequÃªncia caso o ano da afctura seja igual ao ano actual;
         E reinicia a sequÃªncia numÃ©rica caso se constate que o ano da factura Ã© inferior ao ano actual.*/
         if ($data_factura->diffInYears($datactual) == 0) {
@@ -53,7 +51,6 @@ class EmitirDocumentoAeroportoCarga
         } else if ($data_factura->diffInYears($datactual) > 0) {
             $numSequenciaFactura = 1;
         }
-
         $getAnoFaturacao = new GetAnoDeFaturacao(new DatabaseRepositoryFactory());
         $getYearNow = $getAnoFaturacao->execute();
         $yearNow = Carbon::parse(Carbon::now())->format('Y');
@@ -62,9 +59,9 @@ class EmitirDocumentoAeroportoCarga
         }
         $getNumeroSerieDocumento = new GetNumeroSerieDocumento(new DatabaseRepositoryFactory());
         $numeroSerieDocumento = $getNumeroSerieDocumento->execute();
-        if($numeroSerieDocumento){
+        if ($numeroSerieDocumento) {
             $numeroSerieDocumento = $numeroSerieDocumento->valor;
-        }else{
+        } else {
             $numeroSerieDocumento = "ATO";
         }
         if ($request->tipoDocumento == 1) {
@@ -74,24 +71,16 @@ class EmitirDocumentoAeroportoCarga
         } else {
             $doc = "PP ";
         }
-
         $numeracaoFactura = $doc . $numeroSerieDocumento . $yearNow . '/' . $numSequenciaFactura; //retirar somente 3 primeiros caracteres na facturaSerie da factura: substr('abcdef', 0, 3);
-
-        $statusFatura = 2;//Pago
-        $dataVencimento = null;
-
-        $rsa = new Crypt_RSA(); //Algoritimo RSA
-
+        $rsa = new RSA(); //Algoritimo RSA
         $privatekey = $this->pegarChavePrivada();
-        $publickey = $this->pegarChavePublica();
+        //$publickey = $this->pegarChavePublica();
         // Lendo a private key
         $rsa->loadKey($privatekey);
         $plaintext = str_replace(date(' H:i:s'), '', $datactual) . ';' . str_replace(' ', 'T', $datactual) . ';' . $numeracaoFactura . ';' . number_format($request->total, 2, ".", "") . ';' . $hashAnterior;
-
         // HASH
         $hash = 'sha1'; // Tipo de Hash
         $rsa->setHash(strtolower($hash)); // Configurando para o tipo Hash especificado em cima
-
         //ASSINATURA
         $rsa->setSignatureMode(RSA::SIGNATURE_PKCS1); //Tipo de assinatura
         $signaturePlaintext = $rsa->sign($plaintext); //Assinando o texto $plaintext(resultado das concatenaÃ§Ãµes)
@@ -100,12 +89,10 @@ class EmitirDocumentoAeroportoCarga
         $faturaId = DB::table('facturas')->insertGetId([
             'texto_hash' => $plaintext,
             'tipo_documento' => $request->tipoDocumento,
-            'tipoDocumento' => $request->tipoDocumento,
-            'tipoMercadoria' => $request->tipoMercadoria,
-            'tipoOperacao' => $request->tipoOperacao,
             'formaPagamentoId' => $request->formaPagamentoId,
+            'observacao' => $request->observacao,
             'isencaoIVA' => $request->isencaoIVA ? 'Y' : 'N',
-            'isencao24hCargaTransito' => $request->isencaoCargaTransito,
+            'isencaoOcupacao' => $request->isencaoOcupacao ? 'Y' : 'N',
             'taxaRetencao' => $request->taxaRetencao,
             'valorRetencao' => $request->valorRetencao,
             'numSequenciaFactura' => $numSequenciaFactura,
@@ -115,21 +102,6 @@ class EmitirDocumentoAeroportoCarga
             'centroCustoId' => session()->get('centroCustoId'),
             'user_id' => auth()->user()->id,
             'operador' => auth()->user()->name,
-            'cartaDePorte' => $request->cartaDePorte,
-            'peso' => $request->peso,
-            'dataEntrada' => $request->dataEntrada,
-            'dataSaida' => $request->dataSaida,
-            'nDias' => $request->nDias,
-            'taxaIva' => $request->taxaIva,
-            'cambioDia' => $request->cambioDia,
-            'moeda' => $request->moeda,
-            'moedaPagamento' => $request->moedaPagamento,
-            'contraValor' => $request->contraValor,
-            'valorliquido' => $request->valorliquido,
-            'totalDesconto' => $request->valorDesconto,
-            'valorIliquido' => $request->valorIliquido,
-            'valorImposto' => $request->valorImposto,
-            'total' => $request->total,
             'clienteId' => $request->clienteId,
             'nome_do_cliente' => $request->nomeCliente,
             'nomeProprietario' => $request->nomeProprietario,
@@ -137,8 +109,18 @@ class EmitirDocumentoAeroportoCarga
             'nif_cliente' => $request->nifCliente,
             'email_cliente' => $request->emailCliente,
             'endereco_cliente' => $request->enderecoCliente,
-            'tipoFatura' => 1,
-            'observacao' => $request->observacao,
+            'tipoDocumento' => $request->tipoDocumento,
+            'taxaIva' => $request->taxaIva,
+            'cambioDia' => $request->cambioDia,
+            'contraValor' => $request->contraValor,
+            'valorIliquido' => $request->valorIliquido,
+            'valorliquido' => $request->valorliquido,
+            'valorImposto' => $request->valorImposto,
+            'totalDesconto' => $request->totalDesconto,
+            'tipoFatura' => 4,
+            'total' => $request->total,
+            'moeda' => $request->moeda,
+            'moedaPagamento' => $request->moedaPagamento,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()
         ]);
@@ -150,25 +132,26 @@ class EmitirDocumentoAeroportoCarga
             $item = (object)$item;
             DB::table('factura_items')->insert([
                 'produtoId' => $item->produtoId,
-                'quantidade' => 1,
                 'nomeProduto' => $item->nomeProduto,
+                'quantidade' => $item->quantidade,
                 'taxa' => $item->taxa,
-                'valorIva' => $item->valorIva,
-                'taxaIva' => $item->taxaIva,
-                'nDias' => $item->nDias,
-                'sujeitoDespachoId' => $item->sujeitoDespachoId,
-                'tipoMercadoriaId' => $item->tipoMercadoriaId,
-                'especificacaoMercadoriaId' => $item->especificacaoMercadoriaId,
+                'considera1hDepois30min' => $item->considera1hDepois30min,
+                'unidadeMetrica' => $item->unidadeMetrica,
                 'desconto' => $item->desconto,
-                'valorImposto' => $item->valorImposto,
+                'addArCondicionado' => $request->addArCondicionado ? 'Y' : 'N',
+                'qtdMeses' => $item->qtdMeses,
                 'total' => $item->total,
                 'totalIva' => $item->totalIva,
+                'taxaIva' => $item->taxaIva,
+                'valorIva' => $item->valorIva,
                 'factura_id' => $faturaId,
+                'descHoraEstacionamento' => $item->descHoraEstacionamento,
+                'dataEntrada' => $item->dataEntradaEstacionamento,
+                'dataSaida' => $item->dataSaidaEstacionamento
             ]);
         }
         return $faturaId;
     }
-
     public function getCodigoBarra($faturaId, $clienteId)
     {
         return "1000" . $clienteId . "" . $faturaId . "" . auth()->user()->id;

@@ -43,6 +43,7 @@ class BancoRepository
             'num_conta' => $data['num_conta'],
             'uuid' => (string) Str::uuid(),
             'iban' => $data['iban'],
+            'swift' => $data['swift']??null,
             'status_id' => $data['status_id'],
             'canal_id' => $data['canal_id'] ?? 2,
             'empresa_id' => auth()->user()->empresa_id,
@@ -59,6 +60,7 @@ class BancoRepository
             'sigla' => $banco['sigla'],
             'num_conta' => $banco['num_conta'],
             'iban' => $banco['iban'],
+            'swift' => $banco['swift']??null,
             'status_id' => $banco['status_id'],
             'empresa_id' => auth()->user()->empresa_id
         ]);

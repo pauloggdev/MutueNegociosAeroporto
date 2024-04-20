@@ -13,19 +13,18 @@ use App\Models\empresa\Tipodocumentosequencia;
 use App\Models\empresa\TipoMercadoria;
 use App\Models\empresa\TipoServico;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use Livewire\Component;
 
 
 class RelatorioGeraisTodosController extends Component
 {
-    public $clienteId;
-    public $data_inicio;
-    public $data_fim;
-    public $venda;
-    public $tipoServicoId;
-    public $formapagamentoId;
-    public $tipoMoedaId;
-    public $tipoDocumetoId;
+    public $relatorio = [
+        'dataInicio' => null,
+        'dataFim' => null,
+        'tipoDocumentoId' => null,
+        'tipoServicoId' => null,
+    ];
 
 
     protected $listeners = [
@@ -40,50 +39,50 @@ class RelatorioGeraisTodosController extends Component
     public function selectedItem($item)
     {
 
-        $this->{$item['atributo']} = $item['valor'];
+        $this->relatorio[$item['atributo']] = $item['valor'];
     }
 
     public function render()
     {
-        $data['clientes'] = Cliente::where('empresa_id', auth()->user()->empresa_id)->get();
-        $data['tiposServicos'] = TipoServico::get();
-//        $tipoDocumeto= TipoDocumento::get();
-//        $tipoMoeda=Moeda::get();
-//        $formapagamento=FormaPagamentoGeral::get();
-
+        $data['tiposDocumentos'] = TipoDocumento::whereIn('id', [1, 2, 3])->get();
+        $data['tiposServicos'] = TipoServico::whereIn('id', [1, 2])->get();
         return view('empresa.relatorios.relatoriosGeral', $data);
-
     }
 
     public function imprimirRelatorioGeral()
     {
-        $data_inicio = $this->data_inicio . ' 00:00:00';
-        $data_fim = $this->data_fim . ' 23:59:59';
-        $dataInicioFormat = date_format(date_create($data_inicio), "d/m/Y");
-        $dataFinalFormat = date_format(date_create($data_fim), "d/m/Y");
-        $request = $this->data_inicio;
+
+        $dataInicio = date_format(date_create($this->relatorio['dataInicio']), "d/m/Y") . " 00:00:00";
+        $dataFinal = date_format(date_create($this->relatorio['dataFim']), "d/m/Y") . " 23:59:59";
+
+        $formatoData = "TODO PERIODO";
+        $setarData = false;
+        if ($this->relatorio['dataInicio'] && $this->relatorio['dataFim']) {
+            $formatoData = $dataInicio . " à " . $dataFinal;
+            $setarData = true;
+        }else{
+            $dataInicio = null;
+            $dataFinal = null;
+        }
+
         $rules = [
-            'data_inicio' => ["required", function ($attribute, $value, $fail) use ($request) {
-                if ($request['data_inicio'] > $request['data_fim']) {
+            'relatorio.dataInicio' => [function ($attribute, $dataInicio, $fail) {
+                if ($dataInicio > $this->relatorio['dataFim']) {
                     $fail('data inicial é maior que a final');
                 }
-            }],
-            'data_fim' => 'required',
-            'data_inicio' => 'required',
-//            'clienteId' => 'required',
-//            'tipoMercadoriaId' => 'required',
+            }]
         ];
         $messages = [
-            'data_inicio.required' => 'Informe a data Inicial',
-            'data_fim.required' => 'Informe a data Final',
-//            'clienteId.required' => 'Informe a data Final',
-//            'tipoMercadoriaId.required' => 'Informe a data Final',
+            'relatorio.dataInicio' => 'campo obrigatório',
+            'relatorio.dataFim' => 'campo obrigatório',
         ];
+
 
         $this->validate($rules, $messages);
         $logotipo = public_path() . '/upload//' . auth()->user()->empresa->logotipo;
-        $filename = "relatorioGeralTodos";
+        $filename = "relatoriosDeVendasGerais";
         $reportController = new ReportShowController();
+//        dd($dataInicio);
 
         $report = $reportController->show(
             [
@@ -92,20 +91,15 @@ class RelatorioGeraisTodosController extends Component
                 'report_parameters' => [
                     'empresa_id' => auth()->user()->empresa_id,
                     'logotipo' => $logotipo,
-                    'data_inicio' => $data_inicio,
-                    'data_fim' => $data_fim,
-                    'dataInicioFormat' => $dataInicioFormat,
-                    'dataFinalFormat' => $dataFinalFormat,
-                    'clienteId' => $this->clienteId,
-                    'tipoServicoId' => $this->tipoServicoId,
-                    'tipoDocumetoId'=>$this->tipoDocumetoId,
-                    'tipoMoedaId'=>$this->tipoMoedaId,
-                    'formapagamentoId'=>$this->formapagamentoId
+                    'tipoDocumentoId' => $this->relatorio['tipoDocumentoId'],
+                    'tipoServicoId' => $this->relatorio['tipoServicoId'],
+                    'data_inicio' => $dataInicio,
+                    'data_fim' => $dataFinal,
+                    'formatoData' => $formatoData,
+                    'setarData' => $setarData
                 ]
             ]
         );
-
-
 
         $this->dispatchBrowserEvent('printPdf', ['data' => base64_encode($report['response']->getContent())]);
         unlink($report['filename']);
@@ -113,32 +107,35 @@ class RelatorioGeraisTodosController extends Component
     }
 
 
-    public function imprimirExcelMapaFaturacao()
+    public function imprimirExcelRelatorioGeral()
     {
+        $dataInicio = date_format(date_create($this->relatorio['dataInicio']), "d/m/Y H:m:s");
+        $dataFinal = date_format(date_create($this->relatorio['dataFim']), "d/m/Y H:m:s");
 
-        $data_inicio = $this->data_inicio . ' 06:59:00';
-        $data_fim = $this->data_fim . ' 23:59:00';
-        $dataInicioFormat = date_format(date_create($data_inicio), "d/m/Y");
-        $dataFinalFormat = date_format(date_create($data_fim), "d/m/Y");
-        $request = $this->data_inicio;
+        $formatoData = "TODO PERIODO";
+        $setarData = false;
+        if ($this->relatorio['dataInicio']) {
+            $formatoData = $dataInicio . " à " . $dataFinal;
+            $setarData = true;
+        }
+
         $rules = [
-            'data_inicio' => ["required", function ($attribute, $value, $fail) use ($request) {
-                if ($request['data_inicio'] > $request['data_fim']) {
+            'relatorio.dataInicio' => [function ($attribute, $dataInicio, $fail) {
+                if ($dataInicio > $this->relatorio['dataFim']) {
                     $fail('data inicial é maior que a final');
-                    return;
                 }
-            }],
-            'data_fim' => 'required',
-            'data_inicio' => 'required',
+            }]
         ];
         $messages = [
-            'data_inicio.required' => 'Informe a data Inicial',
-            'data_fim.required' => 'Informe a data Final',
+            'relatorio.dataInicio' => 'campo obrigatório',
+            'relatorio.dataFim' => 'campo obrigatório',
         ];
+
         $this->validate($rules, $messages);
         $logotipo = public_path() . '/upload//' . auth()->user()->empresa->logotipo;
-        $filename = "relatorioGeralTodos";
+        $filename = "relatoriosDeVendasGerais";
         $reportController = new ReportShowController('xls');
+
         $report = $reportController->show(
             [
                 'report_file' => $filename,
@@ -146,10 +143,12 @@ class RelatorioGeraisTodosController extends Component
                 'report_parameters' => [
                     'empresa_id' => auth()->user()->empresa_id,
                     'logotipo' => $logotipo,
-                    'data_inicio' => $data_inicio,
-                    'data_fim' => $data_fim,
-                    'dataInicioFormat' => $dataInicioFormat,
-                    'dataFinalFormat' => $dataFinalFormat,
+                    'tipoDocumentoId' => $this->relatorio['tipoDocumentoId'],
+                    'tipoServicoId' => $this->relatorio['tipoServicoId'],
+                    'data_inicio' => $this->relatorio['dataInicio'],
+                    'data_fim' => $this->relatorio['dataFim'],
+                    'formatoData' => $formatoData,
+                    'setarData' => $setarData
                 ]
             ]
         );
@@ -158,7 +157,7 @@ class RelatorioGeraisTodosController extends Component
         $headers = array(
             'Content-Type: application/xls',
         );
-        return \Illuminate\Support\Facades\Response::download($report['filename'], 'Mapa de Faturação.xls', $headers);
+        return \Illuminate\Support\Facades\Response::download($report['filename'], 'relatorioGeral' . Str::uuid() . '.xls', $headers);
 
 
     }

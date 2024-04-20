@@ -3,7 +3,7 @@
     <div class="space-6"></div>
     <div class="page-header" style="left: 0.5%; position: relative">
         <h1>
-            NOVO BANCO 
+            NOVO BANCO
         </h1>
     </div>
     <div class="row">
@@ -63,7 +63,7 @@
                             </div>
                             <div class="form-group has-info bold" style="left: 0%; position: relative">
                                 <div class="col-md-6">
-                                    <label class="control-label bold label-select2" for="numConta">Número da conta<b class="red fa fa-question-circle"></b></label>
+                                    <label class="control-label bold label-select2" for="numConta">Número da conta</label>
                                     <div class="input-group">
                                         <input type="text" autofocus wire:model="banco.num_conta" class="form-control" id="numConta" autofocus style="height: 35px; font-size: 10pt;<?= $errors->has('banco.num_conta') ? 'border-color: #ff9292;' : '' ?>" />
                                         <span class="input-group-addon" id="basic-addon1">
@@ -76,7 +76,7 @@
                                     </span>
                                     @endif
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-3">
                                     <label class="control-label bold label-select2" for="sigla">IBAN<b class="red fa fa-question-circle"></b></label>
                                     <div class="input-group">
                                         <input type="text" autofocus wire:model="banco.iban" class="form-control" id="sigla" autofocus style="height: 35px; font-size: 10pt;<?= $errors->has('banco.iban') ? 'border-color: #ff9292;' : '' ?>" />
@@ -89,6 +89,15 @@
                                         <strong>{{ $errors->first('banco.iban') }}</strong>
                                     </span>
                                     @endif
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="control-label bold label-select2" for="swift">SWIFT</label>
+                                    <div class="input-group">
+                                        <input type="text" wire:model="banco.swift" class="form-control" id="swift" autofocus style="height: 35px; font-size: 10pt;" />
+                                        <span class="input-group-addon" id="basic-addon1">
+                                            <i class="ace-icon fa fa-info bigger-150 text-info" data-target="form_supply_price_smartprice"></i>
+                                        </span>
+                                    </div>
                                 </div>
 
                             </div>

@@ -10,19 +10,10 @@ trait UpdateBancoRequest
     public function rules()
     {
         return [
-            'banco.designacao' => ["required", function ($attr, $value, $fail) {
-
-                $banco = DB::table('bancos')->where('id', '!=', $this->banco['id'])
-                    ->where('designacao',"like", $this->banco['designacao'])
-                    ->where('empresa_id', auth()->user()->empresa_id)
-                    ->first();
-                if ($banco) {
-                    $fail("Banco já cadastrado");
-                }
-            }],
+            'banco.designacao' => ["required"],
             "banco.sigla" => "required",
-            "banco.num_conta" => "required",
             "banco.iban" => "required",
+            "banco.swift" => "",
             "banco.status_id" => "required",
 
         ];
@@ -30,8 +21,9 @@ trait UpdateBancoRequest
     public function messages()
     {
         return [
-            'armazem.designacao.required' => 'Informe o nome do armazém',
-            'armazem.localizacao.required' => 'Informe o endereço',
+            'banco.designacao.required' => 'campo obrigatório',
+            'banco.sigla.required' => 'campo obrigatório',
+            'banco.iban.required' => 'campo obrigatório',
         ];
     }
 }

@@ -49,17 +49,14 @@ class ResetPasswordController extends Controller
     public function reset(Request $request)
     {
 
+        $request->validate(['token' => 'required','email' => 'required|email','password' => 'required|confirmed'], [
+            'password.required' => 'campo obrigatório',
+            'password.confirmed' => 'campos senha não coincide',
+        ]);
 
-        $request->validate($this->rules(), $this->validationErrorMessages());
-        $this->connection1 = DB::connection('mysql')->table("users_admin")->where("email", $request->get("email"))->first();
+//        $request->validate($this->rules(), $this->validationErrorMessages());
         $this->connection2 = DB::connection('mysql2')->table("users_cliente")->where("email", $request->get("email"))->first();
 
-        if ($this->connection1) {
-            $response = $this->broker("users")->reset($this->credentials($request), function ($user, $password) {
-                $this->resetPassword($user, $password);
-            });
-            return $response == Password::PASSWORD_RESET ? $this->sendResetResponse($request, $response) : $this->sendResetFailedResponse($request, $response);
-        }
         if ($this->connection2) {
             $response = $this->broker("empresas")->reset($this->credentials($request), function ($user, $password) {
                 $this->resetPassword($user, $password);
@@ -67,10 +64,7 @@ class ResetPasswordController extends Controller
 
             return $response == Password::PASSWORD_RESET ? $this->sendResetResponse($request, $response) : $this->sendResetFailedResponse($request, $response);
         }
-
-        if (!$this->connection1 && !$this->connection2) {
-
-
+        if (!$this->connection2) {
             // Here we will attempt to reset the user's password. If it is successful we
             // will update the password on an actual user model and persist it to the
             // database. Otherwise we will parse the error and return the response.
@@ -81,8 +75,9 @@ class ResetPasswordController extends Controller
                 }
             );
 
-            return $response == Password::PASSWORD_RESET ? $this->sendResetResponse($request, $response) : $this->sendResetFailedResponse($request, $response);
+//            return $response == Password::PASSWORD_RESET ? $this->sendResetResponse($request, $response) : $this->sendResetFailedResponse($request, $response);
         }
+        dd($response);
 
         // dd(Password::PASSWORD_RESET);
         // If the password was successfully reset, we will redirect the user back to

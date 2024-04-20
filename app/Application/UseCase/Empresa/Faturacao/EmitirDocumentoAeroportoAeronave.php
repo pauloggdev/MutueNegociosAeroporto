@@ -30,7 +30,6 @@ class EmitirDocumentoAeroportoAeronave
 
     public function execute(Request $request)
     {
-
         $ultimaFatura = $this->faturaRepository->pegarUltimaFactura($request->tipoDocumento);
 
         $hashAnterior = "";
@@ -138,6 +137,8 @@ class EmitirDocumentoAeroportoAeronave
             'taxaIva' => $request->taxaIva,
             'cambioDia' => $request->cambioDia,
             'contraValor' => $request->contraValor,
+            'valorliquido' =>$request->valorliquido,
+            'totalDesconto' =>$request->valorDesconto,
             'valorIliquido' => $request->valorIliquido,
             'valorImposto' => $request->valorImposto,
             'tipoFatura' => 2,

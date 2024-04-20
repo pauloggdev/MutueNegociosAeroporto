@@ -192,7 +192,7 @@
                 <div class="infobox-content" style="color: black">Proformas</div>
               </div>
             </div>
-            <div class="infobox infobox-red" v-if="window.isSuperAdmin" style="cursor:pointer;position: relative" data-toggle="dropdown">
+            <div class="infobox infobox-red" style="cursor:pointer;position: relative" data-toggle="dropdown">
                 <a class="infobox-data dropdown-toggle" href="#" data-toggle="dropdown" style="pointer-events: none;">
                 <span class="infobox-data-number">{{
                   counttotalvendas | currency
@@ -202,18 +202,18 @@
                 </div>
               </a>
                 <i class="ace-icon fa fa-caret-down"></i>
-                <div>
-                    <ul class="dropdown-menu dropdown-menu dropdown-yellow dropdown-caret dropdown-close" >
-                        <li v-for="tipoServico in tiposservicos">
-                            <a v-on:click.prevent="showInvoice(tipoServico.url)">
-                                <i class="ace-icon fa fa-cog"></i>
-                                {{ tipoServico.designacao}}
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+<!--                <div>-->
+<!--                    <ul class="dropdown-menu dropdown-menu dropdown-yellow dropdown-caret dropdown-close" >-->
+<!--                        <li v-for="tipoServico in tiposservicos">-->
+<!--                            <a v-on:click.prevent="showInvoice(tipoServico.url)">-->
+<!--                                <i class="ace-icon fa fa-cog"></i>-->
+<!--                                {{ tipoServico.designacao}}-->
+<!--                            </a>-->
+<!--                        </li>-->
+<!--                    </ul>-->
+<!--                </div>-->
             </div>
-              <div class="infobox infobox-red" v-if="window.isSuperAdmin" style="cursor:pointer;position: relative" data-toggle="dropdown">
+              <div class="infobox infobox-red" style="cursor:pointer;position: relative" data-toggle="dropdown">
               <a class="infobox-data dropdown-toggle" href="#" data-toggle="dropdown" style="pointer-events: none;">
                 <span class="infobox-data-number">{{
                   counttotalfactura | currency
@@ -223,18 +223,18 @@
                 </div>
               </a>
                   <i class="ace-icon fa fa-caret-down"></i>
-                  <div>
-                      <ul class="dropdown-menu dropdown-menu dropdown-yellow dropdown-caret dropdown-close" >
-                          <li v-for="tipoServico in tiposservicos">
-                              <a v-on:click.prevent="showInvoice(tipoServico.url)">
-                                  <i class="ace-icon fa fa-cog"></i>
-                                  {{ tipoServico.designacao}}
-                              </a>
-                          </li>
-                      </ul>
-                  </div>
+<!--                  <div>-->
+<!--                      <ul class="dropdown-menu dropdown-menu dropdown-yellow dropdown-caret dropdown-close" >-->
+<!--                          <li v-for="tipoServico in tiposservicos">-->
+<!--                              <a v-on:click.prevent="showInvoice(tipoServico.url)">-->
+<!--                                  <i class="ace-icon fa fa-cog"></i>-->
+<!--                                  {{ tipoServico.designacao}}-->
+<!--                              </a>-->
+<!--                          </li>-->
+<!--                      </ul>-->
+<!--                  </div>-->
             </div>
-            <div class="infobox infobox-red" v-if="window.isSuperAdmin">
+            <div class="infobox infobox-red">
               <div class="infobox-data">
                 <span class="infobox-data-number">{{
                   counttotalproforma | currency
@@ -335,7 +335,7 @@
       </div>
       <!-- /MODAL EDITAR SENHA DO UTILIZADORR -->
     </div>
-    <div class="row" v-if="window.isSuperAdmin">
+    <div class="row">
       <div class="col-md-12">
         <BarChart :vendasmensal="vendasmensal" />
       </div>

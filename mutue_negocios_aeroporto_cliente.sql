@@ -1,7 +1,7 @@
 -- --------------------------------------------------------
--- Anfitrião:                    127.0.0.1
--- Versão do servidor:           5.7.24 - MySQL Community Server (GPL)
--- SO do servidor:               Win64
+-- Servidor:                     127.0.0.1
+-- Versão do servidor:           5.7.39 - MySQL Community Server (GPL)
+-- OS do Servidor:               Win64
 -- HeidiSQL Versão:              12.1.0.6537
 -- --------------------------------------------------------
 
@@ -15,11 +15,11 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 
--- A despejar estrutura da base de dados para mutue_negocios_aeroporto_cliente
+-- Copiando estrutura do banco de dados para mutue_negocios_aeroporto_cliente
 CREATE DATABASE IF NOT EXISTS `mutue_negocios_aeroporto_cliente` /*!40100 DEFAULT CHARACTER SET latin1 */;
 USE `mutue_negocios_aeroporto_cliente`;
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.actualizacao_stocks
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.actualizacao_stocks
 CREATE TABLE IF NOT EXISTS `actualizacao_stocks` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `empresa_id` int(10) unsigned NOT NULL,
@@ -50,9 +50,9 @@ CREATE TABLE IF NOT EXISTS `actualizacao_stocks` (
   CONSTRAINT `FK_actualizacao_stocks_tipo_users` FOREIGN KEY (`tipo_user_id`) REFERENCES `tipo_users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.actualizacao_stocks: ~0 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.actualizacao_stocks: ~0 rows (aproximadamente)
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.armazens
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.armazens
 CREATE TABLE IF NOT EXISTS `armazens` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `designacao` varchar(255) NOT NULL,
@@ -71,11 +71,11 @@ CREATE TABLE IF NOT EXISTS `armazens` (
   KEY `FK_armazens_empresa` (`empresa_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.armazens: ~0 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.armazens: ~0 rows (aproximadamente)
 INSERT INTO `armazens` (`id`, `designacao`, `sigla`, `codigo`, `localizacao`, `status_id`, `user_id`, `empresa_id`, `created_at`, `updated_at`, `diversos`) VALUES
 	(1, 'LOJA PRINCIPAL', NULL, '206217692', 'Estrada nacional 230, km 42 - Municipio do Icolo e Bengo, Distrito  do Bom Jesus, Luanda-Angola', 1, NULL, 1, '2024-01-23 16:10:54', '2024-01-23 16:10:54', '1');
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.bancos
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.bancos
 CREATE TABLE IF NOT EXISTS `bancos` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `designacao` varchar(45) NOT NULL,
@@ -101,12 +101,12 @@ CREATE TABLE IF NOT EXISTS `bancos` (
   KEY `FK_bancos_tipo_users` (`tipo_user_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.bancos: ~2 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.bancos: ~2 rows (aproximadamente)
 INSERT INTO `bancos` (`id`, `designacao`, `sigla`, `uuid`, `num_conta`, `titular`, `moeda`, `iban`, `status_id`, `canal_id`, `created_at`, `empresa_id`, `tipo_user_id`, `user_id`, `centroCustoId`, `updated_at`) VALUES
 	(1, 'Banco Fomento Angola', 'BFA', '1678532d-e1fb-4619-b62e-1e7ce2fe1edb', '000610002000300', 'AIRPORT TEMPORARY OPERATOR', 'AOA', 'AO06 0066 0000 0683 4061 1016 7', 1, 2, '2024-01-26 12:50:42', 1, 2, 1, NULL, '2024-01-26 12:50:42'),
 	(2, 'Banco Fomento Angola', 'BFA', '1678532d-e1fb-4619-b62e-1e7ce2fe1edc', '000610002000300', 'AIRPORT TEMPORARY OPERATOR', 'USD', 'AO06 0066 0000 0683 4061 1210 7', 1, 2, '2024-01-26 12:50:42', 1, 2, 1, NULL, '2024-01-26 12:50:42');
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.banner
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.banner
 CREATE TABLE IF NOT EXISTS `banner` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(60) NOT NULL,
@@ -121,12 +121,12 @@ CREATE TABLE IF NOT EXISTS `banner` (
   CONSTRAINT `FK_banner_status_gerais` FOREIGN KEY (`status_id`) REFERENCES `status_gerais` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.banner: ~2 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.banner: ~2 rows (aproximadamente)
 INSERT INTO `banner` (`id`, `nome`, `descricao`, `imagens`, `status_id`, `created_at`, `updated_at`, `deleted_at`) VALUES
 	(1, 'Banner 1', 'Banner 1', 'upload/banner/DAEctpr1MX5xHL3pXWn6jLALFAKICgzlCGwfLkSn.jpg', 1, '2023-11-18 11:26:10', '2023-11-21 10:28:40', NULL),
 	(2, 'Banner 2', 'Banner 2', 'upload/banner/ISCc82cSHvxV6oVcjmE2MrwVlljHZk3oF3LuW2wJ.jpg', 1, '2023-11-18 11:28:02', '2023-11-21 10:28:57', NULL);
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.bonus_cartao_cliente
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.bonus_cartao_cliente
 CREATE TABLE IF NOT EXISTS `bonus_cartao_cliente` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `bonus` double NOT NULL DEFAULT '0',
@@ -139,12 +139,12 @@ CREATE TABLE IF NOT EXISTS `bonus_cartao_cliente` (
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.bonus_cartao_cliente: ~2 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.bonus_cartao_cliente: ~2 rows (aproximadamente)
 INSERT INTO `bonus_cartao_cliente` (`id`, `bonus`, `user_id`, `empresa_id`, `status_id`, `created_at`, `updated_at`, `deleted_at`) VALUES
 	(3, 10, 35, 53, 1, '2023-08-26 11:16:27', '2023-10-27 10:07:10', NULL),
 	(4, 1, 638, 148, 1, '2023-11-20 09:12:20', '2023-11-20 09:12:20', NULL);
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.bonus_cartao_cliente_range
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.bonus_cartao_cliente_range
 CREATE TABLE IF NOT EXISTS `bonus_cartao_cliente_range` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `valorInicial` double DEFAULT '0',
@@ -158,9 +158,9 @@ CREATE TABLE IF NOT EXISTS `bonus_cartao_cliente_range` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.bonus_cartao_cliente_range: ~0 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.bonus_cartao_cliente_range: ~0 rows (aproximadamente)
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.cambios
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.cambios
 CREATE TABLE IF NOT EXISTS `cambios` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `designacao` char(50) NOT NULL,
@@ -168,26 +168,26 @@ CREATE TABLE IF NOT EXISTS `cambios` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.cambios: ~2 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.cambios: ~2 rows (aproximadamente)
 INSERT INTO `cambios` (`id`, `designacao`, `valor`) VALUES
-	(1, 'USD', 832.631),
+	(1, 'USD', 832.633),
 	(2, 'EURO', 898.24);
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.canais_comunicacoes
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.canais_comunicacoes
 CREATE TABLE IF NOT EXISTS `canais_comunicacoes` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `designacao` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.canais_comunicacoes: ~4 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.canais_comunicacoes: ~4 rows (aproximadamente)
 INSERT INTO `canais_comunicacoes` (`id`, `designacao`) VALUES
 	(1, 'BD'),
 	(2, 'Portal Cliente'),
 	(3, 'Portal Admin'),
 	(4, 'Mobile');
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.carateristica_produtos
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.carateristica_produtos
 CREATE TABLE IF NOT EXISTS `carateristica_produtos` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `altura` double DEFAULT '0',
@@ -198,9 +198,9 @@ CREATE TABLE IF NOT EXISTS `carateristica_produtos` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.carateristica_produtos: ~0 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.carateristica_produtos: ~0 rows (aproximadamente)
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.carrinho_produtos
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.carrinho_produtos
 CREATE TABLE IF NOT EXISTS `carrinho_produtos` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `quantidade` int(10) NOT NULL DEFAULT '0',
@@ -215,9 +215,9 @@ CREATE TABLE IF NOT EXISTS `carrinho_produtos` (
   CONSTRAINT `FK_carrinho_produtos_users_cliente` FOREIGN KEY (`users_id`) REFERENCES `users_cliente` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.carrinho_produtos: ~0 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.carrinho_produtos: ~0 rows (aproximadamente)
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.cartao_clientes
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.cartao_clientes
 CREATE TABLE IF NOT EXISTS `cartao_clientes` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `clienteId` int(11) NOT NULL,
@@ -234,20 +234,20 @@ CREATE TABLE IF NOT EXISTS `cartao_clientes` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.cartao_clientes: ~3 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.cartao_clientes: ~3 rows (aproximadamente)
 INSERT INTO `cartao_clientes` (`id`, `clienteId`, `numeroCartao`, `dataEmissao`, `dataValidade`, `numeracaoSequencia`, `empresaId`, `saldo`, `centroCustoId`, `created_at`, `updated_at`, `deleted_at`) VALUES
 	(2, 34, '5300001', '2023-09-20', '2024-09-30', 1, 53, 1000, NULL, '2023-09-20 13:00:53', '2023-10-13 09:38:57', NULL),
 	(4, 207, '5300002', '2023-10-13', '2024-10-13', 2, 53, 2000, NULL, '2023-10-13 10:11:54', '2023-10-13 10:11:54', NULL),
 	(5, 204, '5300003', '2023-10-13', '2024-10-26', 2, 53, 2162, NULL, '2023-10-13 10:11:54', '2023-10-24 18:03:19', NULL);
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.categoriacaracteristicas
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.categoriacaracteristicas
 CREATE TABLE IF NOT EXISTS `categoriacaracteristicas` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `designacao` varchar(255) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=254 DEFAULT CHARSET=latin1;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.categoriacaracteristicas: ~200 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.categoriacaracteristicas: ~200 rows (aproximadamente)
 INSERT INTO `categoriacaracteristicas` (`id`, `designacao`) VALUES
 	(1, 'Memória'),
 	(2, 'Cor'),
@@ -450,7 +450,7 @@ INSERT INTO `categoriacaracteristicas` (`id`, `designacao`) VALUES
 	(252, 'LIGAÇÃO'),
 	(253, 'BLUETOOTH');
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.categorias
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.categorias
 CREATE TABLE IF NOT EXISTS `categorias` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `designacao` varchar(255) NOT NULL,
@@ -474,11 +474,11 @@ CREATE TABLE IF NOT EXISTS `categorias` (
   CONSTRAINT `FK_categorias_user` FOREIGN KEY (`user_id`) REFERENCES `users_cliente` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.categorias: ~0 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.categorias: ~0 rows (aproximadamente)
 INSERT INTO `categorias` (`id`, `designacao`, `imagem`, `icon`, `uuid`, `status_id`, `categoria_pai`, `user_id`, `empresa_id`, `created_at`, `updated_at`, `deleted_at`, `canal_id`) VALUES
 	(1, 'DIVERSO', NULL, NULL, '78d1a432-cd63-46b2-a406-49b26a6ad73c', 1, NULL, NULL, NULL, '2021-09-06 17:17:53', '2023-10-11 14:16:17', NULL, NULL);
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.centro_custos
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.centro_custos
 CREATE TABLE IF NOT EXISTS `centro_custos` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `uuid` char(36) NOT NULL,
@@ -503,11 +503,11 @@ CREATE TABLE IF NOT EXISTS `centro_custos` (
   KEY `FK_centro_custos_status_gerais` (`status_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.centro_custos: ~0 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.centro_custos: ~0 rows (aproximadamente)
 INSERT INTO `centro_custos` (`id`, `uuid`, `empresa_id`, `status_id`, `endereco`, `nif`, `cidade`, `logotipo`, `email`, `website`, `telefone`, `pessoa_de_contacto`, `file_alvara`, `file_nif`, `nome`, `updated_at`, `created_at`, `deleted_at`) VALUES
 	(1, '7bc3cea5-4cc1-4145-89e4-760fc882dd0e', 1, 1, 'Estrada nacional 230, km 42 - Municipio do Icolo e Bengo, Distrito  do Bom Jesus, Luanda-Angola', '5001720538', 'Luanda', 'utilizadores/cliente/Sy25ugUGqoST3TRMFLTF4O9bvJiP6sv5ayOtfari.png', 'info@ato.ao', 'ato.ao', '937036322', '937036322', NULL, NULL, 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', '2024-02-07 09:32:31', '2024-02-07 09:32:31', NULL);
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.cidades
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.cidades
 CREATE TABLE IF NOT EXISTS `cidades` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `designacao` varchar(255) DEFAULT NULL,
@@ -517,7 +517,7 @@ CREATE TABLE IF NOT EXISTS `cidades` (
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.cidades: ~18 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.cidades: ~18 rows (aproximadamente)
 INSERT INTO `cidades` (`id`, `designacao`, `created_at`, `updated_at`, `deleted_at`) VALUES
 	(1, 'Luanda', '2022-02-11 05:03:03', '2022-02-11 05:03:03', NULL),
 	(2, 'Zaire', '2022-02-11 05:03:03', '2022-02-11 05:03:03', NULL),
@@ -538,7 +538,7 @@ INSERT INTO `cidades` (`id`, `designacao`, `created_at`, `updated_at`, `deleted_
 	(17, 'Namibe', '2022-02-11 05:03:03', '2022-02-11 05:03:03', NULL),
 	(18, 'Cunene', '2022-02-11 05:03:03', '2022-02-11 05:03:03', NULL);
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.classes
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.classes
 CREATE TABLE IF NOT EXISTS `classes` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `designacao` varchar(255) NOT NULL,
@@ -559,9 +559,9 @@ CREATE TABLE IF NOT EXISTS `classes` (
   CONSTRAINT `FK__users` FOREIGN KEY (`user_id`) REFERENCES `users_cliente` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.classes: ~0 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.classes: ~0 rows (aproximadamente)
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.classificacao
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.classificacao
 CREATE TABLE IF NOT EXISTS `classificacao` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `produto_id` int(10) unsigned NOT NULL,
@@ -577,9 +577,9 @@ CREATE TABLE IF NOT EXISTS `classificacao` (
   CONSTRAINT `FK_classificacao_users_cliente` FOREIGN KEY (`user_id`) REFERENCES `users_cliente` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.classificacao: ~0 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.classificacao: ~0 rows (aproximadamente)
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.clientes
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.clientes
 CREATE TABLE IF NOT EXISTS `clientes` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `nome` varchar(255) NOT NULL,
@@ -619,15 +619,15 @@ CREATE TABLE IF NOT EXISTS `clientes` (
   KEY `FK_clientes_pais` (`pais_id`),
   KEY `FK_clientes_operador` (`operador`),
   KEY `FK_clientes_tipos_clientes` (`tipo_cliente_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=287 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=289 DEFAULT CHARSET=latin1;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.clientes: ~26 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.clientes: ~28 rows (aproximadamente)
 INSERT INTO `clientes` (`id`, `nome`, `uuid`, `pessoa_contacto`, `email`, `website`, `numero_contrato`, `data_contrato`, `tipo_conta_corrente`, `conta_corrente`, `telefone_cliente`, `taxa_de_desconto`, `limite_de_credito`, `endereco`, `gestor_id`, `canal_id`, `status_id`, `nif`, `operador`, `tipo_cliente_id`, `user_id`, `created_by`, `empresa_id`, `created_at`, `updated_at`, `pais_id`, `diversos`, `cidade`, `centroCustoId`) VALUES
 	(1, 'Consumidor final', '673dc30a-5cb0-4d9d-be19-aeae663f0c05', NULL, NULL, NULL, NULL, NULL, 'Nacional', '31.1.2.1.1', NULL, 0, 0, NULL, NULL, 2, 1, '999999999', NULL, 2, NULL, NULL, 1, '2021-04-16 10:36:11', '2021-04-16 10:36:11', 1, 'Sim', 'Luanda', NULL),
 	(2, 'SCHLUMBERGER LOGELCO, INC', 'c184ca0b-c2ff-4a84-8dc1-120b85cae437', 'SCHLUMBERGER LOGELCO, INC', 'airport.lad@tlc-com.ch', NULL, NULL, '2024-02-03', 'Nacional', '31.1.2.1.2', '932338415', 0, 0, 'TLC Lda', NULL, 2, 1, '999999999', 'Airport Temporary Operator', 2, 1, NULL, 1, '2024-02-03 07:23:34', '2024-02-03 07:23:34', 1, 'Não', 'Luanda', 1),
 	(3, 'NGONGO THOMAS & FILHOS COMERCIO GERAL LTD', 'c609441e-438e-468d-a3bf-eadb41f556a2', 'Thomas', 'kingsleychima75@gmail.com', NULL, NULL, '2023-12-19', 'Nacional', '31.1.2.1.3', '+244923437631', 0, 0, 'Rua Santos Nº18, Bairro Cassenda', NULL, 2, 1, '54176617919', 'Milton Lucas', 1, 751, NULL, 1, '2024-02-06 15:06:06', '2024-02-20 10:18:06', 1, 'Não', 'Luanda', 1),
 	(264, 'GRUPO LIZ - COMERCIO E SERVIÇOS, LIMITADA', '26f1d557-74d5-453e-8884-415c815971ea', 'Ian Pereira', 'ian.pereira@grupoliz.com', NULL, NULL, '2023-12-19', 'Nacional', '31.1.2.1.4', '923520471', 0, 0, 'Bairro Cassenda - Rua 02, Casa nº 12, Maianga', NULL, 2, 1, '5403084690', 'Milton Lucas', 2, 751, NULL, 1, '2024-02-19 10:11:36', '2024-02-22 12:37:59', 1, 'Não', 'Luanda', 1),
-	(265, 'DHL Global Forwarding Angola Ltd', '73ca5753-3193-46a0-bc7d-52b273cc9a5f', 'Ana Pinto', 'anacruz.pinto@dhl.com', NULL, NULL, '2023-12-19', 'Nacional', '31.1.2.1.5', '948625996', 0, 0, 'Avenida 21 de Janeiro  Aeroporto', NULL, 2, 1, '5401071809', 'Milton Lucas', 1, 751, NULL, 1, '2024-02-19 10:30:35', '2024-02-19 10:30:35', 1, 'Não', 'Luanda', 1),
+	(265, 'DHL GLOBAL FORWARDING ANGOLA LTD', '73ca5753-3193-46a0-bc7d-52b273cc9a5f', 'Ana Pinto', 'anacruz.pinto@dhl.com', NULL, NULL, '2023-12-19', 'Nacional', '31.1.2.1.5', '948625996', 0, 0, 'Avenida 21 de Janeiro  Aeroporto', NULL, 2, 1, '5401071809', 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', 1, 1, NULL, 1, '2024-02-19 10:30:35', '2024-03-25 11:43:37', 1, 'Não', 'Luanda', 1),
 	(266, 'Panalpina Transportes Mundiais Navegação e Transitos SA', 'fc7e0fcb-de7a-4fed-81dd-d55d53c500f6', 'Dario Manuel', 'dario.manuel@ao.dsv.com', NULL, NULL, '2023-12-19', 'Nacional', '31.1.2.1.6', '226422041', 0, 0, 'Rua Kima Kienda 106, Estr. da Boavista – Luanda', NULL, 2, 1, '5403005862', 'Milton Lucas', 1, 751, NULL, 1, '2024-02-20 08:59:35', '2024-02-22 12:40:01', 1, 'Não', 'Luanda', 1),
 	(267, 'MULTIFLIGHT LDA', 'c397309b-7a26-4843-80cc-1187089aa8b3', 'Silvestre', 'opsmultiflight@gmail.com', NULL, NULL, '2023-12-19', 'Nacional', '31.1.2.1.7', '+244933535482', 0, 0, 'Av. Revolução de Outubro, Bloco 47 B-3 Andar', NULL, 2, 1, '5417323659', 'Carlos Sampaio', 2, 750, NULL, 1, '2024-02-20 11:03:01', '2024-02-21 12:24:28', 1, 'Não', 'Luanda', 1),
 	(268, 'CELTA SERVIÇOS & COMÉRCIO, LDA', 'f4678f33-4035-4be4-9de7-861778fe89ba', 'Joana Da Costa ', NULL, NULL, NULL, '2023-12-19', 'Nacional', '31.1.2.1.8', '+244912505071', 0, 0, 'Rua Fernando Pessoa, Nº52', NULL, 2, 1, '5402032955', 'Milton Lucas', 2, 751, NULL, 1, '2024-02-20 14:35:24', '2024-02-20 14:35:24', 1, 'Não', 'Luanda', 1),
@@ -648,9 +648,11 @@ INSERT INTO `clientes` (`id`, `nome`, `uuid`, `pessoa_contacto`, `email`, `websi
 	(283, 'MANUEL GOMES PACA', 'f28924d4-5cc6-478f-a37a-4aa2f7481263', 'MANUEL GOMES PACA', NULL, NULL, NULL, NULL, 'Nacional', '31.1.2.1.23', NULL, 0, 0, 'CASA S Nº ZONA A CABINDA', NULL, 2, 1, '000107432CA014', 'Carlos Sampaio', 1, 750, NULL, 1, '2024-03-07 12:45:46', '2024-03-07 12:45:46', 1, 'Não', 'CABINDA', 1),
 	(284, 'NOCEBO SA', 'e912006a-4502-4a61-9210-0e455de04ff4', 'Arlindo Sampaio', 'angelino@castel-afrique.com', NULL, NULL, NULL, 'Nacional', '31.1.2.1.24', '937 393 718', 0, 0, 'RUA CONEGO MANUEL DAS NEVES NR 403', NULL, 2, 1, '5410777832', 'Carlos Sampaio', 1, 750, NULL, 1, '2024-03-11 11:51:40', '2024-03-11 11:51:40', 1, 'Não', 'LUANDA - ANGOLA', 1),
 	(285, 'Kuehne e Nagel (Angola) Transitarios, LDA', 'f251c371-b91c-45c0-9d2f-274c623d9d1d', 'Kuehne-nagel', 'knao.pagamentos@kuehne-nagel.com', NULL, NULL, NULL, 'Nacional', '31.1.2.1.25', '946 901 469', 0, 0, 'Rua Rainha Ginga, Nº 29, Edifício Elisée Trade Center 16º Andar, Distrito Urbano da Ingombota', NULL, 2, 1, '5403088504', 'Carlos Sampaio', 1, 750, NULL, 1, '2024-03-11 15:39:47', '2024-03-11 15:39:47', 1, 'Não', 'LUANDA', 1),
-	(286, 'YAPAMA SAÚDE, LDA', '579deb9b-5329-4239-91d0-d500bdbd3751', 'Naftali Miguel', NULL, NULL, NULL, NULL, 'Nacional', '31.1.2.1.26', '+244932102227', 0, 0, 'Belas Business Park, Edifício Cabinda Nº304', NULL, 2, 1, '5417163783', 'Milton Lucas', 1, 751, NULL, 1, '2024-03-12 13:27:18', '2024-03-12 13:27:18', 1, 'Não', 'LUANDA', 1);
+	(286, 'YAPAMA SAÚDE, LDA', '579deb9b-5329-4239-91d0-d500bdbd3751', 'Naftali Miguel', NULL, NULL, NULL, NULL, 'Nacional', '31.1.2.1.26', '+244932102227', 0, 0, 'Belas Business Park, Edifício Cabinda Nº304', NULL, 2, 1, '5417163783', 'Milton Lucas', 1, 751, NULL, 1, '2024-03-12 13:27:18', '2024-03-12 13:27:18', 1, 'Não', 'LUANDA', 1),
+	(287, 'ADVANCED MARITIME TRANSPORTS LDA', '50c15b8b-4861-493a-8955-cd57a7785de4', 'AMT', 'm.simao@amt-sa.com', NULL, NULL, NULL, 'Nacional', '31.1.2.1.27', '940198085', 0, 0, NULL, NULL, 2, 1, '5403087095', 'Milton Lucas', 1, 751, NULL, 1, '2024-03-25 12:10:31', '2024-03-25 12:10:31', 1, 'Não', 'Luanda', 1),
+	(288, 'SONASURF (ANGOLA) COMP. SERVIÇOS MARITIMOS LDA', '4f32a233-b7f9-4e67-a1ea-ff2e5b97e7ab', 'Sr. Guedes', 'lilguedes16@gmail.com', NULL, NULL, NULL, 'Nacional', '31.1.2.1.28', NULL, 0, 0, 'ESTRADA NACIONAL DE CACUACO 315', NULL, 2, 1, '5403084460', 'Carlos Sampaio', 1, 750, NULL, 1, '2024-03-25 15:18:36', '2024-03-25 15:18:36', 1, 'Não', 'LUANDA', 1);
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.comunas
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.comunas
 CREATE TABLE IF NOT EXISTS `comunas` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `designacao` varchar(255) NOT NULL,
@@ -660,7 +662,7 @@ CREATE TABLE IF NOT EXISTS `comunas` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=latin1;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.comunas: ~50 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.comunas: ~50 rows (aproximadamente)
 INSERT INTO `comunas` (`id`, `designacao`, `statusId`, `municipioId`, `valor_entrega`) VALUES
 	(1, 'Vila Verde', 1, 2, 9000),
 	(2, 'Barra Do Kwanza', 1, 2, 20000),
@@ -713,7 +715,7 @@ INSERT INTO `comunas` (`id`, `designacao`, `statusId`, `municipioId`, `valor_ent
 	(49, 'Camama', 1, 9, 4000),
 	(50, 'Cidade Universitária', 1, 9, 3000);
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.contactos
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.contactos
 CREATE TABLE IF NOT EXISTS `contactos` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `tipo_contacto_id` int(10) unsigned NOT NULL,
@@ -729,9 +731,9 @@ CREATE TABLE IF NOT EXISTS `contactos` (
   CONSTRAINT `FK_contactos_tipo_contacto` FOREIGN KEY (`tipo_contacto_id`) REFERENCES `tipos_contactos` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.contactos: ~0 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.contactos: ~0 rows (aproximadamente)
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.coupon_desconto
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.coupon_desconto
 CREATE TABLE IF NOT EXISTS `coupon_desconto` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `codigo` varchar(255) NOT NULL,
@@ -744,13 +746,13 @@ CREATE TABLE IF NOT EXISTS `coupon_desconto` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.coupon_desconto: ~3 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.coupon_desconto: ~3 rows (aproximadamente)
 INSERT INTO `coupon_desconto` (`id`, `codigo`, `percentagem`, `used`, `data_expiracao`, `empresa_id`, `created_at`, `updated_at`) VALUES
 	(9, 'P29EN2023/1', 50, 'N', '2023-06-17 08:03:00', 53, '2023-06-13 07:06:12', '2023-06-13 07:06:12'),
 	(10, '3TZI92023/10', 10, 'N', '2023-06-28 11:22:00', 53, '2023-06-27 11:22:19', '2023-06-27 11:22:19'),
 	(11, 'BR0VO2023/11', 30, 'N', '2023-07-22 16:17:00', 53, '2023-07-20 16:17:25', '2023-07-20 16:17:25');
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.documento_anulados
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.documento_anulados
 CREATE TABLE IF NOT EXISTS `documento_anulados` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `cliente_id` int(10) unsigned NOT NULL,
@@ -787,9 +789,9 @@ CREATE TABLE IF NOT EXISTS `documento_anulados` (
   CONSTRAINT `FK_documento_anulados_tipo_users` FOREIGN KEY (`tipo_user_id`) REFERENCES `tipo_users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.documento_anulados: ~0 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.documento_anulados: ~0 rows (aproximadamente)
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.empresas
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.empresas
 CREATE TABLE IF NOT EXISTS `empresas` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `nome` varchar(255) NOT NULL,
@@ -833,11 +835,11 @@ CREATE TABLE IF NOT EXISTS `empresas` (
   CONSTRAINT `FK_empresas_tipos_regimes` FOREIGN KEY (`tipo_regime_id`) REFERENCES `tipos_regimes` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.empresas: ~0 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.empresas: ~0 rows (aproximadamente)
 INSERT INTO `empresas` (`id`, `nome`, `pessoal_Contacto`, `telefone1`, `telefone2`, `endereco`, `pais_id`, `saldo`, `canal_id`, `status_id`, `nif`, `gestor_cliente_id`, `tipo_cliente_id`, `tipo_regime_id`, `logotipo`, `website`, `email`, `referencia`, `pessoa_de_contacto`, `created_at`, `updated_at`, `cidade`, `file_alvara`, `file_nif`, `venda_online`) VALUES
-	(1, 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', NULL, NULL, NULL, 'Estrada nacional 230, km 42 - Municipio do Icolo e Bengo, Distrito  do Bom Jesus, Luanda-Angola', 1, 0, 2, 1, '5001720538', 1, 1, 1, 'utilizadores/cliente/JJrSt5wmg5kz8MOFW4WULbFYkQSOQvxE8mB3Nprm.png', 'ato.ao', 'info@ato.ao', '4EEJFPK', NULL, '2024-01-23 16:10:54', '2024-01-23 16:10:54', 'Luanda', NULL, NULL, 'N');
+	(1, 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', NULL, NULL, NULL, 'Estrada nacional 230, km 42 - Municipio do Icolo e Bengo, Distrito  do Bom Jesus, Luanda-Angola', 1, 0, 2, 1, '5001720538', 1, 1, 1, 'utilizadores/cliente/1o4Qrb1TxFZ22reZApq7fIoZn0hq5T3Vj5sltIei.png', 'ato.ao', 'info@ato.ao', '4EEJFPK', NULL, '2024-01-23 16:10:54', '2024-01-23 16:10:54', 'Luanda', NULL, NULL, 'N');
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.entradas_stocks
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.entradas_stocks
 CREATE TABLE IF NOT EXISTS `entradas_stocks` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `data_factura_fornecedor` date NOT NULL,
@@ -880,9 +882,9 @@ CREATE TABLE IF NOT EXISTS `entradas_stocks` (
   CONSTRAINT `FK_entradas_stocks_tipo_users` FOREIGN KEY (`tipo_user_id`) REFERENCES `tipo_users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.entradas_stocks: ~0 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.entradas_stocks: ~0 rows (aproximadamente)
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.entradas_stock_items
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.entradas_stock_items
 CREATE TABLE IF NOT EXISTS `entradas_stock_items` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `entrada_stock_id` int(10) unsigned NOT NULL,
@@ -902,9 +904,9 @@ CREATE TABLE IF NOT EXISTS `entradas_stock_items` (
   CONSTRAINT `FK_entradas_stock_items_produto` FOREIGN KEY (`produto_id`) REFERENCES `produtos_` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.entradas_stock_items: ~0 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.entradas_stock_items: ~0 rows (aproximadamente)
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.especificacao_mercadorias
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.especificacao_mercadorias
 CREATE TABLE IF NOT EXISTS `especificacao_mercadorias` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `designacao` text NOT NULL,
@@ -915,7 +917,7 @@ CREATE TABLE IF NOT EXISTS `especificacao_mercadorias` (
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.especificacao_mercadorias: ~10 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.especificacao_mercadorias: ~10 rows (aproximadamente)
 INSERT INTO `especificacao_mercadorias` (`id`, `designacao`, `desconto`, `status`, `created_at`, `updated_at`) VALUES
 	(1, 'Ordinária com isenção', 0, 1, '2024-01-30 13:50:46', '2024-02-13 01:26:18'),
 	(2, 'Moedas estrangeiras, quando importadas pelo Estado', 100, 1, '2024-01-30 13:50:46', '2024-01-30 13:50:47'),
@@ -928,7 +930,7 @@ INSERT INTO `especificacao_mercadorias` (`id`, `designacao`, `desconto`, `status
 	(9, 'Roupas usadas, livros e material didáctico, de cidadãos nacionais, quando de regresso ao país no cumprimento de missão diplomática ou de formação.', 50, 1, '2024-01-30 13:50:46', '2024-01-30 13:50:47'),
 	(10, 'Ordinária sem isenção', 100, 1, '2024-01-30 13:50:46', '2024-01-30 13:50:47');
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.existencias_stocks
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.existencias_stocks
 CREATE TABLE IF NOT EXISTS `existencias_stocks` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `produto_id` int(10) unsigned NOT NULL,
@@ -950,9 +952,9 @@ CREATE TABLE IF NOT EXISTS `existencias_stocks` (
   KEY `FK_existencias_status` (`status_id`),
   KEY `FK_existencias_empresa` (`empresa_id`),
   KEY `FK_existencias_stocks_tipos_stocagens` (`tipo_stocagem_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=latin1;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.existencias_stocks: ~30 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.existencias_stocks: ~41 rows (aproximadamente)
 INSERT INTO `existencias_stocks` (`id`, `produto_id`, `armazem_id`, `tipo_stocagem_id`, `quantidade`, `canal_id`, `user_id`, `status_id`, `empresa_id`, `created_at`, `updated_at`, `observacao`) VALUES
 	(1, 1, 1, NULL, 0, 2, 1, 1, 1, '2024-02-02 02:35:27', '2024-02-02 02:35:28', NULL),
 	(2, 2, 1, NULL, 0, 2, 1, 1, 1, '2024-02-02 02:35:27', '2024-02-02 02:35:28', NULL),
@@ -983,9 +985,20 @@ INSERT INTO `existencias_stocks` (`id`, `produto_id`, `armazem_id`, `tipo_stocag
 	(27, 27, 1, NULL, 0, 2, 1, 1, 1, '2024-02-03 09:21:09', '2024-02-03 09:21:09', NULL),
 	(28, 28, 1, NULL, 0, 2, 1, 1, 1, '2024-02-03 09:21:09', '2024-02-03 09:21:09', NULL),
 	(29, 29, 1, NULL, 0, 2, 1, 1, 1, '2024-02-03 09:21:09', '2024-02-03 09:21:09', NULL),
-	(30, 30, 1, NULL, 0, 2, 1, 1, 1, '2024-02-03 09:21:09', '2024-02-03 09:21:09', NULL);
+	(30, 30, 1, NULL, 0, 2, 1, 1, 1, '2024-02-03 09:21:09', '2024-02-03 09:21:09', NULL),
+	(31, 31, 1, NULL, 0, 2, 1, 1, 1, '2024-02-03 09:21:09', '2024-02-03 09:21:09', NULL),
+	(32, 32, 1, NULL, 0, 2, 1, 1, 1, '2024-02-03 09:21:09', '2024-02-03 09:21:09', NULL),
+	(33, 33, 1, NULL, 0, 2, 1, 1, 1, '2024-02-03 09:21:09', '2024-02-03 09:21:09', NULL),
+	(34, 34, 1, NULL, 0, 2, 1, 1, 1, '2024-02-03 09:21:09', '2024-02-03 09:21:09', NULL),
+	(35, 35, 1, NULL, 0, 2, 1, 1, 1, '2024-02-03 09:21:09', '2024-02-03 09:21:09', NULL),
+	(36, 36, 1, NULL, 0, 2, 1, 1, 1, '2024-02-03 09:21:09', '2024-02-03 09:21:09', NULL),
+	(37, 37, 1, NULL, 0, 2, 1, 1, 1, '2024-02-03 09:21:09', '2024-02-03 09:21:09', NULL),
+	(38, 38, 1, NULL, 0, 2, 1, 1, 1, '2024-02-03 09:21:09', '2024-02-03 09:21:09', NULL),
+	(39, 39, 1, NULL, 0, 2, 1, 1, 1, '2024-02-03 09:21:09', '2024-02-03 09:21:09', NULL),
+	(40, 40, 1, NULL, 0, 2, 1, 1, 1, '2024-02-03 09:21:09', '2024-02-03 09:21:09', NULL),
+	(41, 41, 1, NULL, 0, 2, 1, 1, 1, '2024-02-03 09:21:09', '2024-02-03 09:21:09', NULL);
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.fabricantes
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.fabricantes
 CREATE TABLE IF NOT EXISTS `fabricantes` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `designacao` varchar(255) NOT NULL,
@@ -1005,11 +1018,11 @@ CREATE TABLE IF NOT EXISTS `fabricantes` (
   KEY `FK_fabricantes_tipo_users` (`tipo_user_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.fabricantes: ~0 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.fabricantes: ~0 rows (aproximadamente)
 INSERT INTO `fabricantes` (`id`, `designacao`, `empresa_id`, `user_id`, `canal_id`, `status_id`, `created_at`, `updated_at`, `diversos`, `tipo_user_id`) VALUES
 	(1, 'DIVERSOS', 1, 1, 2, 1, '2024-01-23 16:10:54', '2024-01-23 16:10:54', 'Sim', 2);
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.facturas
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.facturas
 CREATE TABLE IF NOT EXISTS `facturas` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `texto_hash` varchar(345) DEFAULT NULL,
@@ -1053,13 +1066,15 @@ CREATE TABLE IF NOT EXISTS `facturas` (
   `horaExtra` int(11) DEFAULT NULL,
   `contraValor` double DEFAULT '0',
   `valorIliquido` double DEFAULT '0',
-  `valorImposto` double DEFAULT '0',
+  `valorImposto` double unsigned DEFAULT '0',
+  `totalDesconto` double DEFAULT '0',
   `total` double DEFAULT '0',
   `codigoBarra` varchar(255) DEFAULT NULL,
   `tipoDocumento` int(11) DEFAULT NULL,
   `formaPagamentoId` int(11) DEFAULT '1',
   `tipoOperacao` int(11) DEFAULT NULL COMMENT '1=>Importação, 2=>Exportação',
   `isencaoIVA` enum('Y','N') DEFAULT 'N',
+  `isencaoOcupacao` enum('Y','N') DEFAULT 'N',
   `convertido` enum('Y','N') DEFAULT 'N',
   `anulado` enum('Y','N') DEFAULT 'N',
   `taxaRetencao` double DEFAULT '0',
@@ -1072,186 +1087,17 @@ CREATE TABLE IF NOT EXISTS `facturas` (
   KEY `FK_facturas_empresas` (`empresa_id`),
   KEY `FK_facturas_moedas` (`codigo_moeda`),
   KEY `FK_facturas_tipo_documentos` (`tipo_documento`)
-) ENGINE=InnoDB AUTO_INCREMENT=272 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=407 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.facturas: ~173 rows (aproximadamente)
-INSERT INTO `facturas` (`id`, `texto_hash`, `codigo_moeda`, `clienteId`, `nome_do_cliente`, `nomeProprietario`, `telefone_cliente`, `nif_cliente`, `email_cliente`, `endereco_cliente`, `tipo_documento`, `numSequenciaFactura`, `numeracaoFactura`, `numeracaoProforma`, `hashValor`, `cliente_id`, `empresa_id`, `centroCustoId`, `user_id`, `operador`, `created_at`, `updated_at`, `paisOrigemId`, `cartaDePorte`, `tipoDeAeronave`, `pesoMaximoDescolagem`, `dataDeAterragem`, `dataDeDescolagem`, `horaDeAterragem`, `horaDeDescolagem`, `horaEstacionamento`, `peso`, `dataEntrada`, `dataSaida`, `nDias`, `taxaIva`, `cambioDia`, `moeda`, `moedaPagamento`, `horaExtra`, `contraValor`, `valorIliquido`, `valorImposto`, `total`, `codigoBarra`, `tipoDocumento`, `formaPagamentoId`, `tipoOperacao`, `isencaoIVA`, `convertido`, `anulado`, `taxaRetencao`, `valorRetencao`, `tipoFatura`, `tipoMercadoria`, `observacao`) VALUES
-	(93, '2024-02-19;2024-02-19T12:26:13;FR ATO2023/1;330690.80;', 1, 265, 'DHL Global Forwarding Angola Ltd', 'SCHLUMBERGER TECHNICAL SERVICE INC', '948625996', '5401071809', 'anacruz.pinto@dhl.com', 'Avenida 21 de Janeiro  Aeroporto', 1, 1, 'FR ATO2023/1', NULL, 'hsMflQ+WND19r329LmvPNPvK06+03b/39ldcEv7IJP7reIhyvURL/TrMhA4EeMtgnz3uljufpGteUldGjVYVUZY0XgWTUX5NkIM/+pRuA48CJ9V1c1ya+x1zMHFeLgG1ASBESPbShXWoanISd/bTRgPQ21W08sch5WiqaNFrHyw=', NULL, 1, 1, 751, 'Milton Lucas', '2024-02-19 12:26:13', '2024-02-19 12:26:13', NULL, 'CVK-0001-3304', NULL, 0, NULL, NULL, NULL, NULL, NULL, 2500, '2023-12-29 00:00:00', '2023-12-29 00:00:00', 1, 14, 828.799, 'USD', 'AOA', NULL, 399, 290079.65, 40611.151, 330690.801, '100026593751', 1, 4, 1, 'N', 'N', 'Y', 0, 0, 1, 1, 'Referente a Nota de Preço Nº001'),
-	(94, '2024-02-19;2024-02-19T12:36:25;FR ATO2023/2;330690.80;hsMflQ+WND19r329LmvPNPvK06+03b/39ldcEv7IJP7reIhyvURL/TrMhA4EeMtgnz3uljufpGteUldGjVYVUZY0XgWTUX5NkIM/+pRuA48CJ9V1c1ya+x1zMHFeLgG1ASBESPbShXWoanISd/bTRgPQ21W08sch5WiqaNFrHyw=', 1, 265, 'DHL Global Forwarding Angola Ltd', 'SHLUMBERGER TECHNICAL SERVICE INC', '948625996', '5401071809', 'anacruz.pinto@dhl.com', 'Avenida 21 de Janeiro  Aeroporto', 1, 2, 'FR ATO2023/2', NULL, 'VcMp3rpXBBdGmgZkp6Tmr98FI69FSGCVZHa4Ak3IZQ8OL0c7UUYhxEcQ4ZP4CjPFFteba2XBjxaNJ6OwY2Fa2Oxg8jiVwgWCp5No53dxYClMHLlfFM0ZcrBBFJlaID4UIzqUE5uOn5yVnz+sRxFYIYaDBY1Zcgcjr2a+XX7OXFc=', NULL, 1, 1, 751, 'Milton Lucas', '2024-02-19 12:36:25', '2024-02-19 12:36:25', NULL, 'CVK-0001-3293', NULL, 0, NULL, NULL, NULL, NULL, NULL, 2500, '2023-12-29 00:00:00', '2023-12-29 00:00:00', 1, 14, 828.799, 'USD', 'AOA', NULL, 399, 290079.65, 40611.151, 330690.801, '100026594751', 1, 4, 1, 'N', 'N', 'Y', 0, 0, 1, 1, 'Referente a Nota de Preço Nº 002'),
-	(95, '2024-02-19;2024-02-19T12:47:50;FR ATO2023/3;330690.80;VcMp3rpXBBdGmgZkp6Tmr98FI69FSGCVZHa4Ak3IZQ8OL0c7UUYhxEcQ4ZP4CjPFFteba2XBjxaNJ6OwY2Fa2Oxg8jiVwgWCp5No53dxYClMHLlfFM0ZcrBBFJlaID4UIzqUE5uOn5yVnz+sRxFYIYaDBY1Zcgcjr2a+XX7OXFc=', 1, 265, 'DHL Global Forwarding Angola Ltd', 'SCHLUMBERGER TECHNICAL SERVICE INC', '948625996', '5401071809', 'anacruz.pinto@dhl.com', 'Avenida 21 de Janeiro  Aeroporto', 1, 3, 'FR ATO2023/3', NULL, 'mVJAH3Y/U52lY7rGCTreCMvIgky77PguwKsuOsPFaIVNYdDOXntc7HYW90pDd/SpQYXS/4/LiMaX1y/JQYddfUjVNaBSAHqZTNmeqVI5DfF22i6MCm9DCw97m42UBz72821+FFzgO7l1MfQhhf5kTgbXL2sO+pdAO7smRcCtp+U=', NULL, 1, 1, 750, 'Carlos Sampaio', '2024-02-19 12:47:50', '2024-02-19 12:47:50', NULL, 'CVK-0001-3326', NULL, 0, NULL, NULL, NULL, NULL, NULL, 2500, '2023-12-29 00:00:00', '2023-12-29 00:00:00', 1, 14, 828.799, 'USD', 'AOA', NULL, 399, 290079.65, 40611.151, 330690.801, '100026595750', 1, 4, 1, 'N', 'N', 'Y', 0, 0, 1, 1, 'REFERENTE A NOTA DE PREÇO Nº 003'),
-	(96, '2024-02-19;2024-02-19T12:58:12;FR ATO2023/4;529105.28;mVJAH3Y/U52lY7rGCTreCMvIgky77PguwKsuOsPFaIVNYdDOXntc7HYW90pDd/SpQYXS/4/LiMaX1y/JQYddfUjVNaBSAHqZTNmeqVI5DfF22i6MCm9DCw97m42UBz72821+FFzgO7l1MfQhhf5kTgbXL2sO+pdAO7smRcCtp+U=', 1, 265, 'DHL Global Forwarding Angola Ltd', 'SCHLUMBERGER TECHNICAL SERVICE INC', '948625996', '5401071809', 'anacruz.pinto@dhl.com', 'Avenida 21 de Janeiro  Aeroporto', 1, 4, 'FR ATO2023/4', NULL, 'wH86uLcLQveaZ6liY1wQmfCFMIgacjgqQ/a0J+pRGNpMpfd+7xg+VDPTu9pNKSMDqc+CgJ7AWwoOJPFBcqpA4v8XFNvmBFlCugd9CyGZBSFAUzTKqNJToHaDUQLh0Q22ENXofKPZKaxGB1ho/3vPtJVObmIIag2QA6IPWRngGlk=', NULL, 1, 1, 750, 'Carlos Sampaio', '2024-02-19 12:58:12', '2024-02-19 12:58:12', NULL, 'CVK-0001-3184', NULL, 0, NULL, NULL, NULL, NULL, NULL, 4000, '2023-12-29 00:00:00', '2023-12-29 00:00:00', 1, 14, 828.799, 'USD', 'AOA', NULL, 638.4, 464127.44, 64977.8416, 529105.2816, '100026596750', 1, 4, 1, 'N', 'N', 'N', 0, 0, 1, 1, 'REFERENTE A NOTA DE PREÇO Nº 004'),
-	(97, '2024-02-19;2024-02-19T13:13:04;FR ATO2023/5;926727.90;wH86uLcLQveaZ6liY1wQmfCFMIgacjgqQ/a0J+pRGNpMpfd+7xg+VDPTu9pNKSMDqc+CgJ7AWwoOJPFBcqpA4v8XFNvmBFlCugd9CyGZBSFAUzTKqNJToHaDUQLh0Q22ENXofKPZKaxGB1ho/3vPtJVObmIIag2QA6IPWRngGlk=', 1, 265, 'DHL Global Forwarding Angola Ltd', 'SCHLUMBERGER TECHNICAL SERVICE INC', '948625996', '5401071809', 'anacruz.pinto@dhl.com', 'Avenida 21 de Janeiro  Aeroporto', 1, 5, 'FR ATO2023/5', NULL, 'O3Gwoa8+chtGiPRhJX7PdNcMLTJPT2NwXbf/VI9YVZF/dRLIJDbbY1iK5riheXHEiVjnqXxnKWSEBdn/c/K70g5Brl5Ju6X8/kvmrRxrQgXm3rpihm1VSdSGod1X5bDdp72giWrhD4TviIf7x3bChlYU+7SlyWPVhn+JxzgnpTw=', NULL, 1, 1, 750, 'Carlos Sampaio', '2024-02-19 13:13:04', '2024-02-19 13:13:04', NULL, 'CVK-0001-3255', NULL, 0, NULL, NULL, NULL, NULL, NULL, 7006, '2023-12-29 00:00:00', '2023-12-29 00:00:00', 1, 14, 828.799, 'USD', 'AOA', NULL, 1118.1576, 812919.21116, 113808.6895624, 926727.9007224, '100026597750', 1, 4, 1, 'N', 'N', 'N', 0, 0, 1, 1, 'REFERENTE A NOTA DE PREÇO Nº 005'),
-	(98, '2024-02-21;2024-02-21T12:19:57;FR ATO2023/6;3245792.43;O3Gwoa8+chtGiPRhJX7PdNcMLTJPT2NwXbf/VI9YVZF/dRLIJDbbY1iK5riheXHEiVjnqXxnKWSEBdn/c/K70g5Brl5Ju6X8/kvmrRxrQgXm3rpihm1VSdSGod1X5bDdp72giWrhD4TviIf7x3bChlYU+7SlyWPVhn+JxzgnpTw=', 1, 267, 'MULTIFLIGHT LDA', 'VULKAN AIR', '+244933535482', '5417323659', 'opsmultiflight@gmail.com', 'Avenida Revolução de Outubro, Bloco 47 B - 3 Andar', 1, 6, 'FR ATO2023/6', NULL, 't2src3alVGswPTWbNDyppksxYIOIv2gQfpqjTAanC28EUG7g0TBhcy3B5Hij/F/lKDOvR+0cPvE82gO9OKDD/FOPA+HZFSMlLwa5f6MnTlfFwTOJoCaweIbGsJN5KV2ix0SJP37iY1xsgJqbOhqhGhajuLChgxt4r/Xt8NgCgx0=', NULL, 1, 1, 750, 'Carlos Sampaio', '2024-02-21 12:19:57', '2024-02-21 12:19:57', NULL, NULL, 'ANTONOV12 UR-CAJ', 61, '2023-12-24', '2023-12-28', '18:30:00', '11:57:00', NULL, 1326, NULL, NULL, NULL, 14, 828.799205, 'USD', 'AOA', 1, 3916.2591, 2847186.3409246, 398606.08772944, 3245792.428654, '100026798750', 1, 4, NULL, 'N', 'N', 'Y', 0, 0, 2, NULL, 'REFERENTE A NOTA DE PREÇO Nº 006'),
-	(99, '2024-02-21;2024-02-21T12:37:42;FR ATO2023/7;264552.64;t2src3alVGswPTWbNDyppksxYIOIv2gQfpqjTAanC28EUG7g0TBhcy3B5Hij/F/lKDOvR+0cPvE82gO9OKDD/FOPA+HZFSMlLwa5f6MnTlfFwTOJoCaweIbGsJN5KV2ix0SJP37iY1xsgJqbOhqhGhajuLChgxt4r/Xt8NgCgx0=', 1, 265, 'DHL Global Forwarding Angola Ltd', 'SCHLUMBERGER TECHNICAL SERVICES INC', '948625996', '5401071809', 'anacruz.pinto@dhl.com', 'Avenida 21 de Janeiro  Aeroporto', 1, 7, 'FR ATO2023/7', NULL, 'wccXw3X0ccfsJF/1YI90gwulsfXUBkqqW1rLtns6v3e6QwtVpHNn6ok2Ev/yIfRelknLofjmoh9VlOjRUq/SMNlbqknnNSdJM+ux2WqdwYrP5EdY+uxowbxLjmATvHV48ti55YtkVlbcMOQWMilHaiTdXpn8RR2UPTArXx3OhG8=', NULL, 1, 1, 750, 'Carlos Sampaio', '2024-02-21 12:37:42', '2024-02-21 12:37:42', NULL, 'CVK-0001-3424', NULL, 0, NULL, NULL, NULL, NULL, NULL, 2000, '2023-12-29 00:00:00', '2023-12-29 00:00:00', 1, 14, 828.799, 'USD', 'AOA', NULL, 319.2, 232063.72, 32488.9208, 264552.6408, '100026599750', 1, 4, 1, 'N', 'N', 'N', 0, 0, 1, 1, 'REFERENTE A NOTA DE PREÇO Nº 007'),
-	(100, '2024-02-21;2024-02-21T12:43:29;FR ATO2023/8;529105.28;wccXw3X0ccfsJF/1YI90gwulsfXUBkqqW1rLtns6v3e6QwtVpHNn6ok2Ev/yIfRelknLofjmoh9VlOjRUq/SMNlbqknnNSdJM+ux2WqdwYrP5EdY+uxowbxLjmATvHV48ti55YtkVlbcMOQWMilHaiTdXpn8RR2UPTArXx3OhG8=', 1, 265, 'DHL Global Forwarding Angola Ltd', 'SCHLUMBERGER TECHNICAL SERVICES INC', '948625996', '5401071809', 'anacruz.pinto@dhl.com', 'Avenida 21 de Janeiro  Aeroporto', 1, 8, 'FR ATO2023/8', NULL, 'PrGR2O0UapRsEM76eV85ydPwdCjNc1AEPTNgYw2oQNi5HuxYhL4r141HpmQVMWFN6QzOra3Rnm3XLPFQkOovSi+eQkVRVWmStHpOJmZ7vX25zVKiE2OHd/diPNnypINwNXHCqT8JHqjX+K76jy0Xd51Msj8GOB+7ieIJ8M+Saqg=', NULL, 1, 1, 750, 'Carlos Sampaio', '2024-02-21 12:43:29', '2024-02-21 12:43:29', NULL, 'CVK-0001-3184', NULL, 0, NULL, NULL, NULL, NULL, NULL, 4000, '2023-12-29 00:00:00', '2023-12-29 00:00:00', 1, 14, 828.799, 'USD', 'AOA', NULL, 638.4, 464127.44, 64977.8416, 529105.2816, '1000265100750', 1, 4, 1, 'N', 'N', 'N', 0, 0, 1, 1, 'REFERENTE A NOTA DE PREÇO Nº 008'),
-	(101, '2024-02-21;2024-02-21T12:46:16;FR ATO2023/9;238097.38;PrGR2O0UapRsEM76eV85ydPwdCjNc1AEPTNgYw2oQNi5HuxYhL4r141HpmQVMWFN6QzOra3Rnm3XLPFQkOovSi+eQkVRVWmStHpOJmZ7vX25zVKiE2OHd/diPNnypINwNXHCqT8JHqjX+K76jy0Xd51Msj8GOB+7ieIJ8M+Saqg=', 1, 265, 'DHL Global Forwarding Angola Ltd', 'SCHLUMBERGER TECHNICAL SERVICES INC', '948625996', '5401071809', 'anacruz.pinto@dhl.com', 'Avenida 21 de Janeiro  Aeroporto', 1, 9, 'FR ATO2023/9', NULL, 'pQs2850mhxnMcTQGPb1IEX94Oz0YBqSP7G/CVQEg2H1wlhtJmytZ+0+fntg9fxLI2f3wKd0TPVkwS3uxwQxpSHEnQg0aWrOoUsUphLBraB8k8pc0kLWVq7msSC2k7xHMzWQSPDFlwYjWehcHDX0Dr7vFaLoxeXOJ7UdEXp+Z1os=', NULL, 1, 1, 750, 'Carlos Sampaio', '2024-02-21 12:46:16', '2024-02-21 12:46:16', NULL, 'CVK-0001-3446', NULL, 0, NULL, NULL, NULL, NULL, NULL, 1800, '2023-12-29 00:00:00', '2023-12-29 00:00:00', 1, 14, 828.799, 'USD', 'AOA', NULL, 287.28, 208857.348, 29240.02872, 238097.37672, '1000265101750', 1, 4, 1, 'N', 'N', 'N', 0, 0, 1, 1, 'REFERENTE A NOTA DE PREÇO Nº 009'),
-	(102, '2024-02-21;2024-02-21T12:49:33;FR ATO2023/10;264552.64;pQs2850mhxnMcTQGPb1IEX94Oz0YBqSP7G/CVQEg2H1wlhtJmytZ+0+fntg9fxLI2f3wKd0TPVkwS3uxwQxpSHEnQg0aWrOoUsUphLBraB8k8pc0kLWVq7msSC2k7xHMzWQSPDFlwYjWehcHDX0Dr7vFaLoxeXOJ7UdEXp+Z1os=', 1, 265, 'DHL Global Forwarding Angola Ltd', 'SCHLUMBERGER TECHNICAL SERVICES INC', '948625996', '5401071809', 'anacruz.pinto@dhl.com', 'Avenida 21 de Janeiro  Aeroporto', 1, 10, 'FR ATO2023/10', NULL, 'iTySCabJNAdPLGcM/E5mA1+6SZH6qIhNsNs4fPXJ8N5NWO51c+lB1Kmx8QDLqvixlN56RZp0PfCMRH+fkWX4p+IT8oCTC3SzmbsR9t1U9TkzumwQBLWILeN0RyjYRxp5YY/u2dXxckR7M9VxPP3+vAmmV0v4b141VVKdVuKyzuw=', NULL, 1, 1, 750, 'Carlos Sampaio', '2024-02-21 12:49:33', '2024-02-21 12:49:33', NULL, 'CVK-0001-3342', NULL, 0, NULL, NULL, NULL, NULL, NULL, 2000, '2023-12-29 00:00:00', '2023-12-29 00:00:00', 1, 14, 828.799, 'USD', 'AOA', NULL, 319.2, 232063.72, 32488.9208, 264552.6408, '1000265102750', 1, 4, 1, 'N', 'N', 'N', 0, 0, 1, 1, 'REFERENTE A NOTA DE PREÇO Nº 010'),
-	(103, '2024-02-21;2024-02-21T13:01:40;FR ATO2023/11;107276.10;iTySCabJNAdPLGcM/E5mA1+6SZH6qIhNsNs4fPXJ8N5NWO51c+lB1Kmx8QDLqvixlN56RZp0PfCMRH+fkWX4p+IT8oCTC3SzmbsR9t1U9TkzumwQBLWILeN0RyjYRxp5YY/u2dXxckR7M9VxPP3+vAmmV0v4b141VVKdVuKyzuw=', 1, 265, 'DHL Global Forwarding Angola Ltd', 'SCHLUMBERGER TECHNICAL SERVICES INC', '948625996', '5401071809', 'anacruz.pinto@dhl.com', 'Avenida 21 de Janeiro  Aeroporto', 1, 11, 'FR ATO2023/11', NULL, 'IzkqT5b0bSji7he4lWTQZg45U02txm/zFxKl03b4YgeyWu79CyK7z1sijkUe+DbdwyphrZKs9aOL6M0Lg7L4JO9qcvckwFMjQvwajX8Nk5kh++yeNHFzj+H246gkRPW3lIoGP6WJbGJEaycPDCoMqqw7+pdk0xdjFAmUGOm8BLU=', NULL, 1, 1, 750, 'Carlos Sampaio', '2024-02-21 13:01:40', '2024-02-21 13:01:40', NULL, 'CVK-0001-3495', NULL, 0, NULL, NULL, NULL, NULL, NULL, 811, '2023-12-29 00:00:00', '2023-12-29 00:00:00', 1, 14, 828.799, 'USD', 'AOA', NULL, 129.4356, 94101.83846, 13174.2573844, 107276.0958444, '1000265103750', 1, 4, 1, 'N', 'N', 'N', 0, 0, 1, 1, 'REFERENTE A NOTA DE PREÇO Nº 011'),
-	(104, '2024-02-21;2024-02-21T13:42:17;FR ATO2024/1;2201906.77;', 1, 268, 'CELTA SERVIÇOS & COMÉRCIO, LDA', 'VULKAN AIR', '+244912505071', '5402032955', NULL, 'Rua Fernando Pessoa, Nº52', 1, 1, 'FR ATO2024/1', NULL, 'l/lamyOH3jMFYVGaZcg0rNUP1vxigCpbov1ILPz980Db811Nr1VAy5Yl8IXoWv5rhRaayYmuWwezzPz2o8BnzHVzspcALmrMCLQwZZ9frHrPpU5Ze3HK6Bji2KEYZAEVttINdtRY8k+drWf8HcZ7V6XFjyU77T3tXgLXEhDbAF4=', NULL, 1, 1, 750, 'Carlos Sampaio', '2024-02-21 13:42:17', '2024-02-21 13:42:17', NULL, NULL, 'ANTONOV12 UR-CEZ', 61, '2023-12-28', '2023-12-29', '16:14:00', '14:48:00', NULL, 15503, NULL, NULL, NULL, 14, 828.79978, 'USD', 'AOA', NULL, 2656.7415, 1931497.1672955, 270409.60342137, 2201906.7707169, '1000268104750', 1, 4, NULL, 'N', 'N', 'Y', 0, 0, 2, NULL, 'REFERENTE A NOTA DE PREÇO Nº 001/24'),
-	(105, '2024-02-22;2024-02-22T12:28:01;FR ATO2024/2;4805561.43;l/lamyOH3jMFYVGaZcg0rNUP1vxigCpbov1ILPz980Db811Nr1VAy5Yl8IXoWv5rhRaayYmuWwezzPz2o8BnzHVzspcALmrMCLQwZZ9frHrPpU5Ze3HK6Bji2KEYZAEVttINdtRY8k+drWf8HcZ7V6XFjyU77T3tXgLXEhDbAF4=', 1, 264, 'GRUPO LIZ - COMERCIO E SERVIÇOS, LIMITADA', 'AIR ATLANTA ICELANDIC', '923520471', '5403084690', 'ian.pereira@grupoliz.com', 'Bairro Cassenda - Rua 02, Casa nº 12, De Fronte ao Terminal de Carga - Maianga', 1, 2, 'FR ATO2024/2', NULL, 'sZDYr4yXSmDTIY6jEwM4ovRXLn085u8CqJepv9Zm5UgvW8cZaSL9r5nKWy5qK6aw8bAgyjdYjQpRhAAZehZ80dh54A5nmR+N/9T+PIxjQUsO1RkA92VgCb0SlAxFPAqUEZ13WY5MLFQ7AdaliGBTJUI8bWcXO8K8PzmXVnM4pG4=', NULL, 1, 1, 751, 'Milton Lucas', '2024-02-22 12:28:01', '2024-02-22 12:28:01', NULL, NULL, 'BOING 747-400F', 397, '2023-12-30', '2023-12-31', '15:30:00', '12:25:00', NULL, NULL, NULL, NULL, NULL, 0, 828.798715, 'USD', 'USD', NULL, 5798.225, 4805561.4292809, 0, 4805561.4292809, '1000264105751', 1, 4, NULL, 'Y', 'N', 'N', 0, 0, 2, NULL, 'REFERENTE A NOTA DE PREÇO Nº 002/24'),
-	(106, '2024-02-23;2024-02-23T14:18:31;FR ATO2024/3;380584.04;sZDYr4yXSmDTIY6jEwM4ovRXLn085u8CqJepv9Zm5UgvW8cZaSL9r5nKWy5qK6aw8bAgyjdYjQpRhAAZehZ80dh54A5nmR+N/9T+PIxjQUsO1RkA92VgCb0SlAxFPAqUEZ13WY5MLFQ7AdaliGBTJUI8bWcXO8K8PzmXVnM4pG4=', 1, 264, 'GRUPO LIZ - COMERCIO E SERVIÇOS, LIMITADA', 'AIR ATLANTA ICELANDIC', '923520471', '5403084690', 'ian.pereira@grupoliz.com', 'Bairro Cassenda - Rua 02, Casa nº 12, Maianga', 1, 3, 'FR ATO2024/3', NULL, 'wJMdwAah32CfWY93DzhZKnmmApnFoFt3jOAK3ezO3jKUjjFXfq6k3mFfoz/1ankaDWZqVYswO4hcmTL70UGJatvDxYKzK11VUw+jCH+51nM2HVLLznRpERi5Utkh/zNNK0zgexyJX9bk1jzf1zVwjvRNHzQZrQ4Bou/H3qoSTIs=', NULL, 1, 1, 750, 'Carlos Sampaio', '2024-02-23 14:18:31', '2024-02-23 14:18:31', NULL, NULL, 'BOING 747-400F', 397, '2023-12-30', '2023-12-31', '15:30:00', '12:25:00', NULL, 5740, NULL, NULL, NULL, 0, 828.798, 'USD', 'USD', NULL, 459.2, 380584.0416, 0, 380584.0416, '1000264106750', 1, 4, NULL, 'Y', 'N', 'N', 0, 0, 2, NULL, 'REFERENTE A NOTA DE PREÇO Nº 003/24'),
-	(107, '2024-02-23;2024-02-23T14:25:47;FR ATO2024/4;549834.87;wJMdwAah32CfWY93DzhZKnmmApnFoFt3jOAK3ezO3jKUjjFXfq6k3mFfoz/1ankaDWZqVYswO4hcmTL70UGJatvDxYKzK11VUw+jCH+51nM2HVLLznRpERi5Utkh/zNNK0zgexyJX9bk1jzf1zVwjvRNHzQZrQ4Bou/H3qoSTIs=', 1, 265, 'DHL Global Forwarding Angola Ltd', 'SCHLUMBERGER TECHNICAL SERVICES INC', '948625996', '5401071809', 'anacruz.pinto@dhl.com', 'Avenida 21 de Janeiro  Aeroporto', 1, 4, 'FR ATO2024/4', NULL, 'JnAeWtBrGa54OZkhYs0A7apHIgPrrHrUiudOYjzbx4H7ca1D7qHA1bTxLIjb+EBsIiaavuOB4P3IwhxaNbt3WU4nfZL1eiU8/hPBVmi74+8S9vWS5mgrHmeByIa7i4aVzSWZ45YvPZYx1YV8/UcCme8YzE2eMwd7f1m5f8HW2BU=', NULL, 1, 1, 750, 'Carlos Sampaio', '2024-02-23 14:25:47', '2024-02-23 14:25:47', NULL, '271-00023984', NULL, 0, NULL, NULL, NULL, NULL, NULL, 549, '2023-12-22 00:00:00', '2024-01-04 00:00:00', 13, 14, 828.799, 'USD', 'AOA', NULL, 663.4116, 482311.29006, 67523.5806084, 549834.8706684, '1000265107750', 1, 4, 1, 'N', 'N', 'N', 0, 0, 1, 3, 'REFERENTE A NOTA DE PREÇO Nº 004/24'),
-	(108, '2024-02-23;2024-02-23T14:41:26;FR ATO2024/5;97957.70;JnAeWtBrGa54OZkhYs0A7apHIgPrrHrUiudOYjzbx4H7ca1D7qHA1bTxLIjb+EBsIiaavuOB4P3IwhxaNbt3WU4nfZL1eiU8/hPBVmi74+8S9vWS5mgrHmeByIa7i4aVzSWZ45YvPZYx1YV8/UcCme8YzE2eMwd7f1m5f8HW2BU=', 1, 265, 'DHL Global Forwarding Angola Ltd', 'SCHLUMBERGER TECHNICAL SERVICES INC', '948625996', '5401071809', 'anacruz.pinto@dhl.com', 'Avenida 21 de Janeiro  Aeroporto', 1, 5, 'FR ATO2024/5', NULL, 'nWlz5RsnDq2clLS27FPNnuoQ0/KBs/cLDdOqTZvFgypzlk3DW5tfwJOby3k5d9rW30N+tJjNQeCxDWZ7001VyMjJcEk5ljjsSYe8RDsfzaAvggh8oxsLiLotFm1j7xps+yXDlXN0s1+blYjrDfe3H59JkkD3uq+9xYS1GDaSj6s=', NULL, 1, 1, 750, 'Carlos Sampaio', '2024-02-23 14:41:26', '2024-02-23 14:41:26', NULL, '271-00023995', NULL, 0, NULL, NULL, NULL, NULL, NULL, 36, '2023-12-22 00:00:00', '2024-01-30 00:00:00', 39, 14, 828.779, 'USD', 'AOA', NULL, 118.1952, 85927.80672, 12029.8929408, 97957.6996608, '1000265108750', 1, 4, 1, 'N', 'N', 'N', 0, 0, 1, 3, 'REFERENTE A NOTA DE PREÇO Nº 005/24'),
-	(109, '2024-02-23;2024-02-23T14:48:29;FR ATO2024/6;549834.87;nWlz5RsnDq2clLS27FPNnuoQ0/KBs/cLDdOqTZvFgypzlk3DW5tfwJOby3k5d9rW30N+tJjNQeCxDWZ7001VyMjJcEk5ljjsSYe8RDsfzaAvggh8oxsLiLotFm1j7xps+yXDlXN0s1+blYjrDfe3H59JkkD3uq+9xYS1GDaSj6s=', 1, 265, 'DHL Global Forwarding Angola Ltd', 'SCHLUMBERGER TECHNICAL SERVICES INC', '948625996', '5401071809', 'anacruz.pinto@dhl.com', 'Avenida 21 de Janeiro  Aeroporto', 1, 6, 'FR ATO2024/6', NULL, 'DHPSRDG+C8Dw3VVwIWQiSBz0mgad6sMILEvc/VHFm9/nlM62d54C1QrmDusklTs0HE6hO/rc7pynR8xELnShWg3RXYRbfOwMnvIK0tXXL55GVfdmBiFjknz88nlVLhMfGCJrxU0Ykn5Aj76UYodp15dPCvd2JL/ekerLAo6r/9Q=', NULL, 1, 1, 750, 'Carlos Sampaio', '2024-02-23 14:48:29', '2024-02-23 14:48:29', NULL, '271-00023951', NULL, 0, NULL, NULL, NULL, NULL, NULL, 549, '2023-12-22 00:00:00', '2024-01-04 00:00:00', 13, 14, 828.799, 'USD', 'AOA', NULL, 663.4116, 482311.29006, 67523.5806084, 549834.8706684, '1000265109750', 1, 4, 1, 'N', 'N', 'N', 0, 0, 1, 3, 'REFERENTE A NOTA DE PREÇO Nº 006/24'),
-	(110, '2024-02-26;2024-02-26T12:41:40;FT ATO2024/1;1072713.72;', 1, 3, 'NGONGO THOMAS & FILHOS COMERCIO GERAL LTD', 'NTF', '+244923437631', '54176617919', 'kingsleychima75@gmail.com', 'Rua Santos Nº18, Bairro Cassenda', 2, 1, 'FT ATO2024/1', NULL, 'PwNrdwOSKqVlk1wXM0BPdSzFpOTmqQ0kVdUGy35Yc8yr0wvHD9qkAJhZBx8Gocwh3khZQYbU/jS3vB8tuN5Z0EYqdTrQfr5UIJHHbtLTCEcvB8nFX3RRqP7VHtdtsMEKC+AgsNNBpHtsWwVFAUPVV56eLLHHr/HZf3RmOdxzKr4=', NULL, 1, 1, 751, 'Milton Lucas', '2024-02-26 12:41:40', '2024-02-26 12:41:40', NULL, '11812312016', NULL, 0, NULL, NULL, NULL, NULL, NULL, 3915, '2023-12-29 00:00:00', '2024-01-04 00:00:00', 6, 14, 828.799, 'USD', 'AOA', NULL, 1294.299, 940976.94465, 131736.772251, 1072713.716901, '10003110751', 2, 2, 1, 'N', 'N', 'N', 0, 0, 1, 1, 'REFERENTE A NOTA DE PREÇO Nº007/24'),
-	(111, '2024-02-26;2024-02-26T13:10:17;FT ATO2024/2;1383704.79;PwNrdwOSKqVlk1wXM0BPdSzFpOTmqQ0kVdUGy35Yc8yr0wvHD9qkAJhZBx8Gocwh3khZQYbU/jS3vB8tuN5Z0EYqdTrQfr5UIJHHbtLTCEcvB8nFX3RRqP7VHtdtsMEKC+AgsNNBpHtsWwVFAUPVV56eLLHHr/HZf3RmOdxzKr4=', 1, 3, 'NGONGO THOMAS & FILHOS COMERCIO GERAL LTD', 'NTF', '+244923437631', '54176617919', 'kingsleychima75@gmail.com', 'Rua Santos Nº18, Bairro Cassenda', 2, 2, 'FT ATO2024/2', NULL, 'XHgQmkftlF7iJx1wdLKKsHpIqz/7u1xAUn8/xNXRUF13/WzGqbqgH1ndCv6vfiCxIzL69b5pUh21m4SGRtKRrJQqBn7HG/qXCbuWLTri6R3jM1UvbyMkLw963BtTOVwZM/9i77LHCOGypcF182S2XR2MaS8QQatKeUrZDhoy5VI=', NULL, 1, 1, 751, 'Milton Lucas', '2024-02-26 13:10:17', '2024-02-26 13:10:17', NULL, '11812311994', NULL, 0, NULL, NULL, NULL, NULL, NULL, 5050, '2023-12-29 00:00:00', '2024-01-04 00:00:00', 6, 14, 828.799, 'USD', 'AOA', NULL, 1669.53, 1213776.1355, 169928.65897, 1383704.79447, '10003111751', 2, 2, 1, 'N', 'N', 'N', 0, 0, 1, 1, 'REFERENTE A NOTA DE PREÇO Nº 008/24'),
-	(112, '2024-02-26;2024-02-26T13:17:21;FT ATO2024/3;1273830.41;XHgQmkftlF7iJx1wdLKKsHpIqz/7u1xAUn8/xNXRUF13/WzGqbqgH1ndCv6vfiCxIzL69b5pUh21m4SGRtKRrJQqBn7HG/qXCbuWLTri6R3jM1UvbyMkLw963BtTOVwZM/9i77LHCOGypcF182S2XR2MaS8QQatKeUrZDhoy5VI=', 1, 3, 'NGONGO THOMAS & FILHOS COMERCIO GERAL LTD', 'NTF', '+244923437631', '54176617919', 'kingsleychima75@gmail.com', 'Rua Santos Nº18, Bairro Cassenda', 2, 3, 'FT ATO2024/3', NULL, 'Ul2a2WELRas10x7vUdgxEHc09Z4mZkEjcF5eemcOQ6rKfE1/CpHBLrm9MP2fnMThrueaRqPKYv8DW9AFKOEVIz5Spmw+cWfOdo48lg0TC6Sv7x1ENh2+1jv49g5+94WFn71wLJ7B+VzPfSzzaEFTtRuaWhAtvrCioWlXKgXimPA=', NULL, 1, 1, 751, 'Milton Lucas', '2024-02-26 13:17:21', '2024-02-26 13:17:21', NULL, '11812312005', NULL, 0, NULL, NULL, NULL, NULL, NULL, 4649, '2023-12-29 00:00:00', '2024-01-04 00:00:00', 6, 14, 828.799, 'USD', 'AOA', NULL, 1536.9594, 1117395.09979, 156435.3139706, 1273830.4137606, '10003112751', 2, 2, 1, 'N', 'N', 'N', 0, 0, 1, 1, 'REFERENTE A NOTA DE PREÇO Nº 009/24'),
-	(113, '2024-02-26;2024-02-26T14:50:02;FT ATO2024/4;1301351.77;Ul2a2WELRas10x7vUdgxEHc09Z4mZkEjcF5eemcOQ6rKfE1/CpHBLrm9MP2fnMThrueaRqPKYv8DW9AFKOEVIz5Spmw+cWfOdo48lg0TC6Sv7x1ENh2+1jv49g5+94WFn71wLJ7B+VzPfSzzaEFTtRuaWhAtvrCioWlXKgXimPA=', 1, 269, 'TAAG - LINHAS AEREAS DE ANGOLA', 'TAAG', NULL, '5410002830', NULL, NULL, 2, 4, 'FT ATO2024/4', NULL, 'O2zE16yIM9zZ+uB8ykq32awj8QmVoSMFihpuA6qAzFIx8UeNWcw+XFYWdmeXEc9FiWeDw9y0oZAV+przgirBbOELWNpgKxuTbKZx1Jl1m95ZjhmW9hayxWmZC61HRUE9szKAEd0AfkkyNrKPHq06BZ3WK8csVs1xwnrkHntpRDU=', NULL, 1, 1, 750, 'Carlos Sampaio', '2024-02-26 14:50:02', '2024-02-26 14:50:02', NULL, NULL, 'BOING 737-800', 79, '2024-12-30', '2024-12-30', '13:40:00', '15:16:00', NULL, 9955, NULL, NULL, NULL, 14, 828.798, 'USD', 'AOA', NULL, 1570.1676, 1141536.63732, 159815.1292248, 1301351.7665448, '1000269113750', 2, 2, NULL, 'N', 'N', 'N', 0, 0, 2, NULL, 'REFERENTE A NOTA DE PREÇO Nº 011/24'),
-	(114, '2024-02-26;2024-02-26T15:10:11;FR ATO2024/7;1148194.87;DHPSRDG+C8Dw3VVwIWQiSBz0mgad6sMILEvc/VHFm9/nlM62d54C1QrmDusklTs0HE6hO/rc7pynR8xELnShWg3RXYRbfOwMnvIK0tXXL55GVfdmBiFjknz88nlVLhMfGCJrxU0Ykn5Aj76UYodp15dPCvd2JL/ekerLAo6r/9Q=', 1, 268, 'CELTA SERVIÇOS & COMÉRCIO, LDA', 'CELTA', '+244912505071', '5402032955', NULL, 'Rua Fernando Pessoa, Nº52', 1, 7, 'FR ATO2024/7', NULL, 'QOJYKTmEnnlN6HJulOdCLccMw231Goa6nwtC70SPy1Z3lf0fq9kwW9IcojStYbj1inmtczpKOCSY6+e9bNiNJTE4EnW2EecqUtjvDZtaDoim5VcuUHbWaEpiNitf50Orpme+oOYrXpacSgcBeEYWz+7E57F3FPZBZjEg4FUwZZo=', NULL, 1, 1, 750, 'Carlos Sampaio', '2024-02-26 15:10:11', '2024-02-26 15:10:11', NULL, NULL, 'ANTONOV 12', 61, '2023-12-30', '2023-12-30', '09:20:00', '16:20:00', NULL, 8611, NULL, NULL, NULL, 14, 828.80141, 'USD', 'AOA', NULL, 1385.3679, 1007188.4814814, 141006.38740739, 1148194.8688887, '1000268114750', 1, 4, NULL, 'N', 'N', 'N', 0, 0, 2, NULL, 'REFERENTE A NOTA DE PREÇO Nº 012/24'),
-	(115, '2024-02-26;2024-02-26T15:41:30;FR ATO2024/8;3406774.18;QOJYKTmEnnlN6HJulOdCLccMw231Goa6nwtC70SPy1Z3lf0fq9kwW9IcojStYbj1inmtczpKOCSY6+e9bNiNJTE4EnW2EecqUtjvDZtaDoim5VcuUHbWaEpiNitf50Orpme+oOYrXpacSgcBeEYWz+7E57F3FPZBZjEg4FUwZZo=', 1, 264, 'GRUPO LIZ - COMERCIO E SERVIÇOS, LIMITADA', 'AIR ATLANTA ICELANDIC', '923520471', '5403084690', 'ian.pereira@grupoliz.com', 'Bairro Cassenda - Rua 02, Casa nº 12, Maianga', 1, 8, 'FR ATO2024/8', NULL, 'xWOauZTFeKdf5TkU8jto9Xj3MY/Md9eh3YFXKwPMA1GGp1jI10xUJiolm4ortF5yNpjb+GJWhZ61fxH2tr4vMjVi6iN9wg8O+y6pLFemtLOZotSlCaL0wJFDhifDuNv4O2++fajkZXm9/8w18qO/rlZ94/W+khL9eaU/4p42eyE=', NULL, 1, 1, 751, 'Milton Lucas', '2024-02-26 15:41:30', '2024-02-26 15:41:30', NULL, NULL, 'BOING 747-400F', 397, '2024-01-02', '2024-01-02', '17:59:00', '19:44:00', NULL, NULL, NULL, NULL, NULL, 0, 828.737515, 'USD', 'USD', 1, 4110.8, 3406774.176662, 0, 3406774.176662, '1000264115751', 1, 4, NULL, 'Y', 'N', 'N', 0, 0, 2, NULL, 'REFERENTE A NOTA DE PREÇO Nº 013/24'),
-	(116, '2024-02-26;2024-02-26T15:50:08;FR ATO2024/9;763157.20;xWOauZTFeKdf5TkU8jto9Xj3MY/Md9eh3YFXKwPMA1GGp1jI10xUJiolm4ortF5yNpjb+GJWhZ61fxH2tr4vMjVi6iN9wg8O+y6pLFemtLOZotSlCaL0wJFDhifDuNv4O2++fajkZXm9/8w18qO/rlZ94/W+khL9eaU/4p42eyE=', 1, 264, 'GRUPO LIZ - COMERCIO E SERVIÇOS, LIMITADA', 'AIR ATLANTA ICELANDIC', '923520471', '5403084690', 'ian.pereira@grupoliz.com', 'Bairro Cassenda - Rua 02, Casa nº 12, Maianga', 1, 9, 'FR ATO2024/9', NULL, 'kb/vRR8GmcfcuFndcFZzTra7gI6HS+fFn5p8JSNF4slLa1Hw4f7bGH8TMgbr0qEFTiNNPPHN8qzWMmAKfxMBVYUdWj1GPVZ2koVpX7hRGMWZmj1GIznZ0nvxiEWfGjkTX4Oj6pyEJHSnMdWAOdX2ZSvRm1SrC16/Aaxf4ZWWuCk=', NULL, 1, 1, 751, 'Milton Lucas', '2024-02-26 15:50:08', '2024-02-26 15:50:08', NULL, NULL, 'BOING 747-400F', 397, '2024-01-02', '2024-01-02', '17:59:00', '19:44:00', NULL, 11510, NULL, NULL, NULL, 0, 828.798, 'USD', 'USD', NULL, 920.8, 763157.1984, 0, 763157.1984, '1000264116751', 1, 4, NULL, 'Y', 'N', 'N', 0, 0, 2, NULL, 'REFERENTE A NOTA DE PREÇO Nº 014/24'),
-	(117, '2024-02-26;2024-02-26T16:51:46;FR ATO2024/10;2594264.44;kb/vRR8GmcfcuFndcFZzTra7gI6HS+fFn5p8JSNF4slLa1Hw4f7bGH8TMgbr0qEFTiNNPPHN8qzWMmAKfxMBVYUdWj1GPVZ2koVpX7hRGMWZmj1GIznZ0nvxiEWfGjkTX4Oj6pyEJHSnMdWAOdX2ZSvRm1SrC16/Aaxf4ZWWuCk=', 1, 270, 'TLC LDA', 'SONASURF ANGOLA LDA', '+244 926 515 109', ' 5401146655', 'dsousa.an@tlc-com.ch', 'Avenida 4 de Fevereiro nº33 Luanda, Angola', 1, 10, 'FR ATO2024/10', NULL, 'Q+09lg8SyfxilyNIlZ7eg1RW70s7l/vQPYqH/24m0oWz44A2pY/QGZORZ7fDHYyW3qp9y49gBzwjcVzNJfOzUTCMX/i+7ECsW/qteSpKvxD45iJTMRczRfF6ICGloVJ5/obPH3JKzvf0ehSIBQ42qGfaI7hfmIilSvbVGoeVD9k=', NULL, 1, 1, 751, 'Milton Lucas', '2024-02-26 16:51:46', '2024-02-26 16:51:46', NULL, '574/33977790', NULL, 0, NULL, NULL, NULL, NULL, NULL, 6560, '2023-12-30 00:00:00', '2024-01-09 00:00:00', 10, 14, 846.1, 'USD', 'AOA', NULL, 3066.144, 2275670.56, 318593.8784, 2594264.4384, '1000270117751', 1, 4, 1, 'N', 'N', 'N', 0, 0, 1, 1, 'REFERENTE A NOTA DE PREÇO Nº 015/24'),
-	(118, '2024-02-26;2024-02-26T17:01:55;FT ATO2024/5;791054.18;O2zE16yIM9zZ+uB8ykq32awj8QmVoSMFihpuA6qAzFIx8UeNWcw+XFYWdmeXEc9FiWeDw9y0oZAV+przgirBbOELWNpgKxuTbKZx1Jl1m95ZjhmW9hayxWmZC61HRUE9szKAEd0AfkkyNrKPHq06BZ3WK8csVs1xwnrkHntpRDU=', 1, 269, 'TAAG - LINHAS AEREAS DE ANGOLA', 'TAAG', NULL, '5410002830', NULL, NULL, 2, 5, 'FT ATO2024/5', NULL, 'LG/ZCAepXEf13bCANkBQq5/a733CyS9nzCNc82M3npUobNkLE8B8+HY8i/tgNbrKGl0j7V2wvggCPA7kBX/ENfESeN6rv87xe8VsUynkNUt8hrb75jXNa3K5A+33RgMCrkuzt8eCEm/Lt1TbFOthKsax/cnRDJPRrJf4OmZOmbU=', NULL, 1, 1, 751, 'Milton Lucas', '2024-02-26 17:01:55', '2024-02-26 17:01:55', NULL, NULL, 'BOING 737-800', 78, '2023-12-19', '2023-12-19', '09:18:00', '10:35:00', NULL, 3308, NULL, NULL, NULL, 14, 828.724, 'USD', 'AOA', NULL, 954.5448, 693907.17968, 97147.0051552, 791054.1848352, '1000269118751', 2, 2, NULL, 'N', 'N', 'N', 0, 0, 2, NULL, 'REFERENTE A NOTA DE PREÇO Nº 016/24'),
-	(119, '2024-02-26;2024-02-26T17:06:27;FT ATO2024/6;2583859.66;LG/ZCAepXEf13bCANkBQq5/a733CyS9nzCNc82M3npUobNkLE8B8+HY8i/tgNbrKGl0j7V2wvggCPA7kBX/ENfESeN6rv87xe8VsUynkNUt8hrb75jXNa3K5A+33RgMCrkuzt8eCEm/Lt1TbFOthKsax/cnRDJPRrJf4OmZOmbU=', 1, 269, 'TAAG - LINHAS AEREAS DE ANGOLA', 'TAAG', NULL, '5410002830', NULL, NULL, 2, 6, 'FT ATO2024/6', NULL, 'jZ8CxaUlGwiXFTzntu5Jr+GbtnUTDxksAZVinkYDfFUpwGMrdfybgrj59Lk+YKJdV7k+ozJ19+HRNvbITLwQlOoFp3VU2VYVmNSTY67RuOCGIHewmaPuYBnDnP/z/BaDNp8DxvlepZ2uHVgRFJTITIy8PEbF6T6EAmO0oRyKPNE=', NULL, 1, 1, 751, 'Milton Lucas', '2024-02-26 17:06:27', '2024-02-26 17:06:27', NULL, NULL, 'BOING 737-800', 78, '2023-12-19', '2023-12-19', '18:17:00', '19:41:00', NULL, 15245, NULL, NULL, NULL, 14, 828.724, 'USD', 'AOA', 1, 3117.8772, 2266543.56552, 317316.0991728, 2583859.6646928, '1000269119751', 2, 2, NULL, 'N', 'N', 'N', 0, 0, 2, NULL, 'REFERENTE A NOTA DE PREÇO Nº 017/24'),
-	(120, '2024-02-26;2024-02-26T17:11:34;FT ATO2024/7;556671.36;jZ8CxaUlGwiXFTzntu5Jr+GbtnUTDxksAZVinkYDfFUpwGMrdfybgrj59Lk+YKJdV7k+ozJ19+HRNvbITLwQlOoFp3VU2VYVmNSTY67RuOCGIHewmaPuYBnDnP/z/BaDNp8DxvlepZ2uHVgRFJTITIy8PEbF6T6EAmO0oRyKPNE=', 1, 265, 'DHL Global Forwarding Angola Ltd', 'SCHLUMBERGER TECHNICAL SERVICE INC', '948625996', '5401071809', 'anacruz.pinto@dhl.com', 'Avenida 21 de Janeiro  Aeroporto', 2, 7, 'FT ATO2024/7', NULL, 'XWO/c+/EjTYECdSdJBea1R9lF9s9zr3fF3pIiabyBCtSppLAYQ9WFESyz22gd/XiSXxG03z6vQ0+f/9d71fE5mgImlsYEzdv4L3fQCq37PmoGfXvCoFjuUuSqNxVEuOy2VQ7Kh5BzddsdcKAjfHWXkI8gp+5LQtSM7nwTN/6C9E=', NULL, 1, 1, 751, 'Milton Lucas', '2024-02-26 17:11:34', '2024-02-26 17:11:34', NULL, '000-00117100', NULL, 0, NULL, NULL, NULL, NULL, NULL, 1370.3, '2024-01-08 00:00:00', '2024-01-12 00:00:00', 4, 14, 828.724, 'USD', 'AOA', NULL, 671.72106, 488308.213796, 68363.14993144, 556671.36372744, '1000265120751', 2, 2, 1, 'N', 'N', 'N', 0, 0, 1, 3, 'REFERENTE A NOTA DE PREÇO Nº 018/24'),
-	(121, '2024-02-26;2024-02-26T17:16:19;FR ATO2024/11;464085.44;Q+09lg8SyfxilyNIlZ7eg1RW70s7l/vQPYqH/24m0oWz44A2pY/QGZORZ7fDHYyW3qp9y49gBzwjcVzNJfOzUTCMX/i+7ECsW/qteSpKvxD45iJTMRczRfF6ICGloVJ5/obPH3JKzvf0ehSIBQ42qGfaI7hfmIilSvbVGoeVD9k=', 1, 264, 'GRUPO LIZ - COMERCIO E SERVIÇOS, LIMITADA', 'AIR ATLANTA ICELANDIC', '923520471', '5403084690', 'ian.pereira@grupoliz.com', 'Bairro Cassenda - Rua 02, Casa nº 12, Maianga', 1, 11, 'FR ATO2024/11', NULL, 'A0iXwNJ9vANGH2X7Ea32rwJlwTQZWhBPP4r78lWKCVgCg37FJnOBzXiAlUWO5TZUIXvBRLtfq6pTGhOSUaeO2PCwMdVceGJu1fBTD+0sR6F7gGOSddV8J+ivYlEFb6pVyOJ3iblj9RT3VJKPk3sJsQ/D9wqp7XYZjVbPiXqBDsM=', NULL, 1, 1, 751, 'Milton Lucas', '2024-02-26 17:16:19', '2024-02-26 17:16:19', NULL, NULL, 'BOING 747-400F', 395, '2024-01-12', '2024-01-12', '07:33:00', '11:33:00', NULL, 7000, NULL, NULL, NULL, 0, 828.724, 'USD', 'USD', NULL, 560, 464085.44, 0, 464085.44, '1000264121751', 1, 4, NULL, 'Y', 'N', 'N', 0, 0, 2, NULL, 'REFERENTE A NOTA DE PREÇO Nº 019/24'),
-	(122, '2024-02-26;2024-02-26T17:19:15;FR ATO2024/12;2775728.17;A0iXwNJ9vANGH2X7Ea32rwJlwTQZWhBPP4r78lWKCVgCg37FJnOBzXiAlUWO5TZUIXvBRLtfq6pTGhOSUaeO2PCwMdVceGJu1fBTD+0sR6F7gGOSddV8J+ivYlEFb6pVyOJ3iblj9RT3VJKPk3sJsQ/D9wqp7XYZjVbPiXqBDsM=', 1, 264, 'GRUPO LIZ - COMERCIO E SERVIÇOS, LIMITADA', 'AIR ATLANTA ICELANDIC', '923520471', '5403084690', 'ian.pereira@grupoliz.com', 'Bairro Cassenda - Rua 02, Casa nº 12, Maianga', 1, 12, 'FR ATO2024/12', NULL, 'hS+4wolPqd2F2m4bw78FyHBKiE0ku35UYBKqutpKIq4H17hiQg1UyCB75qxvBJL84XYsIVGMEPOuQTUCgpkqb6Y5Re16jaKGMIEMftAtckxN/wum0LTLCbx650VXPDbOHyUjuuxKgd/w6XijUu5ZYjh85Z9F16t07aF9+HGnN60=', NULL, 1, 1, 751, 'Milton Lucas', '2024-02-26 17:19:15', '2024-02-26 17:19:15', NULL, NULL, 'BOING 747-400F', 395, '2024-01-12', '2024-01-12', '07:33:00', '11:33:00', NULL, NULL, NULL, NULL, NULL, 0, 828.724, 'USD', 'USD', NULL, 3349.4, 2775728.1656, 0, 2775728.1656, '1000264122751', 1, 4, NULL, 'Y', 'N', 'N', 0, 0, 2, NULL, 'REFERENTE A NOTA DE PREÇO Nº 020/24'),
-	(123, '2024-02-27;2024-02-27T10:30:49;FR ATO2024/13;2843683.53;hS+4wolPqd2F2m4bw78FyHBKiE0ku35UYBKqutpKIq4H17hiQg1UyCB75qxvBJL84XYsIVGMEPOuQTUCgpkqb6Y5Re16jaKGMIEMftAtckxN/wum0LTLCbx650VXPDbOHyUjuuxKgd/w6XijUu5ZYjh85Z9F16t07aF9+HGnN60=', 1, 271, 'SUPERMARITIME TRANSITÁRIOS LDA', 'ANGOLA LNG LIMITED, SUCURSAL ANGOLA', '+244936759737', '50000338415', 'dlussala@supermaritime.com', 'Rua das Flores Nº10, Ingombota', 1, 13, 'FR ATO2024/13', NULL, 'qk3Ro4RvaWffjfJtkkSvz272tng5Xd44cBK+HG8dZbttkNcpnzmrkDcTUk8lSqeEQGvxQP72yzGxbmHkg8U/GwiY8UsaeHcl3WblQMS3cKHAGdONnnSlyiVwpOne6AdJxmFqHlX+Snsdz//WNZ/5sfjIMfX1XlsGmO8f5s/mdjY=', NULL, 1, 1, 751, 'Milton Lucas', '2024-02-27 10:30:49', '2024-02-27 10:30:49', NULL, '259-01727460', NULL, 0, NULL, NULL, NULL, NULL, NULL, 7000, '2024-01-12 00:00:00', '2024-01-16 00:00:00', 4, 14, 828.724, 'USD', 'AOA', NULL, 3431.4, 2494459.24, 349224.2936, 2843683.5336, '1000271123751', 1, 4, 1, 'N', 'N', 'N', 0, 0, 1, 3, 'REFERENTE A NOTA DE PREÇO Nº 021/24'),
-	(124, '2024-02-27;2024-02-27T10:44:20;FR ATO2024/14;1701845.40;qk3Ro4RvaWffjfJtkkSvz272tng5Xd44cBK+HG8dZbttkNcpnzmrkDcTUk8lSqeEQGvxQP72yzGxbmHkg8U/GwiY8UsaeHcl3WblQMS3cKHAGdONnnSlyiVwpOne6AdJxmFqHlX+Snsdz//WNZ/5sfjIMfX1XlsGmO8f5s/mdjY=', 1, 267, 'MULTIFLIGHT LDA', 'VULKAN AIR', '+244933535482', '5417323659', 'opsmultiflight@gmail.com', 'Av. Revolução de Outubro, Bloco 47 B-3 Andar', 1, 14, 'FR ATO2024/14', NULL, 'Y2TOGoWLyqewowiVy99OOEVfLbGGUQDntIIxOCV1Q0tbWPAZ44mKtQR/xdrfeN3k3WiJP5Hx/ti20SiU63HEHnFzoStB9iRR1vxz1gSvlQkMPHw1R3KVdGS9Vq7PHANFoESx+Q+oWsmxr1NKa3eqJeZ/ilTHBZqSHCPOYOwFk2Y=', NULL, 1, 1, 750, 'Carlos Sampaio', '2024-02-27 10:44:20', '2024-02-27 10:44:20', NULL, NULL, 'ANTONOV-12', 24, '2024-01-08', '2024-01-15', '08:06:00', '13:10:00', NULL, 1370, NULL, NULL, NULL, 14, 828.724, 'USD', 'AOA', NULL, 2053.5732, 1492846.83912, 208998.5574768, 1701845.3965968, '1000267124750', 1, 4, NULL, 'N', 'N', 'N', 0, 0, 2, NULL, 'REFERENTE A NOTA DE PREÇO Nº 022/24'),
-	(125, '2024-02-27;2024-02-27T11:32:05;FR ATO2024/15;58196.31;Y2TOGoWLyqewowiVy99OOEVfLbGGUQDntIIxOCV1Q0tbWPAZ44mKtQR/xdrfeN3k3WiJP5Hx/ti20SiU63HEHnFzoStB9iRR1vxz1gSvlQkMPHw1R3KVdGS9Vq7PHANFoESx+Q+oWsmxr1NKa3eqJeZ/ilTHBZqSHCPOYOwFk2Y=', 1, 266, 'Panalpina Transportes Mundiais Navegação e Transitos SA', 'BAKER HUGHES ANGOLA', '226422041', '5403005862', 'dario.manuel@ao.dsv.com', 'Rua Kima Kienda 106, Estr. da Boavista – Luanda', 1, 15, 'FR ATO2024/15', NULL, 'RBDriUv1bXhTccjUZ9FWFp7ESxTvO1zczNNgkMdafaxfD0V9vjHsd3/9pgO/WqftQYwbbrzZBdGlSadxYefdemcEPkkO+ErmGZLAsQPBjwGxv3mVfAWM75Z6RezSGM+5MowkdJr356H62rU+jNXFyPgLFrJe4TGKjKamAm0F//0=', NULL, 1, 1, 751, 'Milton Lucas', '2024-02-27 11:32:05', '2024-02-27 11:32:05', NULL, '57433977823', NULL, 0, NULL, NULL, NULL, NULL, NULL, 110, '2024-01-02 00:00:00', '2024-01-17 00:00:00', 15, 14, 828.724, 'USD', 'AOA', NULL, 70.224, 51049.3984, 7146.915776, 58196.314176, '1000266125751', 1, 4, 1, 'N', 'N', 'N', 0, 0, 1, 1, 'REFERENTE A NOTA DE PREÇO Nº 023/24'),
-	(126, '2024-02-27;2024-02-27T11:36:40;FR ATO2024/16;6354357.29;RBDriUv1bXhTccjUZ9FWFp7ESxTvO1zczNNgkMdafaxfD0V9vjHsd3/9pgO/WqftQYwbbrzZBdGlSadxYefdemcEPkkO+ErmGZLAsQPBjwGxv3mVfAWM75Z6RezSGM+5MowkdJr356H62rU+jNXFyPgLFrJe4TGKjKamAm0F//0=', 1, 266, 'Panalpina Transportes Mundiais Navegação e Transitos SA', 'Baker Hughes Angola LDA', '226422041', '5403005862', 'dario.manuel@ao.dsv.com', 'Rua Kima Kienda 106, Estr. da Boavista – Luanda', 1, 16, 'FR ATO2024/16', NULL, 'Yjg2MSdVlE6CF+7iK45ELLPi3+vZnwmR9PxwkxmVoQ48DzZg0PnoWzgmOZLDTim31Mia9XqeYWICEgUzidW5QwahLB7SR0V6Ykjrohq8YnLKKSw3ChaoB65R9xmPJD+//91KhFth3mWlKA1toVmSLfrRw6ES28bTm2RSzWNUBUk=', NULL, 1, 1, 750, 'Carlos Sampaio', '2024-02-27 11:36:40', '2024-02-27 11:36:40', NULL, '57433977731', NULL, 0, NULL, NULL, NULL, NULL, NULL, 11400, '2024-01-02 00:00:00', '2024-01-18 00:00:00', 16, 14, 828.724, 'USD', 'AOA', NULL, 7667.64, 5573997.624, 780359.66736, 6354357.29136, '1000266126750', 1, 4, 1, 'N', 'N', 'N', 0, 0, 1, 1, 'REFERENTE A NOTA DE PREÇO Nº 024/24'),
-	(127, '2024-02-27;2024-02-27T11:43:42;FR ATO2024/17;2707901.26;Yjg2MSdVlE6CF+7iK45ELLPi3+vZnwmR9PxwkxmVoQ48DzZg0PnoWzgmOZLDTim31Mia9XqeYWICEgUzidW5QwahLB7SR0V6Ykjrohq8YnLKKSw3ChaoB65R9xmPJD+//91KhFth3mWlKA1toVmSLfrRw6ES28bTm2RSzWNUBUk=', 1, 264, 'GRUPO LIZ - COMERCIO E SERVIÇOS, LIMITADA', 'AIR ATLANTA ICELANDIC', '923520471', '5403084690', 'ian.pereira@grupoliz.com', 'Bairro Cassenda - Rua 02, Casa nº 12, Maianga', 1, 17, 'FR ATO2024/17', NULL, 'FUcWPM/3mLqSYQJRw5Do3LX+2Ul3uxVU12zG0AHQTwy5W8xvUI1/JPzKt6d0aJanx4pAZ6Ti3ZKNOD38Rv3qhxXZeUti3OaKjOTNd8Za1YmTAFG/2yEWuCWRZ5kV4ceg8EE4UCLysG06OogZE+VmrK+JGQ1I9yr06vYFo27FrAs=', NULL, 1, 1, 751, 'Milton Lucas', '2024-02-27 11:43:42', '2024-02-27 11:43:42', NULL, NULL, 'BOING 747-400F', 397, '2024-01-17', '2024-01-17', '08:00:00', '11:07:00', NULL, NULL, NULL, NULL, NULL, 0, 828.776, 'USD', 'USD', NULL, 3267.35, 2707901.2636, 0, 2707901.2636, '1000264127751', 1, 4, NULL, 'Y', 'N', 'N', 0, 0, 2, NULL, 'REFERENTE A NOTA DE PREÇO Nº 025/24'),
-	(128, '2024-02-27;2024-02-27T11:44:41;FR ATO2024/18;1062225.62;FUcWPM/3mLqSYQJRw5Do3LX+2Ul3uxVU12zG0AHQTwy5W8xvUI1/JPzKt6d0aJanx4pAZ6Ti3ZKNOD38Rv3qhxXZeUti3OaKjOTNd8Za1YmTAFG/2yEWuCWRZ5kV4ceg8EE4UCLysG06OogZE+VmrK+JGQ1I9yr06vYFo27FrAs=', 1, 264, 'GRUPO LIZ - COMERCIO E SERVIÇOS, LIMITADA', 'AIR ATLANTA ICELANDIC', '923520471', '5403084690', 'ian.pereira@grupoliz.com', 'Bairro Cassenda - Rua 02, Casa nº 12, Maianga', 1, 18, 'FR ATO2024/18', NULL, 'dL+B4inbXrtIqQrB2x8TkAfA0jSH49+2LC7op+P7bsCRDdWaq5q529yPZDhbzahJSzJ+TF43QsEd9bl12V3BCTphepEHKdxMXsMJY0JBrK6TcNNSGix8cyfxpmmGDVCQCP2j8s8TOYGr6Dkcao63OM5Hry/6mP4NpDMJCuPy/KI=', NULL, 1, 1, 750, 'Carlos Sampaio', '2024-02-27 11:44:41', '2024-02-27 11:44:41', NULL, NULL, 'BOING 747-400F', 397, '2024-01-17', '2024-01-17', '08:00:00', '11:07:00', NULL, 16021, NULL, NULL, NULL, 0, 828.776, 'USD', 'USD', NULL, 1281.68, 1062225.62368, 0, 1062225.62368, '1000264128750', 1, 4, NULL, 'Y', 'N', 'N', 0, 0, 2, NULL, 'REFERENTE A NOTA DE PREÇO Nº 026/24'),
-	(129, '2024-02-27;2024-02-27T12:38:18;FR ATO2024/19;75282.03;dL+B4inbXrtIqQrB2x8TkAfA0jSH49+2LC7op+P7bsCRDdWaq5q529yPZDhbzahJSzJ+TF43QsEd9bl12V3BCTphepEHKdxMXsMJY0JBrK6TcNNSGix8cyfxpmmGDVCQCP2j8s8TOYGr6Dkcao63OM5Hry/6mP4NpDMJCuPy/KI=', 1, 272, 'PONTICELLI ANGOIL', 'PONTICELLI ANGOIL', NULL, '5403090762', NULL, 'Av. Comandante Kima-Kyenda, Nº311', 1, 19, 'FR ATO2024/19', NULL, 'sbIt3uwnZeSyLp+OeEUKcaH5g2BTivY4fuNjdknuq4R/J+AmfjqbujoD+V7K/cDTl0ij5CJLej6sP8HVa1/8EQqSdg2yjDIZdy3MTFaf3udhF8mAWRtrOzh76BjpgZcf+1lEVSlkVM87ycjvgiZ3yLmSqnM2kYoa+3u6+fejifQ=', NULL, 1, 1, 751, 'Milton Lucas', '2024-02-27 12:38:18', '2024-02-27 12:38:18', NULL, '242CDG22038004', NULL, 0, NULL, NULL, NULL, NULL, NULL, 249, '2024-01-17 00:00:00', '2024-01-24 00:00:00', 7, 14, 828.776, 'USD', 'AOA', NULL, 90.8352, 66036.87168, 9245.1620352, 75282.0337152, '1000272129751', 1, 4, 1, 'N', 'N', 'N', 0, 0, 1, 1, 'REFERENTE A NOTA DE PREÇO Nº 027/24'),
-	(130, '2024-02-27;2024-02-27T14:48:19;FR ATO2024/20;441658.38;sbIt3uwnZeSyLp+OeEUKcaH5g2BTivY4fuNjdknuq4R/J+AmfjqbujoD+V7K/cDTl0ij5CJLej6sP8HVa1/8EQqSdg2yjDIZdy3MTFaf3udhF8mAWRtrOzh76BjpgZcf+1lEVSlkVM87ycjvgiZ3yLmSqnM2kYoa+3u6+fejifQ=', 1, 273, 'AZULE ENERGY ANGOLA(BLOCK 18), B.V. - SUCURSAL DE ANGOLA', 'AZULE ENERGY ANGOLA ', NULL, '5410003667', NULL, 'AV 4 DE FEVEREIRO TORRES ATLANTICO N 197', 1, 20, 'FR ATO2024/20', NULL, 'ASF2Kcyg+r4HP3THG1FmPjDAnkTRP0ONXWzxoeiFZ+b0sIbiho9D1g0an2bHQqLEoW7Lvl0hKsHrvp+Tha+cTHqObczuME5dLWSG/GzNYLJZj142X+CuQGMaoyR3Mihj7HJ+Xh+SYfKT3D53YRmyL7V9i+efq1U57il34ni1wiA=', NULL, 1, 1, 750, 'Carlos Sampaio', '2024-02-27 14:48:19', '2024-02-27 14:48:19', NULL, 'LHR-0063 9673', NULL, 0, NULL, NULL, NULL, NULL, NULL, 3339, '2024-01-17 00:00:00', '2024-01-18 00:00:00', 1, 14, 828.776, 'USD', 'AOA', NULL, 532.9044, 387419.62896, 54238.7480544, 441658.3770144, '1000273130750', 1, 4, 1, 'N', 'N', 'N', 0, 0, 1, 1, 'REFERENTE A NOTA DE PREÇO Nº 028/24'),
-	(131, '2024-02-27;2024-02-27T14:49:49;FR ATO2024/21;27021.41;ASF2Kcyg+r4HP3THG1FmPjDAnkTRP0ONXWzxoeiFZ+b0sIbiho9D1g0an2bHQqLEoW7Lvl0hKsHrvp+Tha+cTHqObczuME5dLWSG/GzNYLJZj142X+CuQGMaoyR3Mihj7HJ+Xh+SYfKT3D53YRmyL7V9i+efq1U57il34ni1wiA=', 1, 266, 'Panalpina Transportes Mundiais Navegação e Transitos SA', 'BAKER HUGHES ANGOLA', '226422041', '5403005862', 'dario.manuel@ao.dsv.com', 'Rua Kima Kienda 106, Estr. da Boavista – Luanda', 1, 21, 'FR ATO2024/21', NULL, 'n6cdo/t+fRCN546HmLR3HmkyQ3roQeBaYWKC2yY6G0tk9jteAKOPmZEbiRfPGczcq70c4U/o9sGd4AMJM69UjsashO8Q4gEGnc3G5PmBgXPPvx3fYPTIvIcuVfl3tAQ4GE5A/iM/PYI7uPjDSmsJXJQUKXS+XHzKauo5O5ujtpo=', NULL, 1, 1, 751, 'Milton Lucas', '2024-02-27 14:49:49', '2024-02-27 14:49:49', NULL, '57433977823', NULL, 0, NULL, NULL, NULL, NULL, NULL, 110, '2024-01-18 00:00:00', '2024-01-23 00:00:00', 5, 14, 828.776, 'USD', 'AOA', NULL, 32.604, 23702.9936, 3318.419104, 27021.412704, '1000266131751', 1, 4, 1, 'N', 'N', 'N', 0, 0, 1, 1, 'REFERENTE A NOTA DE PREÇO Nº 029/24'),
-	(132, '2024-02-27;2024-02-27T14:53:32;FR ATO2024/22;2477277.77;n6cdo/t+fRCN546HmLR3HmkyQ3roQeBaYWKC2yY6G0tk9jteAKOPmZEbiRfPGczcq70c4U/o9sGd4AMJM69UjsashO8Q4gEGnc3G5PmBgXPPvx3fYPTIvIcuVfl3tAQ4GE5A/iM/PYI7uPjDSmsJXJQUKXS+XHzKauo5O5ujtpo=', 1, 266, 'Panalpina Transportes Mundiais Navegação e Transitos SA', 'BAKER HUGHES ANGOLA LDA', '226422041', '5403005862', 'dario.manuel@ao.dsv.com', 'Rua Kima Kienda 106, Estr. da Boavista – Luanda', 1, 22, 'FR ATO2024/22', NULL, 'hG71QnKxXJANg4J7DZhKc9fxNZ1hKTmBLIDFYRa8FQfDQveG0xWZaxsnCmUs8upnGr4uMClsLJRqb0gAhOpAK5qFWdwvU/XwfjfhafMx44RdwqnlPrUahkK+OQtFOW2qVgJxLb+FEiMMD6Xf5GJuMdrwZuh2gnD3ZaC5zuFus9A=', NULL, 1, 1, 750, 'Carlos Sampaio', '2024-02-27 14:53:32', '2024-02-27 14:53:32', NULL, '57 433 977 731', NULL, 0, NULL, NULL, NULL, NULL, NULL, 11400, '2024-01-19 00:00:00', '2024-01-23 00:00:00', 4, 14, 828.776, 'USD', 'AOA', NULL, 2989.08, 2173050.672, 304227.09408, 2477277.76608, '1000266132750', 1, 4, 1, 'N', 'N', 'N', 0, 0, 1, 1, 'REFERENTE A NOTA DE PREÇO Nº 30'),
-	(133, '2024-02-27;2024-02-27T14:56:44;FR ATO2024/23;2707901.26;hG71QnKxXJANg4J7DZhKc9fxNZ1hKTmBLIDFYRa8FQfDQveG0xWZaxsnCmUs8upnGr4uMClsLJRqb0gAhOpAK5qFWdwvU/XwfjfhafMx44RdwqnlPrUahkK+OQtFOW2qVgJxLb+FEiMMD6Xf5GJuMdrwZuh2gnD3ZaC5zuFus9A=', 1, 264, 'GRUPO LIZ - COMERCIO E SERVIÇOS, LIMITADA', 'AIR ATLANTA ICELANDIC', '923520471', '5403084690', 'ian.pereira@grupoliz.com', 'Bairro Cassenda - Rua 02, Casa nº 12, Maianga', 1, 23, 'FR ATO2024/23', NULL, 'XbWeb35RnzhygY1mw2+VPw10vUtyGCeeFvcvTFTaVXuAnHCjngv1O2zssW6ITsBu7HBhuhEya3ASPA7ZlYDLkYaAFy9wInyiIxG1yKn3gde7lzCfArgmuehdzUFGZj9KmeyMI6ZPOgEJgvFevt4MVW9WWNNYsY/bRtycChyMGDk=', NULL, 1, 1, 751, 'Milton Lucas', '2024-02-27 14:56:44', '2024-02-27 14:56:44', NULL, NULL, 'BOING 747-400F', 397, '2024-01-19', '2024-01-19', '07:15:00', '09:35:00', NULL, NULL, NULL, NULL, NULL, 0, 828.776, 'USD', 'USD', NULL, 3267.35, 2707901.2636, 0, 2707901.2636, '1000264133751', 1, 4, NULL, 'Y', 'N', 'N', 0, 0, 2, NULL, 'REFERENTE A NOTA DE PREÇO Nº 031/24'),
-	(134, '2024-02-27;2024-02-27T15:01:54;FR ATO2024/24;346229.46;XbWeb35RnzhygY1mw2+VPw10vUtyGCeeFvcvTFTaVXuAnHCjngv1O2zssW6ITsBu7HBhuhEya3ASPA7ZlYDLkYaAFy9wInyiIxG1yKn3gde7lzCfArgmuehdzUFGZj9KmeyMI6ZPOgEJgvFevt4MVW9WWNNYsY/bRtycChyMGDk=', 1, 264, 'GRUPO LIZ - COMERCIO E SERVIÇOS, LIMITADA', 'AIR ATLANTA ICELANDIC', '923520471', '5403084690', 'ian.pereira@grupoliz.com', 'Bairro Cassenda - Rua 02, Casa nº 12, Maianga', 1, 24, 'FR ATO2024/24', NULL, 'q0aQHAYYbTWz9+5pDZlsmStag9jIcC0ONw1dcSjBspk4mXHvlwpbrHQfTEk3pBE8tidmJkHSTnQnYJ0NHdwia8+RVxbvuWuZ0YdemFE5xvYGkU+VpBCbvi0wuyLK92g7Ma1fCOr67zYij9VSaEqJVhZROKJ2+f03k/kIRM4bxYI=', NULL, 1, 1, 751, 'Milton Lucas', '2024-02-27 15:01:54', '2024-02-27 15:01:54', NULL, NULL, 'BOING 747-400F', 397, '2024-01-19', '2024-01-19', '07:15:00', '09:35:00', NULL, 5222, NULL, NULL, NULL, 0, 828.776, 'USD', 'USD', NULL, 417.76, 346229.46176, 0, 346229.46176, '1000264134751', 1, 4, NULL, 'Y', 'N', 'N', 0, 0, 2, NULL, 'REFERENTE A NOTA DE PREÇO Nº 032/24'),
-	(135, '2024-02-27;2024-02-27T15:17:11;FR ATO2024/25;7303434.35;q0aQHAYYbTWz9+5pDZlsmStag9jIcC0ONw1dcSjBspk4mXHvlwpbrHQfTEk3pBE8tidmJkHSTnQnYJ0NHdwia8+RVxbvuWuZ0YdemFE5xvYGkU+VpBCbvi0wuyLK92g7Ma1fCOr67zYij9VSaEqJVhZROKJ2+f03k/kIRM4bxYI=', 1, 274, 'BANCO NACIONAL DE ANGOLA - BNA', 'BNA', '+244222679200', '7401012332', NULL, NULL, 1, 25, 'FR ATO2024/25', NULL, 'muXqte+wc2YoPv78mhbdT33lybxwEOo/KBlufaT7uJjypDWAbHj3525L7H/7nIZmaOFu8/Qg52t0UVEmv5cOPl75L2uhu9FZSYUigL3WrnNUTLcCkC2A3GlHU9ptc1l7eprwqzO7Pj+kzHxCEm36qA5AiMfTRt4SPTe/7OJQ1Jc=', NULL, 1, 1, 751, 'Milton Lucas', '2024-02-27 15:17:11', '2024-02-27 15:17:11', NULL, '574-33978151', NULL, 0, NULL, NULL, NULL, NULL, NULL, 55215, '2024-01-24 00:00:00', '2024-01-24 00:00:00', 1, 14, 828.776, 'USD', 'AOA', NULL, 8812.314, 6406521.3576, 896912.990064, 7303434.347664, '1000274135751', 1, 4, 1, 'N', 'N', 'N', 0, 0, 1, 1, 'REFERENTE A NOTA DE PREÇO Nº 033/24'),
-	(136, '2024-02-27;2024-02-27T15:20:22;FR ATO2024/26;3036411.49;muXqte+wc2YoPv78mhbdT33lybxwEOo/KBlufaT7uJjypDWAbHj3525L7H/7nIZmaOFu8/Qg52t0UVEmv5cOPl75L2uhu9FZSYUigL3WrnNUTLcCkC2A3GlHU9ptc1l7eprwqzO7Pj+kzHxCEm36qA5AiMfTRt4SPTe/7OJQ1Jc=', 1, 264, 'GRUPO LIZ - COMERCIO E SERVIÇOS, LIMITADA', 'AIR ATLANTA ICELANDIC', '923520471', '5403084690', 'ian.pereira@grupoliz.com', 'Bairro Cassenda - Rua 02, Casa nº 12, Maianga', 1, 26, 'FR ATO2024/26', NULL, 'VlkU2w/OU6wSh5+WpUpmflHjC4xKqtF/CugCHlOzgNx2kWqhLSO13cLFLfrSAezp1lP8P1qZYv2xwZcVFF4hhvJ5C6FfD8DWcej+6lfNG3HRXbp9t19s+vnnW49RAr+mGzRU3zRBcPHw8gjwdhC3VrgOaU2/r2wsWChqNEdiiV8=', NULL, 1, 1, 750, 'Carlos Sampaio', '2024-02-27 15:20:22', '2024-02-27 15:20:22', NULL, NULL, 'BOING 747-400F', 397, '2024-01-23', '2024-01-23', '13:23:00', '17:40:00', NULL, NULL, NULL, NULL, NULL, 0, 828.776, 'USD', 'USD', NULL, 3663.73, 3036411.49448, 0, 3036411.49448, '1000264136750', 1, 4, NULL, 'Y', 'N', 'N', 0, 0, 2, NULL, 'REFERENTE A NOTA DE PREÇO Nº 34'),
-	(137, '2024-02-27;2024-02-27T15:30:29;FR ATO2024/27;1944640.01;VlkU2w/OU6wSh5+WpUpmflHjC4xKqtF/CugCHlOzgNx2kWqhLSO13cLFLfrSAezp1lP8P1qZYv2xwZcVFF4hhvJ5C6FfD8DWcej+6lfNG3HRXbp9t19s+vnnW49RAr+mGzRU3zRBcPHw8gjwdhC3VrgOaU2/r2wsWChqNEdiiV8=', 1, 264, 'GRUPO LIZ - COMERCIO E SERVIÇOS, LIMITADA', 'AIR ATLANTA ICELANDIC', '923520471', '5403084690', 'ian.pereira@grupoliz.com', 'Bairro Cassenda - Rua 02, Casa nº 12, Maianga', 1, 27, 'FR ATO2024/27', NULL, 'WpEfTf0P1qU8U2iBWAv7PriBwV83CpriSYCIIoQrQRcIXrWgUCzn3hTLYXDxqLHc8Jvic3LqLBbJY/dMeMEKz27TTITdDibV0Jeo1JvKdkxQzzhw/Cz+r0/RISviN0Y163xUUWoCjzlijo1pbl91yLVz/Nlfi1ufY70f5H4nv+g=', NULL, 1, 1, 751, 'Milton Lucas', '2024-02-27 15:30:29', '2024-02-27 15:30:29', NULL, NULL, 'BOING 747-400F', 397, '2024-01-23', '2024-01-23', '13:23:00', '17:40:00', NULL, 29330, NULL, NULL, NULL, 0, 828.776, 'USD', 'USD', NULL, 2346.4, 1944640.0064, 0, 1944640.0064, '1000264137751', 1, 4, NULL, 'Y', 'N', 'N', 0, 0, 2, NULL, 'REFERENTE A NOTA DE PREÇO Nº 035/24'),
-	(138, '2024-02-27;2024-02-27T16:03:29;FR ATO2024/28;448416.73;WpEfTf0P1qU8U2iBWAv7PriBwV83CpriSYCIIoQrQRcIXrWgUCzn3hTLYXDxqLHc8Jvic3LqLBbJY/dMeMEKz27TTITdDibV0Jeo1JvKdkxQzzhw/Cz+r0/RISviN0Y163xUUWoCjzlijo1pbl91yLVz/Nlfi1ufY70f5H4nv+g=', 1, 270, 'TLC LDA', 'TLC', '+244 926 515 109', ' 5401146655', 'dsousa.an@tlc-com.ch', 'Avenida 4 de Fevereiro nº33 Luanda, Angola', 1, 28, 'FR ATO2024/28', NULL, 'npt+0aQ5cgiBkw29mTWagknV4GwXX9SX8IUAKLmaSnOLTspeaNrmwIstMIS6JaWZPdsCiZY2udFFZMI1c1oCpJqux2m23Asg75MePEVt5BRalMHK3m5MVJgLGqgSFCWYfaTA1xwSdaGjHnDo8nWbkXiJjMqCIG44ZxBCQIKX354=', NULL, 1, 1, 751, 'Milton Lucas', '2024-02-27 16:03:29', '2024-02-27 16:03:29', NULL, '00000117515', NULL, 0, NULL, NULL, NULL, NULL, NULL, 3390, '2024-01-24 00:00:00', '2024-01-24 00:00:00', 1, 14, 828.799, 'USD', 'AOA', NULL, 541.044, 393348.0054, 55068.720756, 448416.726156, '1000270138751', 1, 4, 2, 'N', 'N', 'N', 0, 0, 1, 1, 'REFERENTE A NOTA DE PREÇO Nº 036/24'),
-	(139, '2024-02-27;2024-02-27T16:10:41;FR ATO2024/29;108466.58;npt+0aQ5cgiBkw29mTWagknV4GwXX9SX8IUAKLmaSnOLTspeaNrmwIstMIS6JaWZPdsCiZY2udFFZMI1c1oCpJqux2m23Asg75MePEVt5BRalMHK3m5MVJgLGqgSFCWYfaTA1xwSdaGjHnDo8nWbkXiJjMqCIG44ZxBCQIKX354=', 1, 270, 'TLC LDA', 'TLC', '+244 926 515 109', ' 5401146655', 'dsousa.an@tlc-com.ch', 'Avenida 4 de Fevereiro nº33 Luanda, Angola', 1, 29, 'FR ATO2024/29', NULL, 'dXfqJagYTgU8z3+f9d08uvYj05Qcj1qeR0swJI08LvnC1g0d+h9e7tgKsI1WDgDKMiGpHf3OXAKDZplRKySo4pLV/DHFh6AXUp2rp/HcesiNT00QXBr34kt2ruEvVtTS5Gr/jvfADGo1gzoON/4bZje8vrDQNzIfjN0zqv7Uxb8=', NULL, 1, 1, 751, 'Milton Lucas', '2024-02-27 16:10:41', '2024-02-27 16:10:41', NULL, '00000117541', NULL, 0, NULL, NULL, NULL, NULL, NULL, 820, '2024-01-24 00:00:00', '2024-01-24 00:00:00', 1, 14, 828.799, 'USD', 'AOA', NULL, 130.872, 95146.1252, 13320.457528, 108466.582728, '1000270139751', 1, 4, 2, 'N', 'N', 'N', 0, 0, 1, 1, 'REFERENTE A NOTA DE PREÇO Nº 037/24'),
-	(140, '2024-02-27;2024-02-27T16:15:30;FR ATO2024/30;35714.61;dXfqJagYTgU8z3+f9d08uvYj05Qcj1qeR0swJI08LvnC1g0d+h9e7tgKsI1WDgDKMiGpHf3OXAKDZplRKySo4pLV/DHFh6AXUp2rp/HcesiNT00QXBr34kt2ruEvVtTS5Gr/jvfADGo1gzoON/4bZje8vrDQNzIfjN0zqv7Uxb8=', 1, 270, 'TLC LDA', 'TLC', '+244 926 515 109', ' 5401146655', 'dsousa.an@tlc-com.ch', 'Avenida 4 de Fevereiro nº33 Luanda, Angola', 1, 30, 'FR ATO2024/30', NULL, 'Vfiw7DQ2oSDcf7lVR5vKR1sBVnT3wjgvPCrGhtafiDa2MO/Tow1iig2W/x+gFYc1nfy4SjDyJVFV580lW3zpz5pyGppwhzoVLxDrMI/anyNntZsD+LTQoDEndYCv5Why8Pbcx+7rOAy/CS+X/VXc1L7Knw6Yly/UIl9zpf7vdjU=', NULL, 1, 1, 751, 'Milton Lucas', '2024-02-27 16:15:30', '2024-02-27 16:15:30', NULL, '00000117552', NULL, 0, NULL, NULL, NULL, NULL, NULL, 270, '2024-01-24 00:00:00', '2024-01-24 00:00:00', 1, 14, 828.799, 'USD', 'AOA', NULL, 43.092, 31328.6022, 4386.004308, 35714.606508, '1000270140751', 1, 4, 2, 'N', 'N', 'N', 0, 0, 1, 1, 'REFERENTE A NOTA DE PREÇO Nº 038/24'),
-	(141, '2024-02-28;2024-02-28T11:53:58;FR ATO2024/31;574072.75;Vfiw7DQ2oSDcf7lVR5vKR1sBVnT3wjgvPCrGhtafiDa2MO/Tow1iig2W/x+gFYc1nfy4SjDyJVFV580lW3zpz5pyGppwhzoVLxDrMI/anyNntZsD+LTQoDEndYCv5Why8Pbcx+7rOAy/CS+X/VXc1L7Knw6Yly/UIl9zpf7vdjU=', 1, 267, 'MULTIFLIGHT LDA', ' MULTIFLIGHT LDA', '+244933535482', '5417323659', 'opsmultiflight@gmail.com', 'Av. Revolução de Outubro, Bloco 47 B-3 Andar', 1, 31, 'FR ATO2024/31', NULL, 'dfKD9xBAz8rYUbrl3ie3AnggwlmdrZ0eydQaU1qljpNbWJuPVbVNecIes+uND6K6cYaiiy1jyhP/o6W2yDwuHJvQZJbi71rVKYkxicOxnt+tr3pTNMIxPySa9jCk1mkF0yf8HJ1b4cjcS+mPiKPuMf0IYRDwcyokkY1gBe5tqJM=', NULL, 1, 1, 751, 'Milton Lucas', '2024-02-28 11:53:58', '2024-02-28 11:53:58', NULL, NULL, 'ANTONOV AN-26', 23, '2024-01-23', '2024-01-24', '16:38:00', '16:22:00', NULL, 3390, NULL, NULL, NULL, 14, 828.776, 'USD', 'AOA', NULL, 692.6754, 503572.58536, 70500.1619504, 574072.7473104, '1000267141751', 1, 4, NULL, 'N', 'N', 'N', 0, 0, 2, NULL, 'REFERENTE A NOTA DE PREÇO Nº 039/24'),
-	(142, '2024-02-28;2024-02-28T11:59:21;FT ATO2024/8;2707901.26;XWO/c+/EjTYECdSdJBea1R9lF9s9zr3fF3pIiabyBCtSppLAYQ9WFESyz22gd/XiSXxG03z6vQ0+f/9d71fE5mgImlsYEzdv4L3fQCq37PmoGfXvCoFjuUuSqNxVEuOy2VQ7Kh5BzddsdcKAjfHWXkI8gp+5LQtSM7nwTN/6C9E=', 1, 264, 'GRUPO LIZ - COMERCIO E SERVIÇOS, LIMITADA', 'AIR ATLANTA ICELANDIC', '923520471', '5403084690', 'ian.pereira@grupoliz.com', 'Bairro Cassenda - Rua 02, Casa nº 12, Maianga', 2, 8, 'FT ATO2024/8', NULL, 'b3JW9Dj7YZNj7iiH8VojtyJJbZqirbewtmBKITP7vKsEJXhl1UWv0B692jSkhOljeUaTKUS8WA/+MeJ1zPWUJxh6vMHn0mTuzxXmIcjx6ru6yOIyaAqZQL+nVZsQjEbCzZq80WWWDGtPpEJMh9aTeRreBC1BfXT54km8/Vr7q8I=', NULL, 1, 1, 750, 'Carlos Sampaio', '2024-02-28 11:59:21', '2024-02-28 11:59:21', NULL, NULL, 'BOING 747-400F', 397, '2024-01-25', '2024-01-25', '07:38:00', '10:04:00', NULL, 54193.5, NULL, NULL, NULL, 0, 828.776, 'USD', 'AOA', NULL, 3267.35, 2707901.2636, 0, 2707901.2636, '1000264142750', 2, 2, NULL, 'Y', 'N', 'N', 0, 0, 2, NULL, 'REFERENTE A NOTA DE PREÇO Nº 040/24'),
-	(143, '2024-02-28;2024-02-28T12:02:22;FT ATO2024/9;584286.09;b3JW9Dj7YZNj7iiH8VojtyJJbZqirbewtmBKITP7vKsEJXhl1UWv0B692jSkhOljeUaTKUS8WA/+MeJ1zPWUJxh6vMHn0mTuzxXmIcjx6ru6yOIyaAqZQL+nVZsQjEbCzZq80WWWDGtPpEJMh9aTeRreBC1BfXT54km8/Vr7q8I=', 1, 267, 'MULTIFLIGHT LDA', 'VULKAN AIR', '+244933535482', '5417323659', 'opsmultiflight@gmail.com', 'Av. Revolução de Outubro, Bloco 47 B-3 Andar', 2, 9, 'FT ATO2024/9', NULL, 'ZnvYdYlaDUsnkWon8IB0cx3vjBqn53gi8ksRD2szmef6+3G+DQSIwOqcUMciehF08mtcHyj4uqrN4dp8rchwT0j0Vxt/EMZMJfGV6cHZgvMo+N655Mi0OnH4VJ5zLi7OK22hWbeRg5z3NF6OOxdo59HcJNwT2u48P1ojxlGaYgA=', NULL, 1, 1, 751, 'Milton Lucas', '2024-02-28 12:02:22', '2024-02-28 12:02:22', NULL, NULL, 'ANTONOV AN-26', 24, '2024-01-23', '2024-01-25', '15:11:00', '11:04:00', NULL, 1095.5, NULL, NULL, NULL, 14, 828.776, 'USD', 'AOA', NULL, 704.9988, 512531.65392, 71754.4315488, 584286.0854688, '1000267143751', 2, 2, NULL, 'N', 'N', 'N', 0, 0, 2, NULL, 'REFERENTE A NOTA DE PREÇO Nº 041/24'),
-	(144, '2024-02-28;2024-02-28T13:25:35;FT ATO2024/10;3593245.82;ZnvYdYlaDUsnkWon8IB0cx3vjBqn53gi8ksRD2szmef6+3G+DQSIwOqcUMciehF08mtcHyj4uqrN4dp8rchwT0j0Vxt/EMZMJfGV6cHZgvMo+N655Mi0OnH4VJ5zLi7OK22hWbeRg5z3NF6OOxdo59HcJNwT2u48P1ojxlGaYgA=', 1, 264, 'GRUPO LIZ - COMERCIO E SERVIÇOS, LIMITADA', 'AIR ATLANTA ICELANDIC', '923520471', '5403084690', 'ian.pereira@grupoliz.com', 'Bairro Cassenda - Rua 02, Casa nº 12, Maianga', 2, 10, 'FT ATO2024/10', NULL, 'uT2YWb9jjBpmzwYhLbUc2KuT1gorPhm4o2oSsihLeNgciuJYNR8yC8cw/21o8FJBkmWz5TnkW6QvM+IbFC1abGF+SdnUollBWWcAy48dyW9/Vn8YYcwTCacu69j0kPkY9TmuaJYU5ojWDeXivBwxWLZrJwvgN5IJQPJDUOo/EHY=', NULL, 1, 1, 750, 'Carlos Sampaio', '2024-02-28 13:25:35', '2024-02-28 13:25:35', NULL, NULL, 'BOING 747-400F', 395, '2024-01-25', '2024-01-25', '06:38:00', '09:04:00', NULL, 54193.5, NULL, NULL, NULL, 0, 828.799998, 'USD', 'AOA', NULL, 4335.48, 3593245.815329, 0, 3593245.815329, '1000264144750', 2, 2, NULL, 'Y', 'N', 'N', 0, 0, 2, NULL, 'REFERENTE A NOTA DE PREÇO Nº 042/24'),
-	(145, '2024-02-28;2024-02-28T13:40:51;FR ATO2024/32;2664349.08;dfKD9xBAz8rYUbrl3ie3AnggwlmdrZ0eydQaU1qljpNbWJuPVbVNecIes+uND6K6cYaiiy1jyhP/o6W2yDwuHJvQZJbi71rVKYkxicOxnt+tr3pTNMIxPySa9jCk1mkF0yf8HJ1b4cjcS+mPiKPuMf0IYRDwcyokkY1gBe5tqJM=', 1, 270, 'TLC LDA', 'TLC', '+244 926 515 109', ' 5401146655', 'dsousa.an@tlc-com.ch', 'Avenida 4 de Fevereiro nº33 Luanda, Angola', 1, 32, 'FR ATO2024/32', NULL, 'lhBcx7SnyrFhT7mQkPgmHxLE3jvWWXHVoWLLVV6yi8+Wn3e0hKkFWQvCprGh2tuK8APtI16pQTx6HxFduEP08j6stjDvKeq/o9/l0CXKpeONE67DkVw4BUDIrk/84iDsBypY8cWbcJsiunaROnbPjNBPBoAo0ypup5dyXQgSbwk=', NULL, 1, 1, 750, 'Carlos Sampaio', '2024-02-28 13:40:51', '2024-02-28 13:40:51', NULL, '259/0173 1494', NULL, 0, NULL, NULL, NULL, NULL, NULL, 6000, '2024-01-17 00:00:00', '2024-01-29 00:00:00', 12, 14, 828.776, 'USD', 'AOA', NULL, 3214.8, 2337148.32, 327200.7648, 2664349.0848, '1000270145750', 1, 4, 1, 'N', 'N', 'N', 0, 0, 1, 1, 'REFERENTE A NOTA DE PREÇO Nº 043/24'),
-	(146, '2024-02-28;2024-02-28T13:47:00;FR ATO2024/33;2961.96;lhBcx7SnyrFhT7mQkPgmHxLE3jvWWXHVoWLLVV6yi8+Wn3e0hKkFWQvCprGh2tuK8APtI16pQTx6HxFduEP08j6stjDvKeq/o9/l0CXKpeONE67DkVw4BUDIrk/84iDsBypY8cWbcJsiunaROnbPjNBPBoAo0ypup5dyXQgSbwk=', 1, 265, 'DHL Global Forwarding Angola Ltd', 'TOTAL E&P ANGOLA, SA', '948625996', '5401071809', 'anacruz.pinto@dhl.com', 'Avenida 21 de Janeiro  Aeroporto', 1, 33, 'FR ATO2024/33', NULL, 'uXkzM/D2l6Xf1d3odNa8kqr/9tCRfm/0T20UMTm6xwPpn29QaX+jyBJKEQVG6Go79nzmXuXzWQDK8OHF3c5JvojbfKZuItl1BLHFttMg5z0Xn1lYYVmY9kso8nUc3hN2C1hYzUSAWhdlKSrY7rgZMaYaRD183j8Tfi7qNkxWwCA=', NULL, 1, 1, 751, 'Milton Lucas', '2024-02-28 13:47:00', '2024-02-28 13:47:00', NULL, 'C088990', NULL, 0, NULL, NULL, NULL, NULL, NULL, 5.5, '2024-01-24 00:00:00', '2024-01-30 00:00:00', 6, 14, 828.776, 'USD', 'AOA', NULL, 3.5739, 2598.21276, 363.7497864, 2961.9625464, '1000265146751', 1, 4, 1, 'N', 'N', 'N', 0, 0, 1, 3, 'REFERENTE A NOTA DE PREÇO Nº 044/24'),
-	(147, '2024-02-28;2024-02-28T13:48:58;FR ATO2024/34;2170858.73;uXkzM/D2l6Xf1d3odNa8kqr/9tCRfm/0T20UMTm6xwPpn29QaX+jyBJKEQVG6Go79nzmXuXzWQDK8OHF3c5JvojbfKZuItl1BLHFttMg5z0Xn1lYYVmY9kso8nUc3hN2C1hYzUSAWhdlKSrY7rgZMaYaRD183j8Tfi7qNkxWwCA=', 1, 266, 'Panalpina Transportes Mundiais Navegação e Transitos SA', 'BAKER HUGHES ANGOLA  LDA', '226422041', '5403005862', 'dario.manuel@ao.dsv.com', 'Rua Kima Kienda 106, Estr. da Boavista – Luanda', 1, 34, 'FR ATO2024/34', NULL, 'PTUyjTfQYcuAsjuw8cZSNUDw3SwIt7sm23EnXrEoPhpxcsEqZs+EKf7C+qYS0wH7xd3jWdWfBsK4eKcDTePZ3+y3ovcFAZmcM833mfQz79aO5HhfFf12cyf/duhQl+FCjOokIK0hsP73orh7BbXwzNTwgnHhO2OpGUfyaAdVcj8=', NULL, 1, 1, 750, 'Carlos Sampaio', '2024-02-28 13:48:58', '2024-02-28 13:48:58', NULL, '574-33995570', NULL, 0, NULL, NULL, NULL, NULL, NULL, 5222, '2024-01-19 00:00:00', '2024-01-30 00:00:00', 11, 14, 828.776, 'USD', 'AOA', NULL, 2619.3552, 1904262.03968, 266596.6855552, 2170858.7252352, '1000266147750', 1, 4, 1, 'N', 'N', 'N', 0, 0, 1, 1, 'REFERENTE A NOTA PREÇO Nº 045/24'),
-	(148, '2024-02-28;2024-02-28T14:06:01;FR ATO2024/35;777610.46;PTUyjTfQYcuAsjuw8cZSNUDw3SwIt7sm23EnXrEoPhpxcsEqZs+EKf7C+qYS0wH7xd3jWdWfBsK4eKcDTePZ3+y3ovcFAZmcM833mfQz79aO5HhfFf12cyf/duhQl+FCjOokIK0hsP73orh7BbXwzNTwgnHhO2OpGUfyaAdVcj8=', 1, 266, 'Panalpina Transportes Mundiais Navegação e Transitos SA', 'ESSO EXPLORATION ANGOLA (BLOCK 15)', '226422041', '5403005862', 'dario.manuel@ao.dsv.com', 'Rua Kima Kienda 106, Estr. da Boavista – Luanda', 1, 35, 'FR ATO2024/35', NULL, 'JZtRcVXV9DoWVblUMzzWatpbnTEYzINWennoFQxSVuVi3faPgj286pUA3G/632R5ZZNvy4A9UOoNlG3w0GJVzE2vTja3tCQhY0UUtgixh72ZEj936evDIqbfn5iGIdO/WVRgpQiI0hEUCVl/kS2jeCxDFVsM9pl61R2amFgBAHE=', NULL, 1, 1, 751, 'Milton Lucas', '2024-02-28 14:06:01', '2024-02-28 14:06:01', NULL, 'EDC0740785', NULL, 0, NULL, NULL, NULL, NULL, NULL, 1553, '2024-01-17 00:00:00', '2024-01-31 00:00:00', 14, 14, 828.724, 'USD', 'AOA', NULL, 938.3226, 682114.43716, 95496.0212024, 777610.4583624, '1000266148751', 1, 4, 1, 'N', 'N', 'N', 0, 0, 1, 1, 'REFERENTE A NOTA DE PREÇO Nº 046/24'),
-	(149, '2024-02-28;2024-02-28T14:06:52;FR ATO2024/36;9698892.03;JZtRcVXV9DoWVblUMzzWatpbnTEYzINWennoFQxSVuVi3faPgj286pUA3G/632R5ZZNvy4A9UOoNlG3w0GJVzE2vTja3tCQhY0UUtgixh72ZEj936evDIqbfn5iGIdO/WVRgpQiI0hEUCVl/kS2jeCxDFVsM9pl61R2amFgBAHE=', 1, 266, 'Panalpina Transportes Mundiais Navegação e Transitos SA', 'BAKER HUGHES ANGOLA LDA', '226422041', '5403005862', 'dario.manuel@ao.dsv.com', 'Rua Kima Kienda 106, Estr. da Boavista – Luanda', 1, 36, 'FR ATO2024/36', NULL, 'C6QL4O9BOcFqe0h+GElbmOQOmd0fLfyYoO9TpFZMaSm7Y4v2WJ3NkLw05XhAorpVkWRUvFwg7i5H8Gjv3a9BgUi6hNc47vMd9F8NblNtA45cJhSYKM8ZCx0WVpL+N29nfHGqQzd/ufW1P1tJ8H9CiJkw+wwfVJ0A3WudM0KoXjY=', NULL, 1, 1, 750, 'Carlos Sampaio', '2024-02-28 14:06:52', '2024-02-28 14:06:52', NULL, '574-33999254', NULL, 0, NULL, NULL, NULL, NULL, NULL, 29330, '2024-01-23 00:00:00', '2024-01-31 00:00:00', 8, 14, 828.776, 'USD', 'AOA', NULL, 11702.67, 8507800.028, 1191092.00392, 9698892.03192, '1000266149750', 1, 4, 1, 'N', 'N', 'N', 0, 0, 1, 1, 'REFERENTE A NOTA DE PREÇO Nº 047/24'),
-	(151, '2024-02-28;2024-02-28T15:09:56;FT ATO2024/11;1376696.39;uT2YWb9jjBpmzwYhLbUc2KuT1gorPhm4o2oSsihLeNgciuJYNR8yC8cw/21o8FJBkmWz5TnkW6QvM+IbFC1abGF+SdnUollBWWcAy48dyW9/Vn8YYcwTCacu69j0kPkY9TmuaJYU5ojWDeXivBwxWLZrJwvgN5IJQPJDUOo/EHY=', 1, 264, 'GRUPO LIZ - COMERCIO E SERVIÇOS, LIMITADA', 'AIR ATLANTA ICELANDIC', '923520471', '5403084690', 'ian.pereira@grupoliz.com', 'Bairro Cassenda - Rua 02, Casa nº 12, Maianga', 2, 11, 'FT ATO2024/11', NULL, 'aMZKAzVA7DU3zMHEAod8yWBG17/9GNqTWScwSTlEyBdWr8mggFi9CcivMH1SWGP1TipNNsoxCO6hkn8zwU/Tdo4fBYKIlRLXGQLZQnyi+oq3vYnjUGEbrQ3p378p1kFYsANywrHfVYcYlDfoEQRLHM5vmlRpywjJYoVVFb67kL0=', NULL, 1, 1, 750, 'Carlos Sampaio', '2024-02-28 15:09:56', '2024-02-28 15:09:56', NULL, NULL, 'BOING 747-400F', 397, '2024-01-26', '2024-01-28', '06:13:00', '17:04:00', NULL, 20764, NULL, NULL, NULL, 0, 828.776, 'USD', 'AOA', NULL, 1661.12, 1376696.38912, 0, 1376696.38912, '1000264151750', 2, 2, NULL, 'Y', 'N', 'N', 0, 0, 2, NULL, 'REFERENTE A NOTA DE PREÇO Nº 049/24'),
-	(152, '2024-02-28;2024-02-28T15:47:41;FT ATO2024/12;12502085.96;aMZKAzVA7DU3zMHEAod8yWBG17/9GNqTWScwSTlEyBdWr8mggFi9CcivMH1SWGP1TipNNsoxCO6hkn8zwU/Tdo4fBYKIlRLXGQLZQnyi+oq3vYnjUGEbrQ3p378p1kFYsANywrHfVYcYlDfoEQRLHM5vmlRpywjJYoVVFb67kL0=', 1, 264, 'GRUPO LIZ - COMERCIO E SERVIÇOS, LIMITADA', 'GRUPO LIZ', '923520471', '5403084690', 'ian.pereira@grupoliz.com', 'Bairro Cassenda - Rua 02, Casa nº 12, Maianga', 2, 12, 'FT ATO2024/12', NULL, 'v6mwHEm1eoWgQ4OvX2Xuon41jzPkI7unhvymKfR+stmtvKJd4MuVWVUuh6XbIV0TqoQK+k8334Qio9HAzzHSnLQMPq3YOBvwbaC6hdnX96IdNBXznN9ExTq/kvQnYGVtKIiMW30BnhJCR6JfAUbzP65nnDJpZ5jvXXCkQlVvwCo=', NULL, 1, 1, 751, 'Milton Lucas', '2024-02-28 15:47:41', '2024-02-28 15:47:41', NULL, '...', NULL, 0, NULL, NULL, NULL, NULL, NULL, 60340, '2024-01-26 00:00:00', '2024-01-28 00:00:00', 2, 0, 828.776, 'USD', 'AOA', NULL, 15085, 12502085.96, 0, 12502085.96, '1000264152751', 2, 2, 1, 'Y', 'N', 'N', 0, 0, 1, 6, 'REFERENTE A NOTA DE PREÇO Nº050/24'),
-	(153, '2024-02-28;2024-02-28T15:54:40;FT ATO2024/13;5863457.60;v6mwHEm1eoWgQ4OvX2Xuon41jzPkI7unhvymKfR+stmtvKJd4MuVWVUuh6XbIV0TqoQK+k8334Qio9HAzzHSnLQMPq3YOBvwbaC6hdnX96IdNBXznN9ExTq/kvQnYGVtKIiMW30BnhJCR6JfAUbzP65nnDJpZ5jvXXCkQlVvwCo=', 1, 266, 'Panalpina Transportes Mundiais Navegação e Transitos SA', 'BAKER HUGHES ANGOLA', '226422041', '5403005862', 'dario.manuel@ao.dsv.com', 'Rua Kima Kienda 106, Estr. da Boavista – Luanda', 2, 13, 'FT ATO2024/13', NULL, 'q0JMdEuADcLKnXeNnBk9B4rZFUWnnBuw7uwy5zzKdNtAK6svorbci2vjUNkD5xgzT3jafR5VEpj8mTcuwt5SRuzGc3b7UShscgmRhj35W4fE0XUSj+TuE+2Sg1S/NQsQEbQwKwcA2lQHADaDoozc7jxmQWTQarKFKndRCjGs2LQ=', NULL, 1, 1, 751, 'Milton Lucas', '2024-02-28 15:54:40', '2024-02-28 15:54:40', NULL, '57434004972', NULL, 0, NULL, NULL, NULL, NULL, NULL, 31030, '2024-01-30 00:00:00', '2024-02-02 00:00:00', 3, 14, 828.776, 'USD', 'AOA', NULL, 7074.84, 5143383.856, 720073.73984, 5863457.59584, '1000266153751', 2, 2, 1, 'N', 'N', 'N', 0, 0, 1, 1, 'REFERENTE A NOTA DE PREÇO Nº051/24'),
-	(154, '2024-02-28;2024-02-28T16:03:59;FR ATO2024/37;203699.88;C6QL4O9BOcFqe0h+GElbmOQOmd0fLfyYoO9TpFZMaSm7Y4v2WJ3NkLw05XhAorpVkWRUvFwg7i5H8Gjv3a9BgUi6hNc47vMd9F8NblNtA45cJhSYKM8ZCx0WVpL+N29nfHGqQzd/ufW1P1tJ8H9CiJkw+wwfVJ0A3WudM0KoXjY=', 1, 270, 'TLC LDA', 'SCHLUMBERGER LOGELCO, INC', '+244 926 515 109', ' 5401146655', 'dsousa.an@tlc-com.ch', 'Avenida 4 de Fevereiro nº33 Luanda, Angola', 1, 37, 'FR ATO2024/37', NULL, 'WUCc+FQiELLSED75dDArzHLmoYYwm88Y9hpvDLqJZOdr3fru8DXXrdE4rnZw3boxvPZ/lpYxB2MFT9gJwf+pepnGm6eqxdgx6J7XFLoEAFbzlNVzHZxvd8Hw6hs3eeDFZzuWycqpy7JEVloY7T2I7WcOb61eNbZay2eT+JfV2XY=', NULL, 1, 1, 751, 'Milton Lucas', '2024-02-28 16:03:59', '2024-02-28 16:03:59', NULL, 'CVK-0001-3304', NULL, 0, NULL, NULL, NULL, NULL, NULL, 220, '2024-01-03 00:00:00', '2024-02-01 00:00:00', 29, 14, 828.776, 'USD', 'AOA', NULL, 245.784, 178684.1056, 25015.774784, 203699.880384, '1000270154751', 1, 4, 1, 'N', 'N', 'N', 0, 0, 1, 1, 'REFERENTE A NOTA DE PREÇO Nº 052/24'),
-	(155, '2024-02-28;2024-02-28T16:08:49;FR ATO2024/38;2707901.26;WUCc+FQiELLSED75dDArzHLmoYYwm88Y9hpvDLqJZOdr3fru8DXXrdE4rnZw3boxvPZ/lpYxB2MFT9gJwf+pepnGm6eqxdgx6J7XFLoEAFbzlNVzHZxvd8Hw6hs3eeDFZzuWycqpy7JEVloY7T2I7WcOb61eNbZay2eT+JfV2XY=', 1, 264, 'GRUPO LIZ - COMERCIO E SERVIÇOS, LIMITADA', 'AIR ATLANTA ICELANDIC', '923520471', '5403084690', 'ian.pereira@grupoliz.com', 'Bairro Cassenda - Rua 02, Casa nº 12, Maianga', 1, 38, 'FR ATO2024/38', NULL, 'JOIJp2UxaiCugsX2nJG52YPpTYfsMAJvE8s0LyoFSRPdzl6m3fqMbrkxXEp26fiioHN0q3zKf3zhkI0KO8rhOCacJTa+caA3b81W8GigdnnD6abrz3YuU9fGd3bbuUVmJi+nYMYrKyIsT6A4M5RoaxEDQA45lzKd+rYsYJfi9AM=', NULL, 1, 1, 751, 'Milton Lucas', '2024-02-28 16:08:49', '2024-02-28 16:08:49', NULL, NULL, 'BOING 747-400F', 397, '2024-01-30', '2024-01-30', '11:02:00', '13:46:00', NULL, NULL, NULL, NULL, NULL, 0, 828.776, 'USD', 'AOA', NULL, 3267.35, 2707901.2636, 0, 2707901.2636, '1000264155751', 1, 4, NULL, 'Y', 'N', 'N', 0, 0, 2, NULL, 'REFERENTE A NOTA DE PREÇO Nº 053/24'),
-	(157, '2024-02-28;2024-02-28T16:30:06;FR ATO2024/39;2057353.54;JOIJp2UxaiCugsX2nJG52YPpTYfsMAJvE8s0LyoFSRPdzl6m3fqMbrkxXEp26fiioHN0q3zKf3zhkI0KO8rhOCacJTa+caA3b81W8GigdnnD6abrz3YuU9fGd3bbuUVmJi+nYMYrKyIsT6A4M5RoaxEDQA45lzKd+rYsYJfi9AM=', 1, 264, 'GRUPO LIZ - COMERCIO E SERVIÇOS, LIMITADA', 'AIR ATLANTA ICELANDIC', '923520471', '5403084690', 'ian.pereira@grupoliz.com', 'Bairro Cassenda - Rua 02, Casa nº 12, Maianga', 1, 39, 'FR ATO2024/39', NULL, 'B7yQr9Bzokb9+QtSAFa/WLNVfLbTpcHIQWsndxwLC/80qvA22AVxWkNlDBVukVPCx5daOqN06WlMfsdB0v5VZYAog3S+aY1KOyiGVadHhv7RC7xHE5u6OKwmYiE/xrxPZOQJB8g/cQq0K0VnfZsGuJrIj+Y7S4/hXogWoc7cqno=', NULL, 1, 1, 751, 'Milton Lucas', '2024-02-28 16:30:06', '2024-02-28 16:30:06', NULL, NULL, 'BOING 747-400F/ASTRA 11839', 397, '2024-01-30', '2024-01-30', '11:02:00', '13:46:00', NULL, 31030, NULL, NULL, NULL, 0, 828.776, 'USD', 'USD', NULL, 2482.4, 2057353.5424, 0, 2057353.5424, '1000264157751', 1, 4, NULL, 'Y', 'N', 'N', 0, 0, 2, NULL, 'REFERENTE A NOTA DE PREÇO Nº 054/24'),
-	(158, '2024-02-28;2024-02-28T16:33:29;FT ATO2024/14;2261172.60;q0JMdEuADcLKnXeNnBk9B4rZFUWnnBuw7uwy5zzKdNtAK6svorbci2vjUNkD5xgzT3jafR5VEpj8mTcuwt5SRuzGc3b7UShscgmRhj35W4fE0XUSj+TuE+2Sg1S/NQsQEbQwKwcA2lQHADaDoozc7jxmQWTQarKFKndRCjGs2LQ=', 1, 269, 'TAAG - LINHAS AEREAS DE ANGOLA', 'TAAG', NULL, '5410002830', NULL, NULL, 2, 14, 'FT ATO2024/14', NULL, 'MHkSe8+CVjWlgGtru1lUv67xork7h9VNHgY8lTiEvcCfyT+qKaJ53y4uyar4jmoWSbAmZ1ozNjvj3cl18hyzrCSbw5tMRn90mGsnu1F6QGOg/H2QkIuH6IhXyhs6HK0H9mDXTBpUkYj6RsasK/kEb8nslAZNeKO/2zqtqTbKZzU=', NULL, 1, 1, 751, 'Milton Lucas', '2024-02-28 16:33:29', '2024-02-28 16:33:29', NULL, NULL, 'BOING 737-800', 77, '2024-01-30', '2024-01-30', '11:40:00', '13:57:00', NULL, 22620, NULL, NULL, NULL, 14, 828.776, 'USD', 'AOA', NULL, 2728.3278, 1983484.73752, 277687.8632528, 2261172.6007728, '1000269158751', 2, 2, NULL, 'N', 'N', 'N', 0, 0, 2, NULL, 'REFERENTE A NOTA DE PREÇO Nº 055/24'),
-	(159, '2024-02-29;2024-02-29T12:08:48;FR ATO2024/40;880746.89;B7yQr9Bzokb9+QtSAFa/WLNVfLbTpcHIQWsndxwLC/80qvA22AVxWkNlDBVukVPCx5daOqN06WlMfsdB0v5VZYAog3S+aY1KOyiGVadHhv7RC7xHE5u6OKwmYiE/xrxPZOQJB8g/cQq0K0VnfZsGuJrIj+Y7S4/hXogWoc7cqno=', 1, 266, 'Panalpina Transportes Mundiais Navegação e Transitos SA', 'ESSO EXPLORATION (BLOCK 15) PANALPINA', '226422041', '5403005862', 'dario.manuel@ao.dsv.com', 'Rua Kima Kienda 106, Estr. da Boavista – Luanda', 1, 40, 'FR ATO2024/40', NULL, 'fZB7dm4gVtexW0FFYfC+aMckrsdEa5gmJlixMve6cBb2DWvlkFYN4Q8IRSCf7U58unTbFkr9PP9Jl9a7TBtPfbCBFUpHEzgkO/cKabvnePuhOIqQNNarWtZPP3R14dTkSXBqnf1/27F+kRSQVr3aEmYurF4VJgO3PAQ9c892I2A=', NULL, 1, 1, 750, 'Carlos Sampaio', '2024-02-29 12:08:48', '2024-02-29 12:08:48', NULL, '242AMS22057291', NULL, 0, NULL, NULL, NULL, NULL, NULL, 1580, '2024-01-17 00:00:00', '2024-02-02 00:00:00', 16, 14, 828.776, 'USD', 'AOA', NULL, 1062.708, 772584.9872, 108161.898208, 880746.885408, '1000266159750', 1, 4, 1, 'N', 'N', 'N', 0, 0, 1, 1, 'REFERENTE A NOTA DE PREÇO Nº 056/24'),
-	(160, '2024-02-29;2024-02-29T12:16:06;PP ATO2024/1;2612173.88;', 1, 269, 'TAAG - LINHAS AEREAS DE ANGOLA', 'TAAG', NULL, '5410002830', NULL, NULL, 3, 1, 'FP ATO2024/1', NULL, 'OF2aJtwXFj00EqCLLQVZL/cvqoif6jVPIrGwIIl0dPWtw+7fryhcnZ3p090KuseJHW+pr+cxVhAQUaS9T52XS/TMZOfgNOZPwgj/oRyBKVNbwHOaB//TpKSSEkFJ1j0XlAvuHv0PAXt6Dm586TmmLw026g25rmP+NiUfInP9bQ4=', NULL, 1, 1, 750, 'Carlos Sampaio', '2024-02-29 12:16:06', '2024-02-29 12:16:06', NULL, NULL, 'BOING 737-800', 79, '2024-01-31', '2024-01-31', '15:16:00', '17:17:00', NULL, 22350, NULL, NULL, NULL, 14, 828.799, 'USD', 'AOA', NULL, 3151.758, 2291380.5953, 320793.283342, 2612173.878642, '1000269160750', 3, NULL, NULL, 'N', 'N', 'N', 0, 0, 2, NULL, 'REFERENTE A NOTA DE PREÇO Nº 057/24'),
-	(161, '2024-02-29;2024-02-29T12:20:34;FT ATO2024/15;2612173.88;MHkSe8+CVjWlgGtru1lUv67xork7h9VNHgY8lTiEvcCfyT+qKaJ53y4uyar4jmoWSbAmZ1ozNjvj3cl18hyzrCSbw5tMRn90mGsnu1F6QGOg/H2QkIuH6IhXyhs6HK0H9mDXTBpUkYj6RsasK/kEb8nslAZNeKO/2zqtqTbKZzU=', 1, 269, 'TAAG - LINHAS AEREAS DE ANGOLA', 'TAAG', NULL, '5410002830', NULL, NULL, 2, 15, 'FT ATO2024/15', NULL, 'LoMeNDUlec+M4VzB17PtoCrEaynwY9yJKYU1Tq66NNcnd+nprlIiANFAjZvCa6D8rod1f1zLnah/+ac/KQ32C1YPFU1uEZ9Hi3Jp6/inBdFRmnGPyixaoSKTcwVM6re4za+bTmRh6ieeQvGXtEMmIEkPPtWEb2OwbqvT7GcfsZQ=', NULL, 1, 1, 750, 'Carlos Sampaio', '2024-02-29 12:20:34', '2024-02-29 12:20:34', NULL, NULL, 'BOING 737-800', 79, '2024-01-31', '2024-01-31', '15:16:00', '17:17:00', NULL, 22350, NULL, NULL, NULL, 14, 828.799, 'USD', 'AOA', NULL, 3151.758, 2291380.5953, 320793.283342, 2612173.878642, '1000269161750', 2, 2, NULL, 'N', 'N', 'N', 0, 0, 2, NULL, 'REFERENTE A NOTA DE PREÇO Nº 057/24'),
-	(162, '2024-02-29;2024-02-29T12:25:39;FR ATO2024/41;8752.12;fZB7dm4gVtexW0FFYfC+aMckrsdEa5gmJlixMve6cBb2DWvlkFYN4Q8IRSCf7U58unTbFkr9PP9Jl9a7TBtPfbCBFUpHEzgkO/cKabvnePuhOIqQNNarWtZPP3R14dTkSXBqnf1/27F+kRSQVr3aEmYurF4VJgO3PAQ9c892I2A=', 1, 273, 'AZULE ENERGY ANGOLA(BLOCK 18), B.V. - SUCURSAL DE ANGOLA', 'AZULE ENERGY ANGOLA', NULL, '5410003667', NULL, 'AV 4 DE FEVEREIRO TORRES ATLANTICO N 197', 1, 41, 'FR ATO2024/41', NULL, 'EH2OA5prP3IVu1DZMf1w61/qlaPu1u1M+1M25siKEE6zhhNq7+nGyGfbFLxlEgLDDwDqXqo4mhvgMXIuat661ktsgRwaSOJiEBPtpHzcGFx5FX1nwkT5KWpzDXKpqZAxnrlIJEJLrc/m/uuVaDpbI26bYhz5DkT9ey2DqLOSHIA=', NULL, 1, 1, 750, 'Carlos Sampaio', '2024-02-29 12:25:39', '2024-02-29 12:25:39', NULL, 'MIL20729877', NULL, 0, NULL, NULL, NULL, NULL, NULL, 24, '2024-01-26 00:00:00', '2024-02-06 00:00:00', 11, 0, 828.799, 'USD', 'AOA', NULL, 10.56, 8752.11744, 0, 8752.11744, '1000273162750', 1, 4, 1, 'Y', 'N', 'N', 0, 0, 1, 1, 'REFERENTE A NOTA DE PREÇO Nº 058/24'),
-	(163, '2024-02-29;2024-02-29T12:52:27;FR ATO2024/42;2315664.41;EH2OA5prP3IVu1DZMf1w61/qlaPu1u1M+1M25siKEE6zhhNq7+nGyGfbFLxlEgLDDwDqXqo4mhvgMXIuat661ktsgRwaSOJiEBPtpHzcGFx5FX1nwkT5KWpzDXKpqZAxnrlIJEJLrc/m/uuVaDpbI26bYhz5DkT9ey2DqLOSHIA=', 1, 273, 'AZULE ENERGY ANGOLA(BLOCK 18), B.V. - SUCURSAL DE ANGOLA', 'AZULE ENERGY', NULL, '5410003667', NULL, 'AV 4 DE FEVEREIRO TORRES ATLANTICO N 197', 1, 42, 'FR ATO2024/42', NULL, 'G3Pdk+KzzyHVZgEJejkxboiu3Kh4UmrBAemTvY6HzYWqmG2ziuAj7E20xjhsj53wT6uy91HNsqi+FeCcGbPCy7Fj15kiKHk62w9rS/0Z9vgFR5rtLX54toKR5NjMW8KuTy0l3e16qyukAdHsfjwxTV1Uei0GNoDA+i3VQho9UZk=', NULL, 1, 1, 750, 'Carlos Sampaio', '2024-02-29 12:52:27', '2024-02-29 12:52:27', NULL, 'MIL20729878', NULL, 0, NULL, NULL, NULL, NULL, NULL, 6350, '2024-01-26 00:00:00', '2024-02-06 00:00:00', 11, 0, 828.799, 'USD', 'AOA', NULL, 2794, 2315664.406, 0, 2315664.406, '1000273163750', 1, 4, 1, 'Y', 'N', 'N', 0, 0, 1, 1, 'REFERENTE A NOTA DE PREÇO Nº 059/24'),
-	(164, '2024-02-29;2024-02-29T12:56:47;FR ATO2024/43;1281091.19;G3Pdk+KzzyHVZgEJejkxboiu3Kh4UmrBAemTvY6HzYWqmG2ziuAj7E20xjhsj53wT6uy91HNsqi+FeCcGbPCy7Fj15kiKHk62w9rS/0Z9vgFR5rtLX54toKR5NjMW8KuTy0l3e16qyukAdHsfjwxTV1Uei0GNoDA+i3VQho9UZk=', 1, 273, 'AZULE ENERGY ANGOLA(BLOCK 18), B.V. - SUCURSAL DE ANGOLA', 'AZULE ENERGY ', NULL, '5410003667', NULL, 'AV 4 DE FEVEREIRO TORRES ATLANTICO N 197', 1, 43, 'FR ATO2024/43', NULL, 'eGVNfJRfMOooc7bCCREDGIqHMF7ci3cA+LCCtLtQefLW0B7Q09gVRPq53ne2aNXlS0UPvc3tkEPN0gZuAS9KWM8amGEP7wwQId990gBjtgZgYuiySPGt2uKFyne05n+d8MghG3JPBgsBChmIruFUztIcZc1CnKAEgTO7AOCts8U=', NULL, 1, 1, 750, 'Carlos Sampaio', '2024-02-29 12:56:47', '2024-02-29 12:56:47', NULL, 'MIL20729879', NULL, 0, NULL, NULL, NULL, NULL, NULL, 3513, '2024-01-26 00:00:00', '2024-02-06 00:00:00', 11, 0, 828.799, 'USD', 'AOA', NULL, 1545.72, 1281091.19028, 0, 1281091.19028, '1000273164750', 1, 4, 1, 'Y', 'N', 'N', 0, 0, 1, 1, 'REFERENTE A NOTA DE PREÇO Nº 060/24'),
-	(165, '2024-02-29;2024-02-29T12:59:28;FR ATO2024/44;51783.36;eGVNfJRfMOooc7bCCREDGIqHMF7ci3cA+LCCtLtQefLW0B7Q09gVRPq53ne2aNXlS0UPvc3tkEPN0gZuAS9KWM8amGEP7wwQId990gBjtgZgYuiySPGt2uKFyne05n+d8MghG3JPBgsBChmIruFUztIcZc1CnKAEgTO7AOCts8U=', 1, 273, 'AZULE ENERGY ANGOLA(BLOCK 18), B.V. - SUCURSAL DE ANGOLA', 'AZULE ENERGY', NULL, '5410003667', NULL, 'AV 4 DE FEVEREIRO TORRES ATLANTICO N 197', 1, 44, 'FR ATO2024/44', NULL, 'krYux3pMHyBGonPUaASxKxXK+9EUDhVfhntSgxSvky36b+c53jYN/Q0ovbLSlixafRSNgk7uXLbQINqesmKd48NaLLFpbIzIoxPjSDsvJTBCnThkS3gcYUBM+ezOc791ZG+J5HVFcYDvJqX1MHFaW7+2VnKQDb+CW1IB0ws7yYI=', NULL, 1, 1, 750, 'Carlos Sampaio', '2024-02-29 12:59:28', '2024-02-29 12:59:28', NULL, 'MIL20729881', NULL, 0, NULL, NULL, NULL, NULL, NULL, 142, '2024-01-26 00:00:00', '2024-02-06 00:00:00', 11, 0, 828.799, 'USD', 'AOA', NULL, 62.48, 51783.36152, 0, 51783.36152, '1000273165750', 1, 4, 1, 'Y', 'N', 'N', 0, 0, 1, 1, 'REFERENTE A NOTA DE PREÇO Nº 061/24'),
-	(166, '2024-02-29;2024-02-29T13:02:29;FR ATO2024/45;379258.42;krYux3pMHyBGonPUaASxKxXK+9EUDhVfhntSgxSvky36b+c53jYN/Q0ovbLSlixafRSNgk7uXLbQINqesmKd48NaLLFpbIzIoxPjSDsvJTBCnThkS3gcYUBM+ezOc791ZG+J5HVFcYDvJqX1MHFaW7+2VnKQDb+CW1IB0ws7yYI=', 1, 273, 'AZULE ENERGY ANGOLA(BLOCK 18), B.V. - SUCURSAL DE ANGOLA', 'AZULE ENERGY', NULL, '5410003667', NULL, 'AV 4 DE FEVEREIRO TORRES ATLANTICO N 197', 1, 45, 'FR ATO2024/45', NULL, 'To+yN63AbWlHeJgktVrAB3hLtmsqS5iJ8Os2CnCD9K7590b7RDcMdQllYBbD2OLej3SjHa3E34ho1TkIqxmqH7MSeIMzvDyW4pqAIVlPapG57wOfAuFxfiV/gCSsD1C/3Ih3oLU+pXcvgkVk4osVe8znQPZIg6fo7IebhdvJF6s=', NULL, 1, 1, 750, 'Carlos Sampaio', '2024-02-29 13:02:29', '2024-02-29 13:02:29', NULL, 'MIL20729882', NULL, 0, NULL, NULL, NULL, NULL, NULL, 1040, '2024-01-26 00:00:00', '2024-02-06 00:00:00', 11, 0, 828.799, 'USD', 'AOA', NULL, 457.6, 379258.4224, 0, 379258.4224, '1000273166750', 1, 4, 1, 'Y', 'N', 'N', 0, 0, 1, 1, 'REFERENTE A NOTA DE PREÇO Nº 062/24'),
-	(167, '2024-02-29;2024-02-29T15:38:57;PP ATO2024/2;2938471.38;OF2aJtwXFj00EqCLLQVZL/cvqoif6jVPIrGwIIl0dPWtw+7fryhcnZ3p090KuseJHW+pr+cxVhAQUaS9T52XS/TMZOfgNOZPwgj/oRyBKVNbwHOaB//TpKSSEkFJ1j0XlAvuHv0PAXt6Dm586TmmLw026g25rmP+NiUfInP9bQ4=', 1, 266, 'Panalpina Transportes Mundiais Navegação e Transitos SA', 'DSV AIR SERVICE S.A.', '226422041', '5403005862', 'dario.manuel@ao.dsv.com', 'Rua Kima Kienda 106, Estr. da Boavista – Luanda', 3, 2, 'FP ATO2024/2', NULL, 'vkG7EgVUm37aNCiu2Ws18iPe5WXOXwbm93aOX448t61zvftSud0Ge80I656sVF4x6CKXVz6MCZsMTIwELqFJVGhZg0dBFeEWMdp/O0C8cDRyZJfvbdyDs8nqwuJ4SLkqqBxBrNA8r5qTcLbx9cPq+08EFDqrwdBudJgXSTyKqbg=', NULL, 1, 1, 751, 'Milton Lucas', '2024-02-29 15:38:57', '2024-02-29 15:38:57', NULL, '11811508280', NULL, 0, NULL, NULL, NULL, NULL, NULL, 10728, '2024-02-24 00:00:00', '2024-03-01 00:00:00', 6, 14, 828.514, 'USD', 'AOA', NULL, 3546.6768, 2577606.47568, 360864.9065952, 2938471.3822752, '1000266167751', 3, NULL, 1, 'N', 'Y', 'N', 0, 0, 1, 1, 'REFERENTE A AWB Nº118-11508280'),
-	(168, '2024-03-01;2024-03-01T10:22:06;FR ATO2024/46;137116.51;To+yN63AbWlHeJgktVrAB3hLtmsqS5iJ8Os2CnCD9K7590b7RDcMdQllYBbD2OLej3SjHa3E34ho1TkIqxmqH7MSeIMzvDyW4pqAIVlPapG57wOfAuFxfiV/gCSsD1C/3Ih3oLU+pXcvgkVk4osVe8znQPZIg6fo7IebhdvJF6s=', 1, 273, 'AZULE ENERGY ANGOLA(BLOCK 18), B.V. - SUCURSAL DE ANGOLA', 'AZULE ENERGY', NULL, '5410003667', NULL, 'AV 4 DE FEVEREIRO TORRES ATLANTICO N 197', 1, 46, 'FR ATO2024/46', NULL, 'lWSIjx/M3ZPXGvVF4U6phU0YyQVZ6DKSUNOFQbu0m8/ROI4koTODrVIzq2kCIGFG5fgmrWzNzZuYBpwnP+2pLOE7AtlljFGtcHTbuXZ2zRtaD4bpCFeNHssdHpsMUghjvwPfM44OBPdXDFEsCXC1JqZ93gIiIoxwUp2PXl32fHU=', NULL, 1, 1, 750, 'Carlos Sampaio', '2024-03-01 10:22:06', '2024-03-01 10:22:06', NULL, 'MIL20729883', NULL, 0, NULL, NULL, NULL, NULL, NULL, 376, '2024-01-26 00:00:00', '2024-02-06 00:00:00', 11, 0, 828.799, 'USD', 'AOA', NULL, 165.44, 137116.50656, 0, 137116.50656, '1000273168750', 1, 4, 1, 'Y', 'N', 'N', 0, 0, 1, 1, 'REFERENTE A NOTA DE PREÇO Nº 063/24'),
-	(169, '2024-03-01;2024-03-01T10:25:47;FR ATO2024/47;6928.76;lWSIjx/M3ZPXGvVF4U6phU0YyQVZ6DKSUNOFQbu0m8/ROI4koTODrVIzq2kCIGFG5fgmrWzNzZuYBpwnP+2pLOE7AtlljFGtcHTbuXZ2zRtaD4bpCFeNHssdHpsMUghjvwPfM44OBPdXDFEsCXC1JqZ93gIiIoxwUp2PXl32fHU=', 1, 273, 'AZULE ENERGY ANGOLA(BLOCK 18), B.V. - SUCURSAL DE ANGOLA', 'AZULE ENERGY', NULL, '5410003667', NULL, 'AV 4 DE FEVEREIRO TORRES ATLANTICO N 197', 1, 47, 'FR ATO2024/47', NULL, 'EIYXSC4q5Q1PFcdscx9pWPhfMviYNRAVVWMlApBg9q+5yuFApWg8GOttUt8d5gS4gahkWEcW52bvU1wlK6VL7kNvwJ81/F4br9KVQGjbLE78sDqrRL9Uk4wpQB6X7ogg1FlXEdM/MwT34SZrwaYRowRsF7TrlAeHxkxWVrXjrHk=', NULL, 1, 1, 750, 'Carlos Sampaio', '2024-03-01 10:25:47', '2024-03-01 10:25:47', NULL, 'MIL20729884', NULL, 0, NULL, NULL, NULL, NULL, NULL, 19, '2024-01-26 00:00:00', '2024-02-06 00:00:00', 11, 0, 828.799, 'USD', 'AOA', NULL, 8.36, 6928.75964, 0, 6928.75964, '1000273169750', 1, 4, 1, 'Y', 'N', 'N', 0, 0, 1, 1, 'REFERENTE A NOTA DE PREÇO Nº 064/24'),
-	(170, '2024-03-01;2024-03-01T10:28:43;FR ATO2024/48;10210.80;EIYXSC4q5Q1PFcdscx9pWPhfMviYNRAVVWMlApBg9q+5yuFApWg8GOttUt8d5gS4gahkWEcW52bvU1wlK6VL7kNvwJ81/F4br9KVQGjbLE78sDqrRL9Uk4wpQB6X7ogg1FlXEdM/MwT34SZrwaYRowRsF7TrlAeHxkxWVrXjrHk=', 1, 273, 'AZULE ENERGY ANGOLA(BLOCK 18), B.V. - SUCURSAL DE ANGOLA', 'AZULE ENERGY', NULL, '5410003667', NULL, 'AV 4 DE FEVEREIRO TORRES ATLANTICO N 197', 1, 48, 'FR ATO2024/48', NULL, 'aAtMo0s7dEklKg7y/EoF5SBv1dQa3hQPclJHKePe3cz/Bjllm/QYjVUc74ptYGWsWv6CkGpTGfd6ZxhqW4w/H0hnDK2Iqph5YgRGp/m40rd+XdqSJ/DOqETStOS7Xk5aU4iPAFPHWpajxO61skqtr38ZuFbLmgX5jb7IXBYeRLg=', NULL, 1, 1, 750, 'Carlos Sampaio', '2024-03-01 10:28:43', '2024-03-01 10:28:43', NULL, 'MIL20729885', NULL, 0, NULL, NULL, NULL, NULL, NULL, 28, '2024-01-26 00:00:00', '2024-02-06 00:00:00', 11, 0, 828.799, 'USD', 'AOA', NULL, 12.32, 10210.80368, 0, 10210.80368, '1000273170750', 1, 4, 1, 'Y', 'N', 'N', 0, 0, 1, 1, 'REFERENTE A NOTA DE PREÇO Nº 065/24'),
-	(171, '2024-03-01;2024-03-01T10:33:12;FR ATO2024/49;298566.55;aAtMo0s7dEklKg7y/EoF5SBv1dQa3hQPclJHKePe3cz/Bjllm/QYjVUc74ptYGWsWv6CkGpTGfd6ZxhqW4w/H0hnDK2Iqph5YgRGp/m40rd+XdqSJ/DOqETStOS7Xk5aU4iPAFPHWpajxO61skqtr38ZuFbLmgX5jb7IXBYeRLg=', 1, 266, 'Panalpina Transportes Mundiais Navegação e Transitos SA', 'ESSO EXPLORATION PANALPINA', '226422041', '5403005862', 'dario.manuel@ao.dsv.com', 'Rua Kima Kienda 106, Estr. da Boavista – Luanda', 1, 49, 'FR ATO2024/49', NULL, 'CBz+Qobpx+alG64AEzbLO6J+mRJl5Ej/bCMZIclyJUDyGoIJeE5Rgaj66AechuHv/G9oe0+rBpbprQy0ZlN7ZJ0TeqsHvxRB7gN4Ssp9i8oOTTvFm0QS+/gXtZD7oyI0vdWfCNPWO+ltxCfi7P6Uk5cGXOIw7e+23N5GXgIdgX4=', NULL, 1, 1, 750, 'Carlos Sampaio', '2024-03-01 10:33:12', '2024-03-01 10:33:12', NULL, '242AMS22057291', NULL, 0, NULL, NULL, NULL, NULL, NULL, 1580, '2024-02-03 00:00:00', '2024-02-06 00:00:00', 3, 14, 828.799, 'USD', 'AOA', NULL, 360.24, 261900.484, 36666.06776, 298566.55176, '1000266171750', 1, 4, 1, 'N', 'N', 'N', 0, 0, 1, 1, 'REFERENTE A NOTA PREÇO Nº 066/24'),
-	(172, '2024-03-01;2024-03-01T10:39:15;FT ATO2024/16;4871736.88;LoMeNDUlec+M4VzB17PtoCrEaynwY9yJKYU1Tq66NNcnd+nprlIiANFAjZvCa6D8rod1f1zLnah/+ac/KQ32C1YPFU1uEZ9Hi3Jp6/inBdFRmnGPyixaoSKTcwVM6re4za+bTmRh6ieeQvGXtEMmIEkPPtWEb2OwbqvT7GcfsZQ=', 1, 3, 'NGONGO THOMAS & FILHOS COMERCIO GERAL LTD', 'NTF', '+244923437631', '54176617919', 'kingsleychima75@gmail.com', 'Rua Santos Nº18, Bairro Cassenda', 2, 16, 'FT ATO2024/16', NULL, 'ivJG6+4ZnmWuVxiCvEckMdgMoHuDGfSRlnRmmgjc6mvpbdzLw4QTvMwbK4XffjWUzTqG2X5m0dxuC2ql4tzRnVwKCgg/iNB80NoAkgSnU5/Ob7hOgavUeJyeo0fQ/f5nJrpNZFEMxy5VXAplPnkvd3xFwB5ftMzpChXrb8kvb9o=', NULL, 1, 1, 750, 'Carlos Sampaio', '2024-03-01 10:39:15', '2024-03-01 10:39:15', NULL, '118-1231 2204', NULL, 0, NULL, NULL, NULL, NULL, NULL, 17780, '2024-01-31 00:00:00', '2024-02-06 00:00:00', 6, 14, 828.799, 'USD', 'AOA', NULL, 5878.068, 4273453.4038, 598283.476532, 4871736.880332, '10003172750', 2, 2, 1, 'N', 'N', 'N', 0, 0, 1, 1, 'REFERENTE A NOTA DE PREÇO Nº 067/24'),
-	(173, '2024-03-01;2024-03-01T10:45:16;FR ATO2024/50;34013.91;CBz+Qobpx+alG64AEzbLO6J+mRJl5Ej/bCMZIclyJUDyGoIJeE5Rgaj66AechuHv/G9oe0+rBpbprQy0ZlN7ZJ0TeqsHvxRB7gN4Ssp9i8oOTTvFm0QS+/gXtZD7oyI0vdWfCNPWO+ltxCfi7P6Uk5cGXOIw7e+23N5GXgIdgX4=', 1, 265, 'DHL Global Forwarding Angola Ltd', 'SCHLUMBERGER TECHNICAL SERVICES', '948625996', '5401071809', 'anacruz.pinto@dhl.com', 'Avenida 21 de Janeiro  Aeroporto', 1, 50, 'FR ATO2024/50', NULL, 'rURsYf7//uUsFIZ37ACeTr+ba5ph4HBOsegJjmkkRdu6/qYiE8JnL/gW+wzoeKHQ7QgekV6QWO4gKxQLTCgihGQZ6B/ODfZ3znDaT/c8wMtxl7jVSF8C/mMvHxLjMKoEwXgdUqa/mRQCnKyIzNHNBDEAQUewxxr4kbEvZH5nb+Q=', NULL, 1, 1, 750, 'Carlos Sampaio', '2024-03-01 10:45:16', '2024-03-01 10:45:16', NULL, '000 0011 7574', NULL, 0, NULL, NULL, NULL, NULL, NULL, 100, '2024-02-06 00:00:00', '2024-02-09 00:00:00', 3, 14, 828.799, 'USD', 'AOA', NULL, 41.04, 29836.764, 4177.14696, 34013.91096, '1000265173750', 1, 4, 1, 'N', 'N', 'N', 0, 0, 1, 3, 'REFERENTE A NOTA DE PREÇO Nº 068/24'),
-	(174, '2024-03-01;2024-03-01T10:50:50;FT ATO2024/17;1650411.65;ivJG6+4ZnmWuVxiCvEckMdgMoHuDGfSRlnRmmgjc6mvpbdzLw4QTvMwbK4XffjWUzTqG2X5m0dxuC2ql4tzRnVwKCgg/iNB80NoAkgSnU5/Ob7hOgavUeJyeo0fQ/f5nJrpNZFEMxy5VXAplPnkvd3xFwB5ftMzpChXrb8kvb9o=', 1, 269, 'TAAG - LINHAS AEREAS DE ANGOLA', 'TAAG', NULL, '5410002830', NULL, NULL, 2, 17, 'FT ATO2024/17', NULL, 'd8GKcm7qEbMVYBZe5Wij9kcbFJk4rfo8txvrOPdYXHak2oS4zSYVftonQEI8KdCl1E4tGRryCEj3st0OVtUUEmwf9aLaZedppnI+3rX8p8M96O3AWthQI29Z9IizxL00LevG2/IiBER38R8wyRwobZyrqUf4xCMW3xo8Ib8DlZ0=', NULL, 1, 1, 750, 'Carlos Sampaio', '2024-03-01 10:50:50', '2024-03-01 10:50:50', NULL, NULL, 'BOING 737-800', 79, '2024-02-06', '2024-02-06', '13:16:00', '14:59:00', NULL, 14573, NULL, NULL, NULL, 14, 828.799, 'USD', 'AOA', NULL, 1991.3292, 1447729.51722, 202682.1324108, 1650411.6496308, '1000269174750', 2, 2, NULL, 'N', 'N', 'N', 0, 0, 2, NULL, 'REFERENTE A NOTA DE PREÇO Nº 069/24'),
-	(175, '2024-03-01;2024-03-01T11:01:25;FR ATO2024/51;1915354.49;rURsYf7//uUsFIZ37ACeTr+ba5ph4HBOsegJjmkkRdu6/qYiE8JnL/gW+wzoeKHQ7QgekV6QWO4gKxQLTCgihGQZ6B/ODfZ3znDaT/c8wMtxl7jVSF8C/mMvHxLjMKoEwXgdUqa/mRQCnKyIzNHNBDEAQUewxxr4kbEvZH5nb+Q=', 1, 273, 'AZULE ENERGY ANGOLA(BLOCK 18), B.V. - SUCURSAL DE ANGOLA', 'AZULE ENERGY EXPLORATION LDA', NULL, '5410003667', NULL, 'AV 4 DE FEVEREIRO TORRES ATLANTICO N 197', 1, 51, 'FR ATO2024/51', NULL, 'L1SR22TSnyaqJZLhLqQo6NyOdnE/XByeZXGJc7UMGIqk90U9bi0xnWmFT8XWNeMveXA1o11MKhVjEzSY+DsFCRW8i0yKGGjStPNWvzk7JWhUxqZ2T0QipLiIiC5bzqc2BibIaE9hvYTFvcnwQLItwawdSmp1cRvqdXNgIQfX6TE=', NULL, 1, 1, 750, 'Carlos Sampaio', '2024-03-01 11:01:25', '2024-03-01 11:01:25', NULL, '259OSL01733723', NULL, 0, NULL, NULL, NULL, NULL, NULL, 4622, '2024-01-26 00:00:00', '2024-02-08 00:00:00', 13, 0, 828.799, 'USD', 'AOA', NULL, 2311, 1915354.489, 0, 1915354.489, '1000273175750', 1, 4, 1, 'Y', 'N', 'N', 0, 0, 1, 1, 'REFERENTE A NOTA DE PREÇO Nº 070/24'),
-	(176, '2024-03-01;2024-03-01T11:06:12;FR ATO2024/52;1904165.70;L1SR22TSnyaqJZLhLqQo6NyOdnE/XByeZXGJc7UMGIqk90U9bi0xnWmFT8XWNeMveXA1o11MKhVjEzSY+DsFCRW8i0yKGGjStPNWvzk7JWhUxqZ2T0QipLiIiC5bzqc2BibIaE9hvYTFvcnwQLItwawdSmp1cRvqdXNgIQfX6TE=', 1, 273, 'AZULE ENERGY ANGOLA(BLOCK 18), B.V. - SUCURSAL DE ANGOLA', 'AZULE ENERGY EXPLORATION LDA', NULL, '5410003667', NULL, 'AV 4 DE FEVEREIRO TORRES ATLANTICO N 197', 1, 52, 'FR ATO2024/52', NULL, 'dDaYx5lHLQxiFX6fQV/XlNn4yDeNnrRnose8LPIGYvhlx0X2uk583I0vOZbowXxxD5COSIPODre2e0Sh4nDw/8/DahXFKQeqn4aQQz0pz/Owm/csDK3IXMP+6dYXlYA84SRVti6HUjmC5kpGG+NnwWJ/fVAqc6/QHpDsjz4yX7g=', NULL, 1, 1, 750, 'Carlos Sampaio', '2024-03-01 11:06:12', '2024-03-01 11:06:12', NULL, 'MIL20729876', NULL, 0, NULL, NULL, NULL, NULL, NULL, 4595, '2024-01-26 00:00:00', '2024-02-08 00:00:00', 13, 0, 828.799, 'USD', 'AOA', NULL, 2297.5, 1904165.7025, 0, 1904165.7025, '1000273176750', 1, 4, 1, 'Y', 'N', 'N', 0, 0, 1, 1, 'REFERENTE A NOTA DE PREÇO Nº 071/24'),
-	(177, '2024-03-01;2024-03-01T11:09:12;FT ATO2024/18;2002096.59;d8GKcm7qEbMVYBZe5Wij9kcbFJk4rfo8txvrOPdYXHak2oS4zSYVftonQEI8KdCl1E4tGRryCEj3st0OVtUUEmwf9aLaZedppnI+3rX8p8M96O3AWthQI29Z9IizxL00LevG2/IiBER38R8wyRwobZyrqUf4xCMW3xo8Ib8DlZ0=', 1, 3, 'NGONGO THOMAS & FILHOS COMERCIO GERAL LTD', 'NTF', '+244923437631', '54176617919', 'kingsleychima75@gmail.com', 'Rua Santos Nº18, Bairro Cassenda', 2, 18, 'FT ATO2024/18', NULL, 'Ih7FJ6BetVLLYXNkZDlo0zLEZ4zxfj4TwqoxPLVumeJL5mX63wBKqMBwRtW+tfUDyFcO1dpyu9HN2IPE1rwiBS8Z6L90mJXNqVxTsPl0EINQpamH2HqN18QQ6n02N+t3kG7faKXXvg8hFNoO1FcQejtq3Pm1awDbaPt45L4huU0=', NULL, 1, 1, 750, 'Carlos Sampaio', '2024-03-01 11:09:12', '2024-03-01 11:09:12', NULL, '118-1231 2171', NULL, 0, NULL, NULL, NULL, NULL, NULL, 8150, '2024-01-31 00:00:00', '2024-02-05 00:00:00', 5, 14, 828.799, 'USD', 'AOA', NULL, 2415.66, 1756225.081, 245871.51134, 2002096.59234, '10003177750', 2, 2, 1, 'N', 'N', 'N', 0, 0, 1, 1, 'REFERENTE A NOTA DE PREÇO Nº 072/24'),
-	(178, '2024-03-01;2024-03-01T11:15:26;FR ATO2024/53;253781.57;dDaYx5lHLQxiFX6fQV/XlNn4yDeNnrRnose8LPIGYvhlx0X2uk583I0vOZbowXxxD5COSIPODre2e0Sh4nDw/8/DahXFKQeqn4aQQz0pz/Owm/csDK3IXMP+6dYXlYA84SRVti6HUjmC5kpGG+NnwWJ/fVAqc6/QHpDsjz4yX7g=', 1, 266, 'Panalpina Transportes Mundiais Navegação e Transitos SA', 'ESSO EXPLORATION PANALPINA', '226422041', '5403005862', 'dario.manuel@ao.dsv.com', 'Rua Kima Kienda 106, Estr. da Boavista – Luanda', 1, 53, 'FR ATO2024/53', NULL, 'spUTLZMr54dUtN+J7mIDVwuHUp53aTrR5oWejOX71aP+ejH2vjbSPAoLfo5PBTJb1k8tMNnRePlFnSKh+rvQCFILbZYRjOzlghtW/6luesQR/3JJ6dvWtCIoNzEHaYAxooVwiu3VmNfR545o2DifXKMsMab47/am3PdnjwlDFLw=', NULL, 1, 1, 750, 'Carlos Sampaio', '2024-03-01 11:15:26', '2024-03-01 11:15:26', NULL, '242AMS22057291', NULL, 0, NULL, NULL, NULL, NULL, NULL, 1580, '2024-02-07 00:00:00', '2024-02-09 00:00:00', 2, 14, 828.799, 'USD', 'AOA', NULL, 306.204, 222615.4114, 31166.157596, 253781.568996, '1000266178750', 1, 4, 1, 'N', 'N', 'N', 0, 0, 1, 1, 'REFERENTE A NOTA DE PREÇO Nº 073/24'),
-	(179, '2024-03-01;2024-03-01T11:29:12;FR ATO2024/54;2492734.31;spUTLZMr54dUtN+J7mIDVwuHUp53aTrR5oWejOX71aP+ejH2vjbSPAoLfo5PBTJb1k8tMNnRePlFnSKh+rvQCFILbZYRjOzlghtW/6luesQR/3JJ6dvWtCIoNzEHaYAxooVwiu3VmNfR545o2DifXKMsMab47/am3PdnjwlDFLw=', 1, 265, 'DHL Global Forwarding Angola Ltd', 'SCHLUMBERGER TECHNICAL SERVICES', '948625996', '5401071809', 'anacruz.pinto@dhl.com', 'Avenida 21 de Janeiro  Aeroporto', 1, 54, 'FR ATO2024/54', NULL, 'O7mhMsjwouhWAGdNQHNVlC7YAVNFI7raIyR1bdxFoAAYTsqoTposuWILFn1S+CKMZlq0N8YcaB/uM2V/3FWcmj287Q45vwmr+0kC3WnEA43tBHnKcNSYzbaGt4EuFyvFCdRQCYICQu/MqAmUTzvVfbz0+LHQqthOcSJ4veYxBDY=', NULL, 1, 1, 750, 'Carlos Sampaio', '2024-03-01 11:29:12', '2024-03-01 11:29:12', NULL, '259/0173 1516', NULL, 0, NULL, NULL, NULL, NULL, NULL, 3300, '2024-01-17 00:00:00', '2024-02-09 00:00:00', 23, 14, 828.261, 'USD', 'AOA', NULL, 3009.6, 2186609.04, 306125.2656, 2492734.3056, '1000265179750', 1, 4, 1, 'N', 'N', 'N', 0, 0, 1, 1, 'REFERENTE A NOTA DE PREÇO Nº 074/24'),
-	(180, '2024-03-01;2024-03-01T11:33:16;FR ATO2024/55;922310.07;O7mhMsjwouhWAGdNQHNVlC7YAVNFI7raIyR1bdxFoAAYTsqoTposuWILFn1S+CKMZlq0N8YcaB/uM2V/3FWcmj287Q45vwmr+0kC3WnEA43tBHnKcNSYzbaGt4EuFyvFCdRQCYICQu/MqAmUTzvVfbz0+LHQqthOcSJ4veYxBDY=', 1, 3, 'NGONGO THOMAS & FILHOS COMERCIO GERAL LTD', 'NTF', '+244923437631', '54176617919', 'kingsleychima75@gmail.com', 'Rua Santos Nº18, Bairro Cassenda', 1, 55, 'FR ATO2024/55', NULL, 'DszwOqeuJidknPsJyWSMW1CsIZpnoh7aXbXmHqjEPRw6WpweiTqWZ9Z/HSwvvMu6LuhafQrEM/gCB9HprZePn5Dz3SLST4B1GfyDb3EguAfGjvVFsd4CgNyUcqVYiizjFshlxHGXpk/QKGf9QUq8q2oiqBeiv4eRd3OgwZAvk6Y=', NULL, 1, 1, 750, 'Carlos Sampaio', '2024-03-01 11:33:16', '2024-03-01 11:33:16', NULL, '118-1231 2263', NULL, 0, NULL, NULL, NULL, NULL, NULL, 6975, '2024-02-20 00:00:00', '2024-02-21 00:00:00', 1, 14, 828.514, 'USD', 'AOA', NULL, 1113.21, 809043.921, 113266.14894, 922310.06994, '10003180750', 1, 4, 1, 'N', 'N', 'N', 0, 0, 1, 1, 'REFERENTE A NOTA DE PREÇO Nº 075/24'),
-	(181, '2024-03-01;2024-03-01T11:39:03;FR ATO2024/56;356362.10;DszwOqeuJidknPsJyWSMW1CsIZpnoh7aXbXmHqjEPRw6WpweiTqWZ9Z/HSwvvMu6LuhafQrEM/gCB9HprZePn5Dz3SLST4B1GfyDb3EguAfGjvVFsd4CgNyUcqVYiizjFshlxHGXpk/QKGf9QUq8q2oiqBeiv4eRd3OgwZAvk6Y=', 1, 3, 'NGONGO THOMAS & FILHOS COMERCIO GERAL LTD', 'NTF', '+244923437631', '54176617919', 'kingsleychima75@gmail.com', 'Rua Santos Nº18, Bairro Cassenda', 1, 56, 'FR ATO2024/56', NULL, 'DESpKEMoaBGFTczs2ZqTHepXv2aEtiiy2yUWXYwUi0o/goNZZYihRHkRQU2IlrhLf3pBZBMxJOqqQLtm4K/wtrKVLXC3GDrJl9i/rHa1SkpuLwVDtdg0Jeok1ByZfjdtEPuZQmTVlg+uUVC1QI+ZigMdoYtXYw+WphUhZV9cK1I=', NULL, 1, 1, 750, 'Carlos Sampaio', '2024-03-01 11:39:03', '2024-03-01 11:39:03', NULL, '118-1240 1056', NULL, 0, NULL, NULL, NULL, NULL, NULL, 2695, '2024-02-20 00:00:00', '2024-02-21 00:00:00', 1, 14, 828.514, 'USD', 'AOA', NULL, 430.122, 312598.3322, 43763.766508, 356362.098708, '10003181750', 1, 4, 1, 'N', 'N', 'N', 0, 0, 1, 1, 'REFERENTE A NOTA DE PREÇO Nº 076/24'),
-	(182, '2024-03-01;2024-03-01T11:55:23;FR ATO2024/57;523256.30;DESpKEMoaBGFTczs2ZqTHepXv2aEtiiy2yUWXYwUi0o/goNZZYihRHkRQU2IlrhLf3pBZBMxJOqqQLtm4K/wtrKVLXC3GDrJl9i/rHa1SkpuLwVDtdg0Jeok1ByZfjdtEPuZQmTVlg+uUVC1QI+ZigMdoYtXYw+WphUhZV9cK1I=', 1, 275, 'ANJANI FOOD & BEVERAGES, LDA', 'ANJANI FOOD AND BEVERAGES LDA', '+244 937 395 890', '5419007835', 'logistics@anjanifood.com', 'Estrada Direita da Funda - Kifangondo', 1, 57, 'FR ATO2024/57', NULL, 'dV4nU36/Hp4aS9Hg/v+LsUxDwD6t9IBMPVAtPzelNBsSv0qVDy8vV6grlM6XFIh9XheozT1nZbAdhWJgq0umMIXUZaRyu0eglA8o/bd21Sm6LzQ34cQ4bo1/4RePqz2Oh410yAIXfY71getmUgg8m20uRitpKe6/nzWJPoF5vCc=', NULL, 1, 1, 750, 'Carlos Sampaio', '2024-03-01 11:55:23', '2024-03-01 11:55:23', NULL, '118-1233 1303', NULL, 0, NULL, NULL, NULL, NULL, NULL, 1108, '2024-02-24 00:00:00', '2024-02-29 00:00:00', 5, 14, 828.514, 'USD', 'AOA', NULL, 631.56, 458996.756, 64259.54584, 523256.30184, '1000275182750', 1, 4, 1, 'N', 'N', 'N', 0, 0, 1, 3, 'REFERENTE A NOTA DE PREÇO Nº 103/24'),
-	(183, '2024-03-01;2024-03-01T11:57:58;PP ATO2024/3;1168675.00;vkG7EgVUm37aNCiu2Ws18iPe5WXOXwbm93aOX448t61zvftSud0Ge80I656sVF4x6CKXVz6MCZsMTIwELqFJVGhZg0dBFeEWMdp/O0C8cDRyZJfvbdyDs8nqwuJ4SLkqqBxBrNA8r5qTcLbx9cPq+08EFDqrwdBudJgXSTyKqbg=', 1, 269, 'TAAG - LINHAS AEREAS DE ANGOLA', 'TAAG', NULL, '5410002830', NULL, NULL, 3, 3, 'FP ATO2024/3', NULL, 'Z+1qAM5WryObLBRvi/ltUdSrNq+OsYRxqUdkR3Sfz9c9P0lt9l7MrcBnfT98MXdhLKG8WlFeJBSq5lOwMXwAtNENblocMltVfPXFdNER4CT3u9YinijbItOn3Md7MUOGeoXvVUECxCYUzZDnezsFbdlEYNXXx0dkktBxchN14Kg=', NULL, 1, 1, 751, 'Milton Lucas', '2024-03-01 11:57:58', '2024-03-01 11:57:58', NULL, NULL, 'BOING 737-800F', 79, '2024-02-29', '2024-02-29', '12:19:00', '14:03:00', NULL, 8205, NULL, NULL, NULL, 14, 828.514, 'USD', 'AOA', NULL, 1410.5676, 1025153.51276, 143521.4917864, 1168675.0045464, '1000269183751', 3, NULL, NULL, 'N', 'N', 'N', 0, 0, 2, NULL, 'REFERENTE AO VOO DT5146 DO DIA 29/02/2024'),
-	(184, '2024-03-01;2024-03-01T12:57:30;PP ATO2024/4;372890.95;Z+1qAM5WryObLBRvi/ltUdSrNq+OsYRxqUdkR3Sfz9c9P0lt9l7MrcBnfT98MXdhLKG8WlFeJBSq5lOwMXwAtNENblocMltVfPXFdNER4CT3u9YinijbItOn3Md7MUOGeoXvVUECxCYUzZDnezsFbdlEYNXXx0dkktBxchN14Kg=', 1, 276, 'VITALIS CHUKWULOTA OZOCHI', 'OZOCHI VITALIS', '928434868', '0000032603', 'mailto:edgarpedro687@gmail.com', 'Sambizanga Casa S Zona 10', 3, 4, 'FP ATO2024/4', NULL, 'mruQS4k+ezzQO7rdJbFKnpHCqcyTFHjKVLyGswhtud9/HeBja1rSZo8bTAnvfI1BV++fACAix3zNH6ZkDJ+fzFQdogaYzC8XovGmd0CDPRx69p+rTH62UXzn1aijcU2fSQung3BkW+NlZrv0v+hsleerA4F3J4G47SVnsS7Qtao=', NULL, 1, 1, 750, 'Carlos Sampaio', '2024-03-01 12:57:30', '2024-03-01 12:57:30', NULL, '118-1240 1045', NULL, 0, NULL, NULL, NULL, NULL, NULL, 2820, '2024-02-29 00:00:00', '2024-03-01 00:00:00', 1, 14, 828.514, 'USD', 'AOA', NULL, 450.072, 327097.3272, 45793.625808, 372890.953008, '1000276184750', 3, NULL, 1, 'N', 'Y', 'N', 0, 0, 1, 1, 'REFERENTE A AWB 118-1240 1045'),
-	(185, '2024-03-01;2024-03-01T14:14:36;PP ATO2024/5;739170.36;mruQS4k+ezzQO7rdJbFKnpHCqcyTFHjKVLyGswhtud9/HeBja1rSZo8bTAnvfI1BV++fACAix3zNH6ZkDJ+fzFQdogaYzC8XovGmd0CDPRx69p+rTH62UXzn1aijcU2fSQung3BkW+NlZrv0v+hsleerA4F3J4G47SVnsS7Qtao=', 1, 266, 'Panalpina Transportes Mundiais Navegação e Transitos SA', 'DSV AIR SERVICES', '226422041', '5403005862', 'dario.manuel@ao.dsv.com', 'Rua Kima Kienda 106, Estr. da Boavista – Luanda', 3, 5, 'FP ATO2024/5', NULL, 'PTuL/pRUGFaJlHK+EY/LLIOeVLmatEBN9WL4IQKMBXDfesotZK0OqaNNvkSPUqrrVyYdf0NJ9DY4T6cPcv4LH6Z0qAV/GzNKwTr4hxaYXr3eudYs95Wx9Gxp7pea5Ca8FoF32T839mFdMo+k0jd9TSDnUSi4X9n48O1c5ZcykFY=', NULL, 1, 1, 751, 'Milton Lucas', '2024-03-01 14:14:36', '2024-03-01 14:14:36', NULL, '574-33935112', NULL, 0, NULL, NULL, NULL, NULL, NULL, 5590, '2024-03-01 00:00:00', '2024-03-02 00:00:00', 1, 14, 828.514, 'USD', 'AOA', NULL, 892.164, 648395.0564, 90775.307896, 739170.364296, '1000266185751', 3, NULL, 2, 'N', 'Y', 'N', 0, 0, 1, 1, 'REFERENTE A AWB Nº 574-33935112'),
-	(186, '2024-03-01;2024-03-01T14:20:38;PP ATO2024/6;712063.04;PTuL/pRUGFaJlHK+EY/LLIOeVLmatEBN9WL4IQKMBXDfesotZK0OqaNNvkSPUqrrVyYdf0NJ9DY4T6cPcv4LH6Z0qAV/GzNKwTr4hxaYXr3eudYs95Wx9Gxp7pea5Ca8FoF32T839mFdMo+k0jd9TSDnUSi4X9n48O1c5ZcykFY=', 1, 3, 'NGONGO THOMAS & FILHOS COMERCIO GERAL LTD', 'NTF', '+244923437631', '54176617919', 'kingsleychima75@gmail.com', 'Rua Santos Nº18, Bairro Cassenda', 3, 6, 'FP ATO2024/6', NULL, 'cGxV/45OQG1XX3A+kchoyWzInK41xcJAc+NWURdZ5Z9HV0nhIfmlesaqXrB2xnPBW5MUxy3x3VSrd/v7WY0eZ1nlt6TJqBv9GjVAQ/HYCp9HZ+xjuqYAid8f4T9Ya9ph5EISrHVD8Pv5FbAhfFTjCsrkHaYkq2cfZsUAa1XS7ms=', NULL, 1, 1, 750, 'Carlos Sampaio', '2024-03-01 14:20:38', '2024-03-01 14:20:38', NULL, '118-1240 1060', NULL, 0, NULL, NULL, NULL, NULL, NULL, 5385, '2024-02-29 00:00:00', '2024-03-01 00:00:00', 1, 14, 828.514, 'USD', 'AOA', NULL, 859.446, 624616.7046, 87446.338644, 712063.043244, '10003186750', 3, NULL, 1, 'N', 'Y', 'N', 0, 0, 1, 1, 'REFERENTE A AWB 118-1240 1060'),
-	(187, '2024-03-01;2024-03-01T14:47:00;FR ATO2024/58;712063.04;dV4nU36/Hp4aS9Hg/v+LsUxDwD6t9IBMPVAtPzelNBsSv0qVDy8vV6grlM6XFIh9XheozT1nZbAdhWJgq0umMIXUZaRyu0eglA8o/bd21Sm6LzQ34cQ4bo1/4RePqz2Oh410yAIXfY71getmUgg8m20uRitpKe6/nzWJPoF5vCc=', 1, 3, 'NGONGO THOMAS & FILHOS COMERCIO GERAL LTD', 'NTF', '+244923437631', '54176617919', 'kingsleychima75@gmail.com', 'Rua Santos Nº18, Bairro Cassenda', 1, 58, 'FR ATO2024/58', 'FP ATO2024/6', 'AQCUfsAHoc7yzDKXXG9bOvcFwt+weoGoXMTQKjM5wtCYwebcokz0Ke7WaUlVtno2lb6a+mQ8qE/TZUK4jO2rA7h/P4HENYLEPfCpUsfjVu/YId0csCQAY3hpfJzHoCVWJQKEiXL/a1FW16qqeIw8lXBlSQmcoeICPDncP2Ngj/M=', NULL, 1, 1, 750, 'Carlos Sampaio', '2024-03-01 14:47:00', '2024-03-01 14:47:00', NULL, '118-1240 1060', NULL, 0, NULL, NULL, NULL, NULL, NULL, 5385, '2024-02-29 00:00:00', '2024-03-01 00:00:00', 1, 14, 828.514, 'USD', NULL, NULL, 859.446, 624616.7046, 87446.338644, 712063.043244, '10003187750', 1, 1, 1, 'N', 'N', 'N', 0, 0, 1, 1, 'REFERENTE A AWB 118-1240 1060'),
-	(188, '2024-03-01;2024-03-01T14:56:52;FR ATO2024/59;372890.95;AQCUfsAHoc7yzDKXXG9bOvcFwt+weoGoXMTQKjM5wtCYwebcokz0Ke7WaUlVtno2lb6a+mQ8qE/TZUK4jO2rA7h/P4HENYLEPfCpUsfjVu/YId0csCQAY3hpfJzHoCVWJQKEiXL/a1FW16qqeIw8lXBlSQmcoeICPDncP2Ngj/M=', 1, 276, 'VITALIS CHUKWULOTA OZOCHI', 'OZOCHI VITALIS', '928434868', '0000032603', 'mailto:edgarpedro687@gmail.com', 'Sambizanga Casa S Zona 10', 1, 59, 'FR ATO2024/59', 'FP ATO2024/4', 'nBisUMDYri5VQw5X8dJ21J5LGVktrejZwBEabZwnXHRzmyEZlR3W1XugYJy9ksiqyoI6i8C/NVfMyndaWvmGcqTVZpQ1PLMr27Ljn7UD23iHOKTUWjg7cYig9A6FnG5r8/ExvyzzS9ToM42TO2GwEpFOaA2g32y4+LbS3G5nNsQ=', NULL, 1, 1, 750, 'Carlos Sampaio', '2024-03-01 14:56:52', '2024-03-01 14:56:52', NULL, '118-1240 1045', NULL, 0, NULL, NULL, NULL, NULL, NULL, 2820, '2024-02-29 00:00:00', '2024-03-01 00:00:00', 1, 14, 828.514, 'USD', NULL, NULL, 450.072, 327097.3272, 45793.625808, 372890.953008, '1000276188750', 1, 1, 1, 'N', 'N', 'N', 0, 0, 1, 1, 'REFERENTE A AWB 118-1240 1045'),
-	(189, '2024-03-04;2024-03-04T09:54:01;FR ATO2024/60;2938471.38;nBisUMDYri5VQw5X8dJ21J5LGVktrejZwBEabZwnXHRzmyEZlR3W1XugYJy9ksiqyoI6i8C/NVfMyndaWvmGcqTVZpQ1PLMr27Ljn7UD23iHOKTUWjg7cYig9A6FnG5r8/ExvyzzS9ToM42TO2GwEpFOaA2g32y4+LbS3G5nNsQ=', 1, 266, 'Panalpina Transportes Mundiais Navegação e Transitos SA', 'DSV AIR SERVICE S.A.', '226422041', '5403005862', 'dario.manuel@ao.dsv.com', 'Rua Kima Kienda 106, Estr. da Boavista – Luanda', 1, 60, 'FR ATO2024/60', 'FP ATO2024/2', 'rJI3QzsdbIwQiNUkdf0vvaF/2BiWIpBCN0j98L+w+jXq6LawbEiddSSHfbVBoy7jgzl/+cdnbO8OSprUFyM9W+x9mw6oe+y9j7czqsfx5iLHV3+04xpebzv7Kd7bPqDzaqCveUKPFmGc3WGufpfLRsvXipDdiVuD3z2in3Zfp1c=', NULL, 1, 1, 751, 'Milton Lucas', '2024-03-04 09:54:01', '2024-03-04 09:54:01', NULL, '11811508280', NULL, 0, NULL, NULL, NULL, NULL, NULL, 10728, '2024-02-24 00:00:00', '2024-03-01 00:00:00', 6, 14, 828.514, 'USD', NULL, NULL, 3546.6768, 2577606.47568, 360864.9065952, 2938471.3822752, '1000266189750', 1, 1, 1, 'N', 'N', 'N', 0, 0, 1, 1, 'REFERENTE A AWB Nº118-11508280'),
-	(190, '2024-03-04;2024-03-04T10:02:18;PP ATO2024/7;149111.04;cGxV/45OQG1XX3A+kchoyWzInK41xcJAc+NWURdZ5Z9HV0nhIfmlesaqXrB2xnPBW5MUxy3x3VSrd/v7WY0eZ1nlt6TJqBv9GjVAQ/HYCp9HZ+xjuqYAid8f4T9Ya9ph5EISrHVD8Pv5FbAhfFTjCsrkHaYkq2cfZsUAa1XS7ms=', 1, 277, 'COMPANHIA CASTEL DE BEBIDAS DE LUANDA-CCBL, S.A', 'COMPANHIA CASTEL DE BEBIDAS DE LUANDA', '923967562', '5410000757', NULL, 'RUA N´GOLA KILUANGE Nº370', 3, 7, 'FP ATO2024/7', NULL, 'YY/nIGctCTg7g0217RmVmE9uzgld9tqUZPJdrJZG8gpb/pzGnWP0EcIeBQeKHMU7Iu+uVH6aUx0yAL+PkPjaueZ0TVMBoc3P3RY6SXeYTfi4ijFeMuAP+0erRqMKoAEb69u29vF3b/RVrPXerOWCr3GOyidVa7NMogHpQ0XQrNk=', NULL, 1, 1, 751, 'Milton Lucas', '2024-03-04 10:02:18', '2024-03-04 10:02:18', NULL, '11812330080', NULL, 0, NULL, NULL, NULL, NULL, NULL, 202.4, '2024-02-24 00:00:00', '2024-03-04 00:00:00', 9, 14, 828.514, 'USD', 'AOA', NULL, 179.97408, 130799.162208, 18311.88270912, 149111.04491712, '1000277190751', 3, NULL, 1, 'N', 'Y', 'N', 0, 0, 1, 3, 'REFERENTE A AWB Nº 118-12330080 '),
-	(191, '2024-03-04;2024-03-04T10:47:06;PP ATO2024/8;67720.32;YY/nIGctCTg7g0217RmVmE9uzgld9tqUZPJdrJZG8gpb/pzGnWP0EcIeBQeKHMU7Iu+uVH6aUx0yAL+PkPjaueZ0TVMBoc3P3RY6SXeYTfi4ijFeMuAP+0erRqMKoAEb69u29vF3b/RVrPXerOWCr3GOyidVa7NMogHpQ0XQrNk=', 1, 269, 'TAAG - LINHAS AEREAS DE ANGOLA', 'TAAG', NULL, '5410002830', NULL, NULL, 3, 8, 'FP ATO2024/8', NULL, 'eRps6+97QdcDtOKoj+rbZMHwR1byps3kHoLJgU92HZvVCHb41xv+Om6v1xWHRj63OuSh8A9mZvTDE/+BWZ2HZ7rs2UqQInIqumdYE3EgNEXqxPWuRe/E62XnNpBhp4F11TpBVIEpQ8GGSp/wPsPRAKRMY3/eFImen41oLgwlBOk=', NULL, 1, 1, 751, 'Milton Lucas', '2024-03-04 10:47:06', '2024-03-04 10:47:06', NULL, '57433994030', NULL, 0, NULL, NULL, NULL, NULL, NULL, 112.03, '2024-02-24 00:00:00', '2024-03-01 00:00:00', 6, 14, 828.514, 'USD', 'AOA', NULL, 81.737088, 59403.7909888, 8316.530738432, 67720.321727232, '1000269191751', 3, NULL, 1, 'N', 'N', 'N', 0, 0, 1, 6, 'REFERENTE A AWB Nº 57433994030'),
-	(192, '2024-03-04;2024-03-04T10:48:06;FR ATO2024/61;149111.04;rJI3QzsdbIwQiNUkdf0vvaF/2BiWIpBCN0j98L+w+jXq6LawbEiddSSHfbVBoy7jgzl/+cdnbO8OSprUFyM9W+x9mw6oe+y9j7czqsfx5iLHV3+04xpebzv7Kd7bPqDzaqCveUKPFmGc3WGufpfLRsvXipDdiVuD3z2in3Zfp1c=', 1, 277, 'COMPANHIA CASTEL DE BEBIDAS DE LUANDA-CCBL, S.A', 'COMPANHIA CASTEL DE BEBIDAS DE LUANDA', '923967562', '5410000757', NULL, 'RUA N´GOLA KILUANGE Nº370', 1, 61, 'FR ATO2024/61', 'FP ATO2024/7', 'e11Lo61uZIWzjO3vKjqbfgTAU0yayWLC60F348wpLT+UTrBGFyKBgwnfgr1LfjNdwJwtYswaYKAoTdent0qHgTWehZRMF3juNiMgGEP1QxJOu+Y1Uk2IMZYjTx/2XQ0VssOLPjY6LXojWs4VtcwZ3YFqsf7hRRqeL2fMHqaRzO4=', NULL, 1, 1, 751, 'Milton Lucas', '2024-03-04 10:48:06', '2024-03-04 10:48:06', NULL, '11812330080', NULL, 0, NULL, NULL, NULL, NULL, NULL, 202.4, '2024-02-24 00:00:00', '2024-03-04 00:00:00', 9, 14, 828.514, 'USD', NULL, NULL, 179.97408, 130799.162208, 18311.88270912, 149111.04491712, '1000277192750', 1, 4, 1, 'N', 'N', 'N', 0, 0, 1, 3, 'REFERENTE A AWB Nº 118-12330080 '),
-	(193, '2024-03-04;2024-03-04T10:51:53;PP ATO2024/9;35060.06;eRps6+97QdcDtOKoj+rbZMHwR1byps3kHoLJgU92HZvVCHb41xv+Om6v1xWHRj63OuSh8A9mZvTDE/+BWZ2HZ7rs2UqQInIqumdYE3EgNEXqxPWuRe/E62XnNpBhp4F11TpBVIEpQ8GGSp/wPsPRAKRMY3/eFImen41oLgwlBOk=', 1, 269, 'TAAG - LINHAS AEREAS DE ANGOLA', 'TAAG', NULL, '5410002830', NULL, NULL, 3, 9, 'FP ATO2024/9', NULL, 'gDof6iPHFs4wzbAAm1S579eVAhprvPRpz+WVgYLZx1+Q4loMocmoR6ZD9SiKjFMN49Kb/5cZmNIpiuOpPPmytvBt1QJTOHA1eWJSNJ/dQqVkF5V7zlMl51fYdgyRfGslF9AF6+pgTZor4n0JuydGSTukewA9LfFOkypLpHP2f68=', NULL, 1, 1, 751, 'Milton Lucas', '2024-03-04 10:51:53', '2024-03-04 10:51:53', NULL, '57433993982', NULL, 0, NULL, NULL, NULL, NULL, NULL, 58, '2024-02-24 00:00:00', '2024-03-01 00:00:00', 6, 14, 828.514, 'USD', 'AOA', NULL, 42.3168, 30754.43968, 4305.6215552, 35060.0612352, '1000269193751', 3, NULL, 1, 'N', 'N', 'N', 0, 0, 1, 6, 'REFERENTE A AWB Nº 57433993982'),
-	(194, '2024-03-04;2024-03-04T11:55:06;FR ATO2024/62;2870114.87;e11Lo61uZIWzjO3vKjqbfgTAU0yayWLC60F348wpLT+UTrBGFyKBgwnfgr1LfjNdwJwtYswaYKAoTdent0qHgTWehZRMF3juNiMgGEP1QxJOu+Y1Uk2IMZYjTx/2XQ0VssOLPjY6LXojWs4VtcwZ3YFqsf7hRRqeL2fMHqaRzO4=', 1, 264, 'GRUPO LIZ - COMERCIO E SERVIÇOS, LIMITADA', 'AIR ATLANTA ICELANDIC', '923520471', '5403084690', 'ian.pereira@grupoliz.com', 'Bairro Cassenda - Rua 02, Casa nº 12, Maianga', 1, 62, 'FR ATO2024/62', NULL, 'xoSRc69cExOGSGLg6fFzo38Oe0oJzFPVX8aI+/OTiM2iSKZLbbtn5zCMQrqBRNI0WEAvce1ur1R6cASd3aVyKUK7K2PTUFNhSuh6UShMok7MMQVEXlHyK6hk5NfGr6vONutjVQvNIWWG0l6jIfD9c/6/RqwnWsphVyn+v9/v6eM=', NULL, 1, 1, 751, 'Milton Lucas', '2024-03-04 11:55:06', '2024-03-04 11:55:06', NULL, NULL, 'BOING 747-400F', 397, '2024-02-12', '2024-02-12', '16:44:00', '19:06:00', NULL, NULL, NULL, NULL, NULL, 0, 828.261, 'USD', 'USD', NULL, 3465.23, 2870114.86503, 0, 2870114.86503, '1000264194751', 1, 4, NULL, 'Y', 'N', 'N', 0, 0, 2, NULL, 'REFERENTE A NOTA DE PREÇO Nº 078/24'),
-	(195, '2024-03-04;2024-03-04T11:59:32;FR ATO2024/63;1211911.50;xoSRc69cExOGSGLg6fFzo38Oe0oJzFPVX8aI+/OTiM2iSKZLbbtn5zCMQrqBRNI0WEAvce1ur1R6cASd3aVyKUK7K2PTUFNhSuh6UShMok7MMQVEXlHyK6hk5NfGr6vONutjVQvNIWWG0l6jIfD9c/6/RqwnWsphVyn+v9/v6eM=', 1, 264, 'GRUPO LIZ - COMERCIO E SERVIÇOS, LIMITADA', 'AIR ATLANTA ICELANDIC', '923520471', '5403084690', 'ian.pereira@grupoliz.com', 'Bairro Cassenda - Rua 02, Casa nº 12, Maianga', 1, 63, 'FR ATO2024/63', NULL, 'ojjecCwjckllEfiAclM9mW5H3uRTukqxO6ZYoQmg+69DKG8Yk1NWGvoG3zyYN3AUHlGwNKHxtgtBbYxyq8wGiJmqZWCO/HrjAqOOJ2vJ7ZhQMiY+Flxbf3THust/ESOYcZ8juvGKK/ZYdD2knHuqtc27pty8OPDD48xVTO1OpaA=', NULL, 1, 1, 751, 'Milton Lucas', '2024-03-04 11:59:32', '2024-03-04 11:59:32', NULL, NULL, 'BOING 747-400F/ASTRA 11849', 397, '2024-02-12', '2024-02-12', '16:44:00', '19:06:00', NULL, 18290, NULL, NULL, NULL, 0, 828.261, 'USD', 'USD', NULL, 1463.2, 1211911.4952, 0, 1211911.4952, '1000264195751', 1, 4, NULL, 'Y', 'N', 'N', 0, 0, 2, NULL, 'REFERENTE A NOTA DE PREÇO Nº 079/24'),
-	(196, '2024-03-04;2024-03-04T12:05:35;FR ATO2024/64;4691108.79;ojjecCwjckllEfiAclM9mW5H3uRTukqxO6ZYoQmg+69DKG8Yk1NWGvoG3zyYN3AUHlGwNKHxtgtBbYxyq8wGiJmqZWCO/HrjAqOOJ2vJ7ZhQMiY+Flxbf3THust/ESOYcZ8juvGKK/ZYdD2knHuqtc27pty8OPDD48xVTO1OpaA=', 1, 3, 'NGONGO THOMAS & FILHOS COMERCIO GERAL LTD', 'NTF', '+244923437631', '54176617919', 'kingsleychima75@gmail.com', 'Rua Santos Nº18, Bairro Cassenda', 1, 64, 'FR ATO2024/64', NULL, 'P1TiqX8zUz5/njHZUzI7oF7iYrfYENqGSUAB8j+WIFgGEf5JSPMie+ClO651tOybULnhYphXRaOh8qMspiXhLn98j8o5T9P7ORarGe28bAPem/c8/HWzM5sIuat7/MMNqNd3xsCoEPZ77lITnrC+PLrKtIx+OL1zqLsQKmAK2RQ=', NULL, 1, 1, 751, 'Milton Lucas', '2024-03-04 12:05:35', '2024-03-04 12:05:35', NULL, '11812312241', NULL, 0, NULL, NULL, NULL, NULL, NULL, 14195, '2024-02-06 00:00:00', '2024-02-14 00:00:00', 8, 14, 828.261, 'USD', 'AOA', NULL, 5663.805, 4115007.71325, 576101.079855, 4691108.793105, '10003196751', 1, 4, 1, 'N', 'N', 'N', 0, 0, 1, 1, 'REFERENTE A NOTA DE PREÇO Nº 080/24'),
-	(197, '2024-03-04;2024-03-04T12:21:29;FR ATO2024/65;1184063.09;P1TiqX8zUz5/njHZUzI7oF7iYrfYENqGSUAB8j+WIFgGEf5JSPMie+ClO651tOybULnhYphXRaOh8qMspiXhLn98j8o5T9P7ORarGe28bAPem/c8/HWzM5sIuat7/MMNqNd3xsCoEPZ77lITnrC+PLrKtIx+OL1zqLsQKmAK2RQ=', 1, 265, 'DHL Global Forwarding Angola Ltd', 'SCHLUMBERGER TECHNICAL SERVICE INC', '948625996', '5401071809', 'anacruz.pinto@dhl.com', 'Avenida 21 de Janeiro  Aeroporto', 1, 65, 'FR ATO2024/65', NULL, 'Zv8E6VdUajjFN395iBdkLYKxISrJDcC2oSzGyDLJvnOZDd35k1ofHKXc2wUciMbt7BN17HJFP+8CbHblGMG1keoLDCm+vAqMLfb9InJnER9SO0SwGkbOEtzCvv8lKqqyScSgeECgAqxORFli0uBsiE//OZyLyU09uVy3lNzbXWo=', NULL, 1, 1, 751, 'Milton Lucas', '2024-03-04 12:21:29', '2024-03-04 12:21:29', NULL, '259/01731516', NULL, 0, NULL, NULL, NULL, NULL, NULL, 3300, '2024-02-10 00:00:00', '2024-02-19 00:00:00', 9, 14, 828.271, 'USD', 'AOA', NULL, 1429.56, 1038651.834, 145411.25676, 1184063.09076, '1000265197751', 1, 4, 1, 'N', 'N', 'N', 0, 0, 1, 1, 'REFERENTE A NOTA DE PREÇO Nº 081/24'),
-	(198, '2024-03-04;2024-03-04T13:13:21;FR ATO2024/66;1413191.51;Zv8E6VdUajjFN395iBdkLYKxISrJDcC2oSzGyDLJvnOZDd35k1ofHKXc2wUciMbt7BN17HJFP+8CbHblGMG1keoLDCm+vAqMLfb9InJnER9SO0SwGkbOEtzCvv8lKqqyScSgeECgAqxORFli0uBsiE//OZyLyU09uVy3lNzbXWo=', 1, 278, 'OPS SERVIÇOS DE PRODUÇÃO DE PETRÓLEOS, LTD', 'OPS SERVIÇOS DE PRODUÇÃO DE PETRÓLEOS', '+244939452739', '5402068909', ' Sebastiao.Santos@sbmoffshore.com', 'Rua Comandante Arguelles, nº 103', 1, 66, 'FR ATO2024/66', NULL, 'u98B4mugv97MS93J8cjiMeiSwaigdbNxTxY/RrG+olo80lmRLttmawucguAg+drNjw0TG1jnmNxfqncn1PRysW8UPziMFEFzso+hRs/2OY+m+5CmOthweYiya6kDxHaQR3CWfgIxB6OhyM7HW0whWGIc7jVAnc2JE4APo+a7M0I=', NULL, 1, 1, 751, 'Milton Lucas', '2024-03-04 13:13:21', '2024-03-04 13:13:21', NULL, '574-34018294', NULL, 0, NULL, NULL, NULL, NULL, NULL, 8804, '2024-02-18 00:00:00', '2024-02-20 00:00:00', 2, 14, 828.261, 'USD', 'AOA', NULL, 1706.2152, 1239641.67348, 173549.8342872, 1413191.5077672, '1000278198751', 1, 4, 1, 'N', 'N', 'N', 0, 0, 1, 1, 'REFERENTE A NOTA DE PREÇO Nº 082/24'),
-	(199, '2024-03-04;2024-03-04T13:17:24;FR ATO2024/67;264531.99;u98B4mugv97MS93J8cjiMeiSwaigdbNxTxY/RrG+olo80lmRLttmawucguAg+drNjw0TG1jnmNxfqncn1PRysW8UPziMFEFzso+hRs/2OY+m+5CmOthweYiya6kDxHaQR3CWfgIxB6OhyM7HW0whWGIc7jVAnc2JE4APo+a7M0I=', 1, 278, 'OPS SERVIÇOS DE PRODUÇÃO DE PETRÓLEOS, LTD', 'OPS SERVIÇOS DE PRODUÇÃO DE PETRÓLEOS', '+244939452739', '5402068909', ' Sebastiao.Santos@sbmoffshore.com', 'Rua Comandante Arguelles, nº 103', 1, 67, 'FR ATO2024/67', NULL, 'incHJ8y0b8UHQ39j7G//7+JP6ikHXChiOVidvn0AZCqj2ARGEbcgQbL7hJ8Bosgf4ZsISS2Hbw5XQFAOhYXjW+EK+fovjS5FFJQ8Qh7C/RLZe1y+cN+kTTv7Y+C/tmQ9c02HmM218ll0y/X5Au5olsrdJ8QZiAQwbli+QI09F6I=', NULL, 1, 1, 751, 'Milton Lucas', '2024-03-04 13:17:24', '2024-03-04 13:17:24', NULL, '574-34018305', NULL, 0, NULL, NULL, NULL, NULL, NULL, 1648, '2024-02-18 00:00:00', '2024-02-20 00:00:00', 2, 14, 828.261, 'USD', 'AOA', NULL, 319.3824, 232045.60176, 32486.3842464, 264531.9860064, '1000278199751', 1, 4, 1, 'N', 'N', 'N', 0, 0, 1, 1, 'REFERENTE A NOTA DE PREÇO Nº 083/24'),
-	(200, '2024-03-04;2024-03-04T13:23:36;FR ATO2024/68;1125916.91;incHJ8y0b8UHQ39j7G//7+JP6ikHXChiOVidvn0AZCqj2ARGEbcgQbL7hJ8Bosgf4ZsISS2Hbw5XQFAOhYXjW+EK+fovjS5FFJQ8Qh7C/RLZe1y+cN+kTTv7Y+C/tmQ9c02HmM218ll0y/X5Au5olsrdJ8QZiAQwbli+QI09F6I=', 1, 265, 'DHL Global Forwarding Angola Ltd', 'SCHLUMBERGER TECHNICAL SERVICE INC', '948625996', '5401071809', 'anacruz.pinto@dhl.com', 'Avenida 21 de Janeiro  Aeroporto', 1, 68, 'FR ATO2024/68', NULL, 'oEtyRxg10qp9n8dbly7tYBgHNSi+fuGKqRM5o9ooSZLnMaPwK+5gm67U0VMOkwImDzPMTirmxYjHyFBVsY0eDFYmO2pU+jtdbhk+dJQA6d0+UO4j3raOZM7zhNgvoTmZEKJZqqUaMxphfAazHXnhXCTP1/PCbFnGNYJ6mjakt10=', NULL, 1, 1, 751, 'Milton Lucas', '2024-03-04 13:23:36', '2024-03-04 13:23:36', NULL, '27100024172', NULL, 0, NULL, NULL, NULL, NULL, NULL, 2908.34, '2024-02-09 00:00:00', '2024-02-19 00:00:00', 10, 14, 828.271, 'USD', 'AOA', NULL, 1359.358116, 987646.4088574, 138270.49724004, 1125916.9060974, '1000265200751', 1, 4, 1, 'N', 'N', 'N', 0, 0, 1, 1, 'REFERENTE A NOTA DE PREÇO Nº 084/24'),
-	(201, '2024-03-04;2024-03-04T13:27:53;FR ATO2024/69;1076358.99;oEtyRxg10qp9n8dbly7tYBgHNSi+fuGKqRM5o9ooSZLnMaPwK+5gm67U0VMOkwImDzPMTirmxYjHyFBVsY0eDFYmO2pU+jtdbhk+dJQA6d0+UO4j3raOZM7zhNgvoTmZEKJZqqUaMxphfAazHXnhXCTP1/PCbFnGNYJ6mjakt10=', 1, 265, 'DHL Global Forwarding Angola Ltd', 'BAKER HUGHES EHO LTD', '948625996', '5401071809', 'anacruz.pinto@dhl.com', 'Avenida 21 de Janeiro  Aeroporto', 1, 69, 'FR ATO2024/69', NULL, 'gRQ33KEBH8G7HlgvdcDcC2m2SlTUKROuTvLda7S2qRjlykdIXuiJhvPgpOUnG6szCFbvL1idxY8S0u2gT2RJU3EX1R1EoQPMHfCdpD9uKfzSKmKZ2q6Cp/SrhN21SAlem+fzVQZ4/5gG1cgJLKjGSM9pacRcyGmNgC/hqcdhBPA=', NULL, 1, 1, 751, 'Milton Lucas', '2024-03-04 13:27:53', '2024-03-04 13:27:53', NULL, '574-34014433', NULL, 0, NULL, NULL, NULL, NULL, NULL, 2590, '2024-02-12 00:00:00', '2024-02-23 00:00:00', 11, 14, 828.514, 'USD', 'AOA', NULL, 1299.144, 944174.5544, 132184.437616, 1076358.992016, '1000265201751', 1, 4, 1, 'N', 'N', 'N', 0, 0, 1, 1, 'REFERENTE A NOTA DE PREÇO Nº 085/24'),
-	(202, '2024-03-04;2024-03-04T13:32:34;FR ATO2024/70;1625116.95;gRQ33KEBH8G7HlgvdcDcC2m2SlTUKROuTvLda7S2qRjlykdIXuiJhvPgpOUnG6szCFbvL1idxY8S0u2gT2RJU3EX1R1EoQPMHfCdpD9uKfzSKmKZ2q6Cp/SrhN21SAlem+fzVQZ4/5gG1cgJLKjGSM9pacRcyGmNgC/hqcdhBPA=', 1, 276, 'VITALIS CHUKWULOTA OZOCHI', 'VITALIS CHUKWULOTA OZOCHI', '928434868', '0000032603', 'mailto:edgarpedro687@gmail.com', 'Sambizanga Casa S Zona 10', 1, 70, 'FR ATO2024/70', NULL, 'lKwJDgBw+Eh49O5lIb9UHOMlPRxR6Y0rhx1UJJkB96YCuEI9sG/aOgnPoLm2ahTsymmRGjxU05lupKrBBzQRO1Lgv5yH6lrJYIEli0U8Nsew174Sbexr3sZwpM0Km3ypYEMKwkVgKhPMz38cql/LC7WzjRiusqzlltvoPfg0n84=', NULL, 1, 1, 751, 'Milton Lucas', '2024-03-04 13:32:34', '2024-03-04 13:32:34', NULL, '118-12312274', NULL, 0, NULL, NULL, NULL, NULL, NULL, 12290, '2024-02-20 00:00:00', '2024-02-21 00:00:00', 1, 14, 828.514, 'USD', 'AOA', NULL, 1961.484, 1425541.1884, 199575.766376, 1625116.954776, '1000276202751', 1, 4, 1, 'N', 'N', 'N', 0, 0, 1, 1, 'REFERENTE A NOTA DE PREÇO Nº 086/24'),
-	(203, '2024-03-04;2024-03-04T13:41:24;FT ATO2024/19;2624815.20;Ih7FJ6BetVLLYXNkZDlo0zLEZ4zxfj4TwqoxPLVumeJL5mX63wBKqMBwRtW+tfUDyFcO1dpyu9HN2IPE1rwiBS8Z6L90mJXNqVxTsPl0EINQpamH2HqN18QQ6n02N+t3kG7faKXXvg8hFNoO1FcQejtq3Pm1awDbaPt45L4huU0=', 1, 264, 'GRUPO LIZ - COMERCIO E SERVIÇOS, LIMITADA', 'AIR ATLANTA ICELANDIC', '923520471', '5403084690', 'ian.pereira@grupoliz.com', 'Bairro Cassenda - Rua 02, Casa nº 12, Maianga', 2, 19, 'FT ATO2024/19', NULL, 'dQAlVTjwjSK3ZWy0p3eeRGupNs7SIZgxbHkqlED/dEt8os8DqwITK1i5473OsbLovbLiBRkaIY/OFMw9NuY+7RATElj1Tq8v/XmBpxLA/AaX6j9xL7mduCisyX258gkw6AXEMQ0Wk81FjHW/Zwp5/wvcDMSN1Vs5PRm3aCvSo/U=', NULL, 1, 1, 751, 'Milton Lucas', '2024-03-04 13:41:24', '2024-03-04 13:41:24', NULL, NULL, 'BOING 747-400F', 397, '2024-02-18', '2024-02-18', '08:14:00', '10:20:00', NULL, NULL, NULL, NULL, NULL, 0, 828.514, 'USD', 'AOA', NULL, 3168.1, 2624815.2034, 0, 2624815.2034, '1000264203751', 2, 2, NULL, 'Y', 'N', 'N', 0, 0, 2, NULL, 'REFERENTE A NOTA DE PREÇO Nº 087/24'),
-	(204, '2024-03-04;2024-03-04T13:48:18;FT ATO2024/20;692770.27;dQAlVTjwjSK3ZWy0p3eeRGupNs7SIZgxbHkqlED/dEt8os8DqwITK1i5473OsbLovbLiBRkaIY/OFMw9NuY+7RATElj1Tq8v/XmBpxLA/AaX6j9xL7mduCisyX258gkw6AXEMQ0Wk81FjHW/Zwp5/wvcDMSN1Vs5PRm3aCvSo/U=', 1, 264, 'GRUPO LIZ - COMERCIO E SERVIÇOS, LIMITADA', 'AIR ATLANTA ICELANDIC', '923520471', '5403084690', 'ian.pereira@grupoliz.com', 'Bairro Cassenda - Rua 02, Casa nº 12, Maianga', 2, 20, 'FT ATO2024/20', NULL, 'S4hH1cfm9JcQIA9rJSKq2aUJ72zrSzytNFrrlWd+2o7IVC7aIj4coq0q/WtEDJdpxZlXz83QFOPFyip2fuw4Xczdsp72ju7IA7OfXVAADCxfZjCl7sQuM4Ml1qyUjKz/R5IrG+r5ZCH7ZGUf/F2/xX10s60JMsSbGhZaz/iR/6Q=', NULL, 1, 1, 751, 'Milton Lucas', '2024-03-04 13:48:18', '2024-03-04 13:48:18', NULL, NULL, 'BOING 747-400F/ASTRA 11860', 397, '2024-02-18', '2024-02-18', '08:14:00', '10:20:00', NULL, 10452, NULL, NULL, NULL, 0, 828.514, 'USD', 'AOA', NULL, 836.16, 692770.26624, 0, 692770.26624, '1000264204751', 2, 2, NULL, 'Y', 'N', 'N', 0, 0, 2, NULL, 'REFERENTE A NOTA DE PREÇO Nº 088/24'),
-	(205, '2024-03-04;2024-03-04T13:53:24;FR ATO2024/71;2146083.24;lKwJDgBw+Eh49O5lIb9UHOMlPRxR6Y0rhx1UJJkB96YCuEI9sG/aOgnPoLm2ahTsymmRGjxU05lupKrBBzQRO1Lgv5yH6lrJYIEli0U8Nsew174Sbexr3sZwpM0Km3ypYEMKwkVgKhPMz38cql/LC7WzjRiusqzlltvoPfg0n84=', 1, 273, 'AZULE ENERGY ANGOLA(BLOCK 18), B.V. - SUCURSAL DE ANGOLA', 'AZULE ENERGY ANGOLA', NULL, '5410003667', NULL, 'AV 4 DE FEVEREIRO TORRES ATLANTICO N 197', 1, 71, 'FR ATO2024/71', NULL, 'KHdBba1JX7Pzf3bbCKlOwhuXjoyhcMLfmcfWlamNDVC911KE71eM0/fgAGQcQ0ynrCt+fnO1qBusxpwVO/60KsBFZXnB6VJ2+ILPirotwmr/3QbYAt86gU5E/RV1Uy7DSp+Vjq0N5kiFxBbjYSGpIbYUcD2tspj45ONvMD2/jC0=', NULL, 1, 1, 751, 'Milton Lucas', '2024-03-04 13:53:24', '2024-03-04 13:53:24', NULL, '57434030264/ LAD-00000011', NULL, 0, NULL, NULL, NULL, NULL, NULL, 3364, '2024-02-02 00:00:00', '2024-02-24 00:00:00', 22, 0, 828.514, 'USD', 'AOA', NULL, 2590.28, 2146083.24392, 0, 2146083.24392, '1000273205751', 1, 4, 2, 'Y', 'N', 'N', 0, 0, 1, 1, 'REFERENTE A NOTA DE PREÇO Nº 089/24'),
-	(206, '2024-03-04;2024-03-04T14:08:24;FR ATO2024/72;4586902.06;KHdBba1JX7Pzf3bbCKlOwhuXjoyhcMLfmcfWlamNDVC911KE71eM0/fgAGQcQ0ynrCt+fnO1qBusxpwVO/60KsBFZXnB6VJ2+ILPirotwmr/3QbYAt86gU5E/RV1Uy7DSp+Vjq0N5kiFxBbjYSGpIbYUcD2tspj45ONvMD2/jC0=', 1, 273, 'AZULE ENERGY ANGOLA(BLOCK 18), B.V. - SUCURSAL DE ANGOLA', 'AZULE ENERGY ANGOLA', NULL, '5410003667', NULL, 'AV 4 DE FEVEREIRO TORRES ATLANTICO N 197', 1, 72, 'FR ATO2024/72', NULL, 'GWKPX0qsrO8lzwisege/4W9uCfu8FkChQ+HbEcv56jKORJUyD/Zfg2eODDoo6SQmqMXgM1gEKRWPnPzU5//yPFyEgV6bB5oOCHY4QUd7pOgJs2FCdU9zu96MbOXgbJp1+bu2WGY8g+YMOHesyrkp9KPnbihu+9JEwxykcS8JvO8=', NULL, 1, 1, 751, 'Milton Lucas', '2024-03-04 14:08:24', '2024-03-04 14:08:24', NULL, '57434030264/LAD-00000015', NULL, 0, NULL, NULL, NULL, NULL, NULL, 7190, '2024-02-02 00:00:00', '2024-02-24 00:00:00', 22, 0, 828.514, 'USD', 'AOA', NULL, 5536.3, 4586902.0582, 0, 4586902.0582, '1000273206751', 1, 4, 2, 'Y', 'N', 'N', 0, 0, 1, 1, 'REFERENTE A NOTA DE PREÇO Nº 090/24'),
-	(207, '2024-03-04;2024-03-04T14:53:12;PP ATO2024/10;1184174.35;gDof6iPHFs4wzbAAm1S579eVAhprvPRpz+WVgYLZx1+Q4loMocmoR6ZD9SiKjFMN49Kb/5cZmNIpiuOpPPmytvBt1QJTOHA1eWJSNJ/dQqVkF5V7zlMl51fYdgyRfGslF9AF6+pgTZor4n0JuydGSTukewA9LfFOkypLpHP2f68=', 1, 279, 'SIMPORTEX - COMERCIALIZAÇÃO DE EQUIPAMENTOS M.M', 'SIMPORTEX - CEMERCIALIZAÇÃO DE EQUIPAMENTOS M.M', NULL, '5410003519', NULL, 'RUA RAINHA GINGA Nº 24 - INGOMBOTA', 3, 10, 'FP ATO2024/10', NULL, 'pBGjBZyNe1Pbk7yY0eQ741ghQ1nxHaeqTvbPd/761cmUR4azSA3fVdriOj8JzSJKtriDD5+O3VurxFRkkfs2Z1JXXTt5JGbln9inYj5mP44+0ZD2/wPYGyCQdNdZB92VFxXfiFIw6vDO+VdN2C+3KgprTghTtuvHufFDO3WlYak=', NULL, 1, 1, 750, 'Carlos Sampaio', '2024-03-04 14:53:12', '2024-03-04 14:53:12', NULL, '11812331093', NULL, 0, NULL, NULL, NULL, NULL, NULL, 7375, '2024-03-02 00:00:00', '2024-03-04 00:00:00', 2, 14, 828.514, 'USD', 'AOA', NULL, 1429.275, 1038749.4275, 145424.91985, 1184174.34735, '1000279207750', 3, NULL, 1, 'N', 'Y', 'N', 0, 0, 1, 1, 'REFERENTE A AWB Nº 11812331093'),
-	(208, '2024-03-04;2024-03-04T15:10:34;FR ATO2024/73;5817518.76;GWKPX0qsrO8lzwisege/4W9uCfu8FkChQ+HbEcv56jKORJUyD/Zfg2eODDoo6SQmqMXgM1gEKRWPnPzU5//yPFyEgV6bB5oOCHY4QUd7pOgJs2FCdU9zu96MbOXgbJp1+bu2WGY8g+YMOHesyrkp9KPnbihu+9JEwxykcS8JvO8=', 1, 273, 'AZULE ENERGY ANGOLA(BLOCK 18), B.V. - SUCURSAL DE ANGOLA', 'AZULE ENERGY ANGOLA', NULL, '5410003667', NULL, 'AV 4 DE FEVEREIRO TORRES ATLANTICO N 197', 1, 73, 'FR ATO2024/73', NULL, 'puKn8JFxRZdT2eUJSzBKJUALuDKdqHbQD2qL+/7DEbpCboA+48R2/GPRcvwgIGOvLqdxSAer7eSswAI9/Tr+4imJUv0odXiFITwfs/rf0U6odL/pGUI+11pNhv5cQqxWIcmLz+u79Jh5DCfmYeGL9GhXqaHVCjPi8FH703xvCGo=', NULL, 1, 1, 751, 'Milton Lucas', '2024-03-04 15:10:34', '2024-03-04 15:10:34', NULL, '57434030242/LAD-00000018', NULL, 0, NULL, NULL, NULL, NULL, NULL, 9119, '2024-02-02 00:00:00', '2024-02-24 00:00:00', 22, 0, 828.514, 'USD', 'AOA', NULL, 7021.63, 5817518.75782, 0, 5817518.75782, '1000273208751', 1, 4, 2, 'Y', 'N', 'N', 0, 0, 1, 1, 'REFERENTE A NOTA DE PREÇO Nº 091/24'),
-	(209, '2024-03-04;2024-03-04T15:48:38;FR ATO2024/74;1184174.35;puKn8JFxRZdT2eUJSzBKJUALuDKdqHbQD2qL+/7DEbpCboA+48R2/GPRcvwgIGOvLqdxSAer7eSswAI9/Tr+4imJUv0odXiFITwfs/rf0U6odL/pGUI+11pNhv5cQqxWIcmLz+u79Jh5DCfmYeGL9GhXqaHVCjPi8FH703xvCGo=', 1, 279, 'SIMPORTEX - COMERCIALIZAÇÃO DE EQUIPAMENTOS M.M', 'SIMPORTEX - CEMERCIALIZAÇÃO DE EQUIPAMENTOS M.M', NULL, '5410003519', NULL, 'RUA RAINHA GINGA Nº 24 - INGOMBOTA', 1, 74, 'FR ATO2024/74', 'FP ATO2024/10', 'P6I4QHZuB5a/V6OEvU3k5btvmgfYqxwVgS9mDbkVdUOl8TJ/DyZe+RJCQLLgSiNoDWnzh7979VIVLjkny2wVIasB0fwFlPw0eI0e+COovpwz1Gv60gz2Qt3Zf0wssgg/ziB5dKV8UbefRypgkdnZT9EoMV5/yqdOfnnyfF5iNj4=', NULL, 1, 1, 750, 'Carlos Sampaio', '2024-03-04 15:48:38', '2024-03-04 15:48:38', NULL, '11812331093', NULL, 0, NULL, NULL, NULL, NULL, NULL, 7375, '2024-03-02 00:00:00', '2024-03-04 00:00:00', 2, 14, 828.514, 'USD', NULL, NULL, 1429.275, 1038749.4275, 145424.91985, 1184174.34735, '1000279209750', 1, 4, 1, 'N', 'N', 'N', 0, 0, 1, 1, 'REFERENTE A AWB Nº 11812331093'),
-	(210, '2024-03-04;2024-03-04T15:49:11;FT ATO2024/21;2208009.36;S4hH1cfm9JcQIA9rJSKq2aUJ72zrSzytNFrrlWd+2o7IVC7aIj4coq0q/WtEDJdpxZlXz83QFOPFyip2fuw4Xczdsp72ju7IA7OfXVAADCxfZjCl7sQuM4Ml1qyUjKz/R5IrG+r5ZCH7ZGUf/F2/xX10s60JMsSbGhZaz/iR/6Q=', 1, 269, 'TAAG - LINHAS AEREAS DE ANGOLA', 'TAAG', NULL, '5410002830', NULL, NULL, 2, 21, 'FT ATO2024/21', NULL, 'bU2x/Iwn/P0kp5Vb9GZ5/KUAzsjUjyAf7N91Yh4Y9PTrKqBZpJFsIJz70SoO6XYH9yn3zPdb0I0eyWdalZpCydtsH7YbVMSo40C0xTnrXondnlbf3KPuU5k32CJrBn3PQCfhN7SycMtfO6Ists90m1QB/ZReLw+myL+RBcy95zk=', NULL, 1, 1, 751, 'Milton Lucas', '2024-03-04 15:49:11', '2024-03-04 15:49:11', NULL, NULL, 'BOING 737-800', 79, '2024-02-20', '2024-02-20', '13:33:00', '14:52:00', NULL, 21960, NULL, NULL, NULL, 14, 828.514, 'USD', 'AOA', NULL, 2665.0236, 1936850.31836, 271159.0445704, 2208009.3629304, '1000269210751', 2, 2, NULL, 'N', 'N', 'N', 0, 0, 2, NULL, 'REFERENTE A NOTA DE PREÇO Nº 092/24'),
-	(211, '2024-03-04;2024-03-04T15:58:19;FR ATO2024/75;489254.09;P6I4QHZuB5a/V6OEvU3k5btvmgfYqxwVgS9mDbkVdUOl8TJ/DyZe+RJCQLLgSiNoDWnzh7979VIVLjkny2wVIasB0fwFlPw0eI0e+COovpwz1Gv60gz2Qt3Zf0wssgg/ziB5dKV8UbefRypgkdnZT9EoMV5/yqdOfnnyfF5iNj4=', 1, 265, 'DHL Global Forwarding Angola Ltd', 'BAKER HUGHES EHO LTD', '948625996', '5401071809', 'anacruz.pinto@dhl.com', 'Avenida 21 de Janeiro  Aeroporto', 1, 75, 'FR ATO2024/75', NULL, 'Vw4BUPEG+e0+4VP3G9qNqqAuFZvFaQWkI4jBOOxG71hIBilqWjnfsoPmKPWBueXNcvg/WenxpdUqgNZYA2cbl7tJJ9JUtjazerNpMSmhWXKqhUCCzNh9BJvAj6GqgyKhXbae0PFhQnlnCKNf0F7KupENZooVmI7wCy0NfhJ3SQk=', NULL, 1, 1, 751, 'Milton Lucas', '2024-03-04 15:58:19', '2024-03-04 15:58:19', NULL, '574-34014433', NULL, 0, NULL, NULL, NULL, NULL, NULL, 2590, '2024-02-24 00:00:00', '2024-02-27 00:00:00', 3, 14, 828.514, 'USD', 'AOA', NULL, 590.52, 429170.252, 60083.83528, 489254.08728, '1000265211751', 1, 4, 1, 'N', 'N', 'N', 0, 0, 1, 1, 'REFERENTE A NOTA DE PREÇO Nº 093/24'),
-	(212, '2024-03-05;2024-03-05T10:58:16;PP ATO2024/11;710511.47;pBGjBZyNe1Pbk7yY0eQ741ghQ1nxHaeqTvbPd/761cmUR4azSA3fVdriOj8JzSJKtriDD5+O3VurxFRkkfs2Z1JXXTt5JGbln9inYj5mP44+0ZD2/wPYGyCQdNdZB92VFxXfiFIw6vDO+VdN2C+3KgprTghTtuvHufFDO3WlYak=', 1, 280, 'INDUSTRIAS TOPACK, LDA', 'INDUSTRIAS TOPACK', NULL, '5417251135', NULL, 'POLO INDUSTRIA DE VIANA VIA EXPRESSA', 3, 11, 'FP ATO2024/11', NULL, 'aV/xVsR9Z7ILTFDKuJTV5agZfHPczjSUL9jd62HFJzRNa7q3MUvjAQ+E7jnJAyx7ywgoFDdjvqyCl7qYj62nzhHURrEMeO5Qu9IG35Gxz5COjlev9BGqDT1gwL99d7yPCiZft23jF7cc4GKwfhJPsuITcT5rQXB/znKlqhFadZM=', NULL, 1, 1, 751, 'Milton Lucas', '2024-03-05 10:58:16', '2024-03-05 10:58:16', NULL, '118/12285103', NULL, 0, NULL, NULL, NULL, NULL, NULL, 885, '2024-02-24 00:00:00', '2024-03-05 00:00:00', 10, 14, 828.522, 'USD', 'AOA', NULL, 857.565, 623255.6745, 87255.79443, 710511.46893, '1000280212751', 3, NULL, 1, 'N', 'Y', 'N', 0, 0, 1, 3, 'REFERENTE A AWB Nº 118/12285103'),
-	(213, '2024-03-05;2024-03-05T11:47:43;FR ATO2024/76;342477.86;Vw4BUPEG+e0+4VP3G9qNqqAuFZvFaQWkI4jBOOxG71hIBilqWjnfsoPmKPWBueXNcvg/WenxpdUqgNZYA2cbl7tJJ9JUtjazerNpMSmhWXKqhUCCzNh9BJvAj6GqgyKhXbae0PFhQnlnCKNf0F7KupENZooVmI7wCy0NfhJ3SQk=', 1, 265, 'DHL Global Forwarding Angola Ltd', 'BAKER HUGHES EHO LTD', '948625996', '5401071809', 'anacruz.pinto@dhl.com', 'Avenida 21 de Janeiro  Aeroporto', 1, 76, 'FR ATO2024/76', NULL, 'm5pqcYEiMfPCTiykaksnNhaORRDS3DG0ioicgcK6vgmh2vEr74w3vOzmJG9Hk5m25zkmcQZ5KkzRaD3/WIhqaIBfOgMyLHgbkgiYFvC0vcOhUrYn0Z1/yMLW5okUJeySfh5g694CY0vSGWwQsh2SKwNxE5zBfoRNabunMlFaDtc=', NULL, 1, 1, 751, 'Milton Lucas', '2024-03-05 11:47:43', '2024-03-05 11:47:43', NULL, '574-34014433', NULL, 0, NULL, NULL, NULL, NULL, NULL, 2590, '2024-02-28 00:00:00', '2024-02-29 00:00:00', 1, 14, 828.514, 'USD', 'AOA', NULL, 413.364, 300419.1764, 42058.684696, 342477.861096, '1000265213751', 1, 4, 1, 'N', 'N', 'N', 0, 0, 1, 1, 'REFERENTE A NOTA DE PREÇO Nº 095/24'),
-	(214, '2024-03-05;2024-03-05T11:54:34;FR ATO2024/77;9638683.32;m5pqcYEiMfPCTiykaksnNhaORRDS3DG0ioicgcK6vgmh2vEr74w3vOzmJG9Hk5m25zkmcQZ5KkzRaD3/WIhqaIBfOgMyLHgbkgiYFvC0vcOhUrYn0Z1/yMLW5okUJeySfh5g694CY0vSGWwQsh2SKwNxE5zBfoRNabunMlFaDtc=', 1, 265, 'DHL Global Forwarding Angola Ltd', 'SCHLUMBERGER TECHNICAL SERVICES INC', '948625996', '5401071809', 'anacruz.pinto@dhl.com', 'Avenida 21 de Janeiro  Aeroporto', 1, 77, 'FR ATO2024/77', NULL, 'HziHw4J9oI/yu4cwdRAe3u55t53MqIYJxqSI5W4xbkrQcZUH/qtqgg7YR/2KY7mp5kNbucEdfvf9IeBr9Et4CoPOno6rPLnA5QlcKM9Cp58meWPtHGHZ8mrAqYeRU2eliSvpCz630KnaUDeJgLAiizw9/LUDvfmE9UpBAf7ufWo=', NULL, 1, 1, 751, 'Milton Lucas', '2024-03-05 11:54:34', '2024-03-05 11:54:34', NULL, '574-34014444', NULL, 0, NULL, NULL, NULL, NULL, NULL, 15700, '2024-02-12 00:00:00', '2024-03-01 00:00:00', 18, 14, 828.514, 'USD', 'AOA', NULL, 11633.7, 8454985.37, 1183697.9518, 9638683.3218, '1000265214751', 1, 4, 1, 'N', 'N', 'N', 0, 0, 1, 1, 'REFERENTE A NOTA DE PREÇO Nº 096/24'),
-	(215, '2024-03-05;2024-03-05T12:12:03;FR ATO2024/78;14522.05;HziHw4J9oI/yu4cwdRAe3u55t53MqIYJxqSI5W4xbkrQcZUH/qtqgg7YR/2KY7mp5kNbucEdfvf9IeBr9Et4CoPOno6rPLnA5QlcKM9Cp58meWPtHGHZ8mrAqYeRU2eliSvpCz630KnaUDeJgLAiizw9/LUDvfmE9UpBAf7ufWo=', 1, 266, 'Panalpina Transportes Mundiais Navegação e Transitos SA', 'BAKER HUGHES ANGOLA LDA', '226422041', '5403005862', 'dario.manuel@ao.dsv.com', 'Rua Kima Kienda 106, Estr. da Boavista – Luanda', 1, 78, 'FR ATO2024/78', NULL, 'hFY7Ih9hqy7jKIWra3bjl9lgTjlpOIby7kcAY2Bs2slGMJNsHUErUhPhx6QVRCLV5TRMto6nSM94YfRQ4uuAFM3jHHx7DlKSfA8m0Sp3cBR09Q6xGU77zW9J1srI8VlDZd2P/caiscMdGawH5s/P+KhFaLaZRyTqYKxSqRjRzbM=', NULL, 1, 1, 751, 'Milton Lucas', '2024-03-05 12:12:03', '2024-03-05 12:12:03', NULL, '118SVG12331314', NULL, 0, NULL, NULL, NULL, NULL, NULL, 53, '2024-02-24 00:00:00', '2024-03-01 00:00:00', 6, 14, 828.799, 'USD', 'AOA', NULL, 17.5218, 12738.64063, 1783.4096882, 14522.0503182, '1000266215751', 1, 4, 1, 'N', 'N', 'N', 0, 0, 1, 1, 'REFERENTE A NOTA DE PREÇO Nº 097/24'),
-	(216, '2024-03-05;2024-03-05T12:23:33;FR ATO2024/79;4685416.23;hFY7Ih9hqy7jKIWra3bjl9lgTjlpOIby7kcAY2Bs2slGMJNsHUErUhPhx6QVRCLV5TRMto6nSM94YfRQ4uuAFM3jHHx7DlKSfA8m0Sp3cBR09Q6xGU77zW9J1srI8VlDZd2P/caiscMdGawH5s/P+KhFaLaZRyTqYKxSqRjRzbM=', 1, 266, 'Panalpina Transportes Mundiais Navegação e Transitos SA', 'DSV PANALPINA', '226422041', '5403005862', 'dario.manuel@ao.dsv.com', 'Rua Kima Kienda 106, Estr. da Boavista – Luanda', 1, 79, 'FR ATO2024/79', NULL, 'VvD29L5neK6BirKqyzJNj+wd29MrGMi4vFPdTYr0YYyhgQhNWAGMrswCCROOGY59QVMApcWYxMp5CnU+QgLV4yDDsTzwYWXRWEFQ2aBN7YvT2BfKqWoNszeYHKLRrnk1NakY0GQwk8lsKhvl/pepUuGEovy5wu8ASxX87Z3y9HI=', NULL, 1, 1, 751, 'Milton Lucas', '2024-03-05 12:23:33', '2024-03-05 12:23:33', NULL, '118/12285324', NULL, 0, NULL, NULL, NULL, NULL, NULL, 17100, '2024-02-24 00:00:00', '2024-03-01 00:00:00', 6, 14, 828.799, 'USD', 'AOA', NULL, 5653.26, 4110014.241, 575401.99374, 4685416.23474, '1000266216751', 1, 4, 1, 'N', 'N', 'N', 0, 0, 1, 1, 'REFERENTE A NOTA DE PREÇO Nº 098/24'),
-	(217, '2024-03-05;2024-03-05T13:02:05;PP ATO2024/12;379742.29;aV/xVsR9Z7ILTFDKuJTV5agZfHPczjSUL9jd62HFJzRNa7q3MUvjAQ+E7jnJAyx7ywgoFDdjvqyCl7qYj62nzhHURrEMeO5Qu9IG35Gxz5COjlev9BGqDT1gwL99d7yPCiZft23jF7cc4GKwfhJPsuITcT5rQXB/znKlqhFadZM=', 1, 269, 'TAAG - LINHAS AEREAS DE ANGOLA', 'TAAG', NULL, '5410002830', NULL, NULL, 3, 12, 'FP ATO2024/12', NULL, 'nv9EpzmFEkgctvbLqbHw+JsqmGEZJpHEz/7n5csBsm3jmdw+pWHB8kxDP8LUx6hFblqcu6blbdeBXiRFlTIX4dQrPECL2RfV3q0Na6TKm70Gbmqwdm3JwwOuvxTvu9bzCpiQyK1VVBzFEUi6GbV9Ks3M9LuZYz9U5+VpyGF0dcY=', NULL, 1, 1, 751, 'Milton Lucas', '2024-03-05 13:02:05', '2024-03-05 13:02:05', NULL, '118-11723095', NULL, 0, NULL, NULL, NULL, NULL, NULL, 473, '2024-02-24 00:00:00', '2024-03-05 00:00:00', 10, 14, 828.522, 'USD', 'AOA', NULL, 458.337, 333107.2701, 46635.017814, 379742.287914, '1000269217751', 3, NULL, 1, 'N', 'Y', 'N', 0, 0, 1, 3, 'REFERENTE A AWB Nº 118-11723095'),
-	(218, '2024-03-05;2024-03-05T13:02:28;PP ATO2024/13;1257244.02;nv9EpzmFEkgctvbLqbHw+JsqmGEZJpHEz/7n5csBsm3jmdw+pWHB8kxDP8LUx6hFblqcu6blbdeBXiRFlTIX4dQrPECL2RfV3q0Na6TKm70Gbmqwdm3JwwOuvxTvu9bzCpiQyK1VVBzFEUi6GbV9Ks3M9LuZYz9U5+VpyGF0dcY=', 1, 269, 'TAAG - LINHAS AEREAS DE ANGOLA', 'TAAG', NULL, '5410002830', NULL, NULL, 3, 13, 'FP ATO2024/13', NULL, 'p5Vyk2ok1NLLeROJQjPOcTjjnWQJbc7P3RI4KWR5acKfx2Bvt4evqdAb9ePwKtd0FHbJEDOQk0bxRInQ8DizfXfoMVQm+/0amiPYLPq4RFTz7XY6fRQVngSNTj0iSNenCpfAwWogQZfR71u8a83nPvY3YgT98tOQAhKfdyYxayk=', NULL, 1, 1, 750, 'Carlos Sampaio', '2024-03-05 13:02:28', '2024-03-05 13:02:28', NULL, '118-11723073', NULL, 0, NULL, NULL, NULL, NULL, NULL, 1566, '2024-02-24 00:00:00', '2024-03-05 00:00:00', 10, 14, 828.522, 'USD', 'AOA', NULL, 1517.454, 1102845.6342, 154398.388788, 1257244.022988, '1000269218750', 3, NULL, 1, 'N', 'N', 'N', 0, 0, 1, 3, 'REFERENTE A WB Nº 118-11723073'),
-	(219, '2024-03-05;2024-03-05T13:19:46;PP ATO2024/14;41823.13;p5Vyk2ok1NLLeROJQjPOcTjjnWQJbc7P3RI4KWR5acKfx2Bvt4evqdAb9ePwKtd0FHbJEDOQk0bxRInQ8DizfXfoMVQm+/0amiPYLPq4RFTz7XY6fRQVngSNTj0iSNenCpfAwWogQZfR71u8a83nPvY3YgT98tOQAhKfdyYxayk=', 1, 281, 'ASCO ANGOLAN SERVICES COMPANY', 'ASCO ANGOLAN SERVICES COMPANY', '+244926671315', '5417219770', 'nelson.costa@olicargo.com', 'RUA EMILIO M BINDI N 9/11', 3, 14, 'FP ATO2024/14', NULL, 'wn3zv2TUOsHatp4x/rP5SMByc5h3VkG0DGA5lo4OJLlK0rFkduPGh9oEJ55nR6MSQ0EtNtcMpQUKthP/om7nfZM8eBOdslTh62gzpL7Mxo+B6MRz4k9wxZirJOKr/YWofU/qFwUtJliVka+aylgekYmi0NhUMUqtreK2K+VuhfY=', NULL, 1, 1, 751, 'Milton Lucas', '2024-03-05 13:19:46', '2024-03-05 13:19:46', NULL, ' 11811723191', NULL, 0, NULL, NULL, NULL, NULL, NULL, 123, '2024-03-02 00:00:00', '2024-03-05 00:00:00', 3, 14, 828.522, 'USD', 'AOA', NULL, 50.4792, 36686.95416, 5136.1735824, 41823.1277424, '1000281219751', 3, NULL, 1, 'N', 'Y', 'N', 0, 0, 1, 3, 'REFERENTE A AWB Nº  11811723191'),
-	(220, '2024-03-05;2024-03-05T13:21:48;PP ATO2024/15;237262.19;wn3zv2TUOsHatp4x/rP5SMByc5h3VkG0DGA5lo4OJLlK0rFkduPGh9oEJ55nR6MSQ0EtNtcMpQUKthP/om7nfZM8eBOdslTh62gzpL7Mxo+B6MRz4k9wxZirJOKr/YWofU/qFwUtJliVka+aylgekYmi0NhUMUqtreK2K+VuhfY=', 1, 272, 'PONTICELLI ANGOIL', 'PONTICELLI ANGOIL', NULL, '5403090762', NULL, 'Av. Comandante Kima-Kyenda, Nº311', 3, 15, 'FP ATO2024/15', NULL, 'mn8PVN/305WKyLkQE0AUxBYszp1FVZouy1PLoMbIH/oDlBw8M8GshHMwoJ2bXLVGqzGqwEbbv5Vemz+aS19hegkfXk13D+TaxHUUtxvkZtdqG/Xv/pDLNlGcNcZxFmZQraPtJif2UUGnZE1km/QAyVw4dqlc/PyjrV6NG4Mzlf4=', NULL, 1, 1, 750, 'Carlos Sampaio', '2024-03-05 13:21:48', '2024-03-05 13:21:48', NULL, '11811720310', NULL, 0, NULL, NULL, NULL, NULL, NULL, 1256, '2024-03-02 00:00:00', '2024-03-05 00:00:00', 3, 14, 828.522, 'USD', 'AOA', NULL, 286.368, 208124.7264, 29137.461696, 237262.188096, '1000272220750', 3, NULL, 1, 'N', 'Y', 'N', 0, 0, 1, 1, 'REFERENTE A AWB Nº 11811720310'),
-	(221, '2024-03-05;2024-03-05T13:53:59;FR ATO2024/80;379742.29;VvD29L5neK6BirKqyzJNj+wd29MrGMi4vFPdTYr0YYyhgQhNWAGMrswCCROOGY59QVMApcWYxMp5CnU+QgLV4yDDsTzwYWXRWEFQ2aBN7YvT2BfKqWoNszeYHKLRrnk1NakY0GQwk8lsKhvl/pepUuGEovy5wu8ASxX87Z3y9HI=', 1, 269, 'TAAG - LINHAS AEREAS DE ANGOLA', 'TAAG', NULL, '5410002830', NULL, NULL, 1, 80, 'FR ATO2024/80', 'FP ATO2024/12', 'jKLhn/bSd6uEMJAD0gLYVO2z3YFBrVn3iO044mYIYVagXC/T0ndolotbrm3PvtTgXBAf4tGMK5WuGGIHrPxNHqLZPdxyLKvhsCptT8joWc8U3AA703mfWqoxJDUd2tPNSqsAV1m7r2wGvQudRonD335LIWPfIPpQE1Y+1X4M+1w=', NULL, 1, 1, 751, 'Milton Lucas', '2024-03-05 13:53:59', '2024-03-05 13:53:59', NULL, '118-11723095', NULL, 0, NULL, NULL, NULL, NULL, NULL, 473, '2024-02-24 00:00:00', '2024-03-05 00:00:00', 10, 14, 828.522, 'USD', NULL, NULL, 458.337, 333107.2701, 46635.017814, 379742.287914, '1000269221751', 1, 4, 1, 'N', 'N', 'N', 0, 0, 1, 3, 'REFERENTE A AWB Nº 118-11723095'),
-	(222, '2024-03-05;2024-03-05T14:04:54;PP ATO2024/16;1464319.51;mn8PVN/305WKyLkQE0AUxBYszp1FVZouy1PLoMbIH/oDlBw8M8GshHMwoJ2bXLVGqzGqwEbbv5Vemz+aS19hegkfXk13D+TaxHUUtxvkZtdqG/Xv/pDLNlGcNcZxFmZQraPtJif2UUGnZE1km/QAyVw4dqlc/PyjrV6NG4Mzlf4=', 1, 269, 'TAAG - LINHAS AEREAS DE ANGOLA', 'TAAG', NULL, '5410002830', NULL, NULL, 3, 16, 'FP ATO2024/16', NULL, 'tY1TB3s2MRfIJZJQCyZavCyJxxwf98UJzeV1Xs9m/oQJ9sogLW9xwucNFz/mK3A0IArIeBNnp1MlSwRuox2OR1MryNiuUfCIghWGRP3WdZqAt8Q6W+RzU6/TCYdlHl2aKqHWCYFvjHYgk4QGPXG9hwSEDU/Rs2q5Im11my1tQP8=', NULL, 1, 1, 750, 'Carlos Sampaio', '2024-03-05 14:04:54', '2024-03-05 14:04:54', NULL, '118-11723073', NULL, 0, NULL, NULL, NULL, NULL, NULL, 1566, '2024-02-24 00:00:00', '2024-03-07 00:00:00', 12, 14, 828.522, 'USD', 'AOA', NULL, 1767.3876, 1284490.79748, 179828.7116472, 1464319.5091272, '1000269222750', 3, NULL, 1, 'N', 'N', 'N', 0, 0, 1, 3, 'REFERENTE A AWB Nº 118-11723073'),
-	(223, '2024-03-05;2024-03-05T14:10:00;FR ATO2024/81;710511.47;jKLhn/bSd6uEMJAD0gLYVO2z3YFBrVn3iO044mYIYVagXC/T0ndolotbrm3PvtTgXBAf4tGMK5WuGGIHrPxNHqLZPdxyLKvhsCptT8joWc8U3AA703mfWqoxJDUd2tPNSqsAV1m7r2wGvQudRonD335LIWPfIPpQE1Y+1X4M+1w=', 1, 280, 'INDUSTRIAS TOPACK, LDA', 'INDUSTRIAS TOPACK', NULL, '5417251135', NULL, 'POLO INDUSTRIA DE VIANA VIA EXPRESSA', 1, 81, 'FR ATO2024/81', 'FP ATO2024/11', 'uAkBQ95RznmVTt9CpqsVjOqjiT729blLs889G53w8BgyAeCXMC+UtKw/fwDyvyTOqPILF2HRIiqMkJaGEVSIfjtsnHr/19k4q+d2NZIcygCOgevm7KirjTcUhn6DWkGMGyuKlFUzSUJk8di2bhqroKS/FosvFqKLO0SR0mALbNs=', NULL, 1, 1, 751, 'Milton Lucas', '2024-03-05 14:10:00', '2024-03-05 14:10:00', NULL, '118/12285103', NULL, 0, NULL, NULL, NULL, NULL, NULL, 885, '2024-02-24 00:00:00', '2024-03-05 00:00:00', 10, 14, 828.522, 'USD', NULL, NULL, 857.565, 623255.6745, 87255.79443, 710511.46893, '1000280223751', 1, 4, 1, 'N', 'N', 'N', 0, 0, 1, 3, 'REFERENTE A AWB Nº 118/12285103'),
-	(224, '2024-03-05;2024-03-05T14:23:11;FR ATO2024/82;41823.13;uAkBQ95RznmVTt9CpqsVjOqjiT729blLs889G53w8BgyAeCXMC+UtKw/fwDyvyTOqPILF2HRIiqMkJaGEVSIfjtsnHr/19k4q+d2NZIcygCOgevm7KirjTcUhn6DWkGMGyuKlFUzSUJk8di2bhqroKS/FosvFqKLO0SR0mALbNs=', 1, 281, 'ASCO ANGOLAN SERVICES COMPANY', 'ASCO ANGOLAN SERVICES COMPANY', '+244926671315', '5417219770', 'nelson.costa@olicargo.com', 'RUA EMILIO M BINDI N 9/11', 1, 82, 'FR ATO2024/82', 'FP ATO2024/14', 'pjAO7zUcKqbDax+ut8JFCJ6dL0t5SNC49aoSDvqJxTBfN7vByZUYo9devcQ+AsZR4KqOdH/aEIyvBsB19/NNzcVKim05BsA/QME5nmADkkvoo+UXyWZ/5kqVLXB4A1aoU6k9FIdjhh+mYOozcxp11GLSSfGsaesazTkfr6VvIwE=', NULL, 1, 1, 751, 'Milton Lucas', '2024-03-05 14:23:11', '2024-03-05 14:23:11', NULL, ' 11811723191', NULL, 0, NULL, NULL, NULL, NULL, NULL, 123, '2024-03-02 00:00:00', '2024-03-05 00:00:00', 3, 14, 828.522, 'USD', NULL, NULL, 50.4792, 36686.95416, 5136.1735824, 41823.1277424, '1000281224751', 1, 4, 1, 'N', 'N', 'N', 0, 0, 1, 3, 'REFERENTE A AWB Nº  11811723191'),
-	(225, '2024-03-05;2024-03-05T14:24:11;FR ATO2024/83;237262.19;pjAO7zUcKqbDax+ut8JFCJ6dL0t5SNC49aoSDvqJxTBfN7vByZUYo9devcQ+AsZR4KqOdH/aEIyvBsB19/NNzcVKim05BsA/QME5nmADkkvoo+UXyWZ/5kqVLXB4A1aoU6k9FIdjhh+mYOozcxp11GLSSfGsaesazTkfr6VvIwE=', 1, 272, 'PONTICELLI ANGOIL', 'PONTICELLI ANGOIL', NULL, '5403090762', NULL, 'Av. Comandante Kima-Kyenda, Nº311', 1, 83, 'FR ATO2024/83', 'FP ATO2024/15', 'EmoXg6eC79+/8+fI5PTveiFRUfYPDBdXaun7fPR9RcAzyDMhbjyRgZ/2BTdklzXIR/jB2o2fqDqyBxlChFjip4592xt/AVnb7cJkiHeNyJ1L1Q7/WtZJXZisyHLePD7XafT2HrEoU4jmoqO8liDnKIndEXXvCzTnLgFHlhQ/V70=', NULL, 1, 1, 750, 'Carlos Sampaio', '2024-03-05 14:24:11', '2024-03-05 14:24:11', NULL, '11811720310', NULL, 0, NULL, NULL, NULL, NULL, NULL, 1256, '2024-03-02 00:00:00', '2024-03-05 00:00:00', 3, 14, 828.522, 'USD', NULL, NULL, 286.368, 208124.7264, 29137.461696, 237262.188096, '1000272225750', 1, 4, 1, 'N', 'N', 'N', 0, 0, 1, 1, 'REFERENTE A AWB Nº 11811720310'),
-	(226, '2024-03-05;2024-03-05T14:34:51;FR ATO2024/84;739170.36;EmoXg6eC79+/8+fI5PTveiFRUfYPDBdXaun7fPR9RcAzyDMhbjyRgZ/2BTdklzXIR/jB2o2fqDqyBxlChFjip4592xt/AVnb7cJkiHeNyJ1L1Q7/WtZJXZisyHLePD7XafT2HrEoU4jmoqO8liDnKIndEXXvCzTnLgFHlhQ/V70=', 1, 266, 'Panalpina Transportes Mundiais Navegação e Transitos SA', 'DSV AIR SERVICES', '226422041', '5403005862', 'dario.manuel@ao.dsv.com', 'Rua Kima Kienda 106, Estr. da Boavista – Luanda', 1, 84, 'FR ATO2024/84', 'FP ATO2024/5', 'BEv5ayT2VSHVtfqpI2TJXYH6q6vn3BPGL/rfmvJaHedhmFY7F5it2B2y+e5vcfMy1O2HM0XhKkR+foUDXecOkPo9V+tMM50vw9OR8WC68HVr9k6/YEWH4GOH618deq5iSkd1HvkCeY84r4Fs6H+zRTRhvOhQKEnc9T7/CV06VhU=', NULL, 1, 1, 751, 'Milton Lucas', '2024-03-05 14:34:51', '2024-03-05 14:34:51', NULL, '574-33935112', NULL, 0, NULL, NULL, NULL, NULL, NULL, 5590, '2024-03-01 00:00:00', '2024-03-02 00:00:00', 1, 14, 828.514, 'USD', NULL, NULL, 892.164, 648395.0564, 90775.307896, 739170.364296, '1000266226750', 1, 4, 2, 'N', 'N', 'N', 0, 0, 1, 1, 'REFERENTE A AWB Nº 574-33935112'),
-	(227, '2024-03-06;2024-03-06T10:52:25;PP ATO2024/17;697401.60;tY1TB3s2MRfIJZJQCyZavCyJxxwf98UJzeV1Xs9m/oQJ9sogLW9xwucNFz/mK3A0IArIeBNnp1MlSwRuox2OR1MryNiuUfCIghWGRP3WdZqAt8Q6W+RzU6/TCYdlHl2aKqHWCYFvjHYgk4QGPXG9hwSEDU/Rs2q5Im11my1tQP8=', 1, 266, 'Panalpina Transportes Mundiais Navegação e Transitos SA', 'ESSO EXPLORATION ANGOLA (BLOCK 15) LTD', '226422041', '5403005862', 'dario.manuel@ao.dsv.com', 'Rua Kima Kienda 106, Estr. da Boavista – Luanda', 3, 17, 'FP ATO2024/17', NULL, 'KBWNPGEzSpBpiqaqFCJ/w/yqQxXZxTDgH+4ootjv2RCS4pP6yutDH4C/Uz1jDAriOfiDkMiB2PahgJdMgSDyC4XwdRaws6BsZdYuwPHenlyMcJn0wHVQIlLPTMgWRpslxR5tsKuDsp1e9/eF2u7x+K+HjW1zVtQ/kHx0jpoOx+4=', NULL, 1, 1, 750, 'Carlos Sampaio', '2024-03-06 10:52:25', '2024-03-06 10:52:25', NULL, '118-12121970', NULL, 0, NULL, NULL, NULL, NULL, NULL, 1571, '2024-02-24 00:00:00', '2024-03-07 00:00:00', 12, 14, 828.522, 'USD', 'AOA', NULL, 841.7418, 611755.78914, 85645.8104796, 697401.5996196, '1000266227750', 3, NULL, 1, 'N', 'Y', 'N', 0, 0, 1, 1, 'REFERENTE A AWB Nº 118-12121970'),
-	(228, '2024-03-06;2024-03-06T11:21:12;FT ATO2024/22;51683.37;bU2x/Iwn/P0kp5Vb9GZ5/KUAzsjUjyAf7N91Yh4Y9PTrKqBZpJFsIJz70SoO6XYH9yn3zPdb0I0eyWdalZpCydtsH7YbVMSo40C0xTnrXondnlbf3KPuU5k32CJrBn3PQCfhN7SycMtfO6Ists90m1QB/ZReLw+myL+RBcy95zk=', 1, 269, 'TAAG - LINHAS AEREAS DE ANGOLA', 'TAAG', NULL, '5410002830', NULL, NULL, 2, 22, 'FT ATO2024/22', NULL, 'QzMIX4JhTAJgR6+eOWAjoR5PVQOgpxjxktEHspjGUJrfR9Dcy1RGUucAC/u+DFTX/Opk/OYPPkmDEY8xS2lYF0tKmkmb36CV3VcCZUSEw2PzPrT2cQXemGNCHqXT/IELnA8I2dej0PVC32gUIzTBQepVnp9N5fhN+03g2OO3diQ=', NULL, 1, 1, 751, 'Milton Lucas', '2024-03-06 11:21:12', '2024-03-06 11:21:12', NULL, '57434020254', NULL, 0, NULL, NULL, NULL, NULL, NULL, 114, '2024-02-24 00:00:00', '2024-02-28 00:00:00', 4, 14, 828.514, 'USD', 'AOA', NULL, 62.3808, 45336.28608, 6347.0800512, 51683.3661312, '1000269228751', 2, 2, 1, 'N', 'N', 'N', 0, 0, 1, 6, 'REFERENTE A NOTA DE PREÇO Nº 100/24'),
-	(229, '2024-03-06;2024-03-06T11:27:54;FT ATO2024/23;3173.54;QzMIX4JhTAJgR6+eOWAjoR5PVQOgpxjxktEHspjGUJrfR9Dcy1RGUucAC/u+DFTX/Opk/OYPPkmDEY8xS2lYF0tKmkmb36CV3VcCZUSEw2PzPrT2cQXemGNCHqXT/IELnA8I2dej0PVC32gUIzTBQepVnp9N5fhN+03g2OO3diQ=', 1, 269, 'TAAG - LINHAS AEREAS DE ANGOLA', 'TAAG', NULL, '5410002830', NULL, NULL, 2, 23, 'FT ATO2024/23', NULL, 'ptyGxzwfVo69JZBhXHMbqjeFbHo7kD2tboWckR79qUs708XN9ERk5OxU953eWXEFilhaUsMMCoEQea1Bq9gXwASwWvMQn0FHm3MWfUkbFq8XADuHRWBI7oY9S46B4/4usVFmPmZtjGmJ27qFHVjP5LpoOvJt2QxqhEu1ttCWPYs=', NULL, 1, 1, 751, 'Milton Lucas', '2024-03-06 11:27:54', '2024-03-06 11:27:54', NULL, '57433993794', NULL, 0, NULL, NULL, NULL, NULL, NULL, 7, '2024-02-24 00:00:00', '2024-02-28 00:00:00', 4, 14, 828.514, 'USD', 'AOA', NULL, 3.8304, 2783.80704, 389.7329856, 3173.5400256, '1000269229751', 2, 2, 1, 'N', 'N', 'N', 0, 0, 1, 6, 'REFERENTE A NOTA DE PREÇO Nº 101/24'),
-	(230, '2024-03-06;2024-03-06T11:32:07;FT ATO2024/24;8160.53;ptyGxzwfVo69JZBhXHMbqjeFbHo7kD2tboWckR79qUs708XN9ERk5OxU953eWXEFilhaUsMMCoEQea1Bq9gXwASwWvMQn0FHm3MWfUkbFq8XADuHRWBI7oY9S46B4/4usVFmPmZtjGmJ27qFHVjP5LpoOvJt2QxqhEu1ttCWPYs=', 1, 269, 'TAAG - LINHAS AEREAS DE ANGOLA', 'TAAG', NULL, '5410002830', NULL, NULL, 2, 24, 'FT ATO2024/24', NULL, 'onnybySYsKOYpd8sLMsfggKyYTa/pjdi1efoIneJfmV5rAnNuJXOUVx6bOVr/PAfKLx8qDEy+M6SJDpLT0Wd5C1i5q+prlr2ES+0WKwL55s9d123Rjo/hiiP7VIAq9o4Z95gprNoEuUs7WZtb65TsqBUk3Jzzcov+XuEZF6CFcc=', NULL, 1, 1, 751, 'Milton Lucas', '2024-03-06 11:32:07', '2024-03-06 11:32:07', NULL, '11812331292', NULL, 0, NULL, NULL, NULL, NULL, NULL, 18, '2024-02-24 00:00:00', '2024-02-28 00:00:00', 4, 14, 828.514, 'USD', 'AOA', NULL, 9.8496, 7158.36096, 1002.1705344, 8160.5314944, '1000269230751', 2, 2, 1, 'N', 'N', 'N', 0, 0, 1, 6, 'REFERENTE A NOTA DE PREÇO Nº 102/24'),
-	(231, '2024-03-06;2024-03-06T11:46:31;PP ATO2024/18;2797135.51;KBWNPGEzSpBpiqaqFCJ/w/yqQxXZxTDgH+4ootjv2RCS4pP6yutDH4C/Uz1jDAriOfiDkMiB2PahgJdMgSDyC4XwdRaws6BsZdYuwPHenlyMcJn0wHVQIlLPTMgWRpslxR5tsKuDsp1e9/eF2u7x+K+HjW1zVtQ/kHx0jpoOx+4=', 1, 277, 'COMPANHIA CASTEL DE BEBIDAS DE LUANDA-CCBL, S.A', 'COMPANHIA CASTEL DE BEBIDAS DE LUANDA', '923967562', '5410000757', NULL, 'RUA N´GOLA KILUANGE Nº370', 3, 18, 'FP ATO2024/18', NULL, 'inU6C01vNGYSBVPLSPfvaI2NpXMuens31aT1QlFRb+1stUpoUY73Yf4wy0wxaiMvctZJgGy0Jw3B2niBrOdfcBKhPPmLwV9PjqX1MZTNoC6ZFgQpNS7OaeHIQuWQbI05/UvMgzbm7uGKiLh20hQizd/9Kywx4T33yztEWBgMRW0=', NULL, 1, 1, 751, 'Milton Lucas', '2024-03-06 11:46:31', '2024-03-06 11:46:31', NULL, '118-1196 2230', NULL, 0, NULL, NULL, NULL, NULL, NULL, 10212, '2024-02-09 00:00:00', '2024-02-11 00:00:00', 2, 14, 828.514, 'USD', 'AOA', NULL, 3376.0872, 2453627.64072, 343507.8697008, 2797135.5104208, '1000277231751', 3, NULL, 1, 'N', 'Y', 'N', 0, 0, 1, 3, 'REFERENTE A AWB Nº 118-1196 2230; ENTRADA DIA 09/02 SAIDA DIA 11/02'),
-	(233, '2024-03-06;2024-03-06T14:31:08;FT ATO2024/26;3636177.93;sxzr5Y1HBxfoPeB3XV9oNqjJ93n39Yq8zN1M+y4Zr5yjr0HBlcX4rsKKRC9+YQyekIhjZ2nRqkF+OEU0/B0A+B9KbMiy3P6W56WuOuE2CBYzT83m3obhfxmUT2qldw+9hx5xuKj4EFzrjJVzlfGlMA8BvBa9TO6hdvKFQ4evZdA=', 1, 267, 'MULTIFLIGHT LDA', 'VULKAN AIR', '+244933535482', '5417323659', 'opsmultiflight@gmail.com', 'Av. Revolução de Outubro, Bloco 47 B-3 Andar', 2, 26, 'FT ATO2024/26', NULL, 'spZZQXWYVmxhI2UDKjbMUzSnnGfQL8EcYeJ2euCM75306rBXtesQD8SFYZND1Rx95ELXnjQmfVJvXmqYK0hW5Hw0bb0PQWlT/QUrjpSuhytqudf44ptjKFeH4h87MpD7NyZGUQcGSun+CKmB67HwpUxhBtoq3G8sPDHCx1N4kaM=', NULL, 1, 1, 750, 'Carlos Sampaio', '2024-03-06 14:31:08', '2024-03-06 14:31:08', NULL, NULL, 'ANTONOV AN-26', 24, '2024-02-06', '2024-02-23', '11:09:00', '14:30:00', NULL, 88, NULL, NULL, NULL, 14, 828.514, 'USD', 'AOA', NULL, 4388.7948, 3189629.76748, 446548.1674472, 3636177.9349272, '1000267233750', 2, 2, NULL, 'N', 'N', 'N', 0, 0, 2, NULL, 'REFERENTE A NOTA DE PREÇO Nº 094/24, VOO DO DIA 23/02/2024'),
-	(234, '2024-03-06;2024-03-06T15:30:23;FR ATO2024/85;9920.72;BEv5ayT2VSHVtfqpI2TJXYH6q6vn3BPGL/rfmvJaHedhmFY7F5it2B2y+e5vcfMy1O2HM0XhKkR+foUDXecOkPo9V+tMM50vw9OR8WC68HVr9k6/YEWH4GOH618deq5iSkd1HvkCeY84r4Fs6H+zRTRhvOhQKEnc9T7/CV06VhU=', 1, 282, 'BESTFLY, LDA', 'BESTFLY LDA', '+244925928831', '5417077976', 'ops@bestfly.aero', 'AV. 21 DE JANEIRO-AEROPORTO 4 DE FEVEREIRO', 1, 85, 'FR ATO2024/85', NULL, 'iqqFUvlbHxnq7oDl1WIMPHj9PL25tpQbU6LLUwTEhsn7mrtf9Cstn7hLKjyrh+3T2TRnahOBirrMsx0ggPGbeDmTuzK/XfWXpEIql9Ctc0gbD8Lq/UjWEmr4uNjPpVT5FftHYX4WK3u1L4M26xfwbafhU1ejD7MIUHrG+8Ni/w4=', NULL, 1, 1, 751, 'Milton Lucas', '2024-03-06 15:30:23', '2024-03-06 15:30:23', NULL, '118/VIE/1213-1011', NULL, 0, NULL, NULL, NULL, NULL, NULL, 21, '2024-02-24 00:00:00', '2024-02-29 00:00:00', 5, 14, 828.799, 'USD', 'AOA', NULL, 11.97, 8702.3895, 1218.33453, 9920.72403, '1000282234751', 1, 4, 1, 'N', 'N', 'N', 0, 0, 1, 3, 'REFERENTE A NOTA DE PREÇO Nº 099/24'),
-	(235, '2024-03-07;2024-03-07T08:58:32;FR ATO2024/86;697401.60;iqqFUvlbHxnq7oDl1WIMPHj9PL25tpQbU6LLUwTEhsn7mrtf9Cstn7hLKjyrh+3T2TRnahOBirrMsx0ggPGbeDmTuzK/XfWXpEIql9Ctc0gbD8Lq/UjWEmr4uNjPpVT5FftHYX4WK3u1L4M26xfwbafhU1ejD7MIUHrG+8Ni/w4=', 1, 266, 'Panalpina Transportes Mundiais Navegação e Transitos SA', 'ESSO EXPLORATION ANGOLA (BLOCK 15) LTD', '226422041', '5403005862', 'dario.manuel@ao.dsv.com', 'Rua Kima Kienda 106, Estr. da Boavista – Luanda', 1, 86, 'FR ATO2024/86', 'FP ATO2024/17', 'HI9a+P40f67cgJSF83+nh3DB1YduMhuLG5NrD4EAf49BOnriBeGnLMiBRYJv1T+KOACw1o/b+Q8s+eGJM0C+x0zWknBfsoScEH/0YOCuQCwlrrccQPq1JmdLNUNdphLmgKldOOKDAwWdgH6KtP8QLVT4u7QZ7cfx5NzzxqS9r7Y=', NULL, 1, 1, 750, 'Carlos Sampaio', '2024-03-07 08:58:32', '2024-03-07 08:58:32', NULL, '118-12121970', NULL, 0, NULL, NULL, NULL, NULL, NULL, 1571, '2024-02-24 00:00:00', '2024-03-07 00:00:00', 12, 14, 828.522, 'USD', NULL, NULL, 841.7418, 611755.78914, 85645.8104796, 697401.5996196, '1000266235750', 1, 4, 1, 'N', 'N', 'N', 0, 0, 1, 1, 'REFERENTE A AWB Nº 118-12121970'),
-	(236, '2024-03-07;2024-03-07T09:32:04;PP ATO2024/19;80442.90;inU6C01vNGYSBVPLSPfvaI2NpXMuens31aT1QlFRb+1stUpoUY73Yf4wy0wxaiMvctZJgGy0Jw3B2niBrOdfcBKhPPmLwV9PjqX1MZTNoC6ZFgQpNS7OaeHIQuWQbI05/UvMgzbm7uGKiLh20hQizd/9Kywx4T33yztEWBgMRW0=', 1, 282, 'BESTFLY, LDA', 'BESTFLY LIMITADA', '+244925928831', '5417077976', 'ops@bestfly.aero', 'AV. 21 DE JANEIRO-AEROPORTO 4 DE FEVEREIRO', 3, 19, 'FP ATO2024/19', NULL, 'VMKhqw4tsIvCBcua0qlb1HQL7cmd7N8yAwUziq2H/UEbYIs4Zful4m2e3IHJ2fuFQMRsLdi3tLnbqdIpEnVTLROAmlc7PHvA7hyqFL/LU/qSYC7JjvH8aVSGSUsoEtpSwhxKWNxukOTbwXDrMX4yrJeXLxdxNn47VHsyKBfQKiw=', NULL, 1, 1, 750, 'Carlos Sampaio', '2024-03-07 09:32:04', '2024-03-07 09:32:04', NULL, '118-12132816', NULL, 0, NULL, NULL, NULL, NULL, NULL, 86, '2024-02-24 00:00:00', '2024-03-07 00:00:00', 12, 14, 828.799, 'USD', 'AOA', NULL, 97.0596, 70563.94686, 9878.9525604, 80442.8994204, '1000282236750', 3, NULL, 1, 'N', 'Y', 'N', 0, 0, 1, 3, 'REFERENTE A AWB Nº 118-12132816'),
-	(237, '2024-03-07;2024-03-07T10:18:04;FT ATO2024/27;2954669.32;spZZQXWYVmxhI2UDKjbMUzSnnGfQL8EcYeJ2euCM75306rBXtesQD8SFYZND1Rx95ELXnjQmfVJvXmqYK0hW5Hw0bb0PQWlT/QUrjpSuhytqudf44ptjKFeH4h87MpD7NyZGUQcGSun+CKmB67HwpUxhBtoq3G8sPDHCx1N4kaM=', 1, 264, 'GRUPO LIZ - COMERCIO E SERVIÇOS, LIMITADA', 'AIR ATLANTA ICELANDIC', '923520471', '5403084690', 'ian.pereira@grupoliz.com', 'Bairro Cassenda - Rua 02, Casa nº 12, Maianga', 2, 27, 'FT ATO2024/27', NULL, 'DjRxpgLPgTaSDJT5F4fl6NtqtlZiDVQPtMqgIvSh1lSoG5D3dCDsyaSm4823UJ2gQuBQ3V9svQd8/rzBJ24Xz8Y3aa7hTASywWmJp1jnJrQGPEqVO2hAZmtkwVIuHk2dylA7ZosWN9NnuVg7kDPfLJUtc83UYi3O0vlkN3sfhv4=', NULL, 1, 1, 750, 'Carlos Sampaio', '2024-03-07 10:18:04', '2024-03-07 10:18:04', NULL, NULL, 'BOING 747-400F', 397, '2024-01-26', '2024-01-28', '06:13:00', '17:04:00', NULL, NULL, NULL, NULL, NULL, 0, 828.776, 'USD', 'AOA', NULL, 3565.1, 2954669.3176, 0, 2954669.3176, '1000264237750', 2, 2, NULL, 'Y', 'N', 'N', 0, 0, 2, NULL, 'REFERENTE A NOTA DE PREÇO Nº 048/24'),
-	(238, '2024-03-07;2024-03-07T10:23:48;FR ATO2024/87;80442.90;HI9a+P40f67cgJSF83+nh3DB1YduMhuLG5NrD4EAf49BOnriBeGnLMiBRYJv1T+KOACw1o/b+Q8s+eGJM0C+x0zWknBfsoScEH/0YOCuQCwlrrccQPq1JmdLNUNdphLmgKldOOKDAwWdgH6KtP8QLVT4u7QZ7cfx5NzzxqS9r7Y=', 1, 282, 'BESTFLY, LDA', 'BESTFLY LIMITADA', '+244925928831', '5417077976', 'ops@bestfly.aero', 'AV. 21 DE JANEIRO-AEROPORTO 4 DE FEVEREIRO', 1, 87, 'FR ATO2024/87', 'FP ATO2024/19', 'Zb6sXuw3nwbWIXFCyCno5hzqB2bEm2pfATOXBJ5U5sD60pePRVmMbWyIOjzrSCVF2mC9iVBuRRzZqCbrQwtlIgvWnSMOFTB5OM6XyWKGDrCFfu3HG12DJ+6WT/Xak9KTJCEO3mMhWlc7VZFoRhsf/f0UELxQExt7FNaLFVcT4aU=', NULL, 1, 1, 750, 'Carlos Sampaio', '2024-03-07 10:23:48', '2024-03-07 10:23:48', NULL, '118-12132816', NULL, 0, NULL, NULL, NULL, NULL, NULL, 86, '2024-02-24 00:00:00', '2024-03-07 00:00:00', 12, 14, 828.799, 'USD', NULL, NULL, 97.0596, 70563.94686, 9878.9525604, 80442.8994204, '1000282238750', 1, 4, 1, 'N', 'N', 'N', 0, 0, 1, 3, 'REFERENTE A AWB Nº 118-12132816'),
-	(239, '2024-03-07;2024-03-07T10:42:41;FR ATO2024/88;2797135.51;Zb6sXuw3nwbWIXFCyCno5hzqB2bEm2pfATOXBJ5U5sD60pePRVmMbWyIOjzrSCVF2mC9iVBuRRzZqCbrQwtlIgvWnSMOFTB5OM6XyWKGDrCFfu3HG12DJ+6WT/Xak9KTJCEO3mMhWlc7VZFoRhsf/f0UELxQExt7FNaLFVcT4aU=', 1, 277, 'COMPANHIA CASTEL DE BEBIDAS DE LUANDA-CCBL, S.A', 'COMPANHIA CASTEL DE BEBIDAS DE LUANDA', '923967562', '5410000757', NULL, 'RUA N´GOLA KILUANGE Nº370', 1, 88, 'FR ATO2024/88', 'FP ATO2024/18', 'lrnKAoi8lXs89Qx5e/vlISyrs9m2K/wQhj499QBdfSd6S4Yod4YhY9S3DinerM9NYFKRfdQbwtWspS88r2CyQxfJvXX3xw1cHkIgvmtf66SqVLNQJe6z/AvNJ8qBJZRmHg2kG/dsizFeLr+0zuc0EeJSd8E8hhwXrzJzEAmX3Kc=', NULL, 1, 1, 751, 'Milton Lucas', '2024-03-07 10:42:41', '2024-03-07 10:42:41', NULL, '118-1196 2230', NULL, 0, NULL, NULL, NULL, NULL, NULL, 10212, '2024-02-09 00:00:00', '2024-02-11 00:00:00', 2, 14, 828.514, 'USD', NULL, NULL, 3376.0872, 2453627.64072, 343507.8697008, 2797135.5104208, '1000277239750', 1, 4, 1, 'N', 'N', 'N', 0, 0, 1, 3, 'REFERENTE A AWB Nº 118-1196 2230; ENTRADA DIA 09/02 SAIDA DIA 11/02'),
-	(240, '2024-03-07;2024-03-07T12:50:22;PP ATO2024/20;21831.58;VMKhqw4tsIvCBcua0qlb1HQL7cmd7N8yAwUziq2H/UEbYIs4Zful4m2e3IHJ2fuFQMRsLdi3tLnbqdIpEnVTLROAmlc7PHvA7hyqFL/LU/qSYC7JjvH8aVSGSUsoEtpSwhxKWNxukOTbwXDrMX4yrJeXLxdxNn47VHsyKBfQKiw=', 1, 283, 'MANUEL GOMES PACA', 'MANUEL GOMES PACA', NULL, '000107432CA014', NULL, 'CASA S Nº ZONA A CABINDA', 3, 20, 'FP ATO2024/20', NULL, 'apkaP9QdmCawylVQwLzmyuWSsmxAyQz6M2g4sjFwLCD5aDonKMq83tMJKMXAdbvx0T0+tSERzlNuZw09Gkhe9kRrobZm6RY2tgfpJoYk4TOly7ote6b1Nn5oV3VAAQYX2emkwBSnKN/oYC3uf+Na/vd4EJPA8Uo46xfRvNlPhyw=', NULL, 1, 1, 750, 'Carlos Sampaio', '2024-03-07 12:50:22', '2024-03-07 12:50:22', NULL, '574-33945321', NULL, 0, NULL, NULL, NULL, NULL, NULL, 46, '2024-03-02 00:00:00', '2024-03-07 00:00:00', 5, 14, 832.631, 'USD', 'AOA', NULL, 26.22, 19150.513, 2681.07182, 21831.58482, '1000283240750', 3, NULL, 1, 'N', 'Y', 'N', 0, 0, 1, 3, 'REFERENTE A AWB Nº 574-33945321'),
-	(241, '2024-03-07;2024-03-07T15:26:26;FR ATO2024/89;21831.58;lrnKAoi8lXs89Qx5e/vlISyrs9m2K/wQhj499QBdfSd6S4Yod4YhY9S3DinerM9NYFKRfdQbwtWspS88r2CyQxfJvXX3xw1cHkIgvmtf66SqVLNQJe6z/AvNJ8qBJZRmHg2kG/dsizFeLr+0zuc0EeJSd8E8hhwXrzJzEAmX3Kc=', 1, 283, 'MANUEL GOMES PACA', 'MANUEL GOMES PACA', NULL, '000107432CA014', NULL, 'CASA S Nº ZONA A CABINDA', 1, 89, 'FR ATO2024/89', 'FP ATO2024/20', 'A0ulaaQjGqe0p+ZbVuhCYNeJaxRACFaWeAHMcwcrH8T1aABMNvUxCdnWUq/I7P2sD2JZzn7QERppiHu2YHJ014HtSmPuGXA6xLSjbJgDbH16v2BLa4J6M75rTvvzsYO1w0omgkj/yQrsi82E3IA8BFyXrWMI+QHzymIHSfvThR0=', NULL, 1, 1, 750, 'Carlos Sampaio', '2024-03-07 15:26:26', '2024-03-07 15:26:26', NULL, '574-33945321', NULL, 0, NULL, NULL, NULL, NULL, NULL, 46, '2024-03-02 00:00:00', '2024-03-07 00:00:00', 5, 14, 832.631, 'USD', NULL, NULL, 26.22, 19150.513, 2681.07182, 21831.58482, '1000283241751', 1, 4, 1, 'N', 'N', 'N', 0, 0, 1, 3, 'REFERENTE A AWB Nº 574-33945321'),
-	(242, '2024-03-11;2024-03-11T10:53:27;PP ATO2024/21;226811.18;apkaP9QdmCawylVQwLzmyuWSsmxAyQz6M2g4sjFwLCD5aDonKMq83tMJKMXAdbvx0T0+tSERzlNuZw09Gkhe9kRrobZm6RY2tgfpJoYk4TOly7ote6b1Nn5oV3VAAQYX2emkwBSnKN/oYC3uf+Na/vd4EJPA8Uo46xfRvNlPhyw=', 1, 269, 'TAAG - LINHAS AEREAS DE ANGOLA', 'TAAG', NULL, '5410002830', NULL, NULL, 3, 21, 'FP ATO2024/21', NULL, 'GHbWcFemwZjMH0i5lI+gIoSvOtMFUAmTWxYQLjafrOvrhxCuUeBwv0lbGrg9w+4BnAeg4xOJK3e4AUh8jRCcKKKmPKeg4Qg7ERU/2YWVVo9cBsVXCGNaAMx3mhACRosN0zHJQF9AHUWWVlH0vz0kbYr5z7CBu+H9dbns3H6M3pw=', NULL, 1, 1, 750, 'Carlos Sampaio', '2024-03-11 10:53:27', '2024-03-11 10:53:27', NULL, '118-11723084', NULL, 0, NULL, NULL, NULL, NULL, NULL, 405, '2024-02-24 00:00:00', '2024-03-11 00:00:00', 16, 14, 832.631, 'USD', 'AOA', NULL, 272.403, 198957.17745, 27854.004843, 226811.182293, '1000269242750', 3, NULL, 1, 'N', 'Y', 'N', 0, 0, 1, 1, 'REFERENTE A AWB Nº 118-11723084'),
-	(243, '2024-03-11;2024-03-11T10:57:28;PP ATO2024/22;1887786.63;GHbWcFemwZjMH0i5lI+gIoSvOtMFUAmTWxYQLjafrOvrhxCuUeBwv0lbGrg9w+4BnAeg4xOJK3e4AUh8jRCcKKKmPKeg4Qg7ERU/2YWVVo9cBsVXCGNaAMx3mhACRosN0zHJQF9AHUWWVlH0vz0kbYr5z7CBu+H9dbns3H6M3pw=', 1, 269, 'TAAG - LINHAS AEREAS DE ANGOLA', 'TAAG', NULL, '5410002830', NULL, NULL, 3, 22, 'FP ATO2024/22', NULL, 'yFmfntmvMImKgLoF2vz/XF5oMcxEZrlGqVCIioCjc3sntZ1vUzh1nMEJ58aiuubMxMdfJoG34kHVo4XUyOti8xgx6kIM43QL4MZlaf8jx+5PcrwKfYm8+/DmgNC4b/JLPGsKlCO4H1+xPakDzqPxiuF+fqyuhrOQlIDUnlZleb8=', NULL, 1, 1, 750, 'Carlos Sampaio', '2024-03-11 10:57:28', '2024-03-11 10:57:28', NULL, '118-11723073', NULL, 0, NULL, NULL, NULL, NULL, NULL, 1566, '2024-02-24 00:00:00', '2024-03-11 00:00:00', 16, 14, 832.631, 'USD', 'AOA', NULL, 2267.2548, 1655953.18542, 231833.4459588, 1887786.6313788, '1000269243750', 3, NULL, 1, 'N', 'Y', 'N', 0, 0, 1, 3, 'REFERENTE A AWB Nº 118-11723073'),
-	(244, '2024-03-11;2024-03-11T11:00:57;FT ATO2024/28;10515280.25;DjRxpgLPgTaSDJT5F4fl6NtqtlZiDVQPtMqgIvSh1lSoG5D3dCDsyaSm4823UJ2gQuBQ3V9svQd8/rzBJ24Xz8Y3aa7hTASywWmJp1jnJrQGPEqVO2hAZmtkwVIuHk2dylA7ZosWN9NnuVg7kDPfLJUtc83UYi3O0vlkN3sfhv4=', 1, 264, 'GRUPO LIZ - COMERCIO E SERVIÇOS, LIMITADA', 'AIR ATLANTA ICELANDIC', '923520471', '5403084690', 'ian.pereira@grupoliz.com', 'Bairro Cassenda - Rua 02, Casa nº 12, Maianga', 2, 28, 'FT ATO2024/28', NULL, 'AXi21W8/Iyi3HuJyjtEBmTlo8RA4V842r6tIL61ICmFjMdfByg4LSCMnK2YVyqNZp6tLNUKi+PozY8Eb+ADHTftqnDJ0ov76SirMzV8pu+eJ6VI5nlKoBaBTa9QdFLYoyq52Ted8MeDV9y+QQF2WPb07bhRNzKWUxzvNVFPFlYE=', NULL, 1, 1, 751, 'Milton Lucas', '2024-03-11 11:00:57', '2024-03-11 11:00:57', NULL, NULL, 'BOING 747-400', 397, '2024-02-24', '2024-02-25', '06:23:00', '12:05:00', NULL, 68636, NULL, NULL, NULL, 0, 832.631, 'USD', 'AOA', NULL, 12628.98, 10515280.24638, 0, 10515280.24638, '1000264244751', 2, 2, NULL, 'Y', 'N', 'N', 0, 0, 2, NULL, 'REFERENTE AO VOO DO DIA 25/02/2024'),
-	(245, '2024-03-06;2024-03-06T12:17:02;FT ATO2024/25;2968412.78;onnybySYsKOYpd8sLMsfggKyYTa/pjdi1efoIneJfmV5rAnNuJXOUVx6bOVr/PAfKLx8qDEy+M6SJDpLT0Wd5C1i5q+prlr2ES+0WKwL55s9d123Rjo/hiiP7VIAq9o4Z95gprNoEuUs7WZtb65TsqBUk3Jzzcov+XuEZF6CFcc=', 1, 264, 'GRUPO LIZ - COMERCIO E SERVIÇOS, LIMITADA', 'AIR ATLANTA ICELANDIC', '923520471', '5403084690', 'ian.pereira@grupoliz.com', 'Bairro Cassenda - Rua 02, Casa nº 12, Maianga', 2, 25, 'FT ATO2024/25', NULL, 'sxzr5Y1HBxfoPeB3XV9oNqjJ93n39Yq8zN1M+y4Zr5yjr0HBlcX4rsKKRC9+YQyekIhjZ2nRqkF+OEU0/B0A+B9KbMiy3P6W56WuOuE2CBYzT83m3obhfxmUT2qldw+9hx5xuKj4EFzrjJVzlfGlMA8BvBa9TO6hdvKFQ4evZdA=', NULL, 1, 1, 751, 'Milton Lucas', '2024-03-06 12:17:02', '2024-03-06 12:17:02', NULL, NULL, 'BOING 747-400', 397, '2024-03-02', '2024-03-02', '07:50:00', '13:59:00', NULL, 0, NULL, NULL, NULL, 0, 832.631, 'USD', 'AOA', NULL, 3565.1, 2968412.7781, 0, 2968412.7781, '10002642451', 2, 2, NULL, 'Y', 'N', 'N', 0, 0, 2, NULL, 'REFERENTE AO VOO DO DIA 02/03/2024'),
-	(246, '2024-03-11;2024-03-11T11:31:23;PP ATO2024/23;738064.18;yFmfntmvMImKgLoF2vz/XF5oMcxEZrlGqVCIioCjc3sntZ1vUzh1nMEJ58aiuubMxMdfJoG34kHVo4XUyOti8xgx6kIM43QL4MZlaf8jx+5PcrwKfYm8+/DmgNC4b/JLPGsKlCO4H1+xPakDzqPxiuF+fqyuhrOQlIDUnlZleb8=', 1, 266, 'Panalpina Transportes Mundiais Navegação e Transitos SA', 'BAKER HUGHES ANGOLA LDA', '226422041', '5403005862', 'dario.manuel@ao.dsv.com', 'Rua Kima Kienda 106, Estr. da Boavista – Luanda', 3, 23, 'FP ATO2024/23', NULL, 'I6Mcc4zziiqdfyqLnC1CizQ1Ff2FyDMcb+jNhhcZuZO6se7k8ICD2Sg0Y921ExTZnXklF/evYPZQz15fNPoxaEnTfzxgMpFC58znNzgTBe+LohiSGanQ7gLEXPeKdUJFI24EEt1HvYTuJYfW7qh+aPw2YzuHhPyv01DvfSsuSjk=', NULL, 1, 1, 750, 'Carlos Sampaio', '2024-03-11 11:31:23', '2024-03-11 11:31:23', NULL, '118-11962182', NULL, 0, NULL, NULL, NULL, NULL, NULL, 1896.5, '2024-03-02 00:00:00', '2024-03-12 00:00:00', 10, 14, 832.631, 'USD', 'AOA', NULL, 886.4241, 647424.723515, 90639.4612921, 738064.1848071, '1000266246750', 3, NULL, 1, 'N', 'N', 'N', 0, 0, 1, 1, 'REFERENTE A AWB Nº 118-11962182'),
-	(247, '2024-03-11;2024-03-11T11:57:35;PP ATO2024/24;1516137.12;I6Mcc4zziiqdfyqLnC1CizQ1Ff2FyDMcb+jNhhcZuZO6se7k8ICD2Sg0Y921ExTZnXklF/evYPZQz15fNPoxaEnTfzxgMpFC58znNzgTBe+LohiSGanQ7gLEXPeKdUJFI24EEt1HvYTuJYfW7qh+aPw2YzuHhPyv01DvfSsuSjk=', 1, 284, 'NOCEBO SA', 'NOCEBO SA', '937 393 718', '5410777832', 'angelino@castel-afrique.com', 'RUA CONEGO MANUEL DAS NEVES NR 403', 3, 24, 'FP ATO2024/24', NULL, 'bc+y4mhSHPbUOXQHn3gpQTpNTEIe6b3WmN/rb+qn6B3CyEV7cLPxBdYoCO8Ahv++P06HicpRp/MFHOyNwGMgBqA7/DUpCcW5MFzum79kWiQy+boJVQ2GKKFhEdP0DrDnxe1WaIR3hFntKdyZuf7/zTnN22e4LIVLv6iLki6ZbRE=', NULL, 1, 1, 750, 'Carlos Sampaio', '2024-03-11 11:57:35', '2024-03-11 11:57:35', NULL, '118-11723390', NULL, 0, NULL, NULL, NULL, NULL, NULL, 1192, '2024-02-24 00:00:00', '2024-03-12 00:00:00', 17, 14, 832.631, 'USD', 'AOA', NULL, 1820.8992, 1329944.84368, 186192.2781152, 1516137.1217952, '1000284247750', 3, NULL, 1, 'N', 'Y', 'N', 0, 0, 1, 3, 'REFERENTE A AWB Nº 118-11723390'),
-	(248, '2024-03-11;2024-03-11T12:23:16;FT ATO2024/29;4233096.00;AXi21W8/Iyi3HuJyjtEBmTlo8RA4V842r6tIL61ICmFjMdfByg4LSCMnK2YVyqNZp6tLNUKi+PozY8Eb+ADHTftqnDJ0ov76SirMzV8pu+eJ6VI5nlKoBaBTa9QdFLYoyq52Ted8MeDV9y+QQF2WPb07bhRNzKWUxzvNVFPFlYE=', 1, 264, 'GRUPO LIZ - COMERCIO E SERVIÇOS, LIMITADA', 'AIR ATLANTA ICELANDIC', '923520471', '5403084690', 'ian.pereira@grupoliz.com', 'Bairro Cassenda - Rua 02, Casa nº 12, Maianga', 2, 29, 'FT ATO2024/29', NULL, 'EPUn1GX8/GsKWJnc3EV3sHcmDV28ZUh2hadZncQ0BPXaTaIvwBqqOHUv9JNXGzyq/eOCi5Z08wJ3dNnhq1nkGEU+pSEUFvgh2RaPA2NcUECawiV2qc4MyUegI9V2my3/n1AA1cTQXU+cT2NLNqlvBPZ/9psUav86MNQB9dzeTbk=', NULL, 1, 1, 751, 'Milton Lucas', '2024-03-11 12:23:16', '2024-03-11 12:23:16', NULL, NULL, 'BOING 747-400', 397, '2024-03-02', '2024-03-02', '07:50:00', '13:59:00', NULL, 63550, NULL, NULL, NULL, 0, 832.631, 'USD', 'AOA', NULL, 5084, 4233096.004, 0, 4233096.004, '1000264248751', 2, 2, NULL, 'Y', 'N', 'N', 0, 0, 2, NULL, 'REFERENTE AO VOO DO DIA 02/03/2024'),
-	(249, '2024-03-11;2024-03-11T13:57:16;FR ATO2024/90;226811.18;A0ulaaQjGqe0p+ZbVuhCYNeJaxRACFaWeAHMcwcrH8T1aABMNvUxCdnWUq/I7P2sD2JZzn7QERppiHu2YHJ014HtSmPuGXA6xLSjbJgDbH16v2BLa4J6M75rTvvzsYO1w0omgkj/yQrsi82E3IA8BFyXrWMI+QHzymIHSfvThR0=', 1, 269, 'TAAG - LINHAS AEREAS DE ANGOLA', 'TAAG', NULL, '5410002830', NULL, NULL, 1, 90, 'FR ATO2024/90', 'FP ATO2024/21', 'UdxfGhKYL/Cn8PXE6H28kQlEwXTA72BaZ6yf7sP0ZEHEMPQkD/j9RwquyjRCmyCUU11tMiT65O0nKbgZAIIPcNdSuX07iYt8wnxjr1V7ur2gMlEJO7l/Cmmye+3CrzP80UTYurrlhJSANnWiK65bJYz1UMj0qwZrC64qoUYJh4s=', NULL, 1, 1, 750, 'Carlos Sampaio', '2024-03-11 13:57:16', '2024-03-11 13:57:16', NULL, '118-11723084', NULL, 0, NULL, NULL, NULL, NULL, NULL, 405, '2024-02-24 00:00:00', '2024-03-11 00:00:00', 16, 14, 832.631, 'USD', NULL, NULL, 272.403, 198957.17745, 27854.004843, 226811.182293, '1000269249750', 1, 4, 1, 'N', 'N', 'N', 0, 0, 1, 1, 'REFERENTE A AWB Nº 118-11723084'),
-	(250, '2024-03-11;2024-03-11T13:58:45;FR ATO2024/91;1887786.63;UdxfGhKYL/Cn8PXE6H28kQlEwXTA72BaZ6yf7sP0ZEHEMPQkD/j9RwquyjRCmyCUU11tMiT65O0nKbgZAIIPcNdSuX07iYt8wnxjr1V7ur2gMlEJO7l/Cmmye+3CrzP80UTYurrlhJSANnWiK65bJYz1UMj0qwZrC64qoUYJh4s=', 1, 269, 'TAAG - LINHAS AEREAS DE ANGOLA', 'TAAG', NULL, '5410002830', NULL, NULL, 1, 91, 'FR ATO2024/91', 'FP ATO2024/22', 'tW/APlOPgmSNZ3Yxu1rraxspytVFXT++OWMbhAPhGe0FaUpjz/CFtPVRjR4y1q9fUERjYFPsfPxnh5FW3vFd4BVF3TJzd1CqPaZISW96P+hOWlrfq4cLSQZKXfCCK3+v1WQMUJrlSlhAFbBK4a/7AFpab2rDAEXQC6m88YUhoTQ=', NULL, 1, 1, 750, 'Carlos Sampaio', '2024-03-11 13:58:45', '2024-03-11 13:58:45', NULL, '118-11723073', NULL, 0, NULL, NULL, NULL, NULL, NULL, 1566, '2024-02-24 00:00:00', '2024-03-11 00:00:00', 16, 14, 832.631, 'USD', NULL, NULL, 2267.2548, 1655953.18542, 231833.4459588, 1887786.6313788, '1000269250750', 1, 4, 1, 'N', 'N', 'N', 0, 0, 1, 3, 'REFERENTE A AWB Nº 118-11723073'),
-	(251, '2024-03-11;2024-03-11T14:02:38;PP ATO2024/25;302984.43;bc+y4mhSHPbUOXQHn3gpQTpNTEIe6b3WmN/rb+qn6B3CyEV7cLPxBdYoCO8Ahv++P06HicpRp/MFHOyNwGMgBqA7/DUpCcW5MFzum79kWiQy+boJVQ2GKKFhEdP0DrDnxe1WaIR3hFntKdyZuf7/zTnN22e4LIVLv6iLki6ZbRE=', 1, 276, 'VITALIS CHUKWULOTA OZOCHI', 'OZOCHI VITALIS', '928434868', '0000032603', 'mailto:edgarpedro687@gmail.com', 'Sambizanga Casa S Zona 10', 3, 25, 'FP ATO2024/25', NULL, 'II6h0+0XfDizaph5FEOILqGFTWnyzvbm645mj9CSi/a3URypWxh7p4qAAHr9F4IcC2/p+mBG28PVT7qgR5czPSHyl7eBKlFpIq+HnZg4+gaLPracinsAFLsVoQxunI1jcrAhiZVKyCDCPSEz4duA3z5SvlRB7wQNHuDSYTTlnaU=', NULL, 1, 1, 750, 'Carlos Sampaio', '2024-03-11 14:02:38', '2024-03-11 14:02:38', NULL, '118-12401174', NULL, 0, NULL, NULL, NULL, NULL, NULL, 2280, '2024-03-10 00:00:00', '2024-03-11 00:00:00', 1, 14, 832.631, 'USD', 'AOA', NULL, 363.888, 265775.8152, 37208.614128, 302984.429328, '1000276251750', 3, NULL, 1, 'N', 'Y', 'N', 0, 0, 1, 1, 'REFERENTE A AWB 118-12401174'),
-	(252, '2024-03-11;2024-03-11T14:24:36;FR ATO2024/92;302984.43;tW/APlOPgmSNZ3Yxu1rraxspytVFXT++OWMbhAPhGe0FaUpjz/CFtPVRjR4y1q9fUERjYFPsfPxnh5FW3vFd4BVF3TJzd1CqPaZISW96P+hOWlrfq4cLSQZKXfCCK3+v1WQMUJrlSlhAFbBK4a/7AFpab2rDAEXQC6m88YUhoTQ=', 1, 276, 'VITALIS CHUKWULOTA OZOCHI', 'OZOCHI VITALIS', '928434868', '0000032603', 'mailto:edgarpedro687@gmail.com', 'Sambizanga Casa S Zona 10', 1, 92, 'FR ATO2024/92', 'FP ATO2024/25', 'iXFfp9KqorJ/LAdb/8mMu1zDLPHhI4pR8YmWxFlsEL0LhC6HCqlC3QiZ3lMJ23lV9aXBwGnweWWqVATegZjWgiDsqkLPnBy8M6iPKQUN2W/TBBs4ZDxdZ+HmphSSGcVearL1eTV+pwuD7AFwouWwGD4Jb0EkCaZPUzS/oiEGFOA=', NULL, 1, 1, 750, 'Carlos Sampaio', '2024-03-11 14:24:36', '2024-03-11 14:24:36', NULL, '118-12401174', NULL, 0, NULL, NULL, NULL, NULL, NULL, 2280, '2024-03-10 00:00:00', '2024-03-11 00:00:00', 1, 14, 832.631, 'USD', NULL, NULL, 363.888, 265775.8152, 37208.614128, 302984.429328, '1000276252750', 1, 4, 1, 'N', 'N', 'N', 0, 0, 1, 1, 'REFERENTE A AWB 118-12401174'),
-	(255, '2024-03-11;2024-03-11T16:13:46;PP ATO2024/26;53819.60;II6h0+0XfDizaph5FEOILqGFTWnyzvbm645mj9CSi/a3URypWxh7p4qAAHr9F4IcC2/p+mBG28PVT7qgR5czPSHyl7eBKlFpIq+HnZg4+gaLPracinsAFLsVoQxunI1jcrAhiZVKyCDCPSEz4duA3z5SvlRB7wQNHuDSYTTlnaU=', 1, 269, 'TAAG - LINHAS AEREAS DE ANGOLA', 'TAAG', NULL, '5410002830', NULL, NULL, 3, 26, 'FP ATO2024/26', NULL, 'JiHB1Txo0mpzxw/H7Sya9ZhS9thsNYP6qhOegxGoa+goMMXNX0RRdlWsDDFJ+VkpjdLQd/4dA+ZvZTKtJGUmNtzgBAki+it2tJ7jLGu9OeWVSt0KbwuudIK2gPUWu57dqBs5IsvL4j0KZNerXnPW0/0VvNhIVYXPiFrrrRwLPMg=', NULL, 1, 1, 750, 'Carlos Sampaio', '2024-03-11 16:13:46', '2024-03-11 16:13:46', NULL, '118-11723084', NULL, 0, NULL, NULL, NULL, NULL, NULL, 405, '2024-03-11 00:00:00', '2024-03-12 00:00:00', 1, 14, 832.631, 'USD', 'AOA', NULL, 64.638, 47210.1777, 6609.424878, 53819.602578, '1000269255750', 3, NULL, 1, 'N', 'Y', 'N', 0, 0, 1, 1, 'REFERENTE A AWB 118-11723084'),
-	(256, '2024-03-11;2024-03-11T16:17:11;PP ATO2024/27;327018.16;JiHB1Txo0mpzxw/H7Sya9ZhS9thsNYP6qhOegxGoa+goMMXNX0RRdlWsDDFJ+VkpjdLQd/4dA+ZvZTKtJGUmNtzgBAki+it2tJ7jLGu9OeWVSt0KbwuudIK2gPUWu57dqBs5IsvL4j0KZNerXnPW0/0VvNhIVYXPiFrrrRwLPMg=', 1, 269, 'TAAG - LINHAS AEREAS DE ANGOLA', 'TAAG', NULL, '5410002830', NULL, NULL, 3, 27, 'FP ATO2024/27', NULL, 'kRsBIcmpaNfxYluMgxuuaoO2N3jbUahAvgkSGwoNX4JesVim6nV3DdeRSHvhzcRKNo+jVlCM/c9vmX9BKI3sg2wAM/Ib+hIGKYnqe/PVydxmr5tFDS6MI4/n79kH1DSI/V4fCsz/pFr3b+LuyHsNaVexGKTyphLT7HXPz5wv8Ao=', NULL, 1, 1, 750, 'Carlos Sampaio', '2024-03-11 16:17:11', '2024-03-11 16:17:11', NULL, '118-11723073', NULL, 0, NULL, NULL, NULL, NULL, NULL, 1566, '2024-03-11 00:00:00', '2024-03-12 00:00:00', 1, 14, 832.631, 'USD', 'AOA', NULL, 392.7528, 286858.03212, 40160.1244968, 327018.1566168, '1000269256750', 3, NULL, 1, 'N', 'Y', 'N', 0, 0, 1, 3, 'REFERENTE A AWB 118-11723073'),
-	(257, '2024-03-11;2024-03-11T16:23:04;PP ATO2024/28;142807.04;kRsBIcmpaNfxYluMgxuuaoO2N3jbUahAvgkSGwoNX4JesVim6nV3DdeRSHvhzcRKNo+jVlCM/c9vmX9BKI3sg2wAM/Ib+hIGKYnqe/PVydxmr5tFDS6MI4/n79kH1DSI/V4fCsz/pFr3b+LuyHsNaVexGKTyphLT7HXPz5wv8Ao=', 1, 285, 'Kuehne e Nagel (Angola) Transitarios, LDA', 'TECHNIP FMC ANGOLA LDA', '946 901 469', '5403088504', 'knao.pagamentos@kuehne-nagel.com', 'Rua Rainha Ginga, Nº 29, Edifício Elisée Trade Center 16º Andar, Distrito Urbano da Ingombota', 3, 28, 'FP ATO2024/28', NULL, 'BYDDuijevKhlycR+S3pxTRtYt7n+6C23hB+gXJ4pXMhqexSxTzafAioo0+SnYLBwxvzue3unAtv1OJi0RyvzuvBhgC9vkrnrc0flaOi7tX+FM8WIEhXcSvc75mqvmY+sRvuqyG5/Aw+dTCBVHluaMhnxNBl97KPlv2u/zCL5PnI=', NULL, 1, 1, 751, 'Milton Lucas', '2024-03-11 16:23:04', '2024-03-11 16:23:04', NULL, '118-11509116', NULL, 0, NULL, NULL, NULL, NULL, NULL, 177, '2024-03-02 00:00:00', '2024-03-12 00:00:00', 10, 14, 832.631, 'USD', 'AOA', NULL, 171.513, 125269.33395, 17537.706753, 142807.040703, '1000285257751', 3, NULL, 1, 'N', 'N', 'N', 0, 0, 1, 3, 'REFERENTE A AWB Nº 118-11509116'),
-	(258, '2024-03-11;2024-03-11T16:29:47;PP ATO2024/29;45789.38;BYDDuijevKhlycR+S3pxTRtYt7n+6C23hB+gXJ4pXMhqexSxTzafAioo0+SnYLBwxvzue3unAtv1OJi0RyvzuvBhgC9vkrnrc0flaOi7tX+FM8WIEhXcSvc75mqvmY+sRvuqyG5/Aw+dTCBVHluaMhnxNBl97KPlv2u/zCL5PnI=', 1, 285, 'Kuehne e Nagel (Angola) Transitarios, LDA', 'BAKER PETROLITE ANGOLA LIMITED', '946 901 469', '5403088504', 'knao.pagamentos@kuehne-nagel.com', 'Rua Rainha Ginga, Nº 29, Edifício Elisée Trade Center 16º Andar, Distrito Urbano da Ingombota', 3, 29, 'FP ATO2024/29', NULL, 'G7tBehprYRWW0T4/9P2yDJYlMqdS1/KbLfBvLDVYEdyETjaoT8g6Z0usgmbGJjx0SDWnCFa/Gs8+PWFe7T/FHt2lc4gYeED8QSAss2quWQ5nCcfyYOb+l4xZfbRpxEKfPwKrh++FMOX7uQ+xl4pGFxMpKa/wAWUAInlnmcGF7io=', NULL, 1, 1, 751, 'Milton Lucas', '2024-03-11 16:29:47', '2024-03-11 16:29:47', NULL, '118-11962171', NULL, 0, NULL, NULL, NULL, NULL, NULL, 36, '2024-02-24 00:00:00', '2024-03-12 00:00:00', 17, 14, 832.631, 'USD', 'AOA', NULL, 54.9936, 40166.11944, 5623.2567216, 45789.3761616, '1000285258751', 3, NULL, 1, 'N', 'N', 'N', 0, 0, 1, 3, 'REFERENTE A AWB Nº 118-11962171'),
-	(259, '2024-03-12;2024-03-12T10:19:20;FT ATO2024/30;2720496.90;EPUn1GX8/GsKWJnc3EV3sHcmDV28ZUh2hadZncQ0BPXaTaIvwBqqOHUv9JNXGzyq/eOCi5Z08wJ3dNnhq1nkGEU+pSEUFvgh2RaPA2NcUECawiV2qc4MyUegI9V2my3/n1AA1cTQXU+cT2NLNqlvBPZ/9psUav86MNQB9dzeTbk=', 1, 264, 'GRUPO LIZ - COMERCIO E SERVIÇOS, LIMITADA', 'AIR ATLANTA ICELANDIC', '923520471', '5403084690', 'ian.pereira@grupoliz.com', 'Bairro Cassenda - Rua 02, Casa nº 12, Maianga', 2, 30, 'FT ATO2024/30', NULL, 'Z6TPQ6jKykiewdyE60nIubwyGSww7gE13RGwnDVUJE+ujAQ5ptnMHuyOQj9U1Hz44mOm1foracZPukJdsyXHNGlbAz9p3rg/Ebu/fiY/wqC/CiPtQUy/Q68Fj3ymfN3f6o2HlEpFPlta1Xj2NmiGl0/orjxyHwnO8KOkbwV/EOE=', NULL, 1, 1, 751, 'Milton Lucas', '2024-03-12 10:19:20', '2024-03-12 10:19:20', NULL, NULL, 'BOING 747-400F', 397, '2024-03-10', '2024-03-10', '14:32:00', '17:46:00', NULL, 0, NULL, NULL, NULL, 0, 832.631, 'USD', 'AOA', NULL, 3267.35, 2720496.89785, 0, 2720496.89785, '1000264259751', 2, 2, NULL, 'Y', 'N', 'N', 0, 0, 2, NULL, 'REFERENTE AO VOO DO DIA 10/03/2024'),
-	(260, '2024-03-12;2024-03-12T10:23:37;FT ATO2024/31;3273370.21;Z6TPQ6jKykiewdyE60nIubwyGSww7gE13RGwnDVUJE+ujAQ5ptnMHuyOQj9U1Hz44mOm1foracZPukJdsyXHNGlbAz9p3rg/Ebu/fiY/wqC/CiPtQUy/Q68Fj3ymfN3f6o2HlEpFPlta1Xj2NmiGl0/orjxyHwnO8KOkbwV/EOE=', 1, 264, 'GRUPO LIZ - COMERCIO E SERVIÇOS, LIMITADA', 'AIR ATLANTA ICELANDIC', '923520471', '5403084690', 'ian.pereira@grupoliz.com', 'Bairro Cassenda - Rua 02, Casa nº 12, Maianga', 2, 31, 'FT ATO2024/31', NULL, 'iMXNfUjiRAFjh9f/d5STdB2nqFGd4dJu2jCfLwcAxdUAXb9P3/HTb7PAnkTurp420RO3e2y9Rh20Rmj0ADx/xQT5vEPAa/4XKP6lYJ8GF59IP7Dux9UCU7qqbgrDY1XPm8iZqhIGDCDj/V4jD5tZ6+jlNZaMPDIGUlUfNNUINiw=', NULL, 1, 1, 751, 'Milton Lucas', '2024-03-12 10:23:37', '2024-03-12 10:23:37', NULL, NULL, 'BOEING 747-400F', 397, '2024-03-10', '2024-03-10', '14:32:00', '17:46:00', NULL, 49141.97, NULL, NULL, NULL, 0, 832.631, 'USD', 'AOA', NULL, 3931.3576, 3273370.2098456, 0, 3273370.2098456, '1000264260751', 2, 2, NULL, 'Y', 'N', 'N', 0, 0, 2, NULL, 'REFERENTE AO VOO DO DIA 10/03/2024'),
-	(261, '2024-03-12;2024-03-12T10:50:47;PP ATO2024/30;1183923.05;G7tBehprYRWW0T4/9P2yDJYlMqdS1/KbLfBvLDVYEdyETjaoT8g6Z0usgmbGJjx0SDWnCFa/Gs8+PWFe7T/FHt2lc4gYeED8QSAss2quWQ5nCcfyYOb+l4xZfbRpxEKfPwKrh++FMOX7uQ+xl4pGFxMpKa/wAWUAInlnmcGF7io=', 1, 270, 'TLC LDA', 'SEADRIL ANGOLA LDA', '+244 926 515 109', ' 5401146655', 'dsousa.an@tlc-com.ch', 'Avenida 4 de Fevereiro nº33 Luanda, Angola', 3, 30, 'FP ATO2024/30', NULL, 'C6myzhg5vpgjn936h1agaE0DdJw/8ZcdAtZIb2u/ZvNE7Ys0r1YVYCDqxUph61Vteesz58yVslInIuUfU9xEkXFREsp4UvI/tJwmv11Zc86mPkuQstmQpHonAW217RQfIGK6QOfHulvMjAK5jTPCXh7tB47v5ktbCXIm2giGCBQ=', NULL, 1, 1, 750, 'Carlos Sampaio', '2024-03-12 10:50:47', '2024-03-12 10:50:47', NULL, '574-34001634', NULL, 0, NULL, NULL, NULL, NULL, NULL, 884.6, '2024-02-24 00:00:00', '2024-03-13 00:00:00', 18, 14, 832.631, 'USD', 'AOA', NULL, 1421.90604, 1038528.989466, 145394.05852524, 1183923.0479912, '1000270261750', 3, NULL, 1, 'N', 'Y', 'N', 0, 0, 1, 3, 'REFERENTE A AWB Nº 574-34001634'),
-	(262, '2024-03-12;2024-03-12T11:17:29;FR ATO2024/93;53819.60;iXFfp9KqorJ/LAdb/8mMu1zDLPHhI4pR8YmWxFlsEL0LhC6HCqlC3QiZ3lMJ23lV9aXBwGnweWWqVATegZjWgiDsqkLPnBy8M6iPKQUN2W/TBBs4ZDxdZ+HmphSSGcVearL1eTV+pwuD7AFwouWwGD4Jb0EkCaZPUzS/oiEGFOA=', 1, 269, 'TAAG - LINHAS AEREAS DE ANGOLA', 'TAAG', NULL, '5410002830', NULL, NULL, 1, 93, 'FR ATO2024/93', 'FP ATO2024/26', 'QCSaaxdegMFoiqUwdejfzUkD7imFRglpXoxy++K9UkVChkR2yCMDk1ysPJj7TpqOg/nGMDXweLxdfBGb7lig2vXiDOuHf2jKkSDzePtJZoqJV8F6rIFmv/bOp1JjZdzl6/T/9GCREdjaE/+iSpCyEYTxfuk/dJfrk+/RQ+/69zw=', NULL, 1, 1, 750, 'Carlos Sampaio', '2024-03-12 11:17:29', '2024-03-12 11:17:29', NULL, '118-11723084', NULL, 0, NULL, NULL, NULL, NULL, NULL, 405, '2024-03-11 00:00:00', '2024-03-12 00:00:00', 1, 14, 832.631, 'USD', NULL, NULL, 64.638, 47210.1777, 6609.424878, 53819.602578, '1000269262750', 1, 4, 1, 'N', 'N', 'N', 0, 0, 1, 1, 'REFERENTE A AWB 118-11723084'),
-	(263, '2024-03-12;2024-03-12T11:19:21;FR ATO2024/94;327018.16;QCSaaxdegMFoiqUwdejfzUkD7imFRglpXoxy++K9UkVChkR2yCMDk1ysPJj7TpqOg/nGMDXweLxdfBGb7lig2vXiDOuHf2jKkSDzePtJZoqJV8F6rIFmv/bOp1JjZdzl6/T/9GCREdjaE/+iSpCyEYTxfuk/dJfrk+/RQ+/69zw=', 1, 269, 'TAAG - LINHAS AEREAS DE ANGOLA', 'TAAG', NULL, '5410002830', NULL, NULL, 1, 94, 'FR ATO2024/94', 'FP ATO2024/27', 'RltgOWOSG9/GXmQ9ulhMVv/SccKtBMDuLLqS1KGC80Z6uegGkT2GXZ9MLP5QppBUBHv3SGV21D+QN9l4YoQHgAHw7zoT8zCDIvFbAX9byrMCnEaUHhZNqVxjLsBWiUPiwBfowh7d0n5E5xdWiYUSDXYLcuy4Q0DlbyFIVrxcWnw=', NULL, 1, 1, 750, 'Carlos Sampaio', '2024-03-12 11:19:21', '2024-03-12 11:19:21', NULL, '118-11723073', NULL, 0, NULL, NULL, NULL, NULL, NULL, 1566, '2024-03-11 00:00:00', '2024-03-12 00:00:00', 1, 14, 832.631, 'USD', NULL, NULL, 392.7528, 286858.03212, 40160.1244968, 327018.1566168, '1000269263750', 1, 4, 1, 'N', 'N', 'N', 0, 0, 1, 3, 'REFERENTE A AWB 118-11723073'),
-	(264, '2024-03-12;2024-03-12T12:52:15;PP ATO2024/31;2255867.15;C6myzhg5vpgjn936h1agaE0DdJw/8ZcdAtZIb2u/ZvNE7Ys0r1YVYCDqxUph61Vteesz58yVslInIuUfU9xEkXFREsp4UvI/tJwmv11Zc86mPkuQstmQpHonAW217RQfIGK6QOfHulvMjAK5jTPCXh7tB47v5ktbCXIm2giGCBQ=', 1, 3, 'NGONGO THOMAS & FILHOS COMERCIO GERAL LTD', 'NTF', '+244923437631', '54176617919', 'kingsleychima75@gmail.com', 'Rua Santos Nº18, Bairro Cassenda', 3, 31, 'FP ATO2024/31', NULL, 'PsbzM7+CrfPgzCg6XK4qd27CcydFJztY0zL9lK9RIhxMCat+NCeKtxrVJq2M5FGueMj4DfyTCl2tIX3aSCYWfK49LR2g2XW+FwLvtxRik90hue9cgcdQjp849gP0LHun8JSTvs/P/86fSed4grYvJiknur7tUBXhtgDC3xL76Qo=', NULL, 1, 1, 751, 'Milton Lucas', '2024-03-12 12:52:15', '2024-03-12 12:52:15', NULL, '118-12401093', NULL, 0, NULL, NULL, NULL, NULL, NULL, 13980, '2024-03-10 00:00:00', '2024-03-12 00:00:00', 2, 14, 832.631, 'USD', 'AOA', NULL, 2709.324, 1978830.8346, 277036.316844, 2255867.151444, '10003264751', 3, NULL, 1, 'N', 'Y', 'N', 0, 0, 1, 1, 'REFERENTE A AWB Nº 118-1240 1093'),
-	(265, '2024-03-12;2024-03-12T14:30:35;FR ATO2024/95;2255867.15;RltgOWOSG9/GXmQ9ulhMVv/SccKtBMDuLLqS1KGC80Z6uegGkT2GXZ9MLP5QppBUBHv3SGV21D+QN9l4YoQHgAHw7zoT8zCDIvFbAX9byrMCnEaUHhZNqVxjLsBWiUPiwBfowh7d0n5E5xdWiYUSDXYLcuy4Q0DlbyFIVrxcWnw=', 1, 3, 'NGONGO THOMAS & FILHOS COMERCIO GERAL LTD', 'NTF', '+244923437631', '54176617919', 'kingsleychima75@gmail.com', 'Rua Santos Nº18, Bairro Cassenda', 1, 95, 'FR ATO2024/95', 'FP ATO2024/31', 'TrufWIqAnAVNNAoACA5zBKz/JUgkeXoZNfBqj79zedqZ5dGSyPJDhad7SxEAWzsUj1uuAsQWNiAZKIZc3rEVkAs4+DzGFaWaqZWl6LmYe04zLNgXtzgdzDWs/mKJ3LPkT7kye2XzC1VMu5LvbRY+0PZ2gmVlkFTF2uTCWMDeXaw=', NULL, 1, 1, 751, 'Milton Lucas', '2024-03-12 14:30:35', '2024-03-12 14:30:35', NULL, '118-12401093', NULL, 0, NULL, NULL, NULL, NULL, NULL, 13980, '2024-03-10 00:00:00', '2024-03-12 00:00:00', 2, 14, 832.631, 'USD', NULL, NULL, 2709.324, 1978830.8346, 277036.316844, 2255867.151444, '10003265750', 1, 4, 1, 'N', 'N', 'N', 0, 0, 1, 1, 'REFERENTE A AWB Nº 118-1240 1093'),
-	(266, '2024-03-12;2024-03-12T15:50:15;PP ATO2024/32;100804.97;PsbzM7+CrfPgzCg6XK4qd27CcydFJztY0zL9lK9RIhxMCat+NCeKtxrVJq2M5FGueMj4DfyTCl2tIX3aSCYWfK49LR2g2XW+FwLvtxRik90hue9cgcdQjp849gP0LHun8JSTvs/P/86fSed4grYvJiknur7tUBXhtgDC3xL76Qo=', 1, 286, 'YAPAMA SAÚDE, LDA', 'YAPAMA SAUDE LDA', '+244932102227', '5417163783', NULL, 'Belas Business Park, Edifício Cabinda Nº304', 3, 32, 'FP ATO2024/32', NULL, 'a7P4tK9mWf3ydbQbugl65M2PSwvEkpc1MXXgvTU9R/mnUsDRi3fHKD87ZecGemk9ovexbevpKz1AgK7qomSniQSAc0xIuPUROGo/oq1fR5wbdscIfWqHIWa5otLhPIoSr2f16YiQ/7OmsDm+sWwT6V4xD0S5gPixzZ9CWnod9/o=', NULL, 1, 1, 750, 'Carlos Sampaio', '2024-03-12 15:50:15', '2024-03-12 15:50:15', NULL, '118-12352830', NULL, 0, NULL, NULL, NULL, NULL, NULL, 531, '2024-03-10 00:00:00', '2024-03-13 00:00:00', 3, 14, 832.631, 'USD', 'AOA', NULL, 121.068, 88425.4122, 12379.557708, 100804.969908, '1000286266750', 3, NULL, 1, 'N', 'Y', 'N', 0, 0, 1, 1, 'REFERENTE A AWB 118-12352830'),
-	(267, '2024-03-12;2024-03-12T16:10:41;FR ATO2024/96;1183923.05;TrufWIqAnAVNNAoACA5zBKz/JUgkeXoZNfBqj79zedqZ5dGSyPJDhad7SxEAWzsUj1uuAsQWNiAZKIZc3rEVkAs4+DzGFaWaqZWl6LmYe04zLNgXtzgdzDWs/mKJ3LPkT7kye2XzC1VMu5LvbRY+0PZ2gmVlkFTF2uTCWMDeXaw=', 1, 270, 'TLC LDA', 'SEADRIL ANGOLA LDA', '+244 926 515 109', ' 5401146655', 'dsousa.an@tlc-com.ch', 'Avenida 4 de Fevereiro nº33 Luanda, Angola', 1, 96, 'FR ATO2024/96', 'FP ATO2024/30', 'PvV60bfDHvsxTlY4KkFZ8ONupAkTGKQrzyEK4nD5Da+W61/yunDFj9/h5hdUvAYp9N7jMJ/etKaA+BEj+BUMjDpefkuU4ne7OMe/1It65WoWttiOlBizjBXlKe1lbf56p00/RYNHTu4S+pbhst4M1TSlGnDAHKvX8hYuQ14cVhI=', NULL, 1, 1, 750, 'Carlos Sampaio', '2024-03-12 16:10:41', '2024-03-12 16:10:41', NULL, '574-34001634', NULL, 0, NULL, NULL, NULL, NULL, NULL, 884.6, '2024-02-24 00:00:00', '2024-03-13 00:00:00', 18, 14, 832.631, 'USD', NULL, NULL, 1421.90604, 1038528.989466, 145394.05852524, 1183923.0479912, '1000270267750', 1, 4, 1, 'N', 'N', 'N', 0, 0, 1, 3, 'REFERENTE A AWB Nº 574-34001634'),
-	(268, '2024-03-12;2024-03-12T17:09:15;PP ATO2024/33;248918.03;a7P4tK9mWf3ydbQbugl65M2PSwvEkpc1MXXgvTU9R/mnUsDRi3fHKD87ZecGemk9ovexbevpKz1AgK7qomSniQSAc0xIuPUROGo/oq1fR5wbdscIfWqHIWa5otLhPIoSr2f16YiQ/7OmsDm+sWwT6V4xD0S5gPixzZ9CWnod9/o=', 1, 284, 'NOCEBO SA', 'NOCEBO SA', '937 393 718', '5410777832', 'angelino@castel-afrique.com', 'RUA CONEGO MANUEL DAS NEVES NR 403', 3, 33, 'FP ATO2024/33', NULL, 'I9JK9elykzEwW22a4nK3d1M418uI7EKqp0SCmj2wnG1+mxmguCmMkQglRXd8aIl/OhslKhyMOVmVNFGNLwL4wWNCiPe2X0MKzgcDCp7J3Hu31y/Yis6a24Y1th0VzNDP+OBJGmn7aunt4jdJACCfiSEx9dvL4MN7g+Z3pkNFa4Y=', NULL, 1, 1, 751, 'Milton Lucas', '2024-03-12 17:09:15', '2024-03-12 17:09:15', NULL, '118-11723390', NULL, 0, NULL, NULL, NULL, NULL, NULL, 1192, '2024-03-13 00:00:00', '2024-03-14 00:00:00', 1, 14, 832.631, 'USD', 'AOA', NULL, 298.9536, 218349.15344, 30568.8814816, 248918.0349216, '1000284268751', 3, NULL, 1, 'N', 'N', 'N', 0, 0, 1, 3, 'REFERENTE A AWB Nº118-11723390'),
-	(269, '2024-03-13;2024-03-13T10:08:04;FR ATO2024/97;100804.97;PvV60bfDHvsxTlY4KkFZ8ONupAkTGKQrzyEK4nD5Da+W61/yunDFj9/h5hdUvAYp9N7jMJ/etKaA+BEj+BUMjDpefkuU4ne7OMe/1It65WoWttiOlBizjBXlKe1lbf56p00/RYNHTu4S+pbhst4M1TSlGnDAHKvX8hYuQ14cVhI=', 1, 286, 'YAPAMA SAÚDE, LDA', 'YAPAMA SAUDE LDA', '+244932102227', '5417163783', NULL, 'Belas Business Park, Edifício Cabinda Nº304', 1, 97, 'FR ATO2024/97', 'FP ATO2024/32', 'OjbNrBbW/T2DdoZHr8WGOlkGnplhUFw8DLoHZbMtERqQzxh6dlxc5aFMbgP5AuFOYEsSO4SMrP+6FYcRhlUsqcdnF+f1aoxz7wFZ0GBcXZkB4V3VKsMwF0mSNhYBcolUEqm4DcGBT8dNDwTI+fvz7iIljNizUyld5mLS3KhAv88=', NULL, 1, 1, 750, 'Carlos Sampaio', '2024-03-13 10:08:04', '2024-03-13 10:08:04', NULL, '118-12352830', NULL, 0, NULL, NULL, NULL, NULL, NULL, 531, '2024-03-10 00:00:00', '2024-03-13 00:00:00', 3, 14, 832.631, 'USD', NULL, NULL, 121.068, 88425.4122, 12379.557708, 100804.969908, '1000286269751', 1, 4, 1, 'N', 'N', 'N', 0, 0, 1, 1, 'REFERENTE A AWB 118-12352830'),
-	(270, '2024-03-13;2024-03-13T10:28:42;FR ATO2024/98;1516137.12;OjbNrBbW/T2DdoZHr8WGOlkGnplhUFw8DLoHZbMtERqQzxh6dlxc5aFMbgP5AuFOYEsSO4SMrP+6FYcRhlUsqcdnF+f1aoxz7wFZ0GBcXZkB4V3VKsMwF0mSNhYBcolUEqm4DcGBT8dNDwTI+fvz7iIljNizUyld5mLS3KhAv88=', 1, 284, 'NOCEBO SA', 'NOCEBO SA', '937 393 718', '5410777832', 'angelino@castel-afrique.com', 'RUA CONEGO MANUEL DAS NEVES NR 403', 1, 98, 'FR ATO2024/98', 'FP ATO2024/24', 'T2NI20vL76lu6Bxt7fxYFEJIYrJYd96fTN1biMHCcdyOV97xmGFsaDrOpKIW8XZeKU/Ez6kkT4tg5da/JQM1RZXRk7npjFI5ejBhI5Qy+6pKqE+x2+6eSc+ihpRZFQ2z8oaPC51qmCsagxgD36SGbdiwBzAUiDqpOVEoO+62pOs=', NULL, 1, 1, 750, 'Carlos Sampaio', '2024-03-13 10:28:42', '2024-03-13 10:28:42', NULL, '118-11723390', NULL, 0, NULL, NULL, NULL, NULL, NULL, 1192, '2024-02-24 00:00:00', '2024-03-12 00:00:00', 17, 14, 832.631, 'USD', NULL, NULL, 1820.8992, 1329944.84368, 186192.2781152, 1516137.1217952, '1000284270751', 1, 4, 1, 'N', 'N', 'N', 0, 0, 1, 3, 'REFERENTE A AWB Nº 118-11723390'),
-	(271, '2024-03-15;2024-03-15T09:49:30;PP ATO2024/34;190505.97;I9JK9elykzEwW22a4nK3d1M418uI7EKqp0SCmj2wnG1+mxmguCmMkQglRXd8aIl/OhslKhyMOVmVNFGNLwL4wWNCiPe2X0MKzgcDCp7J3Hu31y/Yis6a24Y1th0VzNDP+OBJGmn7aunt4jdJACCfiSEx9dvL4MN7g+Z3pkNFa4Y=', 1, 273, 'AZULE ENERGY ANGOLA(BLOCK 18), B.V. - SUCURSAL DE ANGOLA', 'AZULE ENERGY ANGOLA', NULL, '5410003667', NULL, 'AV 4 DE FEVEREIRO TORRES ATLANTICO N 197', 3, 34, 'FP ATO2024/34', NULL, 'lGkmRdaw3voLVtAUcaijAGy1Mt15VtNUofHwJdC6zitVNoGPpv6TLfmllvoOJdeDeGTITv/JgLhehpUQwBgZgxXg5LrAY6bvXvVGevk6bXK5K3+Yr2tPctFerjPCombQx5vOM5zwvOvNp5LZ/fszFlk+fRxDE2hIOOSRo10UchQ=', NULL, 1, 1, 1, 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', '2024-03-15 09:49:30', '2024-03-15 09:49:30', NULL, '118-11509433', NULL, 0, NULL, NULL, NULL, NULL, NULL, 880, '2024-03-10 00:00:00', '2024-03-15 00:00:00', 5, 0, 832.631, 'USD', 'AOA', NULL, 228.8, 190505.9728, 0, 190505.9728, '10002732711', 3, NULL, 1, 'Y', 'N', 'N', 0, 0, 1, 1, 'REFERENTE A AWB Nº 118-11509433');
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.facturas: ~3 rows (aproximadamente)
+INSERT INTO `facturas` (`id`, `texto_hash`, `codigo_moeda`, `clienteId`, `nome_do_cliente`, `nomeProprietario`, `telefone_cliente`, `nif_cliente`, `email_cliente`, `endereco_cliente`, `tipo_documento`, `numSequenciaFactura`, `numeracaoFactura`, `numeracaoProforma`, `hashValor`, `cliente_id`, `empresa_id`, `centroCustoId`, `user_id`, `operador`, `created_at`, `updated_at`, `paisOrigemId`, `cartaDePorte`, `tipoDeAeronave`, `pesoMaximoDescolagem`, `dataDeAterragem`, `dataDeDescolagem`, `horaDeAterragem`, `horaDeDescolagem`, `horaEstacionamento`, `peso`, `dataEntrada`, `dataSaida`, `nDias`, `taxaIva`, `cambioDia`, `moeda`, `moedaPagamento`, `horaExtra`, `contraValor`, `valorIliquido`, `valorImposto`, `totalDesconto`, `total`, `codigoBarra`, `tipoDocumento`, `formaPagamentoId`, `tipoOperacao`, `isencaoIVA`, `isencaoOcupacao`, `convertido`, `anulado`, `taxaRetencao`, `valorRetencao`, `tipoFatura`, `tipoMercadoria`, `observacao`) VALUES
+	(402, '2024-04-15;2024-04-15T04:55:15;PP ATO2024/1;25438.60;', 1, 287, 'ADVANCED MARITIME TRANSPORTS LDA', 'AAAAAAA', '940198085', '5403087095', 'm.simao@amt-sa.com', NULL, 3, 1, 'FP ATO2024/1', NULL, 'rCynR2L4bgjYH1Z3DspPvxvlJZuld/ZFe97s3sEUVWXWu1UpCGaXetIJmAYV6D+GTC7cG1PGg9hRSsDDbSVfaLHvwrH0vZwk4e2zuY8WdGJnx2ExtcHsFoL5jJ5N8ysG0Yvd4HLG9RqiaVhO1EUxPcUtRq5tR76AT5/ok8QbsqU=', NULL, 1, 1, 1, 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', '2024-04-15 04:55:15', '2024-04-15 04:55:15', NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 14, 832.633, 'USD', 'AOA', NULL, 30.552, 22314.5644, 3124.039016, 111572.822, 25438.603416, '10002874021', 3, NULL, NULL, 'N', 'Y', 'N', 'N', 0, 0, 4, NULL, NULL),
+	(403, '2024-04-15;2024-04-15T05:47:40;PP ATO2024/2;45561.68;rCynR2L4bgjYH1Z3DspPvxvlJZuld/ZFe97s3sEUVWXWu1UpCGaXetIJmAYV6D+GTC7cG1PGg9hRSsDDbSVfaLHvwrH0vZwk4e2zuY8WdGJnx2ExtcHsFoL5jJ5N8ysG0Yvd4HLG9RqiaVhO1EUxPcUtRq5tR76AT5/ok8QbsqU=', 1, 287, 'ADVANCED MARITIME TRANSPORTS LDA', 'AAAAAAAA', '940198085', '5403087095', 'm.simao@amt-sa.com', NULL, 3, 2, 'FP ATO2024/2', NULL, 'MWaxCep1hP6bmAkJAcKY2g1/3qsI7h347Fdbnrnv/b8EzSjnyKtTe0AXftzlHw+17sDsC6lHvsFJxvMrQPAKzEK4DzByMROaroNxrbjXQ6RDJBJp8BIC5/QzNM7RSCsbIpstYNNh6/tmUKEYyPZxz8IP1DeHsVJAuc/Gd5GA4dY=', NULL, 1, 1, 1, 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', '2024-04-15 05:47:40', '2024-04-15 05:47:40', NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 14, 832.633, 'USD', 'AOA', NULL, 54.72, 39966.384, 5595.29376, 199831.92, 45561.67776, '10002874031', 3, NULL, NULL, 'N', 'Y', 'N', 'N', 0, 0, 4, NULL, NULL),
+	(404, '2024-04-15;2024-04-15T05:49:38;PP ATO2024/3;26197964.71;MWaxCep1hP6bmAkJAcKY2g1/3qsI7h347Fdbnrnv/b8EzSjnyKtTe0AXftzlHw+17sDsC6lHvsFJxvMrQPAKzEK4DzByMROaroNxrbjXQ6RDJBJp8BIC5/QzNM7RSCsbIpstYNNh6/tmUKEYyPZxz8IP1DeHsVJAuc/Gd5GA4dY=', 1, 287, 'ADVANCED MARITIME TRANSPORTS LDA', 'BBBBBB', '940198085', '5403087095', 'm.simao@amt-sa.com', NULL, 3, 3, 'FP ATO2024/3', NULL, 'UaNGJqAYY4DRljtjx/XcjAVsGIiEpYOJwVNuMTUAmgHrm1DHVUCEpiB5gQ3x/7SJ3W5PwUXB8zjNx1klu1ddegeUiiHvdZhN6Z7PmblMjmCI7h4tCw8EFNC0pkliV0NFj93qVF6FqmdRJgYOdMpN9H5g2VZadGmJpgzfgG5Jj7U=', NULL, 1, 1, 1, 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', '2024-04-15 05:49:38', '2024-04-15 05:49:38', NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 14, 832.633, 'USD', 'AOA', NULL, 31464, 22980670.8, 3217293.912, 0, 26197964.712, '10002874041', 3, NULL, NULL, 'N', 'N', 'N', 'N', 0, 0, 4, NULL, NULL),
+	(405, '2024-04-15;2024-04-15T06:04:18;PP ATO2024/4;23730.04;UaNGJqAYY4DRljtjx/XcjAVsGIiEpYOJwVNuMTUAmgHrm1DHVUCEpiB5gQ3x/7SJ3W5PwUXB8zjNx1klu1ddegeUiiHvdZhN6Z7PmblMjmCI7h4tCw8EFNC0pkliV0NFj93qVF6FqmdRJgYOdMpN9H5g2VZadGmJpgzfgG5Jj7U=', 1, 287, 'ADVANCED MARITIME TRANSPORTS LDA', 'bbbbb', '940198085', '5403087095', 'm.simao@amt-sa.com', NULL, 3, 4, 'FP ATO2024/4', NULL, 'GaxGTtulB+nXyQejK1D2eCTpSfT4x0/w1avfiqNtS1BPTq9NHNE6d1qCAeeLzpJ/qpaYaSjluiVqMQlji3PI4C0FDY4ZTbWB7ODXrgndYMSv7BARbCW6kvfAdexd8ArlgTYRSOsti6nohG3B6GlzR7HlEnN5y00kn88ibONQ83E=', NULL, 1, 1, 1, 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', '2024-04-15 06:04:18', '2024-04-15 06:04:18', NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 14, 832.633, 'USD', 'AOA', NULL, 28.5, 20815.825, 2914.2155, 0, 23730.0405, '10002874051', 3, NULL, NULL, 'N', 'N', 'N', 'N', 0, 0, 4, NULL, NULL),
+	(406, '2024-04-15;2024-04-15T06:08:33;PP ATO2024/5;3143755.77;GaxGTtulB+nXyQejK1D2eCTpSfT4x0/w1avfiqNtS1BPTq9NHNE6d1qCAeeLzpJ/qpaYaSjluiVqMQlji3PI4C0FDY4ZTbWB7ODXrgndYMSv7BARbCW6kvfAdexd8ArlgTYRSOsti6nohG3B6GlzR7HlEnN5y00kn88ibONQ83E=', 1, 287, 'ADVANCED MARITIME TRANSPORTS LDA', 'AAAAAAA', '940198085', '5403087095', 'm.simao@amt-sa.com', NULL, 3, 5, 'FP ATO2024/5', NULL, 'c1lUSPOxsKcG1rPVPpO2V707tdToGlNIGQUMlccAEE+9zK5hC9UaaHF0kPiO5FpQcVUhyauhPLWvQI9Dqp6StWyHRJFMqrRVUH0xQP/OrgIUM7g3PLKLGBF4U9wGIM3NKCEzoGBe+0Swzo7tEP/QPjVQqWQ7ddEHdgpqjsDi/I0=', NULL, 1, 1, 1, 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', '2024-04-15 06:08:33', '2024-04-15 06:08:33', NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 14, 832.633, 'USD', 'AOA', NULL, 3775.68, 2757680.496, 386075.26944, 0, 3143755.76544, '10002874061', 3, NULL, NULL, 'N', 'N', 'N', 'N', 0, 0, 3, NULL, NULL);
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.facturas_original
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.facturas_original
 CREATE TABLE IF NOT EXISTS `facturas_original` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `total_preco_factura` double NOT NULL,
@@ -1320,19 +1166,21 @@ CREATE TABLE IF NOT EXISTS `facturas_original` (
   CONSTRAINT `facturas_original_ibfk_9` FOREIGN KEY (`tipo_user_id`) REFERENCES `tipo_users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.facturas_original: ~0 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.facturas_original: ~0 rows (aproximadamente)
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.factura_items
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.factura_items
 CREATE TABLE IF NOT EXISTS `factura_items` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `produtoId` int(11) DEFAULT NULL,
   `quantidade` int(11) DEFAULT '1',
   `nomeProduto` varchar(255) NOT NULL,
   `taxa` double DEFAULT '0',
+  `considera1hDepois30min` enum('SIM','NAO') DEFAULT 'SIM',
+  `addArCondicionado` enum('Y','N') DEFAULT 'N',
   `taxaLuminosa` double DEFAULT '0',
   `taxaAduaneiro` double DEFAULT '0',
   `taxaEstacionamento` double DEFAULT '0',
-  `taxaIva` double DEFAULT '0',
+  `taxaIva` double NOT NULL DEFAULT '0',
   `valorIva` double DEFAULT '0',
   `nDias` int(11) DEFAULT '1',
   `peso` double DEFAULT NULL,
@@ -1340,509 +1188,36 @@ CREATE TABLE IF NOT EXISTS `factura_items` (
   `taxaAbertoAeroporto` double DEFAULT NULL,
   `horaFechoAeroporto` double DEFAULT NULL,
   `horaEstacionamento` double DEFAULT NULL,
+  `descHoraEstacionamento` varchar(255) DEFAULT NULL,
   `sujeitoDespachoId` int(11) DEFAULT NULL,
   `tipoMercadoriaId` int(11) DEFAULT '1',
   `especificacaoMercadoriaId` int(11) DEFAULT '1',
   `horaAberturaAeroporto` int(11) DEFAULT '1',
   `desconto` double DEFAULT '0',
+  `qtdMeses` double DEFAULT '0',
   `valorImposto` char(2) DEFAULT NULL,
+  `unidadeMetrica` double DEFAULT '0',
   `total` double DEFAULT '0',
   `totalIva` double DEFAULT '0',
   `factura_id` int(10) unsigned NOT NULL,
+  `dataEntrada` datetime DEFAULT NULL,
+  `dataSaida` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_factura_items_factura` (`factura_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=613 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=977 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.factura_items: ~483 rows (aproximadamente)
-INSERT INTO `factura_items` (`id`, `produtoId`, `quantidade`, `nomeProduto`, `taxa`, `taxaLuminosa`, `taxaAduaneiro`, `taxaEstacionamento`, `taxaIva`, `valorIva`, `nDias`, `peso`, `horaExtra`, `taxaAbertoAeroporto`, `horaFechoAeroporto`, `horaEstacionamento`, `sujeitoDespachoId`, `tipoMercadoriaId`, `especificacaoMercadoriaId`, `horaAberturaAeroporto`, `desconto`, `valorImposto`, `total`, `totalIva`, `factura_id`) VALUES
-	(119, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 23206.372, 1, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 165759.8, 188966.172, 93),
-	(120, 2, 1, 'Armazenagem', 0.03, 0, 0, 0, 14, 8702.3895, 1, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 62159.925, 70862.3145, 93),
-	(121, 3, 1, 'Manuseamento', 0.03, 0, 0, 0, 14, 8702.3895, 1, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 62159.925, 70862.3145, 93),
-	(122, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 23206.372, 1, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 165759.8, 188966.172, 94),
-	(123, 2, 1, 'Armazenagem', 0.03, 0, 0, 0, 14, 8702.3895, 1, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 62159.925, 70862.3145, 94),
-	(124, 3, 1, 'Manuseamento', 0.03, 0, 0, 0, 14, 8702.3895, 1, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 62159.925, 70862.3145, 94),
-	(125, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 23206.372, 1, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 165759.8, 188966.172, 95),
-	(126, 2, 1, 'Armazenagem', 0.03, 0, 0, 0, 14, 8702.3895, 1, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 62159.925, 70862.3145, 95),
-	(127, 3, 1, 'Manuseamento', 0.03, 0, 0, 0, 14, 8702.3895, 1, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 62159.925, 70862.3145, 95),
-	(128, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 37130.1952, 1, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 265215.68, 302345.8752, 96),
-	(129, 2, 1, 'Armazenagem', 0.03, 0, 0, 0, 14, 13923.8232, 1, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 99455.88, 113379.7032, 96),
-	(130, 3, 1, 'Manuseamento', 0.03, 0, 0, 0, 14, 13923.8232, 1, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 99455.88, 113379.7032, 96),
-	(131, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 65033.5368928, 1, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 464525.26352, 529558.8004128, 97),
-	(132, 2, 1, 'Armazenagem', 0.03, 0, 0, 0, 14, 24387.5763348, 1, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 174196.97382, 198584.5501548, 97),
-	(133, 3, 1, 'Manuseamento', 0.03, 0, 0, 0, 14, 24387.5763348, 1, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 174196.97382, 198584.5501548, 97),
-	(134, 4, 1, 'Estacionamento', 0.25, 197.88, 0, 0, 14, 227378.98989374, 1, 1326, 1, 546.94, 19, 89, NULL, 1, 1, 7, 0, 'T', 1624135.6420981, 1851514.6319919, 98),
-	(135, 5, 1, 'Aterragem', 0.25, 197.88, 0, 0, 14, 51341.790111976, 1, 1326, 1, 546.94, 19, 89, NULL, 1, 1, 7, 0, 'T', 366727.0722284, 418068.86234038, 98),
-	(136, 6, 1, 'Luminosa 1x', 0.25, 197.88, 0, 0, 14, 22960.390135956, 1, 1326, 1, 546.94, 19, 89, NULL, 1, 1, 7, 0, 'T', 164002.7866854, 186963.17682136, 98),
-	(137, 7, 1, 'Carga', 0.25, 197.88, 0.08, 0, 14, 12308.662753296, 1, 1326, 1, 546.94, 19, 89, 1, 1, 1, 7, 0, 'T', 87919.0196664, 100227.6824197, 98),
-	(138, 11, 1, 'Reabertura Comercial', 0.25, 197.88, 0, 0, 14, 84616.254834475, 1, 1326, 1, 546.94, 19, 89, NULL, 1, 1, 7, 0, 'T', 604401.82024625, 689018.07508073, 98),
-	(139, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 18565.0976, 1, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 132607.84, 151172.9376, 99),
-	(140, 2, 1, 'Armazenagem', 0.03, 0, 0, 0, 14, 6961.9116, 1, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 49727.94, 56689.8516, 99),
-	(141, 3, 1, 'Manuseamento', 0.03, 0, 0, 0, 14, 6961.9116, 1, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 49727.94, 56689.8516, 99),
-	(142, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 37130.1952, 1, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 265215.68, 302345.8752, 100),
-	(143, 2, 1, 'Armazenagem', 0.03, 0, 0, 0, 14, 13923.8232, 1, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 99455.88, 113379.7032, 100),
-	(144, 3, 1, 'Manuseamento', 0.03, 0, 0, 0, 14, 13923.8232, 1, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 99455.88, 113379.7032, 100),
-	(145, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 16708.58784, 1, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 119347.056, 136055.64384, 101),
-	(146, 2, 1, 'Armazenagem', 0.03, 0, 0, 0, 14, 6265.72044, 1, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 44755.146, 51020.86644, 101),
-	(147, 3, 1, 'Manuseamento', 0.03, 0, 0, 0, 14, 6265.72044, 1, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 44755.146, 51020.86644, 101),
-	(148, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 18565.0976, 1, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 132607.84, 151172.9376, 102),
-	(149, 2, 1, 'Armazenagem', 0.03, 0, 0, 0, 14, 6961.9116, 1, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 49727.94, 56689.8516, 102),
-	(150, 3, 1, 'Manuseamento', 0.03, 0, 0, 0, 14, 6961.9116, 1, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 49727.94, 56689.8516, 102),
-	(151, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 7528.1470768, 1, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 53772.47912, 61300.6261968, 103),
-	(152, 2, 1, 'Armazenagem', 0.03, 0, 0, 0, 14, 2823.0551538, 1, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 20164.67967, 22987.7348238, 103),
-	(153, 3, 1, 'Manuseamento', 0.03, 0, 0, 0, 14, 2823.0551538, 1, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 20164.67967, 22987.7348238, 103),
-	(154, 4, 1, 'Estacionamento', 0.25, 197.88, 0, 0, 14, 52199.88214385, 1, 15503, 0, 546.94, 19, 23, NULL, 1, 1, 7, 0, 'T', 372856.3010275, 425056.18317135, 104),
-	(155, 5, 1, 'Aterragem', 0.25, 197.88, 0, 0, 14, 51341.825731616, 1, 15503, 0, 546.94, 19, 23, NULL, 1, 1, 7, 0, 'T', 366727.3266544, 418069.15238602, 104),
-	(156, 6, 1, 'Luminosa 1x', 0.25, 197.88, 0, 0, 14, 22960.406065296, 1, 15503, 0, 546.94, 19, 23, NULL, 1, 1, 7, 0, 'T', 164002.9004664, 186963.3065317, 104),
-	(157, 7, 1, 'Carga', 0.25, 197.88, 0.08, 0, 14, 143907.48948061, 1, 15503, 0, 546.94, 19, 23, 1, 1, 1, 7, 0, 'T', 1027910.6391472, 1171818.1286278, 104),
-	(158, 4, 1, 'Estacionamento', 0.25, 197.88, 0, 0, 0, 0, 1, NULL, 0, 546.94, 19, 21, NULL, 1, 1, 7, 0, 'T', 2179844.2202894, 2179844.2202894, 105),
-	(159, 5, 1, 'Aterragem', 0.25, 197.88, 0, 0, 0, 0, 1, NULL, 0, 546.94, 19, 21, NULL, 1, 1, 7, 0, 'T', 2625717.2089915, 2625717.2089915, 105),
-	(160, 7, 1, 'Carga', 0.25, 197.88, 0.08, 0, 0, 0, 1, 5740, 0, 546.94, 19, 21, 1, 1, 1, 7, 0, 'T', 380584.0416, 380584.0416, 106),
-	(161, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 5096.1192912, 13, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 36400.85208, 41496.9713712, 107),
-	(162, 2, 1, 'Armazenagem', 0.07, 0, 0, 0, 14, 57968.3569374, 13, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 414059.69241, 472028.0493474, 107),
-	(163, 3, 1, 'Manuseamento', 0.07, 0, 0, 0, 14, 4459.1043798, 13, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 31850.74557, 36309.8499498, 107),
-	(164, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 334.1636928, 39, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 2386.88352, 2721.0472128, 108),
-	(165, 2, 1, 'Armazenagem', 0.07, 0, 0, 0, 14, 11403.3360168, 39, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 81452.40012, 92855.7361368, 108),
-	(166, 3, 1, 'Manuseamento', 0.07, 0, 0, 0, 14, 292.3932312, 39, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 2088.52308, 2380.9163112, 108),
-	(167, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 5096.1192912, 13, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 36400.85208, 41496.9713712, 109),
-	(168, 2, 1, 'Armazenagem', 0.07, 0, 0, 0, 14, 57968.3569374, 13, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 414059.69241, 472028.0493474, 109),
-	(169, 3, 1, 'Manuseamento', 0.07, 0, 0, 0, 14, 4459.1043798, 13, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 31850.74557, 36309.8499498, 109),
-	(170, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 36341.178552, 6, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 259579.8468, 295921.025352, 110),
-	(171, 2, 1, 'Armazenagem', 0.03, 0, 0, 0, 14, 81767.651742, 6, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 584054.6553, 665822.307042, 110),
-	(172, 3, 1, 'Manuseamento', 0.03, 0, 0, 0, 14, 13627.941957, 6, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 97342.44255, 110970.384507, 110),
-	(173, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 46876.87144, 6, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 334834.796, 381711.66744, 111),
-	(174, 2, 1, 'Armazenagem', 0.03, 0, 0, 0, 14, 105472.96074, 6, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 753378.291, 858851.25174, 111),
-	(175, 3, 1, 'Manuseamento', 0.03, 0, 0, 0, 14, 17578.82679, 6, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 125563.0485, 143141.87529, 111),
-	(176, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 43154.5693712, 6, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 308246.92408, 351401.4934512, 112),
-	(177, 2, 1, 'Armazenagem', 0.03, 0, 0, 0, 14, 97097.7810852, 6, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 693555.57918, 790653.3602652, 112),
-	(178, 3, 1, 'Manuseamento', 0.03, 0, 0, 0, 14, 16182.9635142, 6, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 115592.59653, 131775.5600442, 112),
-	(179, 5, 1, 'Aterragem', 0.25, 197.88, 0, 0, 14, 67407.4674168, 1, 9955, 0, 546.94, 19, 2, NULL, 1, 1, 7, 0, 'T', 481481.91012, 548889.3775368, 113),
-	(180, 7, 1, 'Carga', 0.25, 197.88, 0.08, 0, 14, 92407.661808, 1, 9955, 0, 546.94, 19, 2, 1, 1, 1, 7, 0, 'T', 660054.7272, 752462.389008, 113),
-	(181, 4, 1, 'Estacionamento', 0.25, 197.88, 0, 0, 14, 9732.200556925, 1, 8611, 0, 546.94, 19, 7, NULL, 1, 1, 7, 0, 'T', 69515.71826375, 79247.918820675, 114),
-	(182, 5, 1, 'Aterragem', 0.25, 197.88, 0, 0, 14, 51341.926705552, 1, 8611, 0, 546.94, 19, 7, NULL, 1, 1, 7, 0, 'T', 366728.0478968, 418069.97460235, 114),
-	(183, 7, 1, 'Carga', 0.25, 197.88, 0.08, 0, 14, 79932.260144912, 1, 8611, 0, 546.94, 19, 7, 1, 1, 1, 7, 0, 'T', 570944.7153208, 650876.97546571, 114),
-	(184, 5, 1, 'Aterragem', 0.25, 197.88, 0, 0, 0, 0, 1, NULL, 1, 546.94, 19, 2, NULL, 1, 1, 7, 0, 'T', 2625523.3212715, 2625523.3212715, 115),
-	(185, 9, 1, 'Luminosa 2x', 0.25, 197.88, 0, 0, 0, 0, 1, NULL, 1, 546.94, 19, 2, NULL, 1, 1, 7, 0, 'T', 327981.1589364, 327981.1589364, 115),
-	(186, 8, 1, 'Abertura do Aeroporto - Prolongamento', 0.25, 197.88, 0, 0, 0, 0, 1, NULL, 1, 546.94, 19, 2, NULL, 1, 1, 7, 0, 'T', 453269.6964541, 453269.6964541, 115),
-	(187, 7, 1, 'Carga', 0.25, 197.88, 0.08, 0, 0, 0, 1, 11510, 0, 546.94, 19, 2, 1, 1, 1, 7, 0, 'T', 763157.1984, 763157.1984, 116),
-	(188, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 62164.6592, 10, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 444033.28, 506197.9392, 117),
-	(189, 2, 1, 'Armazenagem', 0.03, 0, 0, 0, 14, 233117.472, 10, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 1665124.8, 1898242.272, 117),
-	(190, 3, 1, 'Manuseamento', 0.03, 0, 0, 0, 14, 23311.7472, 10, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 166512.48, 189824.2272, 117),
-	(191, 5, 1, 'Aterragem', 0.25, 197.88, 0, 0, 14, 66443.1124448, 1, 3308, 0, 546.94, 19, 2, NULL, 1, 1, 7, 0, 'T', 474593.66032, 541036.7727648, 118),
-	(192, 7, 1, 'Carga', 0.25, 197.88, 0.08, 0, 14, 30703.8927104, 1, 3308, 0, 546.94, 19, 2, 1, 1, 1, 7, 0, 'T', 219313.51936, 250017.4120704, 118),
-	(193, 5, 1, 'Aterragem', 0.25, 197.88, 0, 0, 14, 66443.1124448, 1, 15245, 1, 546.94, 19, 2, NULL, 1, 1, 7, 0, 'T', 474593.66032, 541036.7727648, 119),
-	(194, 9, 1, 'Luminosa 2x', 0.25, 197.88, 0, 0, 14, 45916.6134336, 1, 15245, 1, 546.94, 19, 2, NULL, 1, 1, 7, 0, 'T', 327975.81024, 373892.4236736, 119),
-	(195, 8, 1, 'Abertura do Aeroporto - Prolongamento', 0.25, 197.88, 0, 0, 14, 63456.7226384, 1, 15245, 1, 546.94, 19, 2, NULL, 1, 1, 7, 0, 'T', 453262.30456, 516719.0271984, 119),
-	(196, 7, 1, 'Carga', 0.25, 197.88, 0.08, 0, 14, 141499.650656, 1, 15245, 1, 546.94, 19, 2, 1, 1, 1, 7, 0, 'T', 1010711.7904, 1152211.441056, 119),
-	(197, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 12718.72556864, 4, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 90848.039776, 103566.76534464, 120),
-	(198, 2, 1, 'Armazenagem', 0.07, 0, 0, 0, 14, 44515.53949024, 4, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 317968.139216, 362483.67870624, 120),
-	(199, 3, 1, 'Manuseamento', 0.07, 0, 0, 0, 14, 11128.88487256, 4, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 79492.034804, 90620.91967656, 120),
-	(200, 7, 1, 'Carga', 0.25, 197.88, 0.08, 0, 0, 0, 1, 7000, 0, 546.94, 19, 4, 1, 1, 1, 7, 0, 'T', 464085.44, 464085.44, 121),
-	(201, 4, 1, 'Estacionamento', 0.25, 197.88, 0, 0, 0, 0, 1, NULL, 0, 546.94, 19, 4, NULL, 1, 1, 7, 0, 'T', 163672.99, 163672.99, 122),
-	(202, 5, 1, 'Aterragem', 0.25, 197.88, 0, 0, 0, 0, 1, NULL, 0, 546.94, 19, 4, NULL, 1, 1, 7, 0, 'T', 2612055.1756, 2612055.1756, 122),
-	(203, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 64971.9616, 4, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 464085.44, 529057.4016, 123),
-	(204, 2, 1, 'Armazenagem', 0.07, 0, 0, 0, 14, 227401.8656, 4, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 1624299.04, 1851700.9056, 123),
-	(205, 3, 1, 'Manuseamento', 0.07, 0, 0, 0, 14, 56850.4664, 4, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 406074.76, 462925.2264, 123),
-	(206, 4, 1, 'Estacionamento', 0.25, 197.88, 0, 0, 14, 177164.61672, 1, 1370, 0, 546.94, 19, 173, NULL, 1, 1, 7, 0, 'T', 1265461.548, 1442626.16472, 124),
-	(207, 5, 1, 'Aterragem', 0.25, 197.88, 0, 0, 14, 19117.9997008, 1, 1370, 0, 546.94, 19, 173, NULL, 1, 1, 7, 0, 'T', 136557.14072, 155675.1404208, 124),
-	(208, 7, 1, 'Carga', 0.25, 197.88, 0.08, 0, 14, 12715.941056, 1, 1370, 0, 546.94, 19, 173, 1, 1, 1, 7, 0, 'T', 90828.1504, 103544.091456, 124),
-	(209, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 1020.987968, 15, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 7292.7712, 8313.759168, 125),
-	(210, 2, 1, 'Armazenagem', 0.03, 0, 0, 0, 14, 5743.05732, 15, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 41021.838, 46764.89532, 125),
-	(211, 3, 1, 'Manuseamento', 0.03, 0, 0, 0, 14, 382.870488, 15, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 2734.7892, 3117.659688, 125),
-	(212, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 105811.48032, 16, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 755796.288, 861607.76832, 126),
-	(213, 2, 1, 'Armazenagem', 0.03, 0, 0, 0, 14, 634868.88192, 16, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 4534777.728, 5169646.60992, 126),
-	(214, 3, 1, 'Manuseamento', 0.03, 0, 0, 0, 14, 39679.30512, 16, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 283423.608, 323102.91312, 126),
-	(215, 4, 1, 'Estacionamento', 0.25, 197.88, 0, 0, 0, 0, 1, NULL, 0, 546.94, 19, 3, NULL, 1, 1, 7, 0, 'T', 82256.018, 82256.018, 127),
-	(216, 5, 1, 'Aterragem', 0.25, 197.88, 0, 0, 0, 0, 1, NULL, 0, 546.94, 19, 3, NULL, 1, 1, 7, 0, 'T', 2625645.2456, 2625645.2456, 127),
-	(217, 7, 1, 'Carga', 0.25, 197.88, 0.08, 0, 0, 0, 1, 16021, 0, 546.94, 19, 3, 1, 1, 1, 7, 0, 'T', 1062225.62368, 1062225.62368, 128),
-	(218, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 2311.2905088, 7, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 16509.21792, 18820.5084288, 129),
-	(219, 2, 1, 'Armazenagem', 0.03, 0, 0, 0, 14, 6067.1375856, 7, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 43336.69704, 49403.8346256, 129),
-	(220, 3, 1, 'Manuseamento', 0.03, 0, 0, 0, 14, 866.7339408, 7, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 6190.95672, 7057.6906608, 129),
-	(221, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 30993.5703168, 1, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 221382.64512, 252376.2154368, 130),
-	(222, 2, 1, 'Armazenagem', 0.03, 0, 0, 0, 14, 11622.5888688, 1, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 83018.49192, 94641.0807888, 130),
-	(223, 3, 1, 'Manuseamento', 0.03, 0, 0, 0, 14, 11622.5888688, 1, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 83018.49192, 94641.0807888, 130),
-	(224, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 1021.052032, 5, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 7293.2288, 8314.280832, 131),
-	(225, 2, 1, 'Armazenagem', 0.03, 0, 0, 0, 14, 1914.47256, 5, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 13674.804, 15589.27656, 131),
-	(226, 3, 1, 'Manuseamento', 0.03, 0, 0, 0, 14, 382.894512, 5, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 2734.9608, 3117.855312, 131),
-	(227, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 105818.11968, 4, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 755843.712, 861661.83168, 132),
-	(228, 2, 1, 'Armazenagem', 0.03, 0, 0, 0, 14, 158727.17952, 4, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 1133765.568, 1292492.74752, 132),
-	(229, 3, 1, 'Manuseamento', 0.03, 0, 0, 0, 14, 39681.79488, 4, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 283441.392, 323123.18688, 132),
-	(230, 4, 1, 'Estacionamento', 0.25, 197.88, 0, 0, 0, 0, 1, NULL, 0, 546.94, 19, 3, NULL, 1, 1, 7, 0, 'T', 82256.018, 82256.018, 133),
-	(231, 5, 1, 'Aterragem', 0.25, 197.88, 0, 0, 0, 0, 1, NULL, 0, 546.94, 19, 3, NULL, 1, 1, 7, 0, 'T', 2625645.2456, 2625645.2456, 133),
-	(232, 7, 1, 'Carga', 0.25, 197.88, 0.08, 0, 0, 0, 1, 5222, 0, 546.94, 19, 3, 1, 1, 1, 7, 0, 'T', 346229.46176, 346229.46176, 134),
-	(233, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 512521.708608, 1, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 3660869.3472, 4173391.055808, 135),
-	(234, 2, 1, 'Armazenagem', 0.03, 0, 0, 0, 14, 192195.640728, 1, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 1372826.0052, 1565021.645928, 135),
-	(235, 3, 1, 'Manuseamento', 0.03, 0, 0, 0, 14, 192195.640728, 1, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 1372826.0052, 1565021.645928, 135),
-	(236, 4, 1, 'Estacionamento', 0.25, 197.88, 0, 0, 0, 0, 1, NULL, 0, 546.94, 19, 5, NULL, 1, 1, 7, 0, 'T', 246768.054, 246768.054, 136),
-	(237, 5, 1, 'Aterragem', 0.25, 197.88, 0, 0, 0, 0, 1, NULL, 0, 546.94, 19, 5, NULL, 1, 1, 7, 0, 'T', 2625645.2456, 2625645.2456, 136),
-	(238, 6, 1, 'Luminosa 1x', 0.25, 197.88, 0, 0, 0, 0, 1, NULL, 0, 546.94, 19, 5, NULL, 1, 1, 7, 0, 'T', 163998.19488, 163998.19488, 136),
-	(239, 7, 1, 'Carga', 0.25, 197.88, 0.08, 0, 0, 0, 1, 29330, 0, 546.94, 19, 5, 1, 1, 1, 7, 0, 'T', 1944640.0064, 1944640.0064, 137),
-	(240, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 31467.840432, 1, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 224770.2888, 256238.129232, 138),
-	(241, 2, 1, 'Armazenagem', 0.03, 0, 0, 0, 14, 11800.440162, 1, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 84288.8583, 96089.298462, 138),
-	(242, 3, 1, 'Manuseamento', 0.03, 0, 0, 0, 14, 11800.440162, 1, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 84288.8583, 96089.298462, 138),
-	(243, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 7611.690016, 1, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 54369.2144, 61980.904416, 139),
-	(244, 2, 1, 'Armazenagem', 0.03, 0, 0, 0, 14, 2854.383756, 1, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 20388.4554, 23242.839156, 139),
-	(245, 3, 1, 'Manuseamento', 0.03, 0, 0, 0, 14, 2854.383756, 1, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 20388.4554, 23242.839156, 139),
-	(246, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 2506.288176, 1, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 17902.0584, 20408.346576, 140),
-	(247, 2, 1, 'Armazenagem', 0.03, 0, 0, 0, 14, 939.858066, 1, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 6713.2719, 7653.129966, 140),
-	(248, 3, 1, 'Manuseamento', 0.03, 0, 0, 0, 14, 939.858066, 1, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 6713.2719, 7653.129966, 140),
-	(252, 4, 1, 'Estacionamento', 0.25, 197.88, 0, 0, 0, 0, 1, 54193.5, 0, 546.94, 19, 3, NULL, 1, 1, 7, 0, 'T', 82256.018, 82256.018, 142),
-	(253, 5, 1, 'Aterragem', 0.25, 197.88, 0, 0, 0, 0, 1, 54193.5, 0, 546.94, 19, 3, NULL, 1, 1, 7, 0, 'T', 2625645.2456, 2625645.2456, 142),
-	(254, 4, 1, 'Estacionamento', 0.25, 197.88, 0, 0, 14, 42466.48224, 1, 1095.5, 0, 546.94, 19, 44, NULL, 1, 1, 7, 0, 'T', 303332.016, 345798.49824, 143),
-	(255, 5, 1, 'Aterragem', 0.25, 197.88, 0, 0, 14, 19119.1992992, 1, 1095.5, 0, 546.94, 19, 44, NULL, 1, 1, 7, 0, 'T', 136565.70928, 155684.9085792, 143),
-	(256, 7, 1, 'Carga', 0.25, 197.88, 0.08, 0, 14, 10168.7500096, 1, 1095.5, 0, 546.94, 19, 44, 1, 1, 1, 7, 0, 'T', 72633.92864, 82802.6786496, 143),
-	(257, 7, 1, 'Carga', 0.25, 197.88, 0.08, 0, 0, 0, 1, 54193.5, 0, 546.94, 19, 3, 1, 1, 1, 7, 0, 'T', 3593245.815329, 3593245.815329, 144),
-	(258, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 55693.7472, 12, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 397812.48, 453506.2272, 145),
-	(259, 2, 1, 'Armazenagem', 0.03, 0, 0, 0, 14, 250621.8624, 12, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 1790156.16, 2040778.0224, 145),
-	(260, 3, 1, 'Manuseamento', 0.03, 0, 0, 0, 14, 20885.1552, 12, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 149179.68, 170064.8352, 145),
-	(261, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 51.0526016, 6, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 364.66144, 415.7140416, 146),
-	(262, 2, 1, 'Armazenagem', 0.07, 0, 0, 0, 14, 268.0261584, 6, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 1914.47256, 2182.4987184, 146),
-	(263, 3, 1, 'Manuseamento', 0.07, 0, 0, 0, 14, 44.6710264, 6, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 319.07876, 363.7497864, 146),
-	(264, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 48472.1246464, 11, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 346229.46176, 394701.5864064, 147),
-	(265, 2, 1, 'Armazenagem', 0.03, 0, 0, 0, 14, 199947.5141664, 11, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 1428196.52976, 1628144.0439264, 147),
-	(266, 3, 1, 'Manuseamento', 0.03, 0, 0, 0, 14, 18177.0467424, 11, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 129836.04816, 148013.0949024, 147),
-	(267, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 14414.4937664, 14, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 102960.66976, 117375.1635264, 148),
-	(268, 2, 1, 'Armazenagem', 0.03, 0, 0, 0, 14, 75676.0922736, 14, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 540543.51624, 616219.6085136, 148),
-	(269, 3, 1, 'Manuseamento', 0.03, 0, 0, 0, 14, 5405.4351624, 14, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 38610.25116, 44015.6863224, 148),
-	(270, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 272249.600896, 8, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 1944640.0064, 2216889.607296, 149),
-	(271, 2, 1, 'Armazenagem', 0.03, 0, 0, 0, 14, 816748.802688, 8, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 5833920.0192, 6650668.821888, 149),
-	(272, 3, 1, 'Manuseamento', 0.03, 0, 0, 0, 14, 102093.600336, 8, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 729240.0024, 831333.602736, 149),
-	(273, 4, 1, 'Estacionamento', 0.25, 197.88, 0, 0, 14, 20682.10508, 1, 3390, 0, 546.94, 19, 24, NULL, 1, 1, 7, 0, 'T', 147729.322, 168411.42708, 141),
-	(274, 5, 1, 'Aterragem', 0.25, 197.88, 0, 0, 14, 18351.0897024, 1, 3390, 0, 546.94, 19, 24, NULL, 1, 1, 7, 0, 'T', 131079.21216, 149430.3018624, 141),
-	(275, 7, 1, 'Carga', 0.25, 197.88, 0.08, 0, 14, 31466.967168, 1, 3390, 0, 546.94, 19, 24, 1, 1, 1, 7, 0, 'T', 224764.0512, 256231.018368, 141),
-	(276, 7, 1, 'Carga', 0.25, 197.88, 0.08, 0, 0, 0, 1, 20764, 0, 546.94, 19, 59, 1, 1, 1, 7, 0, 'T', 1376696.38912, 1376696.38912, 151),
-	(277, 1, 1, 'Carga', 0.07, 0, 0, 0, 0, 0, 2, NULL, NULL, NULL, NULL, NULL, 2, 1, 1, 1, 0, 'T', 3500584.0688, 3500584.0688, 152),
-	(278, 2, 1, 'Armazenagem', 0.05, 0, 0, 0, 0, 0, 2, NULL, NULL, NULL, NULL, NULL, 1, 4, 1, 1, 0, 'T', 5000834.384, 5000834.384, 152),
-	(279, 3, 1, 'Manuseamento', 0.08, 0, 0, 0, 0, 0, 2, NULL, NULL, NULL, NULL, NULL, 1, 6, 1, 1, 0, 'T', 4000667.5072, 4000667.5072, 152),
-	(280, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 288029.495936, 3, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 2057353.5424, 2345383.038336, 153),
-	(281, 2, 1, 'Armazenagem', 0.03, 0, 0, 0, 14, 324033.182928, 3, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 2314522.7352, 2638555.918128, 153),
-	(282, 3, 1, 'Manuseamento', 0.03, 0, 0, 0, 14, 108011.060976, 3, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 771507.5784, 879518.639376, 153),
-	(283, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 2042.104064, 29, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 14586.4576, 16628.561664, 154),
-	(284, 2, 1, 'Armazenagem', 0.03, 0, 0, 0, 14, 22207.881696, 29, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 158627.7264, 180835.608096, 154),
-	(285, 3, 1, 'Manuseamento', 0.03, 0, 0, 0, 14, 765.789024, 29, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 5469.9216, 6235.710624, 154),
-	(286, 4, 1, 'Estacionamento', 0.25, 197.88, 0, 0, 0, 0, 1, NULL, 0, 546.94, 19, 3, NULL, 1, 1, 7, 0, 'T', 82256.018, 82256.018, 155),
-	(287, 5, 1, 'Aterragem', 0.25, 197.88, 0, 0, 0, 0, 1, NULL, 0, 546.94, 19, 3, NULL, 1, 1, 7, 0, 'T', 2625645.2456, 2625645.2456, 155),
-	(289, 7, 1, 'Carga', 0.25, 197.88, 0.08, 0, 0, 0, 1, 31030, 0, 546.94, 19, 3, 1, 1, 1, 7, 0, 'T', 2057353.5424, 2057353.5424, 157),
-	(290, 4, 1, 'Estacionamento', 0.25, 197.88, 0, 0, 14, 2233.55132, 1, 22620, 0, 546.94, 19, 3, NULL, 1, 1, 7, 0, 'T', 15953.938, 18187.48932, 158),
-	(291, 5, 1, 'Aterragem', 0.25, 197.88, 0, 0, 14, 65488.8849888, 1, 22620, 0, 546.94, 19, 3, NULL, 1, 1, 7, 0, 'T', 467777.74992, 533266.6349088, 158),
-	(292, 7, 1, 'Carga', 0.25, 197.88, 0.08, 0, 14, 209965.426944, 1, 22620, 0, 546.94, 19, 3, 1, 1, 1, 7, 0, 'T', 1499753.0496, 1709718.476544, 158),
-	(293, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 14666.020096, 16, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 104757.2864, 119423.306496, 159),
-	(294, 2, 1, 'Armazenagem', 0.03, 0, 0, 0, 14, 87996.120576, 16, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 628543.7184, 716539.838976, 159),
-	(295, 3, 1, 'Manuseamento', 0.03, 0, 0, 0, 14, 5499.757536, 16, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 39283.9824, 44783.739936, 159),
-	(296, 5, 1, 'Aterragem', 0.25, 197.88, 0, 0, 14, 67407.5487484, 1, 22350, 0, 546.94, 19, 2, NULL, 1, 1, 7, 0, 'T', 481482.49106, 548890.0398084, 160),
-	(297, 9, 1, 'Luminosa 2x', 0.25, 197.88, 0, 0, 14, 45920.7689136, 1, 22350, 0, 546.94, 19, 2, NULL, 1, 1, 7, 0, 'T', 328005.49224, 373926.2611536, 160),
-	(298, 7, 1, 'Carga', 0.25, 197.88, 0.08, 0, 14, 207464.96568, 1, 22350, 0, 546.94, 19, 2, 1, 1, 1, 7, 0, 'T', 1481892.612, 1689357.57768, 160),
-	(299, 5, 1, 'Aterragem', 0.25, 197.88, 0, 0, 14, 67407.5487484, 1, 22350, 0, 546.94, 19, 2, NULL, 1, 1, 7, 0, 'T', 481482.49106, 548890.0398084, 161),
-	(300, 9, 1, 'Luminosa 2x', 0.25, 197.88, 0, 0, 14, 45920.7689136, 1, 22350, 0, 546.94, 19, 2, NULL, 1, 1, 7, 0, 'T', 328005.49224, 373926.2611536, 161),
-	(301, 7, 1, 'Carga', 0.25, 197.88, 0.08, 0, 14, 207464.96568, 1, 22350, 0, 546.94, 19, 2, 1, 1, 1, 7, 0, 'T', 1481892.612, 1689357.57768, 161),
-	(302, 1, 1, 'Carga', 0.08, 0, 0, 0, 0, 0, 11, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 1591.29408, 1591.29408, 162),
-	(303, 2, 1, 'Armazenagem', 0.03, 0, 0, 0, 0, 0, 11, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 6564.08808, 6564.08808, 162),
-	(304, 3, 1, 'Manuseamento', 0.03, 0, 0, 0, 0, 0, 11, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 596.73528, 596.73528, 162),
-	(305, 1, 1, 'Carga', 0.08, 0, 0, 0, 0, 0, 11, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 421029.892, 421029.892, 163),
-	(306, 2, 1, 'Armazenagem', 0.03, 0, 0, 0, 0, 0, 11, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 1736748.3045, 1736748.3045, 163),
-	(307, 3, 1, 'Manuseamento', 0.03, 0, 0, 0, 0, 0, 11, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 157886.2095, 157886.2095, 163),
-	(308, 1, 1, 'Carga', 0.08, 0, 0, 0, 0, 0, 11, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 232925.67096, 232925.67096, 164),
-	(309, 2, 1, 'Armazenagem', 0.03, 0, 0, 0, 0, 0, 11, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 960818.39271, 960818.39271, 164),
-	(310, 3, 1, 'Manuseamento', 0.03, 0, 0, 0, 0, 0, 11, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 87347.12661, 87347.12661, 164),
-	(311, 1, 1, 'Carga', 0.08, 0, 0, 0, 0, 0, 11, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 9415.15664, 9415.15664, 165),
-	(312, 2, 1, 'Armazenagem', 0.03, 0, 0, 0, 0, 0, 11, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 38837.52114, 38837.52114, 165),
-	(313, 3, 1, 'Manuseamento', 0.03, 0, 0, 0, 0, 0, 11, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 3530.68374, 3530.68374, 165),
-	(314, 1, 1, 'Carga', 0.08, 0, 0, 0, 0, 0, 11, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 68956.0768, 68956.0768, 166),
-	(315, 2, 1, 'Armazenagem', 0.03, 0, 0, 0, 0, 0, 11, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 284443.8168, 284443.8168, 166),
-	(316, 3, 1, 'Manuseamento', 0.03, 0, 0, 0, 0, 0, 11, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 25858.5288, 25858.5288, 166),
-	(317, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 99548.9397504, 6, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 711063.85536, 810612.7951104, 167),
-	(318, 2, 1, 'Armazenagem', 0.03, 0, 0, 0, 14, 223985.1144384, 6, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 1599893.67456, 1823878.7889984, 167),
-	(319, 3, 1, 'Manuseamento', 0.03, 0, 0, 0, 14, 37330.8524064, 6, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 266648.94576, 303979.7981664, 167),
-	(320, 1, 1, 'Carga', 0.08, 0, 0, 0, 0, 0, 11, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 24930.27392, 24930.27392, 168),
-	(321, 2, 1, 'Armazenagem', 0.03, 0, 0, 0, 0, 0, 11, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 102837.37992, 102837.37992, 168),
-	(322, 3, 1, 'Manuseamento', 0.03, 0, 0, 0, 0, 0, 11, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 9348.85272, 9348.85272, 168),
-	(323, 1, 1, 'Carga', 0.08, 0, 0, 0, 0, 0, 11, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 1259.77448, 1259.77448, 169),
-	(324, 2, 1, 'Armazenagem', 0.03, 0, 0, 0, 0, 0, 11, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 5196.56973, 5196.56973, 169),
-	(325, 3, 1, 'Manuseamento', 0.03, 0, 0, 0, 0, 0, 11, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 472.41543, 472.41543, 169),
-	(326, 1, 1, 'Carga', 0.08, 0, 0, 0, 0, 0, 11, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 1856.50976, 1856.50976, 170),
-	(327, 2, 1, 'Armazenagem', 0.03, 0, 0, 0, 0, 0, 11, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 7658.10276, 7658.10276, 170),
-	(328, 3, 1, 'Manuseamento', 0.03, 0, 0, 0, 0, 0, 11, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 696.19116, 696.19116, 170),
-	(329, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 14666.427104, 3, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 104760.1936, 119426.620704, 171),
-	(330, 2, 1, 'Armazenagem', 0.03, 0, 0, 0, 14, 16499.730492, 3, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 117855.2178, 134354.948292, 171),
-	(331, 3, 1, 'Manuseamento', 0.03, 0, 0, 0, 14, 5499.910164, 3, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 39285.0726, 44784.982764, 171),
-	(332, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 165043.717664, 6, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 1178883.6976, 1343927.415264, 172),
-	(333, 2, 1, 'Armazenagem', 0.03, 0, 0, 0, 14, 371348.364744, 6, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 2652488.3196, 3023836.684344, 172),
-	(334, 3, 1, 'Manuseamento', 0.03, 0, 0, 0, 14, 61891.394124, 6, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 442081.3866, 503972.780724, 172),
-	(335, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 928.25488, 3, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 6630.392, 7558.64688, 173),
-	(336, 2, 1, 'Armazenagem', 0.07, 0, 0, 0, 14, 2436.66906, 3, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 17404.779, 19841.44806, 173),
-	(337, 3, 1, 'Manuseamento', 0.07, 0, 0, 0, 14, 812.22302, 3, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 5801.593, 6613.81602, 173),
-	(338, 5, 1, 'Aterragem', 0.25, 197.88, 0, 0, 14, 67407.5487484, 1, 14573, 0, 546.94, 19, 2, NULL, 1, 1, 7, 0, 'T', 481482.49106, 548890.0398084, 174),
-	(339, 7, 1, 'Carga', 0.25, 197.88, 0.08, 0, 14, 135274.5836624, 1, 14573, 0, 546.94, 19, 2, 1, 1, 1, 7, 0, 'T', 966247.02616, 1101521.6098224, 174),
-	(340, 1, 1, 'Carga', 0.08, 0, 0, 0, 0, 0, 13, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 306456.71824, 306456.71824, 175),
-	(341, 2, 1, 'Armazenagem', 0.03, 0, 0, 0, 0, 0, 13, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 1493976.50142, 1493976.50142, 175),
-	(342, 3, 1, 'Manuseamento', 0.03, 0, 0, 0, 0, 0, 13, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 114921.26934, 114921.26934, 175),
-	(343, 1, 1, 'Carga', 0.08, 0, 0, 0, 0, 0, 13, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 304666.5124, 304666.5124, 176),
-	(344, 2, 1, 'Armazenagem', 0.03, 0, 0, 0, 0, 0, 13, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 1485249.24795, 1485249.24795, 176),
-	(345, 3, 1, 'Manuseamento', 0.03, 0, 0, 0, 0, 0, 13, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 114249.94215, 114249.94215, 176),
-	(346, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 75652.77272, 5, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 540376.948, 616029.72072, 177),
-	(347, 2, 1, 'Armazenagem', 0.03, 0, 0, 0, 14, 141848.94885, 5, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 1013206.7775, 1155055.72635, 177),
-	(348, 3, 1, 'Manuseamento', 0.03, 0, 0, 0, 14, 28369.78977, 5, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 202641.3555, 231011.14527, 177),
-	(349, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 14666.427104, 2, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 104760.1936, 119426.620704, 178),
-	(350, 2, 1, 'Armazenagem', 0.03, 0, 0, 0, 14, 10999.820328, 2, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 78570.1452, 89569.965528, 178),
-	(351, 3, 1, 'Manuseamento', 0.03, 0, 0, 0, 14, 5499.910164, 2, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 39285.0726, 44784.982764, 178),
-	(352, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 30612.52656, 23, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 218660.904, 249273.43056, 179),
-	(353, 2, 1, 'Armazenagem', 0.03, 0, 0, 0, 14, 264033.04158, 23, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 1885950.297, 2149983.33858, 179),
-	(354, 3, 1, 'Manuseamento', 0.03, 0, 0, 0, 14, 11479.69746, 23, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 81997.839, 93477.53646, 179),
-	(355, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 64723.51368, 1, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 462310.812, 527034.32568, 180),
-	(356, 2, 1, 'Armazenagem', 0.03, 0, 0, 0, 14, 24271.31763, 1, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 173366.5545, 197637.87213, 180),
-	(357, 3, 1, 'Manuseamento', 0.03, 0, 0, 0, 14, 24271.31763, 1, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 173366.5545, 197637.87213, 180),
-	(358, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 25007.866576, 1, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 178627.6184, 203635.484976, 181),
-	(359, 2, 1, 'Armazenagem', 0.03, 0, 0, 0, 14, 9377.949966, 1, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 66985.3569, 76363.306866, 181),
-	(360, 3, 1, 'Manuseamento', 0.03, 0, 0, 0, 14, 9377.949966, 1, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 66985.3569, 76363.306866, 181),
-	(361, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 10281.5273344, 5, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 73439.48096, 83721.0082944, 182),
-	(362, 2, 1, 'Armazenagem', 0.07, 0, 0, 0, 14, 44981.682088, 5, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 321297.7292, 366279.411288, 182),
-	(363, 3, 1, 'Manuseamento', 0.07, 0, 0, 0, 14, 8996.3364176, 5, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 64259.54584, 73255.8822576, 182),
-	(364, 5, 1, 'Aterragem', 0.25, 197.88, 0, 0, 14, 67384.3692424, 1, 8205, 0, 546.94, 19, 2, NULL, 1, 1, 7, 0, 'T', 481316.92316, 548701.2924024, 183),
-	(365, 7, 1, 'Carga', 0.25, 197.88, 0.08, 0, 14, 76137.122544, 1, 8205, 0, 546.94, 19, 2, 1, 1, 1, 7, 0, 'T', 543836.5896, 619973.712144, 183),
-	(366, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 26167.786176, 1, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 186912.7584, 213080.544576, 184),
-	(367, 2, 1, 'Armazenagem', 0.03, 0, 0, 0, 14, 9812.919816, 1, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 70092.2844, 79905.204216, 184),
-	(368, 3, 1, 'Manuseamento', 0.03, 0, 0, 0, 14, 9812.919816, 1, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 70092.2844, 79905.204216, 184),
-	(369, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 51871.604512, 1, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 370511.4608, 422383.065312, 185),
-	(370, 2, 1, 'Armazenagem', 0.03, 0, 0, 0, 14, 19451.851692, 1, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 138941.7978, 158393.649492, 185),
-	(371, 3, 1, 'Manuseamento', 0.03, 0, 0, 0, 14, 19451.851692, 1, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 138941.7978, 158393.649492, 185),
-	(372, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 49969.336368, 1, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 356923.8312, 406893.167568, 186),
-	(373, 2, 1, 'Armazenagem', 0.03, 0, 0, 0, 14, 18738.501138, 1, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 133846.4367, 152584.937838, 186),
-	(374, 3, 1, 'Manuseamento', 0.03, 0, 0, 0, 14, 18738.501138, 1, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 133846.4367, 152584.937838, 186),
-	(375, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 49969.336368, 1, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 356923.8312, 406893.167568, 187),
-	(376, 2, 1, 'Armazenagem', 0.03, 0, 0, 0, 14, 18738.501138, 1, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 133846.4367, 152584.937838, 187),
-	(377, 3, 1, 'Manuseamento', 0.03, 0, 0, 0, 14, 18738.501138, 1, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 133846.4367, 152584.937838, 187),
-	(378, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 26167.786176, 1, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 186912.7584, 213080.544576, 188),
-	(379, 2, 1, 'Armazenagem', 0.03, 0, 0, 0, 14, 9812.919816, 1, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 70092.2844, 79905.204216, 188),
-	(380, 3, 1, 'Manuseamento', 0.03, 0, 0, 0, 14, 9812.919816, 1, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 70092.2844, 79905.204216, 188),
-	(381, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 99548.9397504, 6, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 711063.85536, 810612.7951104, 189),
-	(382, 2, 1, 'Armazenagem', 0.03, 0, 0, 0, 14, 223985.1144384, 6, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 1599893.67456, 1823878.7889984, 189),
-	(383, 3, 1, 'Manuseamento', 0.03, 0, 0, 0, 14, 37330.8524064, 6, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 266648.94576, 303979.7981664, 189),
-	(384, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 1878.14181632, 9, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 13415.298688, 15293.44050432, 190),
-	(385, 2, 1, 'Armazenagem', 0.07, 0, 0, 0, 14, 14790.36680352, 9, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 105645.477168, 120435.84397152, 190),
-	(386, 3, 1, 'Manuseamento', 0.07, 0, 0, 0, 14, 1643.37408928, 9, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 11738.386352, 13381.76044128, 190),
-	(387, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 1039.566342304, 6, NULL, NULL, NULL, NULL, NULL, 1, 6, 1, 1, 0, 'T', 7425.4738736, 8465.040215904, 191),
-	(388, 2, 1, 'Armazenagem', 0.08, 0, 0, 0, 14, 6237.398053824, 6, NULL, NULL, NULL, NULL, NULL, 1, 6, 1, 1, 0, 'T', 44552.8432416, 50790.241295424, 191),
-	(389, 3, 1, 'Manuseamento', 0.08, 0, 0, 0, 14, 1039.566342304, 6, NULL, NULL, NULL, NULL, NULL, 1, 6, 1, 1, 0, 'T', 7425.4738736, 8465.040215904, 191),
-	(390, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 1878.14181632, 9, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 13415.298688, 15293.44050432, 192),
-	(391, 2, 1, 'Armazenagem', 0.07, 0, 0, 0, 14, 14790.36680352, 9, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 105645.477168, 120435.84397152, 192),
-	(392, 3, 1, 'Manuseamento', 0.07, 0, 0, 0, 14, 1643.37408928, 9, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 11738.386352, 13381.76044128, 192),
-	(393, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 538.2026944, 6, NULL, NULL, NULL, NULL, NULL, 1, 6, 1, 1, 0, 'T', 3844.30496, 4382.5076544, 193),
-	(394, 2, 1, 'Armazenagem', 0.08, 0, 0, 0, 14, 3229.2161664, 6, NULL, NULL, NULL, NULL, NULL, 1, 6, 1, 1, 0, 'T', 23065.82976, 26295.0459264, 193),
-	(395, 3, 1, 'Manuseamento', 0.08, 0, 0, 0, 14, 538.2026944, 6, NULL, NULL, NULL, NULL, NULL, 1, 6, 1, 1, 0, 'T', 3844.30496, 4382.5076544, 193),
-	(396, 4, 1, 'Estacionamento', 0.25, 197.88, 0, 0, 0, 0, 1, NULL, 0, 546.94, 19, 3, NULL, 1, 1, 7, 0, 'T', 82204.90425, 82204.90425, 194),
-	(397, 5, 1, 'Aterragem', 0.25, 197.88, 0, 0, 0, 0, 1, NULL, 0, 546.94, 19, 3, NULL, 1, 1, 7, 0, 'T', 2624013.6741, 2624013.6741, 194),
-	(398, 6, 1, 'Luminosa 1x', 0.25, 197.88, 0, 0, 0, 0, 1, NULL, 0, 546.94, 19, 3, NULL, 1, 1, 7, 0, 'T', 163896.28668, 163896.28668, 194),
-	(399, 7, 1, 'Carga', 0.25, 197.88, 0.08, 0, 0, 0, 1, 18290, 0, 546.94, 19, 3, 1, 1, 1, 7, 0, 'T', 1211911.4952, 1211911.4952, 195),
-	(400, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 131680.246824, 8, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 940573.1916, 1072253.438424, 196),
-	(401, 2, 1, 'Armazenagem', 0.03, 0, 0, 0, 14, 395040.740472, 8, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 2821719.5748, 3216760.315272, 196),
-	(402, 3, 1, 'Manuseamento', 0.03, 0, 0, 0, 14, 49380.092559, 8, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 352714.94685, 402095.039409, 196),
-	(403, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 30612.89616, 9, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 218663.544, 249276.44016, 197),
-	(404, 2, 1, 'Armazenagem', 0.03, 0, 0, 0, 14, 103318.52454, 9, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 737989.461, 841307.98554, 197),
-	(405, 3, 1, 'Manuseamento', 0.03, 0, 0, 0, 14, 11479.83606, 9, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 81998.829, 93478.66506, 197),
-	(406, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 81670.5102528, 2, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 583360.78752, 665031.2977728, 198),
-	(407, 2, 1, 'Armazenagem', 0.03, 0, 0, 0, 14, 61252.8826896, 2, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 437520.59064, 498773.4733296, 198),
-	(408, 3, 1, 'Manuseamento', 0.03, 0, 0, 0, 14, 30626.4413448, 2, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 218760.29532, 249386.7366648, 198),
-	(409, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 15287.7102336, 2, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 109197.93024, 124485.6404736, 199),
-	(410, 2, 1, 'Armazenagem', 0.03, 0, 0, 0, 14, 11465.7826752, 2, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 81898.44768, 93364.2303552, 199),
-	(411, 3, 1, 'Manuseamento', 0.03, 0, 0, 0, 14, 5732.8913376, 2, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 40949.22384, 46682.1151776, 199),
-	(412, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 26979.609217568, 10, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 192711.4944112, 219691.10362877, 200),
-	(413, 2, 1, 'Armazenagem', 0.03, 0, 0, 0, 14, 101173.53456588, 10, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 722668.104042, 823841.63860788, 200),
-	(414, 3, 1, 'Manuseamento', 0.03, 0, 0, 0, 14, 10117.353456588, 10, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 72266.8104042, 82384.163860788, 200),
-	(415, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 24033.534112, 11, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 171668.1008, 195701.634912, 201),
-	(416, 2, 1, 'Armazenagem', 0.03, 0, 0, 0, 14, 99138.328212, 11, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 708130.9158, 807269.244012, 201),
-	(417, 3, 1, 'Manuseamento', 0.03, 0, 0, 0, 14, 9012.575292, 11, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 64375.5378, 73388.113092, 201),
-	(418, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 114043.295072, 1, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 814594.9648, 928638.259872, 202),
-	(419, 2, 1, 'Armazenagem', 0.03, 0, 0, 0, 14, 42766.235652, 1, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 305473.1118, 348239.347452, 202),
-	(420, 3, 1, 'Manuseamento', 0.03, 0, 0, 0, 14, 42766.235652, 1, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 305473.1118, 348239.347452, 202),
-	(421, 5, 1, 'Aterragem', 0.25, 197.88, 0, 0, 0, 0, 1, NULL, 0, 546.94, 19, 2, NULL, 1, 1, 7, 0, 'T', 2624815.2034, 2624815.2034, 203),
-	(422, 7, 1, 'Carga', 0.25, 197.88, 0.08, 0, 0, 0, 1, 10452, 0, 546.94, 19, 2, 1, 1, 1, 7, 0, 'T', 692770.26624, 692770.26624, 204),
-	(423, 1, 1, 'Carga', 0.08, 0, 0, 0, 0, 0, 22, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 222969.68768, 222969.68768, 205),
-	(424, 2, 1, 'Armazenagem', 0.03, 0, 0, 0, 0, 0, 22, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 1839499.92336, 1839499.92336, 205),
-	(425, 3, 1, 'Manuseamento', 0.03, 0, 0, 0, 0, 0, 22, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 83613.63288, 83613.63288, 205),
-	(426, 1, 1, 'Carga', 0.08, 0, 0, 0, 0, 0, 22, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 476561.2528, 476561.2528, 206),
-	(427, 2, 1, 'Armazenagem', 0.03, 0, 0, 0, 0, 0, 22, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 3931630.3356, 3931630.3356, 206),
-	(428, 3, 1, 'Manuseamento', 0.03, 0, 0, 0, 0, 0, 22, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 178710.4698, 178710.4698, 206),
-	(429, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 68435.2564, 2, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 488823.26, 557258.5164, 207),
-	(430, 2, 1, 'Armazenagem', 0.03, 0, 0, 0, 14, 51326.4423, 2, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 366617.445, 417943.8873, 207),
-	(431, 3, 1, 'Manuseamento', 0.03, 0, 0, 0, 14, 25663.22115, 2, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 183308.7225, 208971.94365, 207),
-	(432, 1, 1, 'Carga', 0.08, 0, 0, 0, 0, 0, 22, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 604417.53328, 604417.53328, 208),
-	(433, 2, 1, 'Armazenagem', 0.03, 0, 0, 0, 0, 0, 22, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 4986444.64956, 4986444.64956, 208),
-	(434, 3, 1, 'Manuseamento', 0.03, 0, 0, 0, 0, 0, 22, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 226656.57498, 226656.57498, 208),
-	(435, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 68435.2564, 2, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 488823.26, 557258.5164, 209),
-	(436, 2, 1, 'Armazenagem', 0.03, 0, 0, 0, 14, 51326.4423, 2, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 366617.445, 417943.8873, 209),
-	(437, 3, 1, 'Manuseamento', 0.03, 0, 0, 0, 14, 25663.22115, 2, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 183308.7225, 208971.94365, 209),
-	(438, 5, 1, 'Aterragem', 0.25, 197.88, 0, 0, 14, 67384.3692424, 1, 21960, 0, 546.94, 19, 2, NULL, 1, 1, 7, 0, 'T', 481316.92316, 548701.2924024, 210),
-	(439, 7, 1, 'Carga', 0.25, 197.88, 0.08, 0, 14, 203774.675328, 1, 21960, 0, 546.94, 19, 2, 1, 1, 1, 7, 0, 'T', 1455533.3952, 1659308.070528, 210),
-	(440, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 24033.534112, 3, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 171668.1008, 195701.634912, 211),
-	(441, 2, 1, 'Armazenagem', 0.03, 0, 0, 0, 14, 27037.725876, 3, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 193126.6134, 220164.339276, 211),
-	(442, 3, 1, 'Manuseamento', 0.03, 0, 0, 0, 14, 9012.575292, 3, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 64375.5378, 73388.113092, 211),
-	(443, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 8212.310064, 10, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 58659.3576, 66871.667664, 212),
-	(444, 2, 1, 'Armazenagem', 0.07, 0, 0, 0, 14, 71857.71306, 10, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 513269.379, 585127.09206, 212),
-	(445, 3, 1, 'Manuseamento', 0.07, 0, 0, 0, 14, 7185.771306, 10, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 51326.9379, 58512.709206, 212),
-	(446, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 24033.534112, 1, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 171668.1008, 195701.634912, 213),
-	(447, 2, 1, 'Armazenagem', 0.03, 0, 0, 0, 14, 9012.575292, 1, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 64375.5378, 73388.113092, 213),
-	(448, 3, 1, 'Manuseamento', 0.03, 0, 0, 0, 14, 9012.575292, 1, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 64375.5378, 73388.113092, 213),
-	(449, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 145685.90176, 18, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 1040613.584, 1186299.48576, 214),
-	(450, 2, 1, 'Armazenagem', 0.03, 0, 0, 0, 14, 983379.83688, 18, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 7024141.692, 8007521.52888, 214),
-	(451, 3, 1, 'Manuseamento', 0.03, 0, 0, 0, 14, 54632.21316, 18, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 390230.094, 444862.30716, 214),
-	(452, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 491.9750864, 6, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 3514.10776, 4006.0828464, 215),
-	(453, 2, 1, 'Armazenagem', 0.03, 0, 0, 0, 14, 1106.9439444, 6, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 7906.74246, 9013.6864044, 215),
-	(454, 3, 1, 'Manuseamento', 0.03, 0, 0, 0, 14, 184.4906574, 6, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 1317.79041, 1502.2810674, 215),
-	(455, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 158731.58448, 6, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 1133797.032, 1292528.61648, 216),
-	(456, 2, 1, 'Armazenagem', 0.03, 0, 0, 0, 14, 357146.06508, 6, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 2551043.322, 2908189.38708, 216),
-	(457, 3, 1, 'Manuseamento', 0.03, 0, 0, 0, 14, 59524.34418, 6, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 425173.887, 484698.23118, 216),
-	(458, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 4389.1781472, 10, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 31351.27248, 35740.4506272, 217),
-	(459, 2, 1, 'Armazenagem', 0.07, 0, 0, 0, 14, 38405.308788, 10, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 274323.6342, 312728.942988, 217),
-	(460, 3, 1, 'Manuseamento', 0.07, 0, 0, 0, 14, 3840.5308788, 10, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 27432.36342, 31272.8942988, 217),
-	(461, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 14531.6130624, 10, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 103797.23616, 118328.8492224, 218),
-	(462, 2, 1, 'Armazenagem', 0.07, 0, 0, 0, 14, 127151.614296, 10, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 908225.8164, 1035377.430696, 218),
-	(463, 3, 1, 'Manuseamento', 0.07, 0, 0, 0, 14, 12715.1614296, 10, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 90822.58164, 103537.7430696, 218),
-	(464, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 1141.3719072, 3, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 8152.65648, 9294.0283872, 219),
-	(465, 2, 1, 'Armazenagem', 0.07, 0, 0, 0, 14, 2996.1012564, 3, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 21400.72326, 24396.8245164, 219),
-	(466, 3, 1, 'Manuseamento', 0.07, 0, 0, 0, 14, 998.7004188, 3, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 7133.57442, 8132.2748388, 219),
-	(467, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 11654.9846784, 3, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 83249.89056, 94904.8752384, 220),
-	(468, 2, 1, 'Armazenagem', 0.03, 0, 0, 0, 14, 13111.8577632, 3, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 93656.12688, 106767.9846432, 220),
-	(469, 3, 1, 'Manuseamento', 0.03, 0, 0, 0, 14, 4370.6192544, 3, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 31218.70896, 35589.3282144, 220),
-	(470, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 4389.1781472, 10, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 31351.27248, 35740.4506272, 221),
-	(471, 2, 1, 'Armazenagem', 0.07, 0, 0, 0, 14, 38405.308788, 10, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 274323.6342, 312728.942988, 221),
-	(472, 3, 1, 'Manuseamento', 0.07, 0, 0, 0, 14, 3840.5308788, 10, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 27432.36342, 31272.8942988, 221),
-	(473, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 14531.6130624, 12, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 103797.23616, 118328.8492224, 222),
-	(474, 2, 1, 'Armazenagem', 0.07, 0, 0, 0, 14, 152581.9371552, 12, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 1089870.97968, 1242452.9168352, 222),
-	(475, 3, 1, 'Manuseamento', 0.07, 0, 0, 0, 14, 12715.1614296, 12, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 90822.58164, 103537.7430696, 222),
-	(476, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 8212.310064, 10, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 58659.3576, 66871.667664, 223),
-	(477, 2, 1, 'Armazenagem', 0.07, 0, 0, 0, 14, 71857.71306, 10, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 513269.379, 585127.09206, 223),
-	(478, 3, 1, 'Manuseamento', 0.07, 0, 0, 0, 14, 7185.771306, 10, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 51326.9379, 58512.709206, 223),
-	(479, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 1141.3719072, 3, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 8152.65648, 9294.0283872, 224),
-	(480, 2, 1, 'Armazenagem', 0.07, 0, 0, 0, 14, 2996.1012564, 3, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 21400.72326, 24396.8245164, 224),
-	(481, 3, 1, 'Manuseamento', 0.07, 0, 0, 0, 14, 998.7004188, 3, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 7133.57442, 8132.2748388, 224),
-	(482, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 11654.9846784, 3, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 83249.89056, 94904.8752384, 225),
-	(483, 2, 1, 'Armazenagem', 0.03, 0, 0, 0, 14, 13111.8577632, 3, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 93656.12688, 106767.9846432, 225),
-	(484, 3, 1, 'Manuseamento', 0.03, 0, 0, 0, 14, 4370.6192544, 3, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 31218.70896, 35589.3282144, 225),
-	(485, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 51871.604512, 1, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 370511.4608, 422383.065312, 226),
-	(486, 2, 1, 'Armazenagem', 0.03, 0, 0, 0, 14, 19451.851692, 1, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 138941.7978, 158393.649492, 226),
-	(487, 3, 1, 'Manuseamento', 0.03, 0, 0, 0, 14, 19451.851692, 1, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 138941.7978, 158393.649492, 226),
-	(488, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 14578.0102944, 12, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 104128.64496, 118706.6552544, 227),
-	(489, 2, 1, 'Armazenagem', 0.03, 0, 0, 0, 14, 65601.0463248, 12, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 468578.90232, 534179.9486448, 227),
-	(490, 3, 1, 'Manuseamento', 0.03, 0, 0, 0, 14, 5466.7538604, 12, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 39048.24186, 44514.9957204, 227),
-	(491, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 1057.8466752, 4, NULL, NULL, NULL, NULL, NULL, 1, 6, 1, 1, 0, 'T', 7556.04768, 8613.8943552, 228),
-	(492, 2, 1, 'Armazenagem', 0.08, 0, 0, 0, 14, 4231.3867008, 4, NULL, NULL, NULL, NULL, NULL, 1, 6, 1, 1, 0, 'T', 30224.19072, 34455.5774208, 228),
-	(493, 3, 1, 'Manuseamento', 0.08, 0, 0, 0, 14, 1057.8466752, 4, NULL, NULL, NULL, NULL, NULL, 1, 6, 1, 1, 0, 'T', 7556.04768, 8613.8943552, 228),
-	(494, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 64.9554976, 4, NULL, NULL, NULL, NULL, NULL, 1, 6, 1, 1, 0, 'T', 463.96784, 528.9233376, 229),
-	(495, 2, 1, 'Armazenagem', 0.08, 0, 0, 0, 14, 259.8219904, 4, NULL, NULL, NULL, NULL, NULL, 1, 6, 1, 1, 0, 'T', 1855.87136, 2115.6933504, 229),
-	(496, 3, 1, 'Manuseamento', 0.08, 0, 0, 0, 14, 64.9554976, 4, NULL, NULL, NULL, NULL, NULL, 1, 6, 1, 1, 0, 'T', 463.96784, 528.9233376, 229),
-	(497, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 167.0284224, 4, NULL, NULL, NULL, NULL, NULL, 1, 6, 1, 1, 0, 'T', 1193.06016, 1360.0885824, 230),
-	(498, 2, 1, 'Armazenagem', 0.08, 0, 0, 0, 14, 668.1136896, 4, NULL, NULL, NULL, NULL, NULL, 1, 6, 1, 1, 0, 'T', 4772.24064, 5440.3543296, 230),
-	(499, 3, 1, 'Manuseamento', 0.08, 0, 0, 0, 14, 167.0284224, 4, NULL, NULL, NULL, NULL, NULL, 1, 6, 1, 1, 0, 'T', 1193.06016, 1360.0885824, 230),
-	(500, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 94760.7916416, 2, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 676862.79744, 771623.5890816, 231),
-	(501, 2, 1, 'Armazenagem', 0.07, 0, 0, 0, 14, 165831.3853728, 2, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 1184509.89552, 1350341.2808928, 231),
-	(502, 3, 1, 'Manuseamento', 0.07, 0, 0, 0, 14, 82915.6926864, 2, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 592254.94776, 675170.6404464, 231),
-	(505, 4, 1, 'Estacionamento', 0.25, 197.88, 0, 0, 14, 426618.42888, 1, 88, 0, 546.94, 19, 412, NULL, 1, 1, 7, 0, 'T', 3047274.492, 3473892.92088, 233),
-	(506, 5, 1, 'Aterragem', 0.25, 197.88, 0, 0, 14, 19113.1551688, 1, 88, 0, 546.94, 19, 412, NULL, 1, 1, 7, 0, 'T', 136522.53692, 155635.6920888, 233),
-	(507, 7, 1, 'Carga', 0.25, 197.88, 0.08, 0, 14, 816.5833984, 1, 88, 0, 546.94, 19, 412, 1, 1, 1, 7, 0, 'T', 5832.73856, 6649.3219584, 233),
-	(508, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 194.9335248, 5, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 1392.38232, 1587.3158448, 234),
-	(509, 2, 1, 'Armazenagem', 0.07, 0, 0, 0, 14, 852.834171, 5, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 6091.67265, 6944.506821, 234),
-	(510, 3, 1, 'Manuseamento', 0.07, 0, 0, 0, 14, 170.5668342, 5, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 1218.33453, 1388.9013642, 234),
-	(511, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 14578.0102944, 12, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 104128.64496, 118706.6552544, 235),
-	(512, 2, 1, 'Armazenagem', 0.03, 0, 0, 0, 14, 65601.0463248, 12, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 468578.90232, 534179.9486448, 235),
-	(513, 3, 1, 'Manuseamento', 0.03, 0, 0, 0, 14, 5466.7538604, 12, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 39048.24186, 44514.9957204, 235),
-	(514, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 798.2991968, 12, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 5702.13712, 6500.4363168, 236),
-	(515, 2, 1, 'Armazenagem', 0.07, 0, 0, 0, 14, 8382.1415664, 12, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 59872.43976, 68254.5813264, 236),
-	(516, 3, 1, 'Manuseamento', 0.07, 0, 0, 0, 14, 698.5117972, 12, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 4989.36998, 5687.8817772, 236),
-	(517, 4, 1, 'Estacionamento', 0.25, 197.88, 0, 0, 0, 0, 1, NULL, 0, 546.94, 19, 59, NULL, 1, 1, 7, 0, 'T', 329024.072, 329024.072, 237),
-	(518, 5, 1, 'Aterragem', 0.25, 197.88, 0, 0, 0, 0, 1, NULL, 0, 546.94, 19, 59, NULL, 1, 1, 7, 0, 'T', 2625645.2456, 2625645.2456, 237),
-	(519, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 798.2991968, 12, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 5702.13712, 6500.4363168, 238),
-	(520, 2, 1, 'Armazenagem', 0.07, 0, 0, 0, 14, 8382.1415664, 12, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 59872.43976, 68254.5813264, 238),
-	(521, 3, 1, 'Manuseamento', 0.07, 0, 0, 0, 14, 698.5117972, 12, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 4989.36998, 5687.8817772, 238),
-	(522, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 94760.7916416, 2, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 676862.79744, 771623.5890816, 239),
-	(523, 2, 1, 'Armazenagem', 0.07, 0, 0, 0, 14, 165831.3853728, 2, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 1184509.89552, 1350341.2808928, 239),
-	(524, 3, 1, 'Manuseamento', 0.07, 0, 0, 0, 14, 82915.6926864, 2, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 592254.94776, 675170.6404464, 239),
-	(525, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 428.9714912, 5, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 3064.08208, 3493.0535712, 240),
-	(526, 2, 1, 'Armazenagem', 0.07, 0, 0, 0, 14, 1876.750274, 5, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 13405.3591, 15282.109374, 240),
-	(527, 3, 1, 'Manuseamento', 0.07, 0, 0, 0, 14, 375.3500548, 5, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 2681.07182, 3056.4218748, 240),
-	(528, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 428.9714912, 5, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 3064.08208, 3493.0535712, 241),
-	(529, 2, 1, 'Armazenagem', 0.07, 0, 0, 0, 14, 1876.750274, 5, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 13405.3591, 15282.109374, 241),
-	(530, 3, 1, 'Manuseamento', 0.07, 0, 0, 0, 14, 375.3500548, 5, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 2681.07182, 3056.4218748, 241),
-	(531, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 3776.814216, 16, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 26977.2444, 30754.058616, 242),
-	(532, 2, 1, 'Armazenagem', 0.03, 0, 0, 0, 14, 22660.885296, 16, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 161863.4664, 184524.351696, 242),
-	(533, 3, 1, 'Manuseamento', 0.03, 0, 0, 0, 14, 1416.305331, 16, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 10116.46665, 11532.771981, 242),
-	(534, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 14603.6816352, 16, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 104312.01168, 118915.6933152, 243),
-	(535, 2, 1, 'Armazenagem', 0.07, 0, 0, 0, 14, 204451.5428928, 16, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 1460368.16352, 1664819.7064128, 243),
-	(536, 3, 1, 'Manuseamento', 0.07, 0, 0, 0, 14, 12778.2214308, 16, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 91273.01022, 104051.2316508, 243),
-	(537, 5, 1, 'Aterragem', 0.25, 197.88, 0, 0, 0, 0, 1, NULL, 0, 546.94, 19, 30, NULL, 1, 1, 7, 0, 'T', 2637858.2711, 2637858.2711, 244),
-	(538, 4, 1, 'Estacionamento', 0.25, 197.88, 0, 0, 0, 0, 1, NULL, 0, 546.94, 19, 30, NULL, 1, 1, 7, 0, 'T', 3305545.07, 3305545.07, 244),
-	(539, 12, 1, 'Carga Importação', 0.25, 197.88, 0.08, 0, 0, 0, 1, 37350, 0, 546.94, 19, 30, 1, 1, 1, 7, 0, 'T', 2487901.428, 2487901.428, 244),
-	(540, 13, 1, 'Carga Exportação/Transito', 0.25, 197.88, 0.08, 0, 0, 0, 1, 31286, 0, 546.94, 19, 30, 1, 1, 1, 7, 0, 'T', 2083975.47728, 2083975.47728, 244),
-	(541, 4, 1, 'Estacionamento', 0.25, 197.88, 0, 0, 0, 0, 1, NULL, 0, 546.94, 19, 6, NULL, 1, 1, 7, 0, 'T', 330554.507, 330554.507, 245),
-	(542, 5, 1, 'Aterragem', 0.25, 197.88, 0, 0, 0, 0, 1, NULL, 0, 546.94, 19, 6, NULL, 1, 1, 7, 0, 'T', 2637858.2711, 2637858.2711, 245),
-	(543, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 17685.7485448, 10, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 126326.77532, 144012.5238648, 246),
-	(544, 2, 1, 'Armazenagem', 0.03, 0, 0, 0, 14, 66321.557043, 10, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 473725.40745, 540046.964493, 246),
-	(545, 3, 1, 'Manuseamento', 0.03, 0, 0, 0, 14, 6632.1557043, 10, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 47372.540745, 54004.6964493, 246),
-	(546, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 11115.9569024, 17, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 79399.69216, 90515.6490624, 247),
-	(547, 2, 1, 'Armazenagem', 0.07, 0, 0, 0, 14, 165349.8589232, 17, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 1181070.42088, 1346420.2798032, 247),
-	(548, 3, 1, 'Manuseamento', 0.07, 0, 0, 0, 14, 9726.4622896, 17, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 69474.73064, 79201.1929296, 247),
-	(549, 13, 1, 'Carga Exportação/Transito', 0.25, 197.88, 0.08, 0, 0, 0, 1, 5590, 0, 546.94, 19, 6, 1, 1, 1, 7, 0, 'T', 372352.5832, 372352.5832, 248),
-	(550, 12, 1, 'Carga Importação', 0.25, 197.88, 0.08, 0, 0, 0, 1, 57960, 0, 546.94, 19, 6, 1, 1, 1, 7, 0, 'T', 3860743.4208, 3860743.4208, 248),
-	(551, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 3776.814216, 16, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 26977.2444, 30754.058616, 249),
-	(552, 2, 1, 'Armazenagem', 0.03, 0, 0, 0, 14, 22660.885296, 16, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 161863.4664, 184524.351696, 249),
-	(553, 3, 1, 'Manuseamento', 0.03, 0, 0, 0, 14, 1416.305331, 16, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 10116.46665, 11532.771981, 249),
-	(554, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 14603.6816352, 16, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 104312.01168, 118915.6933152, 250),
-	(555, 2, 1, 'Armazenagem', 0.07, 0, 0, 0, 14, 204451.5428928, 16, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 1460368.16352, 1664819.7064128, 250),
-	(556, 3, 1, 'Manuseamento', 0.07, 0, 0, 0, 14, 12778.2214308, 16, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 91273.01022, 104051.2316508, 250),
-	(557, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 21262.065216, 1, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 151871.8944, 173133.959616, 251),
-	(558, 2, 1, 'Armazenagem', 0.03, 0, 0, 0, 14, 7973.274456, 1, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 56951.9604, 64925.234856, 251),
-	(559, 3, 1, 'Manuseamento', 0.03, 0, 0, 0, 14, 7973.274456, 1, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 56951.9604, 64925.234856, 251),
-	(560, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 21262.065216, 1, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 151871.8944, 173133.959616, 252),
-	(561, 2, 1, 'Armazenagem', 0.03, 0, 0, 0, 14, 7973.274456, 1, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 56951.9604, 64925.234856, 252),
-	(562, 3, 1, 'Manuseamento', 0.03, 0, 0, 0, 14, 7973.274456, 1, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 56951.9604, 64925.234856, 252),
-	(565, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 3776.814216, 1, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 26977.2444, 30754.058616, 255),
-	(566, 2, 1, 'Armazenagem', 0.03, 0, 0, 0, 14, 1416.305331, 1, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 10116.46665, 11532.771981, 255),
-	(567, 3, 1, 'Manuseamento', 0.03, 0, 0, 0, 14, 1416.305331, 1, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 10116.46665, 11532.771981, 255),
-	(568, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 14603.6816352, 1, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 104312.01168, 118915.6933152, 256),
-	(569, 2, 1, 'Armazenagem', 0.07, 0, 0, 0, 14, 12778.2214308, 1, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 91273.01022, 104051.2316508, 256),
-	(570, 3, 1, 'Manuseamento', 0.07, 0, 0, 0, 14, 12778.2214308, 1, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 91273.01022, 104051.2316508, 256),
-	(571, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 1650.6076944, 10, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 11790.05496, 13440.6626544, 257),
-	(572, 2, 1, 'Armazenagem', 0.07, 0, 0, 0, 14, 14442.817326, 10, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 103162.9809, 117605.798226, 257),
-	(573, 3, 1, 'Manuseamento', 0.07, 0, 0, 0, 14, 1444.2817326, 10, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 10316.29809, 11760.5798226, 257),
-	(574, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 335.7168192, 17, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 2397.97728, 2733.6940992, 258),
-	(575, 2, 1, 'Armazenagem', 0.07, 0, 0, 0, 14, 4993.7876856, 17, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 35669.91204, 40663.6997256, 258),
-	(576, 3, 1, 'Manuseamento', 0.07, 0, 0, 0, 14, 293.7522168, 17, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 2098.23012, 2391.9823368, 258),
-	(577, 5, 1, 'Aterragem', 0.25, 197.88, 0, 0, 0, 0, 1, NULL, 0, 546.94, 19, 3, NULL, 1, 1, 7, 0, 'T', 2637858.2711, 2637858.2711, 259),
-	(578, 4, 1, 'Estacionamento', 0.25, 197.88, 0, 0, 0, 0, 1, NULL, 0, 546.94, 19, 3, NULL, 1, 1, 7, 0, 'T', 82638.62675, 82638.62675, 259),
-	(579, 7, 1, 'Carga', 0.25, 197.88, 0.08, 0, 0, 0, 1, 49141.97, 0, 546.94, 19, 3, 1, 1, 1, 7, 0, 'T', 3273370.2098456, 3273370.2098456, 260),
-	(580, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 8249.30828512, 18, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 58923.630608, 67172.93889312, 261),
-	(581, 2, 1, 'Armazenagem', 0.07, 0, 0, 0, 14, 129926.60549064, 18, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 928047.182076, 1057973.7875666, 261),
-	(582, 3, 1, 'Manuseamento', 0.07, 0, 0, 0, 14, 7218.14474948, 18, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 51558.176782, 58776.32153148, 261),
-	(583, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 3776.814216, 1, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 26977.2444, 30754.058616, 262),
-	(584, 2, 1, 'Armazenagem', 0.03, 0, 0, 0, 14, 1416.305331, 1, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 10116.46665, 11532.771981, 262),
-	(585, 3, 1, 'Manuseamento', 0.03, 0, 0, 0, 14, 1416.305331, 1, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 10116.46665, 11532.771981, 262),
-	(586, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 14603.6816352, 1, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 104312.01168, 118915.6933152, 263),
-	(587, 2, 1, 'Armazenagem', 0.07, 0, 0, 0, 14, 12778.2214308, 1, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 91273.01022, 104051.2316508, 263),
-	(588, 3, 1, 'Manuseamento', 0.07, 0, 0, 0, 14, 12778.2214308, 1, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 91273.01022, 104051.2316508, 263),
-	(589, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 130370.031456, 2, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 931214.5104, 1061584.541856, 264),
-	(590, 2, 1, 'Armazenagem', 0.03, 0, 0, 0, 14, 97777.523592, 2, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 698410.8828, 796188.406392, 264),
-	(591, 3, 1, 'Manuseamento', 0.03, 0, 0, 0, 14, 48888.761796, 2, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 349205.4414, 398094.203196, 264),
-	(592, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 130370.031456, 2, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 931214.5104, 1061584.541856, 265),
-	(593, 2, 1, 'Armazenagem', 0.03, 0, 0, 0, 14, 97777.523592, 2, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 698410.8828, 796188.406392, 265),
-	(594, 3, 1, 'Manuseamento', 0.03, 0, 0, 0, 14, 48888.761796, 2, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 349205.4414, 398094.203196, 265),
-	(595, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 4951.8230832, 3, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 35370.16488, 40321.9879632, 266),
-	(596, 2, 1, 'Armazenagem', 0.03, 0, 0, 0, 14, 5570.8009686, 3, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 39791.43549, 45362.2364586, 266),
-	(597, 3, 1, 'Manuseamento', 0.03, 0, 0, 0, 14, 1856.9336562, 3, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 13263.81183, 15120.7454862, 266),
-	(598, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 8249.30828512, 18, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 58923.630608, 67172.93889312, 267),
-	(599, 2, 1, 'Armazenagem', 0.07, 0, 0, 0, 14, 129926.60549064, 18, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 928047.182076, 1057973.7875666, 267),
-	(600, 3, 1, 'Manuseamento', 0.07, 0, 0, 0, 14, 7218.14474948, 18, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 51558.176782, 58776.32153148, 267),
-	(601, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 11115.9569024, 1, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 79399.69216, 90515.6490624, 268),
-	(602, 2, 1, 'Armazenagem', 0.07, 0, 0, 0, 14, 9726.4622896, 1, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 69474.73064, 79201.1929296, 268),
-	(603, 3, 1, 'Manuseamento', 0.07, 0, 0, 0, 14, 9726.4622896, 1, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 69474.73064, 79201.1929296, 268),
-	(604, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 4951.8230832, 3, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 35370.16488, 40321.9879632, 269),
-	(605, 2, 1, 'Armazenagem', 0.03, 0, 0, 0, 14, 5570.8009686, 3, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 39791.43549, 45362.2364586, 269),
-	(606, 3, 1, 'Manuseamento', 0.03, 0, 0, 0, 14, 1856.9336562, 3, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 13263.81183, 15120.7454862, 269),
-	(607, 1, 1, 'Carga', 0.08, 0, 0, 0, 14, 11115.9569024, 17, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 79399.69216, 90515.6490624, 270),
-	(608, 2, 1, 'Armazenagem', 0.07, 0, 0, 0, 14, 165349.8589232, 17, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 1181070.42088, 1346420.2798032, 270),
-	(609, 3, 1, 'Manuseamento', 0.07, 0, 0, 0, 14, 9726.4622896, 17, NULL, NULL, NULL, NULL, NULL, 1, 3, 1, 1, 0, 'T', 69474.73064, 79201.1929296, 270),
-	(610, 1, 1, 'Carga', 0.08, 0, 0, 0, 0, 0, 5, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 58617.2224, 58617.2224, 271),
-	(611, 2, 1, 'Armazenagem', 0.03, 0, 0, 0, 0, 0, 5, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 109907.292, 109907.292, 271),
-	(612, 3, 1, 'Manuseamento', 0.03, 0, 0, 0, 0, 0, 5, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 0, 'T', 21981.4584, 21981.4584, 271);
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.factura_items: ~7 rows (aproximadamente)
+INSERT INTO `factura_items` (`id`, `produtoId`, `quantidade`, `nomeProduto`, `taxa`, `considera1hDepois30min`, `addArCondicionado`, `taxaLuminosa`, `taxaAduaneiro`, `taxaEstacionamento`, `taxaIva`, `valorIva`, `nDias`, `peso`, `horaExtra`, `taxaAbertoAeroporto`, `horaFechoAeroporto`, `horaEstacionamento`, `descHoraEstacionamento`, `sujeitoDespachoId`, `tipoMercadoriaId`, `especificacaoMercadoriaId`, `horaAberturaAeroporto`, `desconto`, `qtdMeses`, `valorImposto`, `unidadeMetrica`, `total`, `totalIva`, `factura_id`, `dataEntrada`, `dataSaida`) VALUES
+	(969, 28, 1, 'Ocupação de terrenos sem edificações(Por m²)', 0.67, 'SIM', 'N', 0, 0, 0, 14, 15620.19508, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 100, NULL, NULL, 200, 111572.822, 127193.01708, 402, NULL, NULL),
+	(970, 37, 1, 'Ar condicionado 20% do valor do tarifa de ocupação', 0, 'SIM', 'N', 0, 0, 0, 14, 3124.039016, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 0, NULL, NULL, 0, 22314.5644, 25438.603416, 402, NULL, NULL),
+	(971, 28, 1, 'Ocupação de terrenos sem edificações(Por m²)', 0.67, 'SIM', 'N', 0, 0, 0, 14, 15620.19508, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 100, NULL, NULL, 200, 111572.822, 127193.01708, 403, NULL, NULL),
+	(972, 29, 1, 'Ocupação de terrenos com edificações e instalações(Por m²)', 0.53, 'SIM', 'N', 0, 0, 0, 14, 12356.27372, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 100, NULL, NULL, 200, 88259.098, 100615.37172, 403, NULL, NULL),
+	(973, 37, 1, 'Ar condicionado 20% do valor do tarifa de ocupação', 0, 'SIM', 'N', 0, 0, 0, 14, 5595.29376, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 0, NULL, NULL, 0, 39966.384, 45561.67776, 403, NULL, NULL),
+	(974, 38, 1, 'Publicidade(Unidade métrica x mês)', 69, 'SIM', 'N', 0, 0, 0, 14, 3217293.912, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 0, 2, NULL, 200, 22980670.8, 26197964.712, 404, NULL, NULL),
+	(975, 39, 1, 'Estacionamento Camiões Dentro do TCA', 0, 'SIM', 'N', 0, 0, 0, 14, 2914.2155, 1, NULL, NULL, NULL, NULL, NULL, '25h:5min', NULL, 1, 1, 1, 0, NULL, NULL, 0, 20815.825, 23730.0405, 405, '2024-04-15 01:54:00', '2024-04-16 02:59:00'),
+	(976, 22, 2, 'Passes de viaturas - empresa aérea doméstico', 1656, 'SIM', 'N', 0, 0, 0, 14, 386075.26944, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 0, 0, NULL, 0, 2757680.496, 3143755.76544, 406, NULL, NULL);
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.factura_items_original
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.factura_items_original
 CREATE TABLE IF NOT EXISTS `factura_items_original` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `descricao_produto` varchar(250) DEFAULT '0',
@@ -1864,9 +1239,9 @@ CREATE TABLE IF NOT EXISTS `factura_items_original` (
   CONSTRAINT `factura_items_original_ibfk_2` FOREIGN KEY (`produto_id`) REFERENCES `produtos_` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.factura_items_original: ~0 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.factura_items_original: ~0 rows (aproximadamente)
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.failed_jobs
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.failed_jobs
 CREATE TABLE IF NOT EXISTS `failed_jobs` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `connection` text COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -1877,9 +1252,9 @@ CREATE TABLE IF NOT EXISTS `failed_jobs` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.failed_jobs: ~0 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.failed_jobs: ~0 rows (aproximadamente)
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.firebase_notification
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.firebase_notification
 CREATE TABLE IF NOT EXISTS `firebase_notification` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(255) NOT NULL,
@@ -1894,11 +1269,11 @@ CREATE TABLE IF NOT EXISTS `firebase_notification` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.firebase_notification: ~0 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.firebase_notification: ~0 rows (aproximadamente)
 INSERT INTO `firebase_notification` (`id`, `title`, `body`, `type`, `object`, `route`, `userId`, `statuId`, `created_at`, `updated_at`) VALUES
 	(1, 'sfdsds', 'dsdsd', 'dsdsd', 'dsdsds', 'dsdsds', 729, 1, '2024-01-25 16:02:28', '2024-01-29 13:50:10');
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.formas_pagamentos
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.formas_pagamentos
 CREATE TABLE IF NOT EXISTS `formas_pagamentos` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `tipo_pagamento_id` int(10) NOT NULL,
@@ -1927,9 +1302,9 @@ CREATE TABLE IF NOT EXISTS `formas_pagamentos` (
   CONSTRAINT `FK_formas_pagamentos_tipo_pagamento` FOREIGN KEY (`tipo_pagamento_id`) REFERENCES `tipo_pagamento` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.formas_pagamentos: ~0 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.formas_pagamentos: ~0 rows (aproximadamente)
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.formas_pagamentos_geral
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.formas_pagamentos_geral
 CREATE TABLE IF NOT EXISTS `formas_pagamentos_geral` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `descricao` varchar(50) NOT NULL,
@@ -1941,7 +1316,7 @@ CREATE TABLE IF NOT EXISTS `formas_pagamentos_geral` (
   CONSTRAINT `FK_formas_pagamentos_geral_status_gerais` FOREIGN KEY (`status_id`) REFERENCES `status_gerais` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.formas_pagamentos_geral: ~6 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.formas_pagamentos_geral: ~6 rows (aproximadamente)
 INSERT INTO `formas_pagamentos_geral` (`id`, `descricao`, `sigla_tipo_pagamento`, `tipo_credito`, `status_id`) VALUES
 	(1, 'NUMERÁRIO', 'NU', '2', 1),
 	(2, 'VENDA CRÉDITO', 'CC', '1', 1),
@@ -1950,7 +1325,7 @@ INSERT INTO `formas_pagamentos_geral` (`id`, `descricao`, `sigla_tipo_pagamento`
 	(5, 'DEPÓSITO', 'NU', '2', 1),
 	(6, 'DUPLO', 'OU', '2', 1);
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.fornecedores
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.fornecedores
 CREATE TABLE IF NOT EXISTS `fornecedores` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `nome` varchar(255) NOT NULL,
@@ -1983,11 +1358,11 @@ CREATE TABLE IF NOT EXISTS `fornecedores` (
   KEY `FK_fornecedores_tipo_users` (`tipo_user_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.fornecedores: ~0 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.fornecedores: ~0 rows (aproximadamente)
 INSERT INTO `fornecedores` (`id`, `nome`, `telefone_empresa`, `email_empresa`, `nif`, `website`, `pessoal_contacto`, `endereco`, `telefone_contacto`, `email_contacto`, `conta_corrente`, `empresa_id`, `canal_id`, `status_id`, `user_id`, `data_contracto`, `pais_nacionalidade_id`, `created_at`, `updated_at`, `tipo_user_id`, `diversos`, `centroCustoId`) VALUES
 	(1, 'DIVERSOS', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '31.1.2.1.1', 1, 2, 1, 1, NULL, 1, '2024-01-23 16:10:54', '2024-01-23 16:10:54', 2, '1', NULL);
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.gestor_clientes
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.gestor_clientes
 CREATE TABLE IF NOT EXISTS `gestor_clientes` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `nome` varchar(145) NOT NULL,
@@ -2008,9 +1383,9 @@ CREATE TABLE IF NOT EXISTS `gestor_clientes` (
   CONSTRAINT `FK_gestor_clientes_user` FOREIGN KEY (`user_id`) REFERENCES `users_cliente` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.gestor_clientes: ~0 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.gestor_clientes: ~0 rows (aproximadamente)
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.historico_extrato_cartao_cliente
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.historico_extrato_cartao_cliente
 CREATE TABLE IF NOT EXISTS `historico_extrato_cartao_cliente` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `clienteId` int(10) unsigned NOT NULL DEFAULT '0',
@@ -2026,7 +1401,7 @@ CREATE TABLE IF NOT EXISTS `historico_extrato_cartao_cliente` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.historico_extrato_cartao_cliente: ~6 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.historico_extrato_cartao_cliente: ~6 rows (aproximadamente)
 INSERT INTO `historico_extrato_cartao_cliente` (`id`, `clienteId`, `bonus`, `saldo_anterior`, `saldo_atual`, `valorBonus`, `valorDescontarCartao`, `userId`, `documetoReferente`, `created_at`, `updated_at`) VALUES
 	(4, 166, 1, 0, 30, 30, 0, 638, 'FR MUT2023/2', '2023-10-10 17:26:21', '2023-10-10 17:26:21'),
 	(5, 166, 1, 30, 90, 60, 0, 638, 'FR MUT2023/3', '2023-10-10 17:27:25', '2023-10-10 17:27:25'),
@@ -2035,7 +1410,7 @@ INSERT INTO `historico_extrato_cartao_cliente` (`id`, `clienteId`, `bonus`, `sal
 	(8, 166, 1, 136, 150, 34, 20, 638, 'FR MUT2023/10(3.420,00)', '2023-10-20 17:01:42', '2023-10-20 17:01:42'),
 	(9, 204, 2, 2000, 2162, 162, 0, 35, 'FR RR2023/92(8.100,00)', '2023-10-24 18:03:19', '2023-10-24 18:03:19');
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.historico_pagamentos_vendas_online
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.historico_pagamentos_vendas_online
 CREATE TABLE IF NOT EXISTS `historico_pagamentos_vendas_online` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `pagamento_id` int(10) NOT NULL,
@@ -2047,7 +1422,7 @@ CREATE TABLE IF NOT EXISTS `historico_pagamentos_vendas_online` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.historico_pagamentos_vendas_online: ~6 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.historico_pagamentos_vendas_online: ~6 rows (aproximadamente)
 INSERT INTO `historico_pagamentos_vendas_online` (`id`, `pagamento_id`, `status_pagamento_id`, `descricao`, `user_id`, `created_at`, `updated_at`) VALUES
 	(1, 37, 1, 'Pagamento válido pelo operador Mutue Soluções Tecnológicas Inteligentes Lda', 638, '2023-11-24 16:39:49', '2023-11-24 16:39:49'),
 	(2, 37, 5, 'O operador Manuel Bumba confirmou a entrega do pagamento N.º 00001', 734, '2023-11-24 16:41:46', '2023-11-24 16:41:46'),
@@ -2056,16 +1431,16 @@ INSERT INTO `historico_pagamentos_vendas_online` (`id`, `pagamento_id`, `status_
 	(5, 2, 1, 'Pagamento válido pelo operador Fernando Gilberto', 642, '2024-01-11 16:41:23', '2024-01-11 16:41:23'),
 	(6, 2, 1, 'Pagamento válido pelo operador Mutue Soluções Tecnológicas Inteligentes Lda', 638, '2024-01-24 16:19:00', '2024-01-24 16:19:00');
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.idiomas
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.idiomas
 CREATE TABLE IF NOT EXISTS `idiomas` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `designacao` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.idiomas: ~0 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.idiomas: ~0 rows (aproximadamente)
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.images
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.images
 CREATE TABLE IF NOT EXISTS `images` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -2074,9 +1449,9 @@ CREATE TABLE IF NOT EXISTS `images` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.images: ~0 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.images: ~0 rows (aproximadamente)
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.intervalo_pmd
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.intervalo_pmd
 CREATE TABLE IF NOT EXISTS `intervalo_pmd` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `toneladas_min` double NOT NULL DEFAULT '0',
@@ -2085,7 +1460,7 @@ CREATE TABLE IF NOT EXISTS `intervalo_pmd` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.intervalo_pmd: ~5 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.intervalo_pmd: ~5 rows (aproximadamente)
 INSERT INTO `intervalo_pmd` (`id`, `toneladas_min`, `toneladas_max`, `taxa`) VALUES
 	(1, 0, 10, 7.21),
 	(2, 10, 25, 6.62),
@@ -2093,7 +1468,7 @@ INSERT INTO `intervalo_pmd` (`id`, `toneladas_min`, `toneladas_max`, `taxa`) VAL
 	(4, 75, 150, 8.26),
 	(5, 150, 1e113, 8.1);
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.inventarios
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.inventarios
 CREATE TABLE IF NOT EXISTS `inventarios` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `empresa_id` int(10) unsigned NOT NULL,
@@ -2127,9 +1502,9 @@ CREATE TABLE IF NOT EXISTS `inventarios` (
   CONSTRAINT `FK_inventarios_tipo_users` FOREIGN KEY (`tipo_user_id`) REFERENCES `tipo_users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.inventarios: ~0 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.inventarios: ~0 rows (aproximadamente)
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.inventario_itens
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.inventario_itens
 CREATE TABLE IF NOT EXISTS `inventario_itens` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `inventario_id` int(10) unsigned NOT NULL,
@@ -2149,9 +1524,9 @@ CREATE TABLE IF NOT EXISTS `inventario_itens` (
   CONSTRAINT `FK_inventario_itens_produto` FOREIGN KEY (`produto_id`) REFERENCES `produtos_` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.inventario_itens: ~0 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.inventario_itens: ~0 rows (aproximadamente)
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.jobs
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.jobs
 CREATE TABLE IF NOT EXISTS `jobs` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `queue` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -2162,28 +1537,42 @@ CREATE TABLE IF NOT EXISTS `jobs` (
   `created_at` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`),
   KEY `jobs_queue_index` (`queue`)
-) ENGINE=InnoDB AUTO_INCREMENT=588 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.jobs: ~3 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.jobs: ~16 rows (aproximadamente)
 INSERT INTO `jobs` (`id`, `queue`, `payload`, `attempts`, `reserved_at`, `available_at`, `created_at`) VALUES
-	(583, 'default', '{"uuid":"c88d1320-6113-4c92-8a4b-6927e7d5df3d","displayName":"App\\\\Events\\\\EnvioPagamentoVendaOnline","job":"Illuminate\\\\Queue\\\\CallQueuedHandler@call","maxTries":null,"maxExceptions":null,"delay":null,"timeout":null,"timeoutAt":null,"data":{"commandName":"Illuminate\\\\Broadcasting\\\\BroadcastEvent","command":"O:38:\\"Illuminate\\\\Broadcasting\\\\BroadcastEvent\\":10:{s:5:\\"event\\";O:36:\\"App\\\\Events\\\\EnvioPagamentoVendaOnline\\":2:{s:8:\\"somedata\\";s:9:\\"some data\\";s:6:\\"socket\\";N;}s:5:\\"tries\\";N;s:7:\\"timeout\\";N;s:10:\\"connection\\";N;s:5:\\"queue\\";N;s:15:\\"chainConnection\\";N;s:10:\\"chainQueue\\";N;s:5:\\"delay\\";N;s:10:\\"middleware\\";a:0:{}s:7:\\"chained\\";a:0:{}}"}}', 0, NULL, 1710343782, 1710343782),
-	(584, 'default', '{"uuid":"614632f0-14df-4d26-af98-75cde7c44128","displayName":"App\\\\Events\\\\EnvioPagamentoVendaOnline","job":"Illuminate\\\\Queue\\\\CallQueuedHandler@call","maxTries":null,"maxExceptions":null,"delay":null,"timeout":null,"timeoutAt":null,"data":{"commandName":"Illuminate\\\\Broadcasting\\\\BroadcastEvent","command":"O:38:\\"Illuminate\\\\Broadcasting\\\\BroadcastEvent\\":10:{s:5:\\"event\\";O:36:\\"App\\\\Events\\\\EnvioPagamentoVendaOnline\\":2:{s:8:\\"somedata\\";s:9:\\"some data\\";s:6:\\"socket\\";N;}s:5:\\"tries\\";N;s:7:\\"timeout\\";N;s:10:\\"connection\\";N;s:5:\\"queue\\";N;s:15:\\"chainConnection\\";N;s:10:\\"chainQueue\\";N;s:5:\\"delay\\";N;s:10:\\"middleware\\";a:0:{}s:7:\\"chained\\";a:0:{}}"}}', 0, NULL, 1710343973, 1710343973),
-	(585, 'default', '{"uuid":"0ac8bc92-10c6-49db-80e7-0118a66ca6c5","displayName":"App\\\\Events\\\\EnvioPagamentoVendaOnline","job":"Illuminate\\\\Queue\\\\CallQueuedHandler@call","maxTries":null,"maxExceptions":null,"delay":null,"timeout":null,"timeoutAt":null,"data":{"commandName":"Illuminate\\\\Broadcasting\\\\BroadcastEvent","command":"O:38:\\"Illuminate\\\\Broadcasting\\\\BroadcastEvent\\":10:{s:5:\\"event\\";O:36:\\"App\\\\Events\\\\EnvioPagamentoVendaOnline\\":2:{s:8:\\"somedata\\";s:9:\\"some data\\";s:6:\\"socket\\";N;}s:5:\\"tries\\";N;s:7:\\"timeout\\";N;s:10:\\"connection\\";N;s:5:\\"queue\\";N;s:15:\\"chainConnection\\";N;s:10:\\"chainQueue\\";N;s:5:\\"delay\\";N;s:10:\\"middleware\\";a:0:{}s:7:\\"chained\\";a:0:{}}"}}', 0, NULL, 1710422041, 1710422041),
-	(586, 'default', '{"uuid":"18db37ed-241b-4798-b23a-71fca2d6ac3e","displayName":"App\\\\Events\\\\EnvioPagamentoVendaOnline","job":"Illuminate\\\\Queue\\\\CallQueuedHandler@call","maxTries":null,"maxExceptions":null,"delay":null,"timeout":null,"timeoutAt":null,"data":{"commandName":"Illuminate\\\\Broadcasting\\\\BroadcastEvent","command":"O:38:\\"Illuminate\\\\Broadcasting\\\\BroadcastEvent\\":10:{s:5:\\"event\\";O:36:\\"App\\\\Events\\\\EnvioPagamentoVendaOnline\\":2:{s:8:\\"somedata\\";s:9:\\"some data\\";s:6:\\"socket\\";N;}s:5:\\"tries\\";N;s:7:\\"timeout\\";N;s:10:\\"connection\\";N;s:5:\\"queue\\";N;s:15:\\"chainConnection\\";N;s:10:\\"chainQueue\\";N;s:5:\\"delay\\";N;s:10:\\"middleware\\";a:0:{}s:7:\\"chained\\";a:0:{}}"}}', 0, NULL, 1710492134, 1710492134),
-	(587, 'default', '{"uuid":"55669411-d645-4dff-8e30-facb9bdfaab0","displayName":"App\\\\Events\\\\EnvioPagamentoVendaOnline","job":"Illuminate\\\\Queue\\\\CallQueuedHandler@call","maxTries":null,"maxExceptions":null,"delay":null,"timeout":null,"timeoutAt":null,"data":{"commandName":"Illuminate\\\\Broadcasting\\\\BroadcastEvent","command":"O:38:\\"Illuminate\\\\Broadcasting\\\\BroadcastEvent\\":10:{s:5:\\"event\\";O:36:\\"App\\\\Events\\\\EnvioPagamentoVendaOnline\\":2:{s:8:\\"somedata\\";s:9:\\"some data\\";s:6:\\"socket\\";N;}s:5:\\"tries\\";N;s:7:\\"timeout\\";N;s:10:\\"connection\\";N;s:5:\\"queue\\";N;s:15:\\"chainConnection\\";N;s:10:\\"chainQueue\\";N;s:5:\\"delay\\";N;s:10:\\"middleware\\";a:0:{}s:7:\\"chained\\";a:0:{}}"}}', 0, NULL, 1710752379, 1710752379);
+	(1, 'default', '{"uuid":"50ed0442-7b2a-4f91-8e15-e96a012bd13f","displayName":"App\\\\Events\\\\EnvioPagamentoVendaOnline","job":"Illuminate\\\\Queue\\\\CallQueuedHandler@call","maxTries":null,"maxExceptions":null,"delay":null,"timeout":null,"timeoutAt":null,"data":{"commandName":"Illuminate\\\\Broadcasting\\\\BroadcastEvent","command":"O:38:\\"Illuminate\\\\Broadcasting\\\\BroadcastEvent\\":10:{s:5:\\"event\\";O:36:\\"App\\\\Events\\\\EnvioPagamentoVendaOnline\\":2:{s:8:\\"somedata\\";s:9:\\"some data\\";s:6:\\"socket\\";N;}s:5:\\"tries\\";N;s:7:\\"timeout\\";N;s:10:\\"connection\\";N;s:5:\\"queue\\";N;s:15:\\"chainConnection\\";N;s:10:\\"chainQueue\\";N;s:5:\\"delay\\";N;s:10:\\"middleware\\";a:0:{}s:7:\\"chained\\";a:0:{}}"}}', 0, NULL, 1712583846, 1712583846),
+	(2, 'default', '{"uuid":"0490859b-598a-494c-bb1e-0ed55f0b7348","displayName":"App\\\\Events\\\\EnvioPagamentoVendaOnline","job":"Illuminate\\\\Queue\\\\CallQueuedHandler@call","maxTries":null,"maxExceptions":null,"delay":null,"timeout":null,"timeoutAt":null,"data":{"commandName":"Illuminate\\\\Broadcasting\\\\BroadcastEvent","command":"O:38:\\"Illuminate\\\\Broadcasting\\\\BroadcastEvent\\":10:{s:5:\\"event\\";O:36:\\"App\\\\Events\\\\EnvioPagamentoVendaOnline\\":2:{s:8:\\"somedata\\";s:9:\\"some data\\";s:6:\\"socket\\";N;}s:5:\\"tries\\";N;s:7:\\"timeout\\";N;s:10:\\"connection\\";N;s:5:\\"queue\\";N;s:15:\\"chainConnection\\";N;s:10:\\"chainQueue\\";N;s:5:\\"delay\\";N;s:10:\\"middleware\\";a:0:{}s:7:\\"chained\\";a:0:{}}"}}', 0, NULL, 1712583851, 1712583851),
+	(3, 'default', '{"uuid":"a314600c-4f53-4533-9b49-856ea1325a18","displayName":"App\\\\Events\\\\EnvioPagamentoVendaOnline","job":"Illuminate\\\\Queue\\\\CallQueuedHandler@call","maxTries":null,"maxExceptions":null,"delay":null,"timeout":null,"timeoutAt":null,"data":{"commandName":"Illuminate\\\\Broadcasting\\\\BroadcastEvent","command":"O:38:\\"Illuminate\\\\Broadcasting\\\\BroadcastEvent\\":10:{s:5:\\"event\\";O:36:\\"App\\\\Events\\\\EnvioPagamentoVendaOnline\\":2:{s:8:\\"somedata\\";s:9:\\"some data\\";s:6:\\"socket\\";N;}s:5:\\"tries\\";N;s:7:\\"timeout\\";N;s:10:\\"connection\\";N;s:5:\\"queue\\";N;s:15:\\"chainConnection\\";N;s:10:\\"chainQueue\\";N;s:5:\\"delay\\";N;s:10:\\"middleware\\";a:0:{}s:7:\\"chained\\";a:0:{}}"}}', 0, NULL, 1712583912, 1712583912),
+	(4, 'default', '{"uuid":"ff9f785e-fa4a-4071-9473-35241945d475","displayName":"App\\\\Events\\\\EnvioPagamentoVendaOnline","job":"Illuminate\\\\Queue\\\\CallQueuedHandler@call","maxTries":null,"maxExceptions":null,"delay":null,"timeout":null,"timeoutAt":null,"data":{"commandName":"Illuminate\\\\Broadcasting\\\\BroadcastEvent","command":"O:38:\\"Illuminate\\\\Broadcasting\\\\BroadcastEvent\\":10:{s:5:\\"event\\";O:36:\\"App\\\\Events\\\\EnvioPagamentoVendaOnline\\":2:{s:8:\\"somedata\\";s:9:\\"some data\\";s:6:\\"socket\\";N;}s:5:\\"tries\\";N;s:7:\\"timeout\\";N;s:10:\\"connection\\";N;s:5:\\"queue\\";N;s:15:\\"chainConnection\\";N;s:10:\\"chainQueue\\";N;s:5:\\"delay\\";N;s:10:\\"middleware\\";a:0:{}s:7:\\"chained\\";a:0:{}}"}}', 0, NULL, 1712583915, 1712583915),
+	(5, 'default', '{"uuid":"506634c9-5b95-4d29-ae69-173947e3f921","displayName":"App\\\\Events\\\\EnvioPagamentoVendaOnline","job":"Illuminate\\\\Queue\\\\CallQueuedHandler@call","maxTries":null,"maxExceptions":null,"delay":null,"timeout":null,"timeoutAt":null,"data":{"commandName":"Illuminate\\\\Broadcasting\\\\BroadcastEvent","command":"O:38:\\"Illuminate\\\\Broadcasting\\\\BroadcastEvent\\":10:{s:5:\\"event\\";O:36:\\"App\\\\Events\\\\EnvioPagamentoVendaOnline\\":2:{s:8:\\"somedata\\";s:9:\\"some data\\";s:6:\\"socket\\";N;}s:5:\\"tries\\";N;s:7:\\"timeout\\";N;s:10:\\"connection\\";N;s:5:\\"queue\\";N;s:15:\\"chainConnection\\";N;s:10:\\"chainQueue\\";N;s:5:\\"delay\\";N;s:10:\\"middleware\\";a:0:{}s:7:\\"chained\\";a:0:{}}"}}', 0, NULL, 1712585804, 1712585804),
+	(6, 'default', '{"uuid":"49a1baff-0308-4dcf-8e0b-c353d4ecfeb3","displayName":"App\\\\Events\\\\EnvioPagamentoVendaOnline","job":"Illuminate\\\\Queue\\\\CallQueuedHandler@call","maxTries":null,"maxExceptions":null,"failOnTimeout":false,"backoff":null,"timeout":null,"retryUntil":null,"data":{"commandName":"Illuminate\\\\Broadcasting\\\\BroadcastEvent","command":"O:38:\\"Illuminate\\\\Broadcasting\\\\BroadcastEvent\\":12:{s:5:\\"event\\";O:36:\\"App\\\\Events\\\\EnvioPagamentoVendaOnline\\":2:{s:8:\\"somedata\\";s:9:\\"some data\\";s:6:\\"socket\\";N;}s:5:\\"tries\\";N;s:7:\\"timeout\\";N;s:10:\\"connection\\";N;s:5:\\"queue\\";N;s:15:\\"chainConnection\\";N;s:10:\\"chainQueue\\";N;s:19:\\"chainCatchCallbacks\\";N;s:5:\\"delay\\";N;s:11:\\"afterCommit\\";N;s:10:\\"middleware\\";a:0:{}s:7:\\"chained\\";a:0:{}}"}}', 0, NULL, 1712587083, 1712587083),
+	(7, 'default', '{"uuid":"dc74e5f2-fe3c-4816-9d8e-50bc37d2a43b","displayName":"App\\\\Events\\\\EnvioPagamentoVendaOnline","job":"Illuminate\\\\Queue\\\\CallQueuedHandler@call","maxTries":null,"maxExceptions":null,"failOnTimeout":false,"backoff":null,"timeout":null,"retryUntil":null,"data":{"commandName":"Illuminate\\\\Broadcasting\\\\BroadcastEvent","command":"O:38:\\"Illuminate\\\\Broadcasting\\\\BroadcastEvent\\":12:{s:5:\\"event\\";O:36:\\"App\\\\Events\\\\EnvioPagamentoVendaOnline\\":2:{s:8:\\"somedata\\";s:9:\\"some data\\";s:6:\\"socket\\";N;}s:5:\\"tries\\";N;s:7:\\"timeout\\";N;s:10:\\"connection\\";N;s:5:\\"queue\\";N;s:15:\\"chainConnection\\";N;s:10:\\"chainQueue\\";N;s:19:\\"chainCatchCallbacks\\";N;s:5:\\"delay\\";N;s:11:\\"afterCommit\\";N;s:10:\\"middleware\\";a:0:{}s:7:\\"chained\\";a:0:{}}"}}', 0, NULL, 1712587154, 1712587154),
+	(8, 'default', '{"uuid":"a5687a49-9f97-4b10-beac-fdb9692c5980","displayName":"App\\\\Events\\\\EnvioPagamentoVendaOnline","job":"Illuminate\\\\Queue\\\\CallQueuedHandler@call","maxTries":null,"maxExceptions":null,"failOnTimeout":false,"backoff":null,"timeout":null,"retryUntil":null,"data":{"commandName":"Illuminate\\\\Broadcasting\\\\BroadcastEvent","command":"O:38:\\"Illuminate\\\\Broadcasting\\\\BroadcastEvent\\":12:{s:5:\\"event\\";O:36:\\"App\\\\Events\\\\EnvioPagamentoVendaOnline\\":2:{s:8:\\"somedata\\";s:9:\\"some data\\";s:6:\\"socket\\";N;}s:5:\\"tries\\";N;s:7:\\"timeout\\";N;s:10:\\"connection\\";N;s:5:\\"queue\\";N;s:15:\\"chainConnection\\";N;s:10:\\"chainQueue\\";N;s:19:\\"chainCatchCallbacks\\";N;s:5:\\"delay\\";N;s:11:\\"afterCommit\\";N;s:10:\\"middleware\\";a:0:{}s:7:\\"chained\\";a:0:{}}"}}', 0, NULL, 1712587507, 1712587507),
+	(9, 'default', '{"uuid":"19466b6d-0f9a-4031-97e7-0816d99f6808","displayName":"App\\\\Events\\\\EnvioPagamentoVendaOnline","job":"Illuminate\\\\Queue\\\\CallQueuedHandler@call","maxTries":null,"maxExceptions":null,"failOnTimeout":false,"backoff":null,"timeout":null,"retryUntil":null,"data":{"commandName":"Illuminate\\\\Broadcasting\\\\BroadcastEvent","command":"O:38:\\"Illuminate\\\\Broadcasting\\\\BroadcastEvent\\":12:{s:5:\\"event\\";O:36:\\"App\\\\Events\\\\EnvioPagamentoVendaOnline\\":2:{s:8:\\"somedata\\";s:9:\\"some data\\";s:6:\\"socket\\";N;}s:5:\\"tries\\";N;s:7:\\"timeout\\";N;s:10:\\"connection\\";N;s:5:\\"queue\\";N;s:15:\\"chainConnection\\";N;s:10:\\"chainQueue\\";N;s:19:\\"chainCatchCallbacks\\";N;s:5:\\"delay\\";N;s:11:\\"afterCommit\\";N;s:10:\\"middleware\\";a:0:{}s:7:\\"chained\\";a:0:{}}"}}', 0, NULL, 1712658700, 1712658700),
+	(10, 'default', '{"uuid":"30fe1a51-8c99-4647-9bff-c5174d6e7da0","displayName":"App\\\\Events\\\\EnvioPagamentoVendaOnline","job":"Illuminate\\\\Queue\\\\CallQueuedHandler@call","maxTries":null,"maxExceptions":null,"failOnTimeout":false,"backoff":null,"timeout":null,"retryUntil":null,"data":{"commandName":"Illuminate\\\\Broadcasting\\\\BroadcastEvent","command":"O:38:\\"Illuminate\\\\Broadcasting\\\\BroadcastEvent\\":12:{s:5:\\"event\\";O:36:\\"App\\\\Events\\\\EnvioPagamentoVendaOnline\\":2:{s:8:\\"somedata\\";s:9:\\"some data\\";s:6:\\"socket\\";N;}s:5:\\"tries\\";N;s:7:\\"timeout\\";N;s:10:\\"connection\\";N;s:5:\\"queue\\";N;s:15:\\"chainConnection\\";N;s:10:\\"chainQueue\\";N;s:19:\\"chainCatchCallbacks\\";N;s:5:\\"delay\\";N;s:11:\\"afterCommit\\";N;s:10:\\"middleware\\";a:0:{}s:7:\\"chained\\";a:0:{}}"}}', 0, NULL, 1712746611, 1712746611),
+	(11, 'default', '{"uuid":"fc6de304-79a1-4ce1-acea-95f6f5bcaa85","displayName":"App\\\\Events\\\\EnvioPagamentoVendaOnline","job":"Illuminate\\\\Queue\\\\CallQueuedHandler@call","maxTries":null,"maxExceptions":null,"failOnTimeout":false,"backoff":null,"timeout":null,"retryUntil":null,"data":{"commandName":"Illuminate\\\\Broadcasting\\\\BroadcastEvent","command":"O:38:\\"Illuminate\\\\Broadcasting\\\\BroadcastEvent\\":12:{s:5:\\"event\\";O:36:\\"App\\\\Events\\\\EnvioPagamentoVendaOnline\\":2:{s:8:\\"somedata\\";s:9:\\"some data\\";s:6:\\"socket\\";N;}s:5:\\"tries\\";N;s:7:\\"timeout\\";N;s:10:\\"connection\\";N;s:5:\\"queue\\";N;s:15:\\"chainConnection\\";N;s:10:\\"chainQueue\\";N;s:19:\\"chainCatchCallbacks\\";N;s:5:\\"delay\\";N;s:11:\\"afterCommit\\";N;s:10:\\"middleware\\";a:0:{}s:7:\\"chained\\";a:0:{}}"}}', 0, NULL, 1712759747, 1712759747),
+	(12, 'default', '{"uuid":"55e23bfe-05a0-40f5-981e-86a649464245","displayName":"App\\\\Events\\\\EnvioPagamentoVendaOnline","job":"Illuminate\\\\Queue\\\\CallQueuedHandler@call","maxTries":null,"maxExceptions":null,"failOnTimeout":false,"backoff":null,"timeout":null,"retryUntil":null,"data":{"commandName":"Illuminate\\\\Broadcasting\\\\BroadcastEvent","command":"O:38:\\"Illuminate\\\\Broadcasting\\\\BroadcastEvent\\":12:{s:5:\\"event\\";O:36:\\"App\\\\Events\\\\EnvioPagamentoVendaOnline\\":2:{s:8:\\"somedata\\";s:9:\\"some data\\";s:6:\\"socket\\";N;}s:5:\\"tries\\";N;s:7:\\"timeout\\";N;s:10:\\"connection\\";N;s:5:\\"queue\\";N;s:15:\\"chainConnection\\";N;s:10:\\"chainQueue\\";N;s:19:\\"chainCatchCallbacks\\";N;s:5:\\"delay\\";N;s:11:\\"afterCommit\\";N;s:10:\\"middleware\\";a:0:{}s:7:\\"chained\\";a:0:{}}"}}', 0, NULL, 1712817085, 1712817085),
+	(13, 'default', '{"uuid":"a29569e2-306e-4a49-bbfd-a8c4373fc5d6","displayName":"App\\\\Events\\\\EnvioPagamentoVendaOnline","job":"Illuminate\\\\Queue\\\\CallQueuedHandler@call","maxTries":null,"maxExceptions":null,"failOnTimeout":false,"backoff":null,"timeout":null,"retryUntil":null,"data":{"commandName":"Illuminate\\\\Broadcasting\\\\BroadcastEvent","command":"O:38:\\"Illuminate\\\\Broadcasting\\\\BroadcastEvent\\":12:{s:5:\\"event\\";O:36:\\"App\\\\Events\\\\EnvioPagamentoVendaOnline\\":2:{s:8:\\"somedata\\";s:9:\\"some data\\";s:6:\\"socket\\";N;}s:5:\\"tries\\";N;s:7:\\"timeout\\";N;s:10:\\"connection\\";N;s:5:\\"queue\\";N;s:15:\\"chainConnection\\";N;s:10:\\"chainQueue\\";N;s:19:\\"chainCatchCallbacks\\";N;s:5:\\"delay\\";N;s:11:\\"afterCommit\\";N;s:10:\\"middleware\\";a:0:{}s:7:\\"chained\\";a:0:{}}"}}', 0, NULL, 1712910871, 1712910871),
+	(14, 'default', '{"uuid":"cd464b72-59e2-45cd-baf0-238bfc341458","displayName":"App\\\\Events\\\\EnvioPagamentoVendaOnline","job":"Illuminate\\\\Queue\\\\CallQueuedHandler@call","maxTries":null,"maxExceptions":null,"failOnTimeout":false,"backoff":null,"timeout":null,"retryUntil":null,"data":{"commandName":"Illuminate\\\\Broadcasting\\\\BroadcastEvent","command":"O:38:\\"Illuminate\\\\Broadcasting\\\\BroadcastEvent\\":12:{s:5:\\"event\\";O:36:\\"App\\\\Events\\\\EnvioPagamentoVendaOnline\\":2:{s:8:\\"somedata\\";s:9:\\"some data\\";s:6:\\"socket\\";N;}s:5:\\"tries\\";N;s:7:\\"timeout\\";N;s:10:\\"connection\\";N;s:5:\\"queue\\";N;s:15:\\"chainConnection\\";N;s:10:\\"chainQueue\\";N;s:19:\\"chainCatchCallbacks\\";N;s:5:\\"delay\\";N;s:11:\\"afterCommit\\";N;s:10:\\"middleware\\";a:0:{}s:7:\\"chained\\";a:0:{}}"}}', 0, NULL, 1712910872, 1712910872),
+	(15, 'default', '{"uuid":"3496f740-c0eb-4415-a477-46e840e5fc78","displayName":"App\\\\Events\\\\EnvioPagamentoVendaOnline","job":"Illuminate\\\\Queue\\\\CallQueuedHandler@call","maxTries":null,"maxExceptions":null,"failOnTimeout":false,"backoff":null,"timeout":null,"retryUntil":null,"data":{"commandName":"Illuminate\\\\Broadcasting\\\\BroadcastEvent","command":"O:38:\\"Illuminate\\\\Broadcasting\\\\BroadcastEvent\\":12:{s:5:\\"event\\";O:36:\\"App\\\\Events\\\\EnvioPagamentoVendaOnline\\":2:{s:8:\\"somedata\\";s:9:\\"some data\\";s:6:\\"socket\\";N;}s:5:\\"tries\\";N;s:7:\\"timeout\\";N;s:10:\\"connection\\";N;s:5:\\"queue\\";N;s:15:\\"chainConnection\\";N;s:10:\\"chainQueue\\";N;s:19:\\"chainCatchCallbacks\\";N;s:5:\\"delay\\";N;s:11:\\"afterCommit\\";N;s:10:\\"middleware\\";a:0:{}s:7:\\"chained\\";a:0:{}}"}}', 0, NULL, 1712913515, 1712913515),
+	(16, 'default', '{"uuid":"0a7e091f-b2c8-48dd-983e-18d956f3d8d8","displayName":"App\\\\Events\\\\EnvioPagamentoVendaOnline","job":"Illuminate\\\\Queue\\\\CallQueuedHandler@call","maxTries":null,"maxExceptions":null,"failOnTimeout":false,"backoff":null,"timeout":null,"retryUntil":null,"data":{"commandName":"Illuminate\\\\Broadcasting\\\\BroadcastEvent","command":"O:38:\\"Illuminate\\\\Broadcasting\\\\BroadcastEvent\\":12:{s:5:\\"event\\";O:36:\\"App\\\\Events\\\\EnvioPagamentoVendaOnline\\":2:{s:8:\\"somedata\\";s:9:\\"some data\\";s:6:\\"socket\\";N;}s:5:\\"tries\\";N;s:7:\\"timeout\\";N;s:10:\\"connection\\";N;s:5:\\"queue\\";N;s:15:\\"chainConnection\\";N;s:10:\\"chainQueue\\";N;s:19:\\"chainCatchCallbacks\\";N;s:5:\\"delay\\";N;s:11:\\"afterCommit\\";N;s:10:\\"middleware\\";a:0:{}s:7:\\"chained\\";a:0:{}}"}}', 0, NULL, 1712913517, 1712913517),
+	(17, 'default', '{"uuid":"c3b57188-e1e5-46f4-a578-36820085d08e","displayName":"App\\\\Events\\\\EnvioPagamentoVendaOnline","job":"Illuminate\\\\Queue\\\\CallQueuedHandler@call","maxTries":null,"maxExceptions":null,"failOnTimeout":false,"backoff":null,"timeout":null,"retryUntil":null,"data":{"commandName":"Illuminate\\\\Broadcasting\\\\BroadcastEvent","command":"O:38:\\"Illuminate\\\\Broadcasting\\\\BroadcastEvent\\":12:{s:5:\\"event\\";O:36:\\"App\\\\Events\\\\EnvioPagamentoVendaOnline\\":2:{s:8:\\"somedata\\";s:9:\\"some data\\";s:6:\\"socket\\";N;}s:5:\\"tries\\";N;s:7:\\"timeout\\";N;s:10:\\"connection\\";N;s:5:\\"queue\\";N;s:15:\\"chainConnection\\";N;s:10:\\"chainQueue\\";N;s:19:\\"chainCatchCallbacks\\";N;s:5:\\"delay\\";N;s:11:\\"afterCommit\\";N;s:10:\\"middleware\\";a:0:{}s:7:\\"chained\\";a:0:{}}"}}', 0, NULL, 1713076741, 1713076741),
+	(18, 'default', '{"uuid":"dd0408a8-72fe-4759-80da-322d22f471ad","displayName":"App\\\\Events\\\\EnvioPagamentoVendaOnline","job":"Illuminate\\\\Queue\\\\CallQueuedHandler@call","maxTries":null,"maxExceptions":null,"failOnTimeout":false,"backoff":null,"timeout":null,"retryUntil":null,"data":{"commandName":"Illuminate\\\\Broadcasting\\\\BroadcastEvent","command":"O:38:\\"Illuminate\\\\Broadcasting\\\\BroadcastEvent\\":12:{s:5:\\"event\\";O:36:\\"App\\\\Events\\\\EnvioPagamentoVendaOnline\\":2:{s:8:\\"somedata\\";s:9:\\"some data\\";s:6:\\"socket\\";N;}s:5:\\"tries\\";N;s:7:\\"timeout\\";N;s:10:\\"connection\\";N;s:5:\\"queue\\";N;s:15:\\"chainConnection\\";N;s:10:\\"chainQueue\\";N;s:19:\\"chainCatchCallbacks\\";N;s:5:\\"delay\\";N;s:11:\\"afterCommit\\";N;s:10:\\"middleware\\";a:0:{}s:7:\\"chained\\";a:0:{}}"}}', 0, NULL, 1713108251, 1713108251),
+	(19, 'default', '{"uuid":"aeb55908-1261-4316-9d6c-b434408dec07","displayName":"App\\\\Events\\\\EnvioPagamentoVendaOnline","job":"Illuminate\\\\Queue\\\\CallQueuedHandler@call","maxTries":null,"maxExceptions":null,"failOnTimeout":false,"backoff":null,"timeout":null,"retryUntil":null,"data":{"commandName":"Illuminate\\\\Broadcasting\\\\BroadcastEvent","command":"O:38:\\"Illuminate\\\\Broadcasting\\\\BroadcastEvent\\":12:{s:5:\\"event\\";O:36:\\"App\\\\Events\\\\EnvioPagamentoVendaOnline\\":2:{s:8:\\"somedata\\";s:9:\\"some data\\";s:6:\\"socket\\";N;}s:5:\\"tries\\";N;s:7:\\"timeout\\";N;s:10:\\"connection\\";N;s:5:\\"queue\\";N;s:15:\\"chainConnection\\";N;s:10:\\"chainQueue\\";N;s:19:\\"chainCatchCallbacks\\";N;s:5:\\"delay\\";N;s:11:\\"afterCommit\\";N;s:10:\\"middleware\\";a:0:{}s:7:\\"chained\\";a:0:{}}"}}', 0, NULL, 1713152241, 1713152241);
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.json
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.json
 CREATE TABLE IF NOT EXISTS `json` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `texto` longtext,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.json: ~0 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.json: ~0 rows (aproximadamente)
 INSERT INTO `json` (`id`, `texto`) VALUES
 	(2, '{"id":2,"uuid":"e6aee384-6564-4789-b58b-be427b0d73ab","codigo":"00002","bancoId":6,"empresaId":null,"dataPagamentoBanco":"2024-01-11 00:00:00","totalPagamento":8266.25,"totalDesconto":0,"totalIva":1157.275,"comprovativoBancario":"comprovativosVendasOnline\\/TlpevWPFeVtf1lA9mjtuJD7JqakqkwnHQHGWpRUk.pdf","formaPagamentoId":4,"userId":741,"nomeUser":"Ramos Soft","statusPagamentoId":2,"enderecoEntrega":null,"nomeUserEntrega":"Ramos Soft","apelidoUserEntrega":"Ramos Soft","pontoReferenciaEntrega":null,"telefoneUserEntrega":"923292970","provinciaIdEntrega":1,"comunaId":null,"taxaEntrega":0,"tipoEntregaId":2,"operadorId":638,"emailEntrega":"info@ramossoft.com","numeroCartaoCliente":null,"observacaoEntrega":null,"motivoRejeicao":null,"created_at":"2024-01-11T13:03:18.000000Z","estimativaEntrega":"2024-01-13 14:03:18","updated_at":"2024-01-24T16:19:00.000000Z","deleted_at":null,"pagamento_vendas_online_items":[{"id":3,"uuid":"e19c8d13-7e9a-402d-a7e6-98c45ff4c7c3","produtoId":1510,"precoVendaProduto":3372.5,"nomeProduto":"CABO ALIMENT. PC 1.8 MT MANHT","quantidade":1,"pagamentoVendasOnlineId":2,"taxaIvaValor":472.15,"subtotal":3372.5,"taxaIva":14},{"id":4,"uuid":"067bd8a2-b788-43dc-99e2-6d7f455d53f6","produtoId":1047,"precoVendaProduto":4893.75,"nomeProduto":"BLOCO TOM.TRIPLA 1.5 MT C\\/INT BRANCA","quantidade":1,"pagamentoVendasOnlineId":2,"taxaIvaValor":685.125,"subtotal":4893.75,"taxaIva":14}],"user":{"id":741,"name":"Ramos Soft","uuid":"88b32a7d-114e-4ce4-9cae-7813bc40de94","username":"Ramos Soft","created_at":"2023-12-06T23:44:12.000000Z","updated_at":"2023-12-06T23:44:12.000000Z","tipo_user_id":4,"status_id":1,"statusUserAdicional":1,"status_senha_id":1,"telefone":"923292970","email":"info@ramossoft.com","email_verified_at":null,"canal_id":4,"empresa_id":null,"foto":"utilizadores\\/cliente\\/avatarEmpresa.png","guard":"empresa","token_notification_firebase":null,"all_permissions":[],"can":{"gerir utilizadores":true,"gerir permiss\\u00f5es":true,"gerir licen\\u00e7as":true,"consultar licen\\u00e7as":true,"gerir fornecedores":true,"gerir empresas":true,"gerir funcionario":true,"gerir fabricantes":true,"gerir armazens":true,"gerir bancos":true,"gerir marcas":true,"gerir categoria":true,"gerir clientes":true,"gerir produtos":true,"gerir nota credito":true,"gerir nota debito":true,"gerir rectificar documento":true,"gerir anular documento":true,"gerir actualizar estoque":true,"gerir transferir produto":true,"gerir entrada produto":true,"gerir pagamento fornecedor":true,"gerir taxas":true,"gerir motivos isencao":true,"gerir vendas":true,"gerir inventario":true,"visualizar minhas licen\\u00e7as":true,"visualizar facturas licencas":true,"visualizar recibo pagamento factura":true,"gerir funcao":true,"gerir movimento diario":true,"gerir recibos":true,"visualizar produtos mais vendidos":true,"visualizar existencia estoque produto":true,"converter proforma":true,"gerar saft":true,"gerir empresa":true,"editar modelo documento":true,"definir parametros":true,"visualizar relatorio por centro custo":true,"gerir centro de custo":true,"visualizar relatorios":true,"imprimir_fecho_caixa":true,"gerir permissao":true,"Sem acesso a dashboard":true},"permissions":[],"roles":[]},"statu":{"id":2,"designacao":"Pendente"},"banco":{"id":6,"designacao":"BANCO DE FOMENTO ANGOLA","sigla":"BFA","uuid":"404f6f31-f11b-42c3-812b-7f1e05168ccb","num_conta":"273036373 30 001","titular":"","iban":"AO06 0006.0000.7303.6373.3014.3","status_id":1,"canal_id":2,"created_at":"2021-04-16T11:42:08.000000Z","empresa_id":148,"tipo_user_id":2,"user_id":641,"centroCustoId":null,"updated_at":"2022-10-20T12:41:50.000000Z"}}');
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.log_acessos
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.log_acessos
 CREATE TABLE IF NOT EXISTS `log_acessos` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `descricao` text COLLATE utf8_unicode_ci NOT NULL,
@@ -2197,67 +1586,75 @@ CREATE TABLE IF NOT EXISTS `log_acessos` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `user_id` bigint(20) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=373723 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=373731 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.log_acessos: ~45 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.log_acessos: ~63 rows (aproximadamente)
 INSERT INTO `log_acessos` (`id`, `descricao`, `ip`, `maquina`, `browser`, `rota_acessado`, `user_name`, `outra_informacao`, `created_at`, `updated_at`, `user_id`) VALUES
-	(373668, 'No dia 13 de mar?o de 2024 o Senhor(a) Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto fez um acesso ao sistema mutue aeroporto as 10 horas 19 minutos e 45 segundos', '127.0.0.1', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'http://127.0.0.1:8000/empresa/gerarSaft', 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', NULL, '2024-03-13 09:19:45', '2024-03-13 09:19:45', 1),
-	(373669, 'No dia 13 de mar?o de 2024 o Senhor(a) Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto fez um acesso ao sistema mutue aeroporto as 10 horas 24 minutos e 45 segundos', '127.0.0.1', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'http://127.0.0.1:8000/empresa/gerarSaft', 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', NULL, '2024-03-13 09:24:45', '2024-03-13 09:24:45', 1),
-	(373670, 'No dia 13 de mar?o de 2024 o Senhor(a) Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto fez um acesso ao sistema mutue aeroporto as 10 horas 26 minutos e 08 segundos', '127.0.0.1', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'http://127.0.0.1:8000/empresa/gerarSaft', 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', NULL, '2024-03-13 09:26:08', '2024-03-13 09:26:08', 1),
-	(373671, 'No dia 13 de mar?o de 2024 o Senhor(a) Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto fez um acesso ao sistema mutue aeroporto as 10 horas 26 minutos e 18 segundos', '127.0.0.1', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'http://127.0.0.1:8000/empresa/gerarSaft', 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', NULL, '2024-03-13 09:26:18', '2024-03-13 09:26:18', 1),
-	(373672, 'No dia 13 de mar?o de 2024 o Senhor(a) Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto fez um acesso ao sistema mutue aeroporto as 10 horas 30 minutos e 20 segundos', '127.0.0.1', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'http://127.0.0.1:8000/empresa/gerarSaft', 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', NULL, '2024-03-13 09:30:20', '2024-03-13 09:30:20', 1),
-	(373673, 'No dia 13 de mar?o de 2024 o Senhor(a) Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto fez um acesso ao sistema mutue aeroporto as 10 horas 30 minutos e 26 segundos', '127.0.0.1', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'http://127.0.0.1:8000/empresa/gerarSaft', 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', NULL, '2024-03-13 09:30:26', '2024-03-13 09:30:26', 1),
-	(373674, 'No dia 13 de mar?o de 2024 o Senhor(a) Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto fez um acesso ao sistema mutue aeroporto as 10 horas 30 minutos e 39 segundos', '127.0.0.1', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'http://127.0.0.1:8000/empresa/gerarSaft', 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', NULL, '2024-03-13 09:30:39', '2024-03-13 09:30:39', 1),
-	(373675, 'No dia 13 de mar?o de 2024 o Senhor(a) Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto fez um acesso ao sistema mutue aeroporto as 10 horas 32 minutos e 10 segundos', '127.0.0.1', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'http://127.0.0.1:8000/empresa/gerarSaft', 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', NULL, '2024-03-13 09:32:10', '2024-03-13 09:32:10', 1),
-	(373676, 'No dia 13 de mar?o de 2024 o Senhor(a) Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto fez um acesso ao sistema mutue aeroporto as 10 horas 32 minutos e 21 segundos', '127.0.0.1', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'http://127.0.0.1:8000/empresa/gerarSaft', 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', NULL, '2024-03-13 09:32:21', '2024-03-13 09:32:21', 1),
-	(373677, 'No dia 13 de mar?o de 2024 o Senhor(a) Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto fez um acesso ao sistema mutue aeroporto as 10 horas 33 minutos e 54 segundos', '127.0.0.1', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'http://127.0.0.1:8000/empresa/gerarSaft', 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', NULL, '2024-03-13 09:33:54', '2024-03-13 09:33:54', 1),
-	(373678, 'No dia 13 de mar?o de 2024 o Senhor(a) Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto fez um acesso ao sistema mutue aeroporto as 10 horas 34 minutos e 12 segundos', '127.0.0.1', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'http://127.0.0.1:8000/empresa/gerarSaft', 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', NULL, '2024-03-13 09:34:12', '2024-03-13 09:34:12', 1),
-	(373679, 'No dia 13 de mar?o de 2024 o Senhor(a) Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto fez um acesso ao sistema mutue aeroporto as 10 horas 34 minutos e 40 segundos', '127.0.0.1', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'http://127.0.0.1:8000/empresa/gerarSaft', 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', NULL, '2024-03-13 09:34:40', '2024-03-13 09:34:40', 1),
-	(373680, 'No dia 13 de mar?o de 2024 o Senhor(a) Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto fez um acesso ao sistema mutue aeroporto as 10 horas 34 minutos e 44 segundos', '127.0.0.1', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'http://127.0.0.1:8000/empresa/gerarSaft', 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', NULL, '2024-03-13 09:34:44', '2024-03-13 09:34:44', 1),
-	(373681, 'No dia 13 de mar?o de 2024 o Senhor(a) Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto fez um acesso ao sistema mutue aeroporto as 10 horas 34 minutos e 57 segundos', '127.0.0.1', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'http://127.0.0.1:8000/empresa/gerarSaft', 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', NULL, '2024-03-13 09:34:57', '2024-03-13 09:34:57', 1),
-	(373682, 'No dia 13 de mar?o de 2024 o Senhor(a) Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto fez um acesso ao sistema mutue aeroporto as 10 horas 35 minutos e 10 segundos', '127.0.0.1', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'http://127.0.0.1:8000/empresa/gerarSaft', 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', NULL, '2024-03-13 09:35:10', '2024-03-13 09:35:10', 1),
-	(373683, 'No dia 13 de mar?o de 2024 o Senhor(a) Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto fez um acesso ao sistema mutue aeroporto as 10 horas 35 minutos e 37 segundos', '127.0.0.1', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'http://127.0.0.1:8000/empresa/gerarSaft', 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', NULL, '2024-03-13 09:35:37', '2024-03-13 09:35:37', 1),
-	(373684, 'No dia 13 de mar?o de 2024 o Senhor(a) Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto fez um acesso ao sistema mutue aeroporto as 10 horas 35 minutos e 46 segundos', '127.0.0.1', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'http://127.0.0.1:8000/empresa/gerarSaft', 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', NULL, '2024-03-13 09:35:46', '2024-03-13 09:35:46', 1),
-	(373685, 'No dia 13 de mar?o de 2024 o Senhor(a) Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto fez um acesso ao sistema mutue aeroporto as 10 horas 35 minutos e 52 segundos', '127.0.0.1', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'http://127.0.0.1:8000/empresa/gerarSaft', 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', NULL, '2024-03-13 09:35:52', '2024-03-13 09:35:52', 1),
-	(373686, 'No dia 13 de mar?o de 2024 o Senhor(a) Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto fez um acesso ao sistema mutue aeroporto as 10 horas 37 minutos e 56 segundos', '127.0.0.1', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'http://127.0.0.1:8000/empresa/gerarSaft', 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', NULL, '2024-03-13 09:37:56', '2024-03-13 09:37:56', 1),
-	(373687, 'No dia 13 de mar?o de 2024 o Senhor(a) Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto fez um acesso ao sistema mutue aeroporto as 10 horas 46 minutos e 06 segundos', '127.0.0.1', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'http://127.0.0.1:8000/empresa/gerarSaft', 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', NULL, '2024-03-13 09:46:06', '2024-03-13 09:46:06', 1),
-	(373688, 'No dia 13 de mar?o de 2024 o Senhor(a) Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto fez um acesso ao sistema mutue aeroporto as 10 horas 46 minutos e 17 segundos', '127.0.0.1', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'http://127.0.0.1:8000/empresa/gerarSaft', 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', NULL, '2024-03-13 09:46:17', '2024-03-13 09:46:17', 1),
-	(373689, 'No dia 13 de mar?o de 2024 o Senhor(a) Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto fez um acesso ao sistema mutue aeroporto as 10 horas 48 minutos e 15 segundos', '127.0.0.1', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'http://127.0.0.1:8000/empresa/gerarSaft', 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', NULL, '2024-03-13 09:48:15', '2024-03-13 09:48:15', 1),
-	(373690, 'No dia 13 de mar?o de 2024 o Senhor(a) Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto fez um acesso ao sistema mutue aeroporto as 10 horas 49 minutos e 43 segundos', '127.0.0.1', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'http://127.0.0.1:8000/empresa/gerarSaft', 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', NULL, '2024-03-13 09:49:43', '2024-03-13 09:49:43', 1),
-	(373691, 'No dia 13 de mar?o de 2024 o Senhor(a) Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto fez um acesso ao sistema mutue aeroporto as 10 horas 50 minutos e 43 segundos', '127.0.0.1', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'http://127.0.0.1:8000/empresa/gerarSaft', 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', NULL, '2024-03-13 09:50:43', '2024-03-13 09:50:43', 1),
-	(373692, 'No dia 13 de mar?o de 2024 o Senhor(a) Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto fez um acesso ao sistema mutue aeroporto as 10 horas 51 minutos e 16 segundos', '127.0.0.1', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'http://127.0.0.1:8000/empresa/gerarSaft', 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', NULL, '2024-03-13 09:51:16', '2024-03-13 09:51:16', 1),
-	(373693, 'No dia 13 de mar?o de 2024 o Senhor(a) Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto fez um acesso ao sistema mutue aeroporto as 10 horas 53 minutos e 40 segundos', '127.0.0.1', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'http://127.0.0.1:8000/empresa/gerarSaft', 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', NULL, '2024-03-13 09:53:40', '2024-03-13 09:53:40', 1),
-	(373694, 'No dia 13 de mar?o de 2024 o Senhor(a) Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto fez um acesso ao sistema mutue aeroporto as 11 horas 00 minutos e 53 segundos', '127.0.0.1', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'http://127.0.0.1:8000/empresa/gerarSaft', 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', NULL, '2024-03-13 10:00:53', '2024-03-13 10:00:53', 1),
-	(373695, 'No dia 13 de mar?o de 2024 o Senhor(a) Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto fez um acesso ao sistema mutue aeroporto as 11 horas 02 minutos e 34 segundos', '127.0.0.1', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'http://127.0.0.1:8000/empresa/recibo/novo', 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', NULL, '2024-03-13 10:02:34', '2024-03-13 10:02:34', 1),
-	(373696, 'No dia 13 de mar?o de 2024 o Senhor(a) Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto fez um acesso ao sistema mutue aeroporto as 11 horas 03 minutos e 31 segundos', '127.0.0.1', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'http://127.0.0.1:8000/empresa/recibo/novo', 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', NULL, '2024-03-13 10:03:31', '2024-03-13 10:03:31', 1),
-	(373697, 'No dia 13 de mar?o de 2024 o Senhor(a) Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto fez um acesso ao sistema mutue aeroporto as 11 horas 04 minutos e 12 segundos', '127.0.0.1', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'http://127.0.0.1:8000/empresa/gerarSaft', 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', NULL, '2024-03-13 10:04:12', '2024-03-13 10:04:12', 1),
-	(373698, 'No dia 13 de mar?o de 2024 o Senhor(a) Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto fez um acesso ao sistema mutue aeroporto as 11 horas 07 minutos e 05 segundos', '127.0.0.1', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'http://127.0.0.1:8000/empresa/anulacao/fatura/novo', 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', NULL, '2024-03-13 10:07:05', '2024-03-13 10:07:05', 1),
-	(373699, 'No dia 13 de mar?o de 2024 o Senhor(a) Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto fez um acesso ao sistema mutue aeroporto as 11 horas 07 minutos e 21 segundos', '127.0.0.1', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'http://127.0.0.1:8000/empresa/anulacao/fatura/novo', 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', NULL, '2024-03-13 10:07:21', '2024-03-13 10:07:21', 1),
-	(373700, 'No dia 13 de mar?o de 2024 o Senhor(a) Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto fez um acesso ao sistema mutue aeroporto as 11 horas 07 minutos e 56 segundos', '127.0.0.1', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'http://127.0.0.1:8000/empresa/gerarSaft', 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', NULL, '2024-03-13 10:07:56', '2024-03-13 10:07:56', 1),
-	(373701, 'No dia 13 de mar?o de 2024 o Senhor(a) Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto fez um acesso ao sistema mutue aeroporto as 11 horas 13 minutos e 51 segundos', '127.0.0.1', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'http://127.0.0.1:8000/empresa/gerarSaft', 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', NULL, '2024-03-13 10:13:51', '2024-03-13 10:13:51', 1),
-	(373702, 'No dia 13 de mar?o de 2024 o Senhor(a) Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto fez um acesso ao sistema mutue aeroporto as 11 horas 49 minutos e 06 segundos', '127.0.0.1', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'http://127.0.0.1:8000/empresa/gerarSaft', 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', NULL, '2024-03-13 10:49:06', '2024-03-13 10:49:06', 1),
-	(373703, 'No dia 13 de mar?o de 2024 o Senhor(a) Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto fez um acesso ao sistema mutue aeroporto as 11 horas 50 minutos e 16 segundos', '127.0.0.1', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'http://127.0.0.1:8000/empresa/gerarSaft', 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', NULL, '2024-03-13 10:50:16', '2024-03-13 10:50:16', 1),
-	(373704, 'No dia 13 de mar?o de 2024 o Senhor(a) Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto fez um acesso ao sistema mutue aeroporto as 11 horas 56 minutos e 49 segundos', '127.0.0.1', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'http://127.0.0.1:8000/empresa/gerarSaft', 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', NULL, '2024-03-13 10:56:49', '2024-03-13 10:56:49', 1),
-	(373705, 'No dia 13 de mar?o de 2024 o Senhor(a) Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto fez um acesso ao sistema mutue aeroporto as 11 horas 59 minutos e 59 segundos', '127.0.0.1', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'http://127.0.0.1:8000/empresa/gerarSaft', 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', NULL, '2024-03-13 10:59:59', '2024-03-13 10:59:59', 1),
-	(373706, 'No dia 13 de mar?o de 2024 o Senhor(a) Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto fez um acesso ao sistema mutue aeroporto as 12 horas 00 minutos e 18 segundos', '127.0.0.1', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'http://127.0.0.1:8000/empresa/gerarSaft', 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', NULL, '2024-03-13 11:00:18', '2024-03-13 11:00:18', 1),
-	(373707, 'No dia 13 de mar?o de 2024 o Senhor(a) Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto fez um acesso ao sistema mutue aeroporto as 01 horas 21 minutos e 10 segundos', '127.0.0.1', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'http://127.0.0.1:8000/empresa/gerarSaft', 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', NULL, '2024-03-13 12:21:10', '2024-03-13 12:21:10', 1),
-	(373708, 'No dia 13 de mar?o de 2024 o Senhor(a) Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto fez um acesso ao sistema mutue aeroporto as 01 horas 21 minutos e 26 segundos', '127.0.0.1', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'http://127.0.0.1:8000/empresa/gerarSaft', 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', NULL, '2024-03-13 12:21:26', '2024-03-13 12:21:26', 1),
-	(373709, 'No dia 13 de mar?o de 2024 o Senhor(a) Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto fez um acesso ao sistema mutue aeroporto as 01 horas 28 minutos e 05 segundos', '127.0.0.1', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'http://127.0.0.1:8000/empresa/gerarSaft', 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', NULL, '2024-03-13 12:28:05', '2024-03-13 12:28:05', 1),
-	(373710, 'No dia 13 de mar?o de 2024 o Senhor(a) Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto fez um acesso ao sistema mutue aeroporto as 01 horas 28 minutos e 43 segundos', '127.0.0.1', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'http://127.0.0.1:8000/empresa/gerarSaft', 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', NULL, '2024-03-13 12:28:43', '2024-03-13 12:28:43', 1),
-	(373711, 'No dia 13 de mar?o de 2024 o Senhor(a) Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto fez um acesso ao sistema mutue aeroporto as 01 horas 28 minutos e 58 segundos', '127.0.0.1', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'http://127.0.0.1:8000/empresa/gerarSaft', 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', NULL, '2024-03-13 12:28:58', '2024-03-13 12:28:58', 1),
-	(373712, 'No dia 13 de mar?o de 2024 o Senhor(a) Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto fez um acesso ao sistema mutue aeroporto as 01 horas 29 minutos e 15 segundos', '127.0.0.1', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'http://127.0.0.1:8000/empresa/gerarSaft', 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', NULL, '2024-03-13 12:29:15', '2024-03-13 12:29:15', 1),
-	(373713, 'No dia 13 de mar?o de 2024 o Senhor(a) Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto fez um acesso ao sistema mutue aeroporto as 01 horas 30 minutos e 58 segundos', '127.0.0.1', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'http://127.0.0.1:8000/empresa/gerarSaft', 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', NULL, '2024-03-13 12:30:58', '2024-03-13 12:30:58', 1),
-	(373714, 'No dia 13 de mar?o de 2024 o Senhor(a) Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto fez um acesso ao sistema mutue aeroporto as 01 horas 32 minutos e 57 segundos', '127.0.0.1', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'http://127.0.0.1:8000/empresa/gerarSaft', 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', NULL, '2024-03-13 12:32:57', '2024-03-13 12:32:57', 1),
-	(373715, 'No dia 13 de mar?o de 2024 o Senhor(a) Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto fez um acesso ao sistema mutue aeroporto as 04 horas 33 minutos e 54 segundos', '127.0.0.1', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'http://127.0.0.1:8000/empresa/anulacao/fatura/novo', 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', NULL, '2024-03-13 15:33:54', '2024-03-13 15:33:54', 1),
-	(373716, 'No dia 13 de mar?o de 2024 o Senhor(a) Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto fez um acesso ao sistema mutue aeroporto as 05 horas 16 minutos e 57 segundos', '127.0.0.1', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'http://127.0.0.1:8000/empresa/anulacao/fatura/novo', 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', NULL, '2024-03-13 16:16:57', '2024-03-13 16:16:57', 1),
-	(373717, 'No dia 13 de mar?o de 2024 o Senhor(a) Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto fez um acesso ao sistema mutue aeroporto as 05 horas 26 minutos e 30 segundos', '127.0.0.1', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'http://127.0.0.1:8000/empresa/anulacao/recibo/novo', 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', NULL, '2024-03-13 16:26:30', '2024-03-13 16:26:30', 1),
-	(373718, 'No dia 13 de mar?o de 2024 o Senhor(a) Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto fez um acesso ao sistema mutue aeroporto as 05 horas 54 minutos e 24 segundos', '127.0.0.1', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'http://127.0.0.1:8000/empresa/anulacao/fatura/novo', 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', NULL, '2024-03-13 16:54:24', '2024-03-13 16:54:24', 1),
-	(373719, 'No dia 13 de mar?o de 2024 o Senhor(a) Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto fez um acesso ao sistema mutue aeroporto as 05 horas 57 minutos e 34 segundos', '127.0.0.1', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'http://127.0.0.1:8000/empresa/anulacao/recibo/novo', 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', NULL, '2024-03-13 16:57:34', '2024-03-13 16:57:34', 1),
-	(373720, 'No dia 13 de mar?o de 2024 o Senhor(a) Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto fez um acesso ao sistema mutue aeroporto as 06 horas 00 minutos e 03 segundos', '127.0.0.1', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'http://127.0.0.1:8000/empresa/anulacao/recibo/novo', 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', NULL, '2024-03-13 17:00:03', '2024-03-13 17:00:03', 1),
-	(373721, 'No dia 13 de mar?o de 2024 o Senhor(a) Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto fez um acesso ao sistema mutue aeroporto as 06 horas 09 minutos e 06 segundos', '127.0.0.1', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'http://127.0.0.1:8000/empresa/anulacao/fatura/novo', 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', NULL, '2024-03-13 17:09:06', '2024-03-13 17:09:06', 1),
-	(373722, 'No dia 13 de mar?o de 2024 o Senhor(a) Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto fez um acesso ao sistema mutue aeroporto as 06 horas 10 minutos e 00 segundos', '127.0.0.1', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'http://127.0.0.1:8000/empresa/anulacao/fatura/novo', 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', NULL, '2024-03-13 17:10:00', '2024-03-13 17:10:00', 1);
+	(373668, 'No dia 13 de March de 2024 o Senhor(a) Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto fez um acesso ao sistema mutue aeroporto as 06 horas 41 minutos e 08 segundos', '172.68.40.139', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'https://ato.mutue-negocios.ao/empresa/anulacao/fatura/novo', 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', NULL, '2024-03-13 18:41:08', '2024-03-13 18:41:08', 1),
+	(373669, 'No dia 13 de March de 2024 o Senhor(a) Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto fez um acesso ao sistema mutue aeroporto as 06 horas 42 minutos e 24 segundos', '172.68.40.135', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'https://ato.mutue-negocios.ao/empresa/anulacao/fatura/novo', 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', NULL, '2024-03-13 18:42:24', '2024-03-13 18:42:24', 1),
+	(373670, 'No dia 14 de March de 2024 o Senhor(a) Carlos Sampaio fez um acesso ao sistema mutue aeroporto as 09 horas 18 minutos e 20 segundos', '172.70.85.78', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'https://ato.mutue-negocios.com/empresa/converter/proformas', 'Carlos Sampaio', NULL, '2024-03-14 09:18:20', '2024-03-14 09:18:20', 750),
+	(373671, 'No dia 14 de March de 2024 o Senhor(a) Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto fez um acesso ao sistema mutue aeroporto as 11 horas 07 minutos e 31 segundos', '172.69.166.91', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'https://ato.mutue-negocios.com/empresa/anulacao/fatura/novo', 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', NULL, '2024-03-14 11:07:31', '2024-03-14 11:07:31', 1),
+	(373672, 'No dia 14 de March de 2024 o Senhor(a) Carlos Sampaio fez um acesso ao sistema mutue aeroporto as 03 horas 24 minutos e 50 segundos', '172.64.238.110', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'https://ato.mutue-negocios.com/empresa/converter/proformas', 'Carlos Sampaio', NULL, '2024-03-14 15:24:50', '2024-03-14 15:24:50', 750),
+	(373673, 'No dia 14 de March de 2024 o Senhor(a) Carlos Sampaio fez um acesso ao sistema mutue aeroporto as 03 horas 38 minutos e 43 segundos', '172.71.178.11', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'https://ato.mutue-negocios.com/empresa/converter/proformas', 'Carlos Sampaio', NULL, '2024-03-14 15:38:43', '2024-03-14 15:38:43', 750),
+	(373674, 'No dia 15 de March de 2024 o Senhor(a) Carlos Sampaio fez um acesso ao sistema mutue aeroporto as 10 horas 26 minutos e 23 segundos', '172.69.195.7', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'https://ato.mutue-negocios.com/empresa/converter/proformas', 'Carlos Sampaio', NULL, '2024-03-15 10:26:23', '2024-03-15 10:26:23', 750),
+	(373675, 'No dia 15 de March de 2024 o Senhor(a) Carlos Sampaio fez um acesso ao sistema mutue aeroporto as 10 horas 28 minutos e 41 segundos', '172.64.238.19', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'https://ato.mutue-negocios.com/empresa/converter/proformas', 'Carlos Sampaio', NULL, '2024-03-15 10:28:41', '2024-03-15 10:28:41', 750),
+	(373676, 'No dia 15 de March de 2024 o Senhor(a) Carlos Sampaio fez um acesso ao sistema mutue aeroporto as 11 horas 17 minutos e 02 segundos', '172.69.43.152', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'https://ato.mutue-negocios.com/empresa/converter/proformas', 'Carlos Sampaio', NULL, '2024-03-15 11:17:02', '2024-03-15 11:17:02', 750),
+	(373677, 'No dia 15 de March de 2024 o Senhor(a) Carlos Sampaio fez um acesso ao sistema mutue aeroporto as 12 horas 33 minutos e 39 segundos', '172.69.43.153', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'https://ato.mutue-negocios.com/empresa/converter/proformas', 'Carlos Sampaio', NULL, '2024-03-15 12:33:39', '2024-03-15 12:33:39', 750),
+	(373678, 'No dia 18 de March de 2024 o Senhor(a) Carlos Sampaio fez um acesso ao sistema mutue aeroporto as 12 horas 37 minutos e 21 segundos', '172.71.178.10', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'https://ato.mutue-negocios.com/empresa/converter/proformas', 'Carlos Sampaio', NULL, '2024-03-18 12:37:21', '2024-03-18 12:37:21', 750),
+	(373679, 'No dia 18 de March de 2024 o Senhor(a) Carlos Sampaio fez um acesso ao sistema mutue aeroporto as 02 horas 32 minutos e 22 segundos', '172.70.85.176', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'https://ato.mutue-negocios.com/empresa/converter/proformas', 'Carlos Sampaio', NULL, '2024-03-18 14:32:22', '2024-03-18 14:32:22', 750),
+	(373680, 'No dia 18 de March de 2024 o Senhor(a) Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto fez um acesso ao sistema mutue aeroporto as 02 horas 34 minutos e 55 segundos', '162.158.252.135', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36', 'https://ato.mutue-negocios.com/empresa/gerarSaft', 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', NULL, '2024-03-18 14:34:55', '2024-03-18 14:34:55', 1),
+	(373681, 'No dia 18 de March de 2024 o Senhor(a) Carlos Sampaio fez um acesso ao sistema mutue aeroporto as 02 horas 51 minutos e 29 segundos', '188.114.111.136', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'https://ato.mutue-negocios.com/empresa/converter/proformas', 'Carlos Sampaio', NULL, '2024-03-18 14:51:29', '2024-03-18 14:51:29', 750),
+	(373682, 'No dia 19 de March de 2024 o Senhor(a) Carlos Sampaio fez um acesso ao sistema mutue aeroporto as 09 horas 39 minutos e 05 segundos', '172.70.85.72', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'https://ato.mutue-negocios.com/empresa/converter/proformas', 'Carlos Sampaio', NULL, '2024-03-19 09:39:05', '2024-03-19 09:39:05', 750),
+	(373683, 'No dia 19 de March de 2024 o Senhor(a) Carlos Sampaio fez um acesso ao sistema mutue aeroporto as 09 horas 48 minutos e 15 segundos', '172.69.194.133', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'https://ato.mutue-negocios.com/empresa/converter/proformas', 'Carlos Sampaio', NULL, '2024-03-19 09:48:15', '2024-03-19 09:48:15', 750),
+	(373684, 'No dia 19 de March de 2024 o Senhor(a) Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto fez um acesso ao sistema mutue aeroporto as 09 horas 59 minutos e 44 segundos', '162.158.252.135', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'https://ato.mutue-negocios.ao/empresa/gerarSaft', 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', NULL, '2024-03-19 09:59:44', '2024-03-19 09:59:44', 1),
+	(373685, 'No dia 19 de March de 2024 o Senhor(a) Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto fez um acesso ao sistema mutue aeroporto as 10 horas 00 minutos e 53 segundos', '162.158.252.134', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'https://ato.mutue-negocios.ao/empresa/gerarSaft', 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', NULL, '2024-03-19 10:00:53', '2024-03-19 10:00:53', 1),
+	(373686, 'No dia 19 de March de 2024 o Senhor(a) Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto fez um acesso ao sistema mutue aeroporto as 10 horas 02 minutos e 46 segundos', '162.158.252.139', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'https://ato.mutue-negocios.ao/empresa/gerarSaft', 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', NULL, '2024-03-19 10:02:46', '2024-03-19 10:02:46', 1),
+	(373687, 'No dia 19 de March de 2024 o Senhor(a) Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto fez um acesso ao sistema mutue aeroporto as 10 horas 10 minutos e 38 segundos', '162.158.252.132', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'https://ato.mutue-negocios.ao/empresa/gerarSaft', 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', NULL, '2024-03-19 10:10:38', '2024-03-19 10:10:38', 1),
+	(373688, 'No dia 19 de March de 2024 o Senhor(a) Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto fez um acesso ao sistema mutue aeroporto as 10 horas 10 minutos e 55 segundos', '162.158.252.132', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'https://ato.mutue-negocios.ao/empresa/gerarSaft', 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', NULL, '2024-03-19 10:10:55', '2024-03-19 10:10:55', 1),
+	(373689, 'No dia 19 de March de 2024 o Senhor(a) Carlos Sampaio fez um acesso ao sistema mutue aeroporto as 11 horas 21 minutos e 21 segundos', '172.70.85.158', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'https://ato.mutue-negocios.com/empresa/converter/proformas', 'Carlos Sampaio', NULL, '2024-03-19 11:21:21', '2024-03-19 11:21:21', 750),
+	(373690, 'No dia 19 de March de 2024 o Senhor(a) Milton Lucas fez um acesso ao sistema mutue aeroporto as 02 horas 08 minutos e 45 segundos', '172.64.236.114', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'https://ato.mutue-negocios.ao/empresa/converter/proformas', 'Milton Lucas', NULL, '2024-03-19 14:08:45', '2024-03-19 14:08:45', 751),
+	(373691, 'No dia 19 de March de 2024 o Senhor(a) Milton Lucas fez um acesso ao sistema mutue aeroporto as 02 horas 14 minutos e 32 segundos', '172.70.57.234', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'https://ato.mutue-negocios.ao/empresa/converter/proformas', 'Milton Lucas', NULL, '2024-03-19 14:14:32', '2024-03-19 14:14:32', 751),
+	(373692, 'No dia 19 de March de 2024 o Senhor(a) Carlos Sampaio fez um acesso ao sistema mutue aeroporto as 02 horas 25 minutos e 20 segundos', '172.64.238.5', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'https://ato.mutue-negocios.com/empresa/converter/proformas', 'Carlos Sampaio', NULL, '2024-03-19 14:25:20', '2024-03-19 14:25:20', 750),
+	(373693, 'No dia 19 de March de 2024 o Senhor(a) Carlos Sampaio fez um acesso ao sistema mutue aeroporto as 02 horas 26 minutos e 57 segundos', '141.101.98.95', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'https://ato.mutue-negocios.com/empresa/converter/proformas', 'Carlos Sampaio', NULL, '2024-03-19 14:26:57', '2024-03-19 14:26:57', 750),
+	(373694, 'No dia 19 de March de 2024 o Senhor(a) Milton Lucas fez um acesso ao sistema mutue aeroporto as 02 horas 54 minutos e 27 segundos', '172.68.134.51', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'https://ato.mutue-negocios.ao/empresa/converter/proformas', 'Milton Lucas', NULL, '2024-03-19 14:54:27', '2024-03-19 14:54:27', 751),
+	(373695, 'No dia 20 de March de 2024 o Senhor(a) Carlos Sampaio fez um acesso ao sistema mutue aeroporto as 09 horas 51 minutos e 29 segundos', '172.69.43.235', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'https://ato.mutue-negocios.com/empresa/converter/proformas', 'Carlos Sampaio', NULL, '2024-03-20 09:51:29', '2024-03-20 09:51:29', 750),
+	(373696, 'No dia 20 de March de 2024 o Senhor(a) Milton Lucas fez um acesso ao sistema mutue aeroporto as 10 horas 17 minutos e 57 segundos', '172.64.238.45', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'https://ato.mutue-negocios.ao/empresa/converter/proformas', 'Milton Lucas', NULL, '2024-03-20 10:17:57', '2024-03-20 10:17:57', 751),
+	(373697, 'No dia 20 de March de 2024 o Senhor(a) Carlos Sampaio fez um acesso ao sistema mutue aeroporto as 11 horas 36 minutos e 00 segundos', '172.68.134.43', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'https://ato.mutue-negocios.com/empresa/converter/proformas', 'Carlos Sampaio', NULL, '2024-03-20 11:36:00', '2024-03-20 11:36:00', 750),
+	(373698, 'No dia 21 de March de 2024 o Senhor(a) Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto fez um acesso ao sistema mutue aeroporto as 10 horas 45 minutos e 37 segundos', '162.158.252.137', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'https://ato.mutue-negocios.com/empresa/gerarSaft', 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', NULL, '2024-03-21 10:45:37', '2024-03-21 10:45:37', 1),
+	(373699, 'No dia 21 de March de 2024 o Senhor(a) Carlos Sampaio fez um acesso ao sistema mutue aeroporto as 12 horas 40 minutos e 47 segundos', '172.64.238.110', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'https://ato.mutue-negocios.com/empresa/converter/proformas', 'Carlos Sampaio', NULL, '2024-03-21 12:40:47', '2024-03-21 12:40:47', 750),
+	(373700, 'No dia 21 de March de 2024 o Senhor(a) Carlos Sampaio fez um acesso ao sistema mutue aeroporto as 12 horas 41 minutos e 38 segundos', '172.64.236.104', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'https://ato.mutue-negocios.com/empresa/converter/proformas', 'Carlos Sampaio', NULL, '2024-03-21 12:41:38', '2024-03-21 12:41:38', 750),
+	(373701, 'No dia 21 de March de 2024 o Senhor(a) Milton Lucas fez um acesso ao sistema mutue aeroporto as 02 horas 22 minutos e 22 segundos', '172.64.236.73', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'https://ato.mutue-negocios.ao/empresa/converter/proformas', 'Milton Lucas', NULL, '2024-03-21 14:22:22', '2024-03-21 14:22:22', 751),
+	(373702, 'No dia 22 de March de 2024 o Senhor(a) Carlos Sampaio fez um acesso ao sistema mutue aeroporto as 09 horas 41 minutos e 29 segundos', '172.70.162.232', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'https://ato.mutue-negocios.com/empresa/converter/proformas', 'Carlos Sampaio', NULL, '2024-03-22 09:41:29', '2024-03-22 09:41:29', 750),
+	(373703, 'No dia 22 de March de 2024 o Senhor(a) Carlos Sampaio fez um acesso ao sistema mutue aeroporto as 10 horas 45 minutos e 50 segundos', '172.64.238.18', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'https://ato.mutue-negocios.com/empresa/converter/proformas', 'Carlos Sampaio', NULL, '2024-03-22 10:45:50', '2024-03-22 10:45:50', 750),
+	(373704, 'No dia 22 de March de 2024 o Senhor(a) Carlos Sampaio fez um acesso ao sistema mutue aeroporto as 12 horas 06 minutos e 08 segundos', '172.69.195.179', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'https://ato.mutue-negocios.com/empresa/converter/proformas', 'Carlos Sampaio', NULL, '2024-03-22 12:06:08', '2024-03-22 12:06:08', 750),
+	(373705, 'No dia 22 de March de 2024 o Senhor(a) Milton Lucas fez um acesso ao sistema mutue aeroporto as 12 horas 16 minutos e 38 segundos', '172.64.238.44', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'https://ato.mutue-negocios.ao/empresa/converter/proformas', 'Milton Lucas', NULL, '2024-03-22 12:16:38', '2024-03-22 12:16:38', 751),
+	(373706, 'No dia 22 de March de 2024 o Senhor(a) Carlos Sampaio fez um acesso ao sistema mutue aeroporto as 12 horas 29 minutos e 49 segundos', '188.114.111.8', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'https://ato.mutue-negocios.com/empresa/converter/proformas', 'Carlos Sampaio', NULL, '2024-03-22 12:29:49', '2024-03-22 12:29:49', 750),
+	(373707, 'No dia 22 de March de 2024 o Senhor(a) Milton Lucas fez um acesso ao sistema mutue aeroporto as 01 horas 41 minutos e 05 segundos', '172.64.236.57', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'https://ato.mutue-negocios.ao/empresa/converter/proformas', 'Milton Lucas', NULL, '2024-03-22 13:41:05', '2024-03-22 13:41:05', 751),
+	(373708, 'No dia 22 de March de 2024 o Senhor(a) Milton Lucas fez um acesso ao sistema mutue aeroporto as 02 horas 59 minutos e 56 segundos', '172.64.236.115', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'https://ato.mutue-negocios.ao/empresa/converter/proformas', 'Milton Lucas', NULL, '2024-03-22 14:59:56', '2024-03-22 14:59:56', 751),
+	(373709, 'No dia 25 de March de 2024 o Senhor(a) Carlos Sampaio fez um acesso ao sistema mutue aeroporto as 10 horas 04 minutos e 35 segundos', '172.64.238.110', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'https://ato.mutue-negocios.com/empresa/converter/proformas', 'Carlos Sampaio', NULL, '2024-03-25 10:04:35', '2024-03-25 10:04:35', 750),
+	(373710, 'No dia 25 de March de 2024 o Senhor(a) Milton Lucas fez um acesso ao sistema mutue aeroporto as 12 horas 56 minutos e 38 segundos', '172.64.236.72', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'https://ato.mutue-negocios.ao/empresa/converter/proformas', 'Milton Lucas', NULL, '2024-03-25 12:56:38', '2024-03-25 12:56:38', 751),
+	(373711, 'No dia 25 de March de 2024 o Senhor(a) Carlos Sampaio fez um acesso ao sistema mutue aeroporto as 03 horas 31 minutos e 22 segundos', '172.64.236.104', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'https://ato.mutue-negocios.com/empresa/converter/proformas', 'Carlos Sampaio', NULL, '2024-03-25 15:31:22', '2024-03-25 15:31:22', 750),
+	(373712, 'No dia 25 de March de 2024 o Senhor(a) Milton Lucas fez um acesso ao sistema mutue aeroporto as 04 horas 04 minutos e 26 segundos', '172.64.236.149', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'https://ato.mutue-negocios.ao/empresa/converter/proformas', 'Milton Lucas', NULL, '2024-03-25 16:04:26', '2024-03-25 16:04:26', 751),
+	(373713, 'No dia 26 de March de 2024 o Senhor(a) Milton Lucas fez um acesso ao sistema mutue aeroporto as 09 horas 30 minutos e 36 segundos', '172.64.236.57', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'https://ato.mutue-negocios.ao/empresa/converter/proformas', 'Milton Lucas', NULL, '2024-03-26 09:30:36', '2024-03-26 09:30:36', 751),
+	(373714, 'No dia 26 de March de 2024 o Senhor(a) Carlos Sampaio fez um acesso ao sistema mutue aeroporto as 02 horas 11 minutos e 02 segundos', '172.70.162.45', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36', 'https://ato.mutue-negocios.com/empresa/recibo/novo', 'Carlos Sampaio', NULL, '2024-03-26 14:11:02', '2024-03-26 14:11:02', 750),
+	(373715, 'No dia 26 de March de 2024 o Senhor(a) Carlos Sampaio fez um acesso ao sistema mutue aeroporto as 04 horas 03 minutos e 29 segundos', '172.69.194.186', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36', 'https://ato.mutue-negocios.com/empresa/converter/proformas', 'Carlos Sampaio', NULL, '2024-03-26 16:03:29', '2024-03-26 16:03:29', 750),
+	(373716, 'No dia 26 de March de 2024 o Senhor(a) Carlos Sampaio fez um acesso ao sistema mutue aeroporto as 04 horas 23 minutos e 12 segundos', '188.114.111.112', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36', 'https://ato.mutue-negocios.com/empresa/converter/proformas', 'Carlos Sampaio', NULL, '2024-03-26 16:23:12', '2024-03-26 16:23:12', 750),
+	(373717, 'No dia 26 de March de 2024 o Senhor(a) Milton Lucas fez um acesso ao sistema mutue aeroporto as 04 horas 25 minutos e 36 segundos', '172.68.134.51', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'https://ato.mutue-negocios.ao/empresa/converter/proformas', 'Milton Lucas', NULL, '2024-03-26 16:25:36', '2024-03-26 16:25:36', 751),
+	(373718, 'No dia 26 de March de 2024 o Senhor(a) Carlos Sampaio fez um acesso ao sistema mutue aeroporto as 04 horas 26 minutos e 20 segundos', '172.64.236.70', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36', 'https://ato.mutue-negocios.com/empresa/converter/proformas', 'Carlos Sampaio', NULL, '2024-03-26 16:26:20', '2024-03-26 16:26:20', 750),
+	(373719, 'No dia 26 de March de 2024 o Senhor(a) Carlos Sampaio fez um acesso ao sistema mutue aeroporto as 04 horas 43 minutos e 07 segundos', '172.70.57.189', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36', 'https://ato.mutue-negocios.com/empresa/recibo/novo', 'Carlos Sampaio', NULL, '2024-03-26 16:43:07', '2024-03-26 16:43:07', 750),
+	(373720, 'No dia 27 de March de 2024 o Senhor(a) Carlos Sampaio fez um acesso ao sistema mutue aeroporto as 09 horas 19 minutos e 30 segundos', '172.69.194.177', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36', 'https://ato.mutue-negocios.com/empresa/converter/proformas', 'Carlos Sampaio', NULL, '2024-03-27 09:19:30', '2024-03-27 09:19:30', 750),
+	(373721, 'No dia 27 de March de 2024 o Senhor(a) Carlos Sampaio fez um acesso ao sistema mutue aeroporto as 09 horas 34 minutos e 12 segundos', '172.70.57.188', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36', 'https://ato.mutue-negocios.com/empresa/converter/proformas', 'Carlos Sampaio', NULL, '2024-03-27 09:34:12', '2024-03-27 09:34:12', 750),
+	(373722, 'No dia 27 de March de 2024 o Senhor(a) Carlos Sampaio fez um acesso ao sistema mutue aeroporto as 09 horas 53 minutos e 19 segundos', '172.70.162.53', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36', 'https://ato.mutue-negocios.com/empresa/converter/proformas', 'Carlos Sampaio', NULL, '2024-03-27 09:53:19', '2024-03-27 09:53:19', 750),
+	(373723, 'No dia 28 de mar?o de 2024 o Senhor(a) Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto fez um acesso ao sistema mutue aeroporto as 09 horas 06 minutos e 24 segundos', '127.0.0.1', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36', 'http://127.0.0.1:8000/empresa/gerarSaft', 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', NULL, '2024-03-28 08:06:24', '2024-03-28 08:06:24', 1),
+	(373724, 'No dia 28 de mar?o de 2024 o Senhor(a) Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto fez um acesso ao sistema mutue aeroporto as 09 horas 14 minutos e 09 segundos', '127.0.0.1', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36', 'http://127.0.0.1:8000/empresa/gerarSaft', 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', NULL, '2024-03-28 08:14:09', '2024-03-28 08:14:09', 1),
+	(373725, 'No dia 28 de mar?o de 2024 o Senhor(a) Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto fez um acesso ao sistema mutue aeroporto as 09 horas 14 minutos e 32 segundos', '127.0.0.1', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36', 'http://127.0.0.1:8000/empresa/gerarSaft', 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', NULL, '2024-03-28 08:14:32', '2024-03-28 08:14:32', 1),
+	(373726, 'No dia 28 de mar?o de 2024 o Senhor(a) Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto fez um acesso ao sistema mutue aeroporto as 09 horas 17 minutos e 43 segundos', '127.0.0.1', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36', 'http://127.0.0.1:8000/empresa/gerarSaft', 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', NULL, '2024-03-28 08:17:43', '2024-03-28 08:17:43', 1),
+	(373727, 'No dia 28 de mar?o de 2024 o Senhor(a) Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto fez um acesso ao sistema mutue aeroporto as 09 horas 17 minutos e 59 segundos', '127.0.0.1', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36', 'http://127.0.0.1:8000/empresa/gerarSaft', 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', NULL, '2024-03-28 08:17:59', '2024-03-28 08:17:59', 1),
+	(373728, 'No dia 28 de mar?o de 2024 o Senhor(a) Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto fez um acesso ao sistema mutue aeroporto as 09 horas 19 minutos e 45 segundos', '127.0.0.1', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36', 'http://127.0.0.1:8000/empresa/gerarSaft', 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', NULL, '2024-03-28 08:19:45', '2024-03-28 08:19:45', 1),
+	(373729, 'No dia 28 de mar?o de 2024 o Senhor(a) Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto fez um acesso ao sistema mutue aeroporto as 09 horas 21 minutos e 16 segundos', '127.0.0.1', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36', 'http://127.0.0.1:8000/empresa/gerarSaft', 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', NULL, '2024-03-28 08:21:16', '2024-03-28 08:21:16', 1),
+	(373730, 'No dia 28 de mar?o de 2024 o Senhor(a) Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto fez um acesso ao sistema mutue aeroporto as 09 horas 29 minutos e 47 segundos', '127.0.0.1', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36', 'http://127.0.0.1:8000/empresa/gerarSaft', 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', NULL, '2024-03-28 08:29:47', '2024-03-28 08:29:47', 1);
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.marcas
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.marcas
 CREATE TABLE IF NOT EXISTS `marcas` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `designacao` varchar(255) DEFAULT NULL,
@@ -2278,9 +1675,9 @@ CREATE TABLE IF NOT EXISTS `marcas` (
   CONSTRAINT `FK_marcas_users` FOREIGN KEY (`user_id`) REFERENCES `users_cliente` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.marcas: ~0 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.marcas: ~0 rows (aproximadamente)
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.migrations
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.migrations
 CREATE TABLE IF NOT EXISTS `migrations` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -2288,9 +1685,9 @@ CREATE TABLE IF NOT EXISTS `migrations` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.migrations: ~0 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.migrations: ~0 rows (aproximadamente)
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.modelo_documento_ativo
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.modelo_documento_ativo
 CREATE TABLE IF NOT EXISTS `modelo_documento_ativo` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `modelo_id` int(10) unsigned NOT NULL,
@@ -2300,11 +1697,11 @@ CREATE TABLE IF NOT EXISTS `modelo_documento_ativo` (
   KEY `FK_modelo_documento_ativo_empresas` (`empresa_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.modelo_documento_ativo: ~0 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.modelo_documento_ativo: ~0 rows (aproximadamente)
 INSERT INTO `modelo_documento_ativo` (`id`, `modelo_id`, `empresa_id`) VALUES
 	(1, 2, 1);
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.modelo_facturas
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.modelo_facturas
 CREATE TABLE IF NOT EXISTS `modelo_facturas` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `designacao` varchar(255) NOT NULL,
@@ -2326,7 +1723,7 @@ CREATE TABLE IF NOT EXISTS `modelo_facturas` (
   CONSTRAINT `FK_modelo_facturas_user` FOREIGN KEY (`user_id`) REFERENCES `users_cliente` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.modelo_facturas: ~5 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.modelo_facturas: ~5 rows (aproximadamente)
 INSERT INTO `modelo_facturas` (`id`, `designacao`, `nome_jasper`, `name_pdf`, `formato`, `user_id`, `canal_id`, `status_id`, `created_at`, `updated_at`, `obs`) VALUES
 	(1, 'Default', 'FacturaDefaultA4', 'upload/documentos/empresa/modelosFacturas/a4/defaultPDF.pdf', 'A4', NULL, 2, 1, '2021-09-01 10:11:36', '2021-09-01 10:11:40', NULL),
 	(2, 'Winmarket', 'Winmarket', 'upload/documentos/empresa/modelosFacturas/a4/winmarketPDF.pdf', 'A4', NULL, 2, 1, '2021-09-01 10:11:36', '2021-09-01 10:11:40', NULL),
@@ -2334,7 +1731,7 @@ INSERT INTO `modelo_facturas` (`id`, `designacao`, `nome_jasper`, `name_pdf`, `f
 	(4, 'Moduseasy', 'Moduseasy', 'upload/documentos/empresa/modelosFacturas/a4/ModuseasyPDF.pdf', 'A4', NULL, 2, 1, '2021-09-01 10:11:36', '2021-09-01 10:11:40', NULL),
 	(5, 'Modelo aluno', 'Modelo aluno', 'upload/documentos/empresa/modelosFacturas/a4/ModuseasyPDF.pdf', 'A4', NULL, 2, 1, '2021-09-01 10:11:36', '2021-09-01 10:11:40', NULL);
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.model_has_permissions
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.model_has_permissions
 CREATE TABLE IF NOT EXISTS `model_has_permissions` (
   `permission_id` bigint(20) unsigned NOT NULL,
   `model_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -2343,7 +1740,7 @@ CREATE TABLE IF NOT EXISTS `model_has_permissions` (
   KEY `model_has_permissions_model_id_model_type_index` (`model_id`,`model_type`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.model_has_permissions: ~47 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.model_has_permissions: ~47 rows (aproximadamente)
 INSERT INTO `model_has_permissions` (`permission_id`, `model_type`, `model_id`) VALUES
 	(1, 'App\\Models\\empresa\\User', 1),
 	(14, 'App\\Models\\empresa\\User', 1),
@@ -2393,7 +1790,7 @@ INSERT INTO `model_has_permissions` (`permission_id`, `model_type`, `model_id`) 
 	(20, 'App\\Models\\empresa\\User', 753),
 	(21, 'App\\Models\\empresa\\User', 753);
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.model_has_roles
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.model_has_roles
 CREATE TABLE IF NOT EXISTS `model_has_roles` (
   `role_id` bigint(20) unsigned NOT NULL,
   `model_type` varchar(255) CHARACTER SET utf8 NOT NULL,
@@ -2402,11 +1799,11 @@ CREATE TABLE IF NOT EXISTS `model_has_roles` (
   KEY `model_has_roles_model_id_model_type_index` (`model_id`,`model_type`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.model_has_roles: ~0 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.model_has_roles: ~0 rows (aproximadamente)
 INSERT INTO `model_has_roles` (`role_id`, `model_type`, `model_id`) VALUES
 	(1, 'App\\Models\\empresa\\User', 1);
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.moedas
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.moedas
 CREATE TABLE IF NOT EXISTS `moedas` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `designacao` varchar(45) NOT NULL,
@@ -2415,13 +1812,13 @@ CREATE TABLE IF NOT EXISTS `moedas` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.moedas: ~3 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.moedas: ~3 rows (aproximadamente)
 INSERT INTO `moedas` (`id`, `designacao`, `codigo`, `cambio`) VALUES
 	(1, 'AOA', 'AOA', 1),
 	(2, 'USD', 'USD', 1),
 	(3, 'EURO', 'EURO', 1);
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.motivo
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.motivo
 CREATE TABLE IF NOT EXISTS `motivo` (
   `codigo` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `codigoMotivo` varchar(50) NOT NULL,
@@ -2441,7 +1838,7 @@ CREATE TABLE IF NOT EXISTS `motivo` (
   CONSTRAINT `FK_motivo_status_gerais` FOREIGN KEY (`status_id`) REFERENCES `status_gerais` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.motivo: ~39 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.motivo: ~39 rows (aproximadamente)
 INSERT INTO `motivo` (`codigo`, `codigoMotivo`, `descricao`, `codigoStatus`, `canal_id`, `user_id`, `status_id`, `created_at`, `updated_at`, `empresa_id`) VALUES
 	(7, 'M04', 'IVA – Regime de Exclusão', 1, 1, 1, 1, '2020-04-23 20:56:46', '2020-04-23 20:56:46', NULL),
 	(8, 'M02', 'Transmissão de bens e serviço não sujeita', 1, 1, 1, 1, '2020-04-23 20:56:46', '2020-04-23 20:56:46', NULL),
@@ -2483,7 +1880,7 @@ INSERT INTO `motivo` (`codigo`, `codigoMotivo`, `descricao`, `codigoStatus`, `ca
 	(44, 'M93', 'Isento nos termos da alínea d) do nº1 do artigo 16.º', 1, 1, 1, 1, '2020-04-23 20:56:46', '2020-04-23 20:56:46', NULL),
 	(45, 'M94', 'Isento nos termos da alínea e) do nº1 do artigo 16.º', 1, 1, 1, 1, '2020-04-23 20:56:46', '2020-04-23 20:56:46', NULL);
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.municipios_
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.municipios_
 CREATE TABLE IF NOT EXISTS `municipios_` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `designacao` varchar(255) DEFAULT NULL,
@@ -2496,7 +1893,7 @@ CREATE TABLE IF NOT EXISTS `municipios_` (
   KEY `FK_municipios__provincia_id` (`cidade_id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.municipios_: ~9 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.municipios_: ~9 rows (aproximadamente)
 INSERT INTO `municipios_` (`id`, `designacao`, `cidade_id`, `status_id`, `created_at`, `updated_at`, `deleted_at`) VALUES
 	(1, 'Luanda', 1, 1, '2023-09-01 11:11:35', '2023-09-28 09:40:19', NULL),
 	(2, 'Belas', 1, 1, '2023-09-01 17:34:16', '2023-09-28 10:19:29', NULL),
@@ -2508,7 +1905,7 @@ INSERT INTO `municipios_` (`id`, `designacao`, `cidade_id`, `status_id`, `create
 	(8, 'Ícolo e Bengo', 1, 1, '2023-11-25 08:24:25', '2023-11-25 08:24:51', NULL),
 	(9, 'Talatona', 1, 1, '2023-11-25 08:24:45', '2023-11-25 08:24:55', NULL);
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.notas_creditos
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.notas_creditos
 CREATE TABLE IF NOT EXISTS `notas_creditos` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `uuid` varchar(255) NOT NULL,
@@ -2526,19 +1923,11 @@ CREATE TABLE IF NOT EXISTS `notas_creditos` (
   PRIMARY KEY (`id`) USING BTREE,
   KEY `notas_creditos_facturas_id_fk2` (`facturaId`) USING BTREE,
   KEY `notas_creditos_facturas_id_fk` (`numDoc`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.notas_creditos: ~6 rows (aproximadamente)
-INSERT INTO `notas_creditos` (`id`, `uuid`, `facturaId`, `reciboId`, `numDoc`, `hash`, `hashTexto`, `numSequencia`, `userId`, `empresaId`, `descricao`, `created_at`, `updated_at`) VALUES
-	(3, '75b16350-44b8-4e6a-bbe0-135a18e81522', 93, NULL, 'NC ATO2024/1', 'kl0gjH+2AcKTuoKo44XVrwUfYpmrZQmn2z9TfAcKs+pWjalyQhVB5IOpI7UQqBey8hv3fBbcwdmQwdycRnBnxRopFE5kGAhL972XB+vuS6BzznJYRxkiaHhXxqOlRz6QDtQnuatw5R5/fDx75cbnjdqN/ac3AXMVz02HHr30JF0=', '2024-03-13;2024-03-13T16:33:54;NC ATO2024/1;330690.80;', 1, 1, 1, NULL, '2024-03-13 15:33:54', '2024-03-13 15:33:54'),
-	(4, '33f6ea25-185c-4f36-855a-b4340755dfce', 98, NULL, 'NC ATO2024/2', 'Gq04YIsAjFOIvY3YKKWYV3VcEQH4XHCoD3egfegj9p+zvOc8xg4ss0DD4SNDzDjUR6HLW+0COh/z+HUiGw1CARifbP8sAv3+S6zYqEnlqq3G8/ccfRMUxQe38ovaZg3jcXOJlsksbFSEhR7brPj/mQxyASieZXW9jVfEM2MTmHw=', '2024-03-13;2024-03-13T17:16:57;NC ATO2024/2;3245792.43;kl0gjH+2AcKTuoKo44XVrwUfYpmrZQmn2z9TfAcKs+pWjalyQhVB5IOpI7UQqBey8hv3fBbcwdmQwdycRnBnxRopFE5kGAhL972XB+vuS6BzznJYRxkiaHhXxqOlRz6QDtQnuatw5R5/fDx75cbnjdqN/ac3AXMVz02HHr30JF0=', 2, 1, 1, 'TESTE', '2024-03-13 16:16:57', '2024-03-13 16:16:57'),
-	(5, '33490792-0746-44ec-96d0-61d248ae2ee8', NULL, 1, 'NC ATO2024/3', 'CQy8L/FBAjYnUBHEyNJfqmL+eVDrStJBcbjW2ASTCpB5I1wa007LaDfB2pVk8vQ1veDF6JQ9io7zQWUKeM9GQ/nYG11+YTwIwUTZ65T/3g2u4MI92xPKKZiBUk2a9vBF011+gT4DWCfDcIZa3LJT9UCZdbtleB00YcCdh7AsrBs=', '2024-03-13;2024-03-13T17:26:30;NC ATO2024/3;1072713.72;Gq04YIsAjFOIvY3YKKWYV3VcEQH4XHCoD3egfegj9p+zvOc8xg4ss0DD4SNDzDjUR6HLW+0COh/z+HUiGw1CARifbP8sAv3+S6zYqEnlqq3G8/ccfRMUxQe38ovaZg3jcXOJlsksbFSEhR7brPj/mQxyASieZXW9jVfEM2MTmHw=', 3, 1, 1, 'testefdafdafd', '2024-03-13 16:26:30', '2024-03-13 16:26:30'),
-	(6, '0373b6d7-f9f7-4e2e-89ed-53ef664c2db2', 94, NULL, 'NC ATO2024/4', 'Z6bOrQdKAmPuI/8itZk4f6dUMPZiupdz99hF74E2KgNfK3OkuZ4kLeZs5duhxWO/DCjntgowphSDAGzxDLd3i8bf45Jos45VQzlNUtWyvLHVCS2zmHoJaSkNgz/lq173hXWt39rwCBqxZZ5/Rx5Mu4uK0uTmXxxG0cHBQHtJDU0=', '2024-03-13;2024-03-13T17:54:24;NC ATO2024/4;330690.80;CQy8L/FBAjYnUBHEyNJfqmL+eVDrStJBcbjW2ASTCpB5I1wa007LaDfB2pVk8vQ1veDF6JQ9io7zQWUKeM9GQ/nYG11+YTwIwUTZ65T/3g2u4MI92xPKKZiBUk2a9vBF011+gT4DWCfDcIZa3LJT9UCZdbtleB00YcCdh7AsrBs=', 4, 1, 1, NULL, '2024-03-13 16:54:24', '2024-03-13 16:54:24'),
-	(7, '2231e469-8f72-468a-906f-83837161a89c', NULL, 2, 'NC ATO2024/5', 's2UDG9jvR739S8nUNbTMOCpZxY2nB8cd9lmUCOXOKubdZh1sfzhKV8KKP79EB7Kmd1T79vPhd3X8Q8WfOaQdYS9FY/wwTiALnk91eCuF1anoEPNOcOQkTiMLIZynd+dnfXRbbSsMf7oXhbiHRneaAIQWHQO8iWTKvohTnJmqasU=', '2024-03-13;2024-03-13T17:57:34;NC ATO2024/5;1383704.79;Z6bOrQdKAmPuI/8itZk4f6dUMPZiupdz99hF74E2KgNfK3OkuZ4kLeZs5duhxWO/DCjntgowphSDAGzxDLd3i8bf45Jos45VQzlNUtWyvLHVCS2zmHoJaSkNgz/lq173hXWt39rwCBqxZZ5/Rx5Mu4uK0uTmXxxG0cHBQHtJDU0=', 5, 1, 1, NULL, '2024-03-13 16:57:34', '2024-03-13 16:57:34'),
-	(8, '96d35a28-2480-49ed-8c60-6d63745a28a1', 95, NULL, 'NC ATO2024/6', 'qYMpvyLOqagCbCyT3rwYDwaM4gpy6X6//SmIu2ucH22iPXVuHN/nRPbPXM4eqa9OxKAH2FpFkQZu38ScvLZAG9QIPUcHlEk3+iKvoMnZ9r1/mfBP9uuWp58KX7CYM6poIXx/X9uwXI7bYxu3Yk15+9heaKZGRa4yqg9eEiai/1s=', '2024-03-13;2024-03-13T18:09:06;NC ATO2024/6;330690.80;s2UDG9jvR739S8nUNbTMOCpZxY2nB8cd9lmUCOXOKubdZh1sfzhKV8KKP79EB7Kmd1T79vPhd3X8Q8WfOaQdYS9FY/wwTiALnk91eCuF1anoEPNOcOQkTiMLIZynd+dnfXRbbSsMf7oXhbiHRneaAIQWHQO8iWTKvohTnJmqasU=', 6, 1, 1, NULL, '2024-03-13 17:09:06', '2024-03-13 17:09:06'),
-	(9, '830bb961-3d49-4766-9197-e9573aed4b9c', 104, NULL, 'NC ATO2024/7', 'gf1BuRNMOAN8m7NTTuuXpy2fe5VkYmpx6XykJVwyRL0DkGrVDefsaDMBM1bM+Xv2F/hqe/w8K5ARpKdw5TEzl8b98B+Z9JxgzE10YtxbmWzO8f7Tf44NJO2zRle1dqPAgUq11qxN6nziu4BqJD8O5mvT4uIin0XKb0ESUJ9tbP8=', '2024-03-13;2024-03-13T18:10:00;NC ATO2024/7;2201906.77;qYMpvyLOqagCbCyT3rwYDwaM4gpy6X6//SmIu2ucH22iPXVuHN/nRPbPXM4eqa9OxKAH2FpFkQZu38ScvLZAG9QIPUcHlEk3+iKvoMnZ9r1/mfBP9uuWp58KX7CYM6poIXx/X9uwXI7bYxu3Yk15+9heaKZGRa4yqg9eEiai/1s=', 7, 1, 1, NULL, '2024-03-13 17:10:00', '2024-03-13 17:10:00');
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.notas_creditos: ~0 rows (aproximadamente)
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.notas_debito_clientes
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.notas_debito_clientes
 CREATE TABLE IF NOT EXISTS `notas_debito_clientes` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `empresa_id` int(10) unsigned NOT NULL,
@@ -2568,9 +1957,9 @@ CREATE TABLE IF NOT EXISTS `notas_debito_clientes` (
   CONSTRAINT `FK_notas_debito_clientes_tipo_users` FOREIGN KEY (`tipo_user_id`) REFERENCES `tipo_users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.notas_debito_clientes: ~0 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.notas_debito_clientes: ~0 rows (aproximadamente)
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.notas_entregas
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.notas_entregas
 CREATE TABLE IF NOT EXISTS `notas_entregas` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `numeracao_documento` varchar(100) NOT NULL,
@@ -2583,13 +1972,13 @@ CREATE TABLE IF NOT EXISTS `notas_entregas` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.notas_entregas: ~3 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.notas_entregas: ~3 rows (aproximadamente)
 INSERT INTO `notas_entregas` (`id`, `numeracao_documento`, `operador_nome`, `operador_id`, `factura_id`, `empresa_id`, `created_at`, `updated_at`) VALUES
 	(8, 'FR RR2023/69', 'Mutue Negócio Teste Mobile', 35, 32792, 53, '2023-10-16 15:36:09', '2023-10-16 15:36:09'),
 	(9, 'FR RR2023/78', 'Mutue Negócio Teste Mobile', 35, 32875, 53, '2023-10-24 18:02:19', '2023-10-24 18:02:19'),
 	(10, 'FR RR2023/79', 'Mutue Negócio Teste Mobile', 35, 32970, 53, '2023-10-25 14:21:32', '2023-10-25 14:21:32');
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.nota_credito_items
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.nota_credito_items
 CREATE TABLE IF NOT EXISTS `nota_credito_items` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `descricao_produto` varchar(250) DEFAULT '0',
@@ -2613,9 +2002,9 @@ CREATE TABLE IF NOT EXISTS `nota_credito_items` (
   CONSTRAINT `nota_credito_items_ibfk_2` FOREIGN KEY (`produto_id`) REFERENCES `produtos_` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.nota_credito_items: ~0 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.nota_credito_items: ~0 rows (aproximadamente)
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.notifications
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.notifications
 CREATE TABLE IF NOT EXISTS `notifications` (
   `id` char(36) COLLATE utf8mb4_unicode_ci NOT NULL,
   `type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -2631,14 +2020,14 @@ CREATE TABLE IF NOT EXISTS `notifications` (
   KEY `notifications_notifiable_type_notifiable_id_index` (`notifiable_type`,`notifiable_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.notifications: ~4 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.notifications: ~4 rows (aproximadamente)
 INSERT INTO `notifications` (`id`, `type`, `notifiable_type`, `notifiable_id`, `data`, `read_at`, `created_at`, `updated_at`, `empresa_id`, `canal_id`) VALUES
 	('5cd6174c-1833-4718-b863-ba0c9326052d', 'App\\Notifications\\AtivacaoLicenca', 'App\\Models\\empresa\\Empresa_Cliente', 109, '{"notificacao":{"id":69,"licenca_id":2,"empresa_id":94,"pagamento_id":20,"data_inicio":"2021-10-27T09:29:53.000000Z","data_fim":"2021-11-27T09:29:53.000000Z","data_activacao":"2021-10-27T09:29:53.390872Z","user_id":1,"canal_id":2,"status_licenca_id":1,"created_at":"2021-10-27 10:23:52","updated_at":"2021-10-27 10:29:53","data_rejeicao":null,"observacao":"activo a licen\\u00e7a Mensal no dia 2021-10-27 10:29:53","data_notificaticao":null,"notificacaoFimLicenca":null,"licenca":{"id":2,"tipo_licenca_id":2,"designacao":"Mensal","status_licenca_id":1,"created_at":"2021-01-31 12:38:02","updated_at":"2021-01-31 15:49:18","canal_id":3,"user_id":1,"descricao":"Plano Mensal","valor":10000,"tipo_taxa_id":1,"limite_usuario":5,"tipo_licenca":{"id":2,"designacao":"Mensal"}},"empresa":{"id":94,"nome":"Jacinto Vicuya","pessoal_Contacto":"923041279","endereco":"Bairro Miru Viana","empresa_id":null,"pais_id":1,"saldo":0,"nif":"005196135kS044","gestor_cliente_id":1,"tipo_cliente_id":2,"tipo_regime_id":3,"logotipo":"utilizadores\\/cliente\\/avatarEmpresa.png","website":null,"email":"gabrieljacinto@gmail.com","referencia":"MMT21J7","pessoa_de_contacto":null,"status_id":1,"canal_id":3,"user_id":null,"created_at":"2021-08-19 16:18:26","updated_at":"2021-08-19 16:18:26","cidade":"Luanda","file_alvara":null,"file_nif":null}},"empresa":"F\\u00c1BRICA DE SOFTWARES  LDA","mensagem":"Foi activo uma nova licen\\u00e7a Mensal em sua conta ","descricao":"A empresa F\\u00c1BRICA DE SOFTWARES  LDA activou uma licen\\u00e7a Mensal em sua conta, sendo assim a contagem da sua licen\\u00e7a inicia no dia 27-10-2021 at\\u00e9 o  dia 27-11-2021"}', NULL, '2021-10-27 10:29:54', '2021-10-27 10:29:54', NULL, NULL),
 	('91234d38-0996-4c8c-b64c-6a4fdeef8595', 'App\\Notifications\\AtivacaoLicenca', 'App\\Models\\empresa\\Empresa_Cliente', 53, '{"notificacao":{"id":56,"licenca_id":2,"empresa_id":38,"pagamento_id":19,"data_inicio":"2021-10-21T15:29:00.000000Z","data_fim":"2021-11-21T15:29:00.000000Z","data_activacao":"2021-09-23T15:29:00.546031Z","user_id":1,"canal_id":2,"status_licenca_id":1,"created_at":"2021-09-23 16:24:44","updated_at":"2021-09-23 16:29:00","data_rejeicao":null,"observacao":"activo a licen\\u00e7a Mensal no dia 2021-09-23 16:29:00","data_notificaticao":null,"notificacaoFimLicenca":null,"licenca":{"id":2,"tipo_licenca_id":2,"designacao":"Mensal","status_licenca_id":1,"created_at":"2021-01-31 12:38:02","updated_at":"2021-01-31 15:49:18","canal_id":3,"user_id":1,"descricao":"Plano Mensal","valor":10000,"tipo_taxa_id":1,"limite_usuario":5,"tipo_licenca":{"id":2,"designacao":"Mensal"}},"empresa":{"id":38,"nome":"Mutue Neg\\u00f3cio Teste Mobile","pessoal_Contacto":"999999999","endereco":"Luanda","empresa_id":null,"pais_id":1,"saldo":0,"nif":"999999999","gestor_cliente_id":1,"tipo_cliente_id":2,"tipo_regime_id":2,"logotipo":"utilizadores\\/cliente\\/O5sB8nzuIxoaiFAAsiyyMrSUCmc9ovDVCrFVRwVO.png","website":null,"email":"mutuemobile@gmail.com","referencia":"5VA9C58","pessoa_de_contacto":null,"status_id":1,"canal_id":3,"user_id":null,"created_at":"2021-04-16 10:36:11","updated_at":"2021-04-26 14:03:13","cidade":"Luanda","file_alvara":"documentos\\/empresa\\/documentos\\/C7quc6x6QB3pdcWhQZuh7rgKHA3UOnAiCzYufyaO.pdf","file_nif":"documentos\\/empresa\\/documentos\\/2McsxTfjst7do5jcAEZZwdtcQg0UR229SJvW5Rg6.pdf"}},"empresa":"F\\u00c1BRICA DE SOFTWARES  LDA","mensagem":"Foi activo uma nova licen\\u00e7a Mensal em sua conta ","descricao":"A empresa F\\u00c1BRICA DE SOFTWARES  LDA activou uma licen\\u00e7a Mensal em sua conta, sendo assim a contagem da sua licen\\u00e7a inicia no dia 21-10-2021 at\\u00e9 o  dia 21-11-2021"}', '2023-02-20 21:40:23', '2021-09-23 16:29:03', '2023-02-20 21:40:23', NULL, NULL),
 	('b14647d0-5e48-4e3c-a0b0-a85440782250', 'App\\Notifications\\AtivacaoLicenca', 'App\\Models\\empresa\\Empresa_Cliente', 53, '{"notificacao":{"id":88,"licenca_id":3,"empresa_id":38,"pagamento_id":22,"data_inicio":"2022-06-01T10:50:06.000000Z","data_fim":"2023-06-01T10:50:06.000000Z","data_activacao":"2022-06-01T10:50:06.470413Z","user_id":1,"canal_id":2,"status_licenca_id":1,"created_at":"2022-06-01 10:44:06","updated_at":"2022-06-01 11:50:06","data_rejeicao":null,"observacao":"activo a licen\\u00e7a Anual no dia 2022-06-01 11:50:06","data_notificaticao":null,"notificacaoFimLicenca":null,"licenca":{"id":3,"tipo_licenca_id":3,"designacao":"Anual","status_licenca_id":1,"created_at":"2021-01-31 12:38:41","updated_at":"2021-04-28 15:23:10","canal_id":3,"user_id":1,"descricao":"Plano Anual","valor":50000,"tipo_taxa_id":1,"limite_usuario":50,"tipo_licenca":{"id":3,"designacao":"Anual"}},"empresa":{"id":38,"nome":"Mutue Neg\\u00f3cio Teste Mobile","pessoal_Contacto":"999999999","endereco":"Luanda","empresa_id":null,"pais_id":1,"saldo":0,"nif":"999999999","gestor_cliente_id":1,"tipo_cliente_id":2,"tipo_regime_id":2,"logotipo":"utilizadores\\/cliente\\/O5sB8nzuIxoaiFAAsiyyMrSUCmc9ovDVCrFVRwVO.png","website":null,"email":"mutuemobile@gmail.com","referencia":"5VA9C58","pessoa_de_contacto":null,"status_id":1,"canal_id":3,"user_id":null,"created_at":"2021-04-16 10:36:11","updated_at":"2021-04-26 14:03:13","cidade":"Luanda","file_alvara":"documentos\\/empresa\\/documentos\\/C7quc6x6QB3pdcWhQZuh7rgKHA3UOnAiCzYufyaO.pdf","file_nif":"documentos\\/empresa\\/documentos\\/2McsxTfjst7do5jcAEZZwdtcQg0UR229SJvW5Rg6.pdf","licenca":"ativo"}},"empresa":"MUTUE SOLU\\u00c7\\u00d5ES TECNOL\\u00d3GICAS INTELIGENTES LDA","mensagem":"Foi activo uma nova licen\\u00e7a Anual em sua conta ","descricao":"A empresa MUTUE SOLU\\u00c7\\u00d5ES TECNOL\\u00d3GICAS INTELIGENTES LDA activou uma licen\\u00e7a Anual em sua conta, sendo assim a contagem da sua licen\\u00e7a inicia no dia 01-06-2022 at\\u00e9 o  dia 01-06-2023"}', '2023-02-15 10:11:13', '2022-06-01 11:50:08', '2023-02-15 10:11:13', NULL, NULL),
 	('fc58fc52-bf4c-4b56-bcec-d77ee3adbc3e', 'App\\Notifications\\AtivacaoLicenca', 'App\\Models\\empresa\\Empresa_Cliente', 117, '{"notificacao":{"id":78,"licenca_id":3,"empresa_id":102,"pagamento_id":21,"data_inicio":"2022-01-03T09:09:50.000000Z","data_fim":"2023-01-03T09:09:50.000000Z","data_activacao":"2022-01-03T09:09:50.651663Z","user_id":1,"canal_id":2,"status_licenca_id":1,"created_at":"2022-01-03 10:07:38","updated_at":"2022-01-03 10:09:50","data_rejeicao":null,"observacao":"activo a licen\\u00e7a Anual no dia 2022-01-03 10:09:50","data_notificaticao":null,"notificacaoFimLicenca":null,"licenca":{"id":3,"tipo_licenca_id":3,"designacao":"Anual","status_licenca_id":1,"created_at":"2021-01-31 12:38:41","updated_at":"2021-04-28 15:23:10","canal_id":3,"user_id":1,"descricao":"Plano Anual","valor":50000,"tipo_taxa_id":1,"limite_usuario":50,"tipo_licenca":{"id":3,"designacao":"Anual"}},"empresa":{"id":102,"nome":"Domingos Ngola","pessoal_Contacto":"923963451","endereco":"Luanda","empresa_id":null,"pais_id":1,"saldo":0,"nif":"005406294KN041","gestor_cliente_id":1,"tipo_cliente_id":2,"tipo_regime_id":3,"logotipo":"utilizadores\\/cliente\\/avatarEmpresa.png","website":null,"email":"domingosgoncalves619@gmail.com","referencia":"RU1N11N","pessoa_de_contacto":null,"status_id":1,"canal_id":3,"user_id":null,"created_at":"2021-09-13 11:03:56","updated_at":"2021-09-13 11:03:56","cidade":"Luanda","file_alvara":null,"file_nif":null}},"empresa":"F\\u00c1BRICA DE SOFTWARES  LDA","mensagem":"Foi activo uma nova licen\\u00e7a Anual em sua conta ","descricao":"A empresa F\\u00c1BRICA DE SOFTWARES  LDA activou uma licen\\u00e7a Anual em sua conta, sendo assim a contagem da sua licen\\u00e7a inicia no dia 03-01-2022 at\\u00e9 o  dia 03-01-2023"}', NULL, '2022-01-03 10:09:50', '2022-01-03 10:09:50', NULL, NULL);
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.observacao_factura
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.observacao_factura
 CREATE TABLE IF NOT EXISTS `observacao_factura` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `observacao` text,
@@ -2648,9 +2037,9 @@ CREATE TABLE IF NOT EXISTS `observacao_factura` (
   CONSTRAINT `FK_observacao_factura_empresas` FOREIGN KEY (`empresa_id`) REFERENCES `empresas` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.observacao_factura: ~0 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.observacao_factura: ~0 rows (aproximadamente)
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.orderbyprodutos
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.orderbyprodutos
 CREATE TABLE IF NOT EXISTS `orderbyprodutos` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `valor` varchar(50) NOT NULL,
@@ -2658,14 +2047,14 @@ CREATE TABLE IF NOT EXISTS `orderbyprodutos` (
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.orderbyprodutos: ~4 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.orderbyprodutos: ~4 rows (aproximadamente)
 INSERT INTO `orderbyprodutos` (`id`, `valor`, `designacao`) VALUES
 	(1, 'min', 'Menor preço'),
 	(2, 'max', 'Maior preço'),
 	(3, 'asc', 'Nome de Produto: A a Z'),
 	(4, 'desc', 'Nome de Produto: Z a A');
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.pagamentos
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.pagamentos
 CREATE TABLE IF NOT EXISTS `pagamentos` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `factura_id` int(10) unsigned NOT NULL,
@@ -2686,9 +2075,9 @@ CREATE TABLE IF NOT EXISTS `pagamentos` (
   CONSTRAINT `FK_pagamentos_user` FOREIGN KEY (`user_id`) REFERENCES `users_cliente` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.pagamentos: ~0 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.pagamentos: ~0 rows (aproximadamente)
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.pagamentos_vendas_online
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.pagamentos_vendas_online
 CREATE TABLE IF NOT EXISTS `pagamentos_vendas_online` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `uuid` varchar(255) DEFAULT NULL,
@@ -2729,12 +2118,12 @@ CREATE TABLE IF NOT EXISTS `pagamentos_vendas_online` (
   CONSTRAINT `FK_pagamentos_vendas_online_provincias` FOREIGN KEY (`provinciaIdEntrega`) REFERENCES `cidades` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.pagamentos_vendas_online: ~2 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.pagamentos_vendas_online: ~2 rows (aproximadamente)
 INSERT INTO `pagamentos_vendas_online` (`id`, `uuid`, `codigo`, `bancoId`, `empresaId`, `dataPagamentoBanco`, `totalPagamento`, `totalDesconto`, `totalIva`, `comprovativoBancario`, `formaPagamentoId`, `userId`, `nomeUser`, `statusPagamentoId`, `enderecoEntrega`, `nomeUserEntrega`, `apelidoUserEntrega`, `pontoReferenciaEntrega`, `telefoneUserEntrega`, `provinciaIdEntrega`, `comunaId`, `taxaEntrega`, `tipoEntregaId`, `operadorId`, `emailEntrega`, `numeroCartaoCliente`, `observacaoEntrega`, `motivoRejeicao`, `created_at`, `estimativaEntrega`, `updated_at`, `deleted_at`) VALUES
 	(1, 'c15fa1ad-67f2-47f0-b24c-bae3f48a0274', '00001', 6, NULL, '2023-12-06 00:00:00', 7985, 0, 1117.9, 'comprovativosVendasOnline/Q8r570nojzwpsT1orJShyopyW9GaQke6HXQQTdhr.pdf', 4, 741, 'Ramos Soft', 2, NULL, 'Ramos Soft', 'Ramos Soft', NULL, '923292970', 1, NULL, 0, 2, 642, 'info@ramossoft.com', NULL, NULL, NULL, '2023-12-06 23:51:35', '2023-12-08 23:51:35', '2023-12-08 11:33:29', NULL),
 	(2, 'e6aee384-6564-4789-b58b-be427b0d73ab', '00002', 6, NULL, '2024-01-11 00:00:00', 8266.25, 0, 1157.275, 'comprovativosVendasOnline/TlpevWPFeVtf1lA9mjtuJD7JqakqkwnHQHGWpRUk.pdf', 4, 741, 'Ramos Soft', 2, NULL, 'Ramos Soft', 'Ramos Soft', NULL, '923292970', 1, NULL, 0, 2, 638, 'info@ramossoft.com', NULL, NULL, NULL, '2024-01-11 13:03:18', '2024-01-13 13:03:18', '2024-01-24 16:19:00', NULL);
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.pagamentos_vendas_online_itens
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.pagamentos_vendas_online_itens
 CREATE TABLE IF NOT EXISTS `pagamentos_vendas_online_itens` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `uuid` varchar(255) DEFAULT NULL,
@@ -2750,14 +2139,14 @@ CREATE TABLE IF NOT EXISTS `pagamentos_vendas_online_itens` (
   KEY `FK_pagamentos_vendas_online_itens_pagamentos_vendas_online` (`pagamentoVendasOnlineId`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.pagamentos_vendas_online_itens: ~4 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.pagamentos_vendas_online_itens: ~4 rows (aproximadamente)
 INSERT INTO `pagamentos_vendas_online_itens` (`id`, `uuid`, `produtoId`, `precoVendaProduto`, `nomeProduto`, `quantidade`, `pagamentoVendasOnlineId`, `taxaIvaValor`, `subtotal`, `taxaIva`) VALUES
 	(1, '4866ecdb-87b2-4597-8b1f-c58016fdf2d5', 1051, 4610, 'BLOCO TOM.TRIPLA1.5 MT C/INT PRETA', 1, 1, 645.4, 4610, 14),
 	(2, 'ad8082de-83a1-4556-a85a-05d7de87bffb', 1153, 3375, 'PEN DRIVE 32GB KINGSTON', 1, 1, 472.5, 3375, 14),
 	(3, 'e19c8d13-7e9a-402d-a7e6-98c45ff4c7c3', 1510, 3372.5, 'CABO ALIMENT. PC 1.8 MT MANHT', 1, 2, 472.15, 3372.5, 14),
 	(4, '067bd8a2-b788-43dc-99e2-6d7f455d53f6', 1047, 4893.75, 'BLOCO TOM.TRIPLA 1.5 MT C/INT BRANCA', 1, 2, 685.125, 4893.75, 14);
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.pagamento_fornecedor
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.pagamento_fornecedor
 CREATE TABLE IF NOT EXISTS `pagamento_fornecedor` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `entrada_produto_id` int(10) unsigned NOT NULL,
@@ -2787,9 +2176,9 @@ CREATE TABLE IF NOT EXISTS `pagamento_fornecedor` (
   CONSTRAINT `FK_pagamento_fornecedor_status_gerais` FOREIGN KEY (`status_id`) REFERENCES `status_gerais` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.pagamento_fornecedor: ~0 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.pagamento_fornecedor: ~0 rows (aproximadamente)
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.paises
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.paises
 CREATE TABLE IF NOT EXISTS `paises` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `designacao` varchar(45) NOT NULL,
@@ -2801,7 +2190,7 @@ CREATE TABLE IF NOT EXISTS `paises` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=248 DEFAULT CHARSET=latin1;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.paises: ~207 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.paises: ~207 rows (aproximadamente)
 INSERT INTO `paises` (`id`, `designacao`, `sigla`, `indicativo`, `moeda_id`, `idioma_id`, `code`) VALUES
 	(1, 'Angola', 'ANG', '+244', 1, 1, 'AO'),
 	(2, 'Argélia', NULL, NULL, NULL, NULL, 'DZ'),
@@ -3011,7 +2400,7 @@ INSERT INTO `paises` (`id`, `designacao`, `sigla`, `indicativo`, `moeda_id`, `id
 	(246, 'Zâmbia', NULL, NULL, NULL, NULL, 'ZM'),
 	(247, 'Zimbabwe', NULL, NULL, NULL, NULL, 'ZW');
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.parametros
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.parametros
 CREATE TABLE IF NOT EXISTS `parametros` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `designacao` varchar(255) DEFAULT NULL,
@@ -3023,9 +2412,9 @@ CREATE TABLE IF NOT EXISTS `parametros` (
   `type` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_parametros_empresas` (`empresa_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=84 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=85 DEFAULT CHARSET=latin1;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.parametros: ~17 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.parametros: ~18 rows (aproximadamente)
 INSERT INTO `parametros` (`id`, `designacao`, `valor`, `valorSelects`, `vida`, `empresa_id`, `label`, `type`) VALUES
 	(1, 'IMPRESSÃO A4', 'A4', 'A4,ticket,A5', 1, 1, 'tipoImpreensao', 'select'),
 	(2, 'Nº Dias Vencimento Factura', NULL, NULL, 15, 1, 'n_dias_vencimento_factura', 'number'),
@@ -3043,9 +2432,10 @@ INSERT INTO `parametros` (`id`, `designacao`, `valor`, `valorSelects`, `vida`, `
 	(80, 'Valor da retenção na fonte', '6.5', NULL, NULL, 1, 'valor_retencao_fonte', 'number'),
 	(81, 'Nº SERIE DO DOCUMENTO', 'ATO', NULL, NULL, 1, 'numero_serie_documento', 'text'),
 	(82, 'Tarifa de reabertura Comercial', '729.25', NULL, NULL, 1, 'tarifa_reabertura_comercial', 'number'),
-	(83, 'Considerar 1h depois de 14min', 'SIM', 'SIM,NAO', NULL, 1, 'considerar1hdepois14min', 'select');
+	(83, 'Considerar 1h depois de 14min nos serviços aeroportuário', 'SIM', 'SIM,NAO', NULL, 1, 'considerar1hdepois14min', 'select'),
+	(84, 'Considerar 1h depois de 30min nos serviços comercial', 'SIM', 'SIM,NAO', NULL, 1, 'considerar1hdepois30min', 'select');
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.parametro_impressao
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.parametro_impressao
 CREATE TABLE IF NOT EXISTS `parametro_impressao` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `valor` enum('A4','A5','TICKET') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'A4',
@@ -3059,7 +2449,7 @@ CREATE TABLE IF NOT EXISTS `parametro_impressao` (
   KEY `FK_parametro_impressao_empresas` (`empresa_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.parametro_impressao: ~7 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.parametro_impressao: ~7 rows (aproximadamente)
 INSERT INTO `parametro_impressao` (`id`, `valor`, `designacao`, `vida`, `empresa_id`, `created_at`, `updated_at`, `tipoFolha`) VALUES
 	(1, 'A4', 'IMPRESSÃO A4', 'A4', NULL, '2021-04-11 10:56:22', '2021-04-11 10:56:22', 1),
 	(4, 'A4', 'IMPRESSÃO A4', 'A4', 47, '2021-04-12 01:21:18', '2021-04-12 01:21:18', 1),
@@ -3069,16 +2459,16 @@ INSERT INTO `parametro_impressao` (`id`, `valor`, `designacao`, `vida`, `empresa
 	(8, 'A4', 'IMPRESSÃO A4', 'A4', 156, '2022-08-26 10:41:27', '2022-08-26 10:41:27', 1),
 	(9, 'TICKET', 'IMPRESSÃO TICKET', 'TICKET', 158, '2022-09-01 12:20:06', '2022-09-01 12:20:06', 3);
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.password_resets
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.password_resets
 CREATE TABLE IF NOT EXISTS `password_resets` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `email` varchar(255) NOT NULL,
   `token` varchar(255) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`,`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=71 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=70 DEFAULT CHARSET=latin1;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.password_resets: ~15 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.password_resets: ~14 rows (aproximadamente)
 INSERT INTO `password_resets` (`id`, `email`, `token`, `created_at`) VALUES
 	(5, 'tatianacabral2804@gmail.com', '$2y$10$Ov6kKZlE9w7doYp9j0bpKeg0ETZKKbxzCDH0rna5pNDQt7//8jE2W', '2021-08-19 11:29:05'),
 	(6, 'usdera7@gmail.com', '$2y$10$VxTdAYyBiWYUUH4PwJDiqOMhHKXY5ZLiPwW9ChJSCQv3B3twHB9.u', '2022-01-13 15:31:02'),
@@ -3093,10 +2483,9 @@ INSERT INTO `password_resets` (`id`, `email`, `token`, `created_at`) VALUES
 	(60, 'panpanflora873@gmail.com', '$2y$10$fkuNdP8gyg342RSTJk4jgOr.9.0g8x97WO1GIb9xfJUqOm2z593kK', '2023-10-20 12:59:06'),
 	(65, 'tuleany2018@gmail.com', '$2y$10$9JeChR56uVyBGEuC4lUATeZC4SId2vu7hJPO/z1zdAE6ro06XqxuW', '2023-10-26 18:01:02'),
 	(66, 'paulojoao@unesc.net', '$2y$10$UEqLFgmozwEW0YqFHFXY6uB5itCfIlwntffLxc/3kxcgYJIttdvwe', '2023-10-26 18:31:57'),
-	(69, 'eustaquiocandinba@gmail.com', '$2y$10$iecCQXrrYOAEBWE1t2krRe1B/5WSLwP3GJHUEr3rzDe6mloCWN2ba', '2023-11-12 12:41:16'),
-	(70, 'pauloggjoao@gmail.com', '$2y$10$M3EosyKqDoQGKWE4eLBfaeiiL/Ew0/BEFLFVSwZ3Ce/0cvaqKt1xe', '2023-11-20 11:55:15');
+	(69, 'eustaquiocandinba@gmail.com', '$2y$10$iecCQXrrYOAEBWE1t2krRe1B/5WSLwP3GJHUEr3rzDe6mloCWN2ba', '2023-11-12 12:41:16');
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.perfils
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.perfils
 CREATE TABLE IF NOT EXISTS `perfils` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `designacao` varchar(255) NOT NULL,
@@ -3108,7 +2497,7 @@ CREATE TABLE IF NOT EXISTS `perfils` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=latin1;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.perfils: ~19 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.perfils: ~19 rows (aproximadamente)
 INSERT INTO `perfils` (`id`, `designacao`, `status_id`, `created_at`, `updated_at`, `empresa_id`, `uuid`) VALUES
 	(1, 'Super Administrador', 1, '2023-01-07 13:57:30', '2023-01-07 13:57:31', NULL, '57723dce-88b3-4a23-85e9-83d0fade77eb'),
 	(12, 'Operador', 1, '2023-01-13 10:56:29', '2023-01-13 10:56:29', 53, 'd32e91c2-e502-464d-a786-11290f0edbd5'),
@@ -3130,7 +2519,7 @@ INSERT INTO `perfils` (`id`, `designacao`, `status_id`, `created_at`, `updated_a
 	(28, 'VENDEDOR', 1, '2024-01-07 18:52:04', '2024-01-07 18:52:04', 178, 'fc5524a1-50e0-4ab8-a451-af72027660f7'),
 	(29, 'Operador', 1, '2024-02-15 09:38:15', '2024-02-15 09:38:15', 1, '30786c69-8b98-4b44-be62-269fe4451d17');
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.perguntas_frequentes
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.perguntas_frequentes
 CREATE TABLE IF NOT EXISTS `perguntas_frequentes` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `pergunta` mediumtext NOT NULL,
@@ -3141,7 +2530,7 @@ CREATE TABLE IF NOT EXISTS `perguntas_frequentes` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=latin1;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.perguntas_frequentes: ~8 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.perguntas_frequentes: ~8 rows (aproximadamente)
 INSERT INTO `perguntas_frequentes` (`id`, `pergunta`, `resposta`, `created_at`, `updated_at`, `deleted_at`) VALUES
 	(8, 'Qual é o prazo de entrega ? ', ' O prazo de entrega é de 24/48h após a confirmação do pagamento.', '2023-11-06 22:04:36', '2023-12-07 08:09:31', NULL),
 	(9, 'Como entro em contato com o serviço de atendimento ao cliente?', 'Pode entrar em contato connosco através do chat disponível no site, por e-mail em loja@mutue.net ou pelo telefone (244) 934 660 003\',', '2023-11-24 11:38:39', '2023-12-07 08:11:06', NULL),
@@ -3152,7 +2541,7 @@ INSERT INTO `perguntas_frequentes` (`id`, `pergunta`, `resposta`, `created_at`, 
 	(22, 'Posso receber notificações sobre as novidade da MUTUE ?', 'Pode sim, para tal basta subscrever-se a nossa newsletter em: https://loja.mutue.net/#/', '2023-11-25 07:14:30', '2023-11-25 07:14:30', NULL),
 	(23, 'Esqueci-me da minha palavra passe, e agora ?', 'Se deseja aceder à sua conta e se esqueceu da sua palavra-chave, basta clicar em «Recuperar\npalavra-chave». Introduza o endereço de e-mail com o qual criou a sua conta na loja online em https://loja.mutue.net/#/. na janela que se abre. Enviar-lhe-emos um e-mail onde deve de colocar a\nsua nova palavra passe e confirmar a mesma.', '2023-11-25 07:16:23', '2023-11-25 07:16:23', NULL);
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.permissions
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.permissions
 CREATE TABLE IF NOT EXISTS `permissions` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -3164,9 +2553,9 @@ CREATE TABLE IF NOT EXISTS `permissions` (
   PRIMARY KEY (`id`),
   KEY `FK_permissions_status_gerais` (`status_id`),
   CONSTRAINT `FK_permissions_status_gerais` FOREIGN KEY (`status_id`) REFERENCES `status_gerais` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.permissions: ~23 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.permissions: ~24 rows (aproximadamente)
 INSERT INTO `permissions` (`id`, `name`, `guard_name`, `created_at`, `updated_at`, `label`, `status_id`) VALUES
 	(1, 'gerir utilizadores', 'empresa', '2020-05-04 16:07:01', '2020-05-04 16:07:02', 'Gerir utilizadores', 1),
 	(2, 'gerir permissões', 'empresa', '2020-05-18 01:08:13', '2020-05-18 01:08:15', 'Gerir permissões', 1),
@@ -3190,9 +2579,10 @@ INSERT INTO `permissions` (`id`, `name`, `guard_name`, `created_at`, `updated_at
 	(20, 'imprimir mapa faturacao', 'empresa', '2023-09-29 08:07:11', '2023-09-29 08:07:12', 'imprimir_mapa_faturacao', 1),
 	(21, 'anulacao documentos', 'empresa', '2023-09-29 08:07:11', '2023-09-29 08:07:12', 'anulacao_documentos', 1),
 	(22, 'emitir fatura outros servicos', 'empresa', '2023-09-29 08:07:11', '2023-09-29 08:07:12', 'emitir_fatura_outros_servicos', 1),
-	(23, 'visualizar logs de acesso', 'empresa', '2023-09-29 08:07:11', '2023-09-29 08:07:12', 'visualizar_logs_de_acesso', 1);
+	(23, 'visualizar logs de acesso', 'empresa', '2023-09-29 08:07:11', '2023-09-29 08:07:12', 'visualizar_logs_de_acesso', 1),
+	(24, 'emitir fatura servicos comerciais', 'empresa', '2023-09-29 08:07:11', '2023-09-29 08:07:12', 'emitir_fatura_servicos_comerciais', 1);
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.personal_access_tokens
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.personal_access_tokens
 CREATE TABLE IF NOT EXISTS `personal_access_tokens` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `tokenable_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -3208,7 +2598,7 @@ CREATE TABLE IF NOT EXISTS `personal_access_tokens` (
   KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`,`tokenable_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1595 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.personal_access_tokens: ~20 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.personal_access_tokens: ~20 rows (aproximadamente)
 INSERT INTO `personal_access_tokens` (`id`, `tokenable_type`, `tokenable_id`, `name`, `token`, `abilities`, `last_used_at`, `created_at`, `updated_at`) VALUES
 	(836, 'App\\Models\\empresa\\User', 668, 'mobile', '7622444f3fcf2ef81b3e19b16dbcc5bfb609f5efc1673836835fe97d79c28ebc', '["*"]', '2023-07-11 15:30:10', '2023-07-11 15:28:10', '2023-07-11 15:30:10'),
 	(1036, 'App\\Models\\empresa\\User', 557, 'mobile', '13a8583f9054731941c763e2e7a2f7539e8e5028f2f99bf47d4b59087fb324a6', '["*"]', '2023-08-23 02:01:58', '2023-08-23 02:01:56', '2023-08-23 02:01:58'),
@@ -3231,7 +2621,7 @@ INSERT INTO `personal_access_tokens` (`id`, `tokenable_type`, `tokenable_id`, `n
 	(1570, 'App\\Models\\empresa\\User', 704, 'mobile', '59be38aabbaf0fb5579c14d00c5451daf2e58a4a0b9da86bafa03e8e8f99ce98', '["*"]', '2024-01-23 16:08:57', '2024-01-23 15:02:24', '2024-01-23 16:08:57'),
 	(1594, 'App\\Models\\empresa\\User', 729, 'mobile', '6beebdf19951e2af4cf5e65a33f2a725ab85ef8e4fd88ee688a2e7207402a116', '["*"]', NULL, '2024-01-29 13:50:10', '2024-01-29 13:50:10');
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.precos
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.precos
 CREATE TABLE IF NOT EXISTS `precos` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `produto_is` int(10) unsigned NOT NULL,
@@ -3250,9 +2640,9 @@ CREATE TABLE IF NOT EXISTS `precos` (
   CONSTRAINT `FK_precos_user` FOREIGN KEY (`user_id`) REFERENCES `users_cliente` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.precos: ~0 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.precos: ~0 rows (aproximadamente)
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.produtos
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.produtos
 CREATE TABLE IF NOT EXISTS `produtos` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `designacao` varchar(255) NOT NULL,
@@ -3303,9 +2693,9 @@ CREATE TABLE IF NOT EXISTS `produtos` (
   KEY `FK_produtos_categorias` (`categoria_id`) USING BTREE,
   KEY `FK_produtos_classes` (`classe_id`) USING BTREE,
   KEY `FK_produtos_tipoTaxa` (`codigo_taxa`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.produtos: ~30 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.produtos: ~41 rows (aproximadamente)
 INSERT INTO `produtos` (`id`, `designacao`, `uuid`, `preco_venda`, `pvp`, `preco_compra`, `classificacao`, `marca_id`, `categoria_id`, `orderCategoria1`, `orderCategoria2`, `orderCategoria3`, `centroCustoId`, `tipoServicoId`, `classe_id`, `unidade_medida_id`, `fabricante_id`, `user_id`, `canal_id`, `status_id`, `codigo_taxa`, `motivo_isencao_id`, `quantidade_minima`, `quantidade_critica`, `imagem_produto`, `referencia`, `codigo_barra`, `data_expiracao`, `descricao`, `stocavel`, `venda_online`, `cartaGarantia`, `empresa_id`, `created_at`, `updated_at`, `tempoGarantiaProduto`, `tipoGarantia`) VALUES
 	(1, 'Carga', 'd7a06a73-6c40-4cdb-9984-34f2b8810a25', 0, 0, 0, NULL, NULL, 2, NULL, NULL, NULL, 1, 1, NULL, 1, 1, 1, 2, 1, 2, 8, 0, 0, 'upload/produtos/default.png', 'P3KFW8', NULL, NULL, NULL, 'Não', 'N', 'N', 1, '2024-02-01 09:59:26', '2024-02-01 11:02:15', NULL, NULL),
 	(2, 'Armazenagem', '04926be2-1158-46af-aaf3-8c865590dfcb', 0, 0, 0, NULL, NULL, 1, 1, NULL, NULL, 1, 1, NULL, 1, 1, 1, 2, 1, 2, 8, 0, 0, 'upload/produtos/default.png', 'XRY51O', NULL, NULL, NULL, 'Não', 'N', 'N', 1, '2024-02-01 11:01:47', '2024-02-01 11:01:47', NULL, NULL),
@@ -3326,19 +2716,30 @@ INSERT INTO `produtos` (`id`, `designacao`, `uuid`, `preco_venda`, `pvp`, `preco
 	(17, 'Assistência de manutenção em linha', '918a30ed-ba39-4c19-a530-f944e07fa2b006', 0.03, 0, 0, NULL, NULL, 1, 2, NULL, NULL, 1, 3, NULL, 1, 1, 1, 2, 1, 2, 8, 0, 0, 'upload/produtos/default.png', '04W8G7', NULL, NULL, NULL, 'Não', 'N', 'N', 1, '2024-02-03 09:21:09', '2024-02-03 09:21:09', NULL, NULL),
 	(18, 'Assistência de gestão aérea e dos tripulantes', '918a30ed-ba39-4c19-a530-f944e07fa2b007', 0.03, 0, 0, NULL, NULL, 1, 2, NULL, NULL, 1, 3, NULL, 1, 1, 1, 2, 1, 2, 8, 0, 0, 'upload/produtos/default.png', '04W8G7', NULL, NULL, NULL, 'Não', 'N', 'N', 1, '2024-02-03 09:21:09', '2024-02-03 09:21:09', NULL, NULL),
 	(19, 'Assistência de transporte em terra', '918a30ed-ba39-4c19-a530-f944e07fa2b008', 0.07, 0, 0, NULL, NULL, 1, 2, NULL, NULL, 1, 3, NULL, 1, 1, 1, 2, 1, 2, 8, 0, 0, 'upload/produtos/default.png', '04W8G7', NULL, NULL, NULL, 'Não', 'N', 'N', 1, '2024-02-03 09:21:09', '2024-02-03 09:21:09', NULL, NULL),
-	(20, 'Aprovisionamento (catering) de aeronaves', '918a30ed-ba39-4c19-a530-f944e07fa2b009', 0.4, 0, 0, NULL, NULL, 1, 2, NULL, NULL, 1, 3, NULL, 1, 1, 1, 2, 1, 2, 8, 0, 0, 'upload/produtos/default.png', '04W8G7', NULL, NULL, NULL, 'Não', 'N', 'N', 1, '2024-02-03 09:21:09', '2024-02-03 09:21:09', NULL, NULL),
-	(21, 'Assistência a combustível e óleo', '918a30ed-ba39-4c19-a530-f944e07fa2b010', 0.51, 0, 0, NULL, NULL, 1, 2, NULL, NULL, 1, 3, NULL, 1, 1, 1, 2, 1, 2, 8, 0, 0, 'upload/produtos/default.png', '04W8G7', NULL, NULL, NULL, 'Não', 'N', 'N', 1, '2024-02-03 09:21:09', '2024-02-03 09:21:09', NULL, NULL),
+	(20, 'Aprovisionamento (catering) de aeronaves Por refeição ', '918a30ed-ba39-4c19-a530-f944e07fa2b009', 0.4, 0, 0, NULL, NULL, 1, 2, NULL, NULL, 1, 3, NULL, 1, 1, 1, 2, 1, 2, 8, 0, 0, 'upload/produtos/default.png', '04W8G7', NULL, NULL, NULL, 'Não', 'N', 'N', 1, '2024-02-03 09:21:09', '2024-02-03 09:21:09', NULL, NULL),
+	(21, 'Assistência a combustível e óleo Por hectolitro', '918a30ed-ba39-4c19-a530-f944e07fa2b010', 0.51, 0, 0, NULL, NULL, 1, 2, NULL, NULL, 1, 3, NULL, 1, 1, 1, 2, 1, 2, 8, 0, 0, 'upload/produtos/default.png', '04W8G7', NULL, NULL, NULL, 'Não', 'N', 'N', 1, '2024-02-03 09:21:09', '2024-02-03 09:21:09', NULL, NULL),
 	(22, 'Passes de viaturas - empresa aérea doméstico', '918a30ed-ba39-4c19-a530-f944e07fa2b011', 1656, 0, 0, NULL, NULL, 1, 2, NULL, NULL, 1, 3, NULL, 1, 1, 1, 2, 1, 2, 8, 0, 0, 'upload/produtos/default.png', '04W8G7', NULL, NULL, NULL, 'Não', 'N', 'N', 1, '2024-02-03 09:21:09', '2024-02-03 09:21:09', NULL, NULL),
 	(23, 'Passes de viaturas - empresa aérea internacional', '918a30ed-ba39-4c19-a530-f944e07fa2b012', 2070, 0, 0, NULL, NULL, 1, 2, NULL, NULL, 1, 3, NULL, 1, 1, 1, 2, 1, 2, 8, 0, 0, 'upload/produtos/default.png', '04W8G7', NULL, NULL, NULL, 'Não', 'N', 'N', 1, '2024-02-03 09:21:09', '2024-02-03 09:21:09', NULL, NULL),
 	(24, 'Passes de viaturas - prestadores de serviços', '918a30ed-ba39-4c19-a530-f944e07fa2b013', 5796, 0, 0, NULL, NULL, 1, 2, NULL, NULL, 1, 3, NULL, 1, 1, 1, 2, 1, 2, 8, 0, 0, 'upload/produtos/default.png', '04W8G7', NULL, NULL, NULL, 'Não', 'N', 'N', 1, '2024-02-03 09:21:09', '2024-02-03 09:21:09', NULL, NULL),
 	(25, 'Passes de pessoas - empresa aérea doméstica', '918a30ed-ba39-4c19-a530-f944e07fa2b014', 80.5, 0, 0, NULL, NULL, 1, 2, NULL, NULL, 1, 3, NULL, 1, 1, 1, 2, 1, 2, 8, 0, 0, 'upload/produtos/default.png', '04W8G7', NULL, NULL, NULL, 'Não', 'N', 'N', 1, '2024-02-03 09:21:09', '2024-02-03 09:21:09', NULL, NULL),
-	(26, 'Passes de pessoas - empresa aérea internacional ', '918a30ed-ba39-4c19-a530-f944e07fa2b015', 115, 0, 0, NULL, NULL, 1, 2, NULL, NULL, 1, 3, NULL, 1, 1, 1, 2, 1, 2, 8, 0, 0, 'upload/produtos/default.png', '04W8G7', NULL, NULL, NULL, 'Não', 'N', 'N', 1, '2024-02-03 09:21:09', '2024-02-03 09:21:09', NULL, NULL),
+	(26, 'Passes de pessoas - empresa aérea internacional', '918a30ed-ba39-4c19-a530-f944e07fa2b015', 115, 0, 0, NULL, NULL, 1, 2, NULL, NULL, 1, 3, NULL, 1, 1, 1, 2, 1, 2, 8, 0, 0, 'upload/produtos/default.png', '04W8G7', NULL, NULL, NULL, 'Não', 'N', 'N', 1, '2024-02-03 09:21:09', '2024-02-03 09:21:09', NULL, NULL),
 	(27, 'Passes de pessoas - prestadores de serviço', '918a30ed-ba39-4c19-a530-f944e07fa2b016', 575, 0, 0, NULL, NULL, 1, 2, NULL, NULL, 1, 3, NULL, 1, 1, 1, 2, 1, 2, 8, 0, 0, 'upload/produtos/default.png', '04W8G7', NULL, NULL, NULL, 'Não', 'N', 'N', 1, '2024-02-03 09:21:09', '2024-02-03 09:21:09', NULL, NULL),
-	(28, 'Estacionamento Camiões Dentro do TCA', '918a30ed-ba39-4c19-a530-f944e07fa2b017', 0, 0, 0, NULL, NULL, 1, 2, NULL, NULL, 1, 4, NULL, 1, 1, 1, 2, 1, 2, 8, 0, 0, 'upload/produtos/default.png', '04W8G7', NULL, NULL, NULL, 'Não', 'N', 'N', 1, '2024-02-03 09:21:09', '2024-02-03 09:21:09', NULL, NULL),
-	(29, 'Estacionamento Camiões Fora do TCA', '918a30ed-ba39-4c19-a530-f944e07fa2b018', 0, 0, 0, NULL, NULL, 1, 2, NULL, NULL, 1, 4, NULL, 1, 1, 1, 2, 1, 2, 8, 0, 0, 'upload/produtos/default.png', '04W8G7', NULL, NULL, NULL, 'Não', 'N', 'N', 1, '2024-02-03 09:21:09', '2024-02-03 09:21:09', NULL, NULL),
-	(30, 'Estacionamento de Veículos', '918a30ed-ba39-4c19-a530-f944e07fa2b019', 0, 0, 0, NULL, NULL, 1, 2, NULL, NULL, 1, 4, NULL, 1, 1, 1, 2, 1, 2, 8, 0, 0, 'upload/produtos/default.png', '04W8G7', NULL, NULL, NULL, 'Não', 'N', 'N', 1, '2024-02-03 09:21:09', '2024-02-03 09:21:09', NULL, NULL);
+	(28, 'Ocupação de terrenos sem edificações(Por m²)', '918a30ed-ba39-4c19-a530-f944e07fa2b017', 0.67, 0, 0, NULL, NULL, 1, 2, NULL, NULL, 1, 4, NULL, 1, 1, 1, 2, 1, 2, 8, 0, 0, 'upload/produtos/default.png', '04W8G7', NULL, NULL, NULL, 'Não', 'N', 'N', 1, '2024-02-03 09:21:09', '2024-02-03 09:21:09', NULL, NULL),
+	(29, 'Ocupação de terrenos com edificações e instalações(Por m²)', '918a30ed-ba39-4c19-a530-f944e07fa2b018', 0.53, 0, 0, NULL, NULL, 1, 2, NULL, NULL, 1, 4, NULL, 1, 1, 1, 2, 1, 2, 8, 0, 0, 'upload/produtos/default.png', '04W8G7', NULL, NULL, NULL, 'Não', 'N', 'N', 1, '2024-02-03 09:21:09', '2024-02-03 09:21:09', NULL, NULL),
+	(30, 'Ocupação Aerogares - Gabinetes(Por m²)', '918a30ed-ba39-4c19-a530-f944e07fa2b019', 57.5, 0, 0, NULL, NULL, 1, 2, NULL, NULL, 1, 4, NULL, 1, 1, 1, 2, 1, 2, 8, 0, 0, 'upload/produtos/default.png', '04W8G7', NULL, NULL, NULL, 'Não', 'N', 'N', 1, '2024-02-03 09:21:09', '2024-02-03 09:21:09', NULL, NULL),
+	(31, 'Ocupação Aerogares - Espaços abertos(Por m²)', '918a30ed-ba39-4c19-a530-f944e07fa2b020', 80.23, 0, 0, NULL, NULL, 1, 2, NULL, NULL, 1, 4, NULL, 1, 1, 1, 2, 1, 2, 8, 0, 0, 'upload/produtos/default.png', '04W8G7', NULL, NULL, NULL, 'Não', 'N', 'N', 1, '2024-02-03 09:21:09', '2024-02-03 09:21:09', NULL, NULL),
+	(32, 'Ocupação Hangares - Gabinetes(Por m²)', '918a30ed-ba39-4c19-a530-f944e07fa2b021', 17.38, 0, 0, NULL, NULL, 1, 2, NULL, NULL, 1, 4, NULL, 1, 1, 1, 2, 1, 2, 8, 0, 0, 'upload/produtos/default.png', '04W8G7', NULL, NULL, NULL, 'Não', 'N', 'N', 1, '2024-02-03 09:21:09', '2024-02-03 09:21:09', NULL, NULL),
+	(33, 'Ocupação - Hangares - Espaços abertos(Por m²)', '918a30ed-ba39-4c19-a530-f944e07fa2b022', 9.36, 0, 0, NULL, NULL, 1, 2, NULL, NULL, 1, 4, NULL, 1, 1, 1, 2, 1, 2, 8, 0, 0, 'upload/produtos/default.png', '04W8G7', NULL, NULL, NULL, 'Não', 'N', 'N', 1, '2024-02-03 09:21:09', '2024-02-03 09:21:09', NULL, NULL),
+	(34, 'Ocupação - Terminais de Carga - Uso das prateleiras(Por m²)', '918a30ed-ba39-4c19-a530-f944e07fa2b023', 12.16, 0, 0, NULL, NULL, 1, 2, NULL, NULL, 1, 4, NULL, 1, 1, 1, 2, 1, 2, 8, 0, 0, 'upload/produtos/default.png', '04W8G7', NULL, NULL, NULL, 'Não', 'N', 'N', 1, '2024-02-03 09:21:09', '2024-02-03 09:21:09', NULL, NULL),
+	(35, 'Ocupação - Geral de Ocupação - Gabinetes(Por m²)', '918a30ed-ba39-4c19-a530-f944e07fa2b024', 7.62, 0, 0, NULL, NULL, 1, 2, NULL, NULL, 1, 4, NULL, 1, 1, 1, 2, 1, 2, 8, 0, 0, 'upload/produtos/default.png', '04W8G7', NULL, NULL, NULL, 'Não', 'N', 'N', 1, '2024-02-03 09:21:09', '2024-02-03 09:21:09', NULL, NULL),
+	(36, 'Ocupação - Geral de Ocupação - Espaços abertos(Por m²)', '918a30ed-ba39-4c19-a530-f944e07fa2b025', 4.1, 0, 0, NULL, NULL, 1, 2, NULL, NULL, 1, 4, NULL, 1, 1, 1, 2, 1, 2, 8, 0, 0, 'upload/produtos/default.png', '04W8G7', NULL, NULL, NULL, 'Não', 'N', 'N', 1, '2024-02-03 09:21:09', '2024-02-03 09:21:09', NULL, NULL),
+	(37, 'Ar condicionado 20% do valor do tarifa de ocupação', '918a30ed-ba39-4c19-a530-f944e07fa2b026', 0, 0, 0, NULL, NULL, 1, 2, NULL, NULL, 1, 4, NULL, 1, 1, 1, 2, 1, 2, 8, 0, 0, 'upload/produtos/default.png', '04W8G7', NULL, NULL, NULL, 'Não', 'N', 'N', 1, '2024-02-03 09:21:09', '2024-02-03 09:21:09', NULL, NULL),
+	(38, 'Publicidade(Unidade métrica x mês)', '918a30ed-ba39-4c19-a530-f944e07fa2b026', 69, 0, 0, NULL, NULL, 1, 2, NULL, NULL, 1, 4, NULL, 1, 1, 1, 2, 1, 2, 8, 0, 0, 'upload/produtos/default.png', '04W8G7', NULL, NULL, NULL, 'Não', 'N', 'N', 1, '2024-02-03 09:21:09', '2024-02-03 09:21:09', NULL, NULL),
+	(39, 'Estacionamento Camiões Dentro do TCA', '918a30ed-ba39-4c19-a530-f944e07fa2b027', 0, 0, 0, NULL, NULL, 1, 2, NULL, NULL, 1, 4, NULL, 1, 1, 1, 2, 1, 2, 8, 0, 0, 'upload/produtos/default.png', '04W8G7', NULL, NULL, NULL, 'Não', 'N', 'N', 1, '2024-02-03 09:21:09', '2024-02-03 09:21:09', NULL, NULL),
+	(40, 'Estacionamento Camiões Fora do TCA', '918a30ed-ba39-4c19-a530-f944e07fa2b028', 0, 0, 0, NULL, NULL, 1, 2, NULL, NULL, 1, 4, NULL, 1, 1, 1, 2, 1, 2, 8, 0, 0, 'upload/produtos/default.png', '04W8G7', NULL, NULL, NULL, 'Não', 'N', 'N', 1, '2024-02-03 09:21:09', '2024-02-03 09:21:09', NULL, NULL),
+	(41, 'Estacionamento de Veículos', '918a30ed-ba39-4c19-a530-f944e07fa2b029', 0, 0, 0, NULL, NULL, 1, 2, NULL, NULL, 1, 4, NULL, 1, 1, 1, 2, 1, 2, 8, 0, 0, 'upload/produtos/default.png', '04W8G7', NULL, NULL, NULL, 'Não', 'N', 'N', 1, '2024-02-03 09:21:09', '2024-02-03 09:21:09', NULL, NULL);
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.produtos_destaque
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.produtos_destaque
 CREATE TABLE IF NOT EXISTS `produtos_destaque` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `produto_id` int(11) DEFAULT NULL,
@@ -3351,9 +2752,9 @@ CREATE TABLE IF NOT EXISTS `produtos_destaque` (
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.produtos_destaque: ~0 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.produtos_destaque: ~0 rows (aproximadamente)
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.produtos_favoritos
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.produtos_favoritos
 CREATE TABLE IF NOT EXISTS `produtos_favoritos` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int(10) unsigned NOT NULL,
@@ -3365,9 +2766,9 @@ CREATE TABLE IF NOT EXISTS `produtos_favoritos` (
   CONSTRAINT `FK_produtos_favoritos_users_cliente` FOREIGN KEY (`user_id`) REFERENCES `users_cliente` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.produtos_favoritos: ~0 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.produtos_favoritos: ~0 rows (aproximadamente)
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.produtos_lojas
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.produtos_lojas
 CREATE TABLE IF NOT EXISTS `produtos_lojas` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `produto_id` int(10) unsigned NOT NULL,
@@ -3397,9 +2798,9 @@ CREATE TABLE IF NOT EXISTS `produtos_lojas` (
   CONSTRAINT `FK_produtos_lojas_users` FOREIGN KEY (`user_id`) REFERENCES `users_cliente` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.produtos_lojas: ~0 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.produtos_lojas: ~0 rows (aproximadamente)
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.produto_imagens
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.produto_imagens
 CREATE TABLE IF NOT EXISTS `produto_imagens` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `url` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
@@ -3411,9 +2812,9 @@ CREATE TABLE IF NOT EXISTS `produto_imagens` (
   CONSTRAINT `FK_produto_imagens_produtos` FOREIGN KEY (`produto_id`) REFERENCES `produtos_` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.produto_imagens: ~0 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.produto_imagens: ~0 rows (aproximadamente)
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.recibos
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.recibos
 CREATE TABLE IF NOT EXISTS `recibos` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `empresaId` int(10) unsigned NOT NULL,
@@ -3445,12 +2846,12 @@ CREATE TABLE IF NOT EXISTS `recibos` (
   KEY `FK_recibos_formas_pagamentos` (`formaPagamentoId`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.recibos: ~2 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.recibos: ~2 rows (aproximadamente)
 INSERT INTO `recibos` (`id`, `empresaId`, `numeracaoRecibo`, `clienteId`, `created_at`, `updated_at`, `totalEntregue`, `userId`, `facturaId`, `totalFatura`, `totalImposto`, `totalDebitar`, `formaPagamentoId`, `observacao`, `numSequenciaRecibo`, `nomeCliente`, `telefoneCliente`, `nifCliente`, `emailCliente`, `enderecoCliente`, `dataOperacao`, `numeroOperacaoBancaria`, `comprovativoBancario`, `anulado`) VALUES
-	(1, 1, 'RC ATO2024/1', 3, '2024-03-13 10:02:34', '2024-03-13 10:02:34', 1072713.716901, 1, 110, 1072713.716901, 131736.772251, 0, 1, NULL, 1, 'NGONGO THOMAS & FILHOS COMERCIO GERAL LTD', '+244923437631', '54176617919', 'kingsleychima75@gmail.com', 'Rua Santos Nº18, Bairro Cassenda', '2024-03-13', NULL, NULL, 'Y'),
-	(2, 1, 'RC ATO2024/2', 3, '2024-03-13 10:03:31', '2024-03-13 10:03:31', 1383704.79447, 1, 111, 1383704.79447, 169928.65897, 0, 1, NULL, 2, 'NGONGO THOMAS & FILHOS COMERCIO GERAL LTD', '+244923437631', '54176617919', 'kingsleychima75@gmail.com', 'Rua Santos Nº18, Bairro Cassenda', NULL, NULL, NULL, 'N');
+	(1, 1, 'RC ATO2024/1', 279, '2024-03-26 14:11:02', '2024-03-26 14:11:02', 1140845.427078, 750, 345, 1140845.427078, 140103.824378, 0, 4, 'Pagamento dos serviços de carga referente a AWB Nº118-11506110', 1, 'SIMPORTEX - COMERCIALIZAÇÃO DE EQUIPAMENTOS M.M', NULL, '5410003519', NULL, 'RUA RAINHA GINGA Nº 24 - INGOMBOTA', '2023-03-26', '642555505', 'comprovativos/642555505.pdf', 'N'),
+	(2, 1, 'RC ATO2024/2', 282, '2024-03-26 16:43:07', '2024-03-26 16:43:07', 51057.5551398, 750, 352, 51057.5551398, 6270.2260698, 0, 4, NULL, 2, 'BESTFLY, LDA', '+244925928831', '5417077976', 'ops@bestfly.aero', 'AV. 21 DE JANEIRO-AEROPORTO 4 DE FEVEREIRO', '2024-03-26', '00670', 'comprovativos/00670.pdf', 'N');
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.recibos_items
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.recibos_items
 CREATE TABLE IF NOT EXISTS `recibos_items` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `recibo_id` int(10) unsigned NOT NULL,
@@ -3472,9 +2873,9 @@ CREATE TABLE IF NOT EXISTS `recibos_items` (
   CONSTRAINT `recibo_id` FOREIGN KEY (`recibo_id`) REFERENCES `recibos` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.recibos_items: ~0 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.recibos_items: ~0 rows (aproximadamente)
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.roles
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.roles
 CREATE TABLE IF NOT EXISTS `roles` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `label` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -3488,13 +2889,13 @@ CREATE TABLE IF NOT EXISTS `roles` (
   CONSTRAINT `FK_roles_empresas` FOREIGN KEY (`empresa_id`) REFERENCES `empresas` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.roles: ~3 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.roles: ~3 rows (aproximadamente)
 INSERT INTO `roles` (`id`, `label`, `name`, `guard_name`, `created_at`, `updated_at`, `empresa_id`) VALUES
 	(1, 'Super Admin', 'Super-Admin', 'empresa', '2020-05-18 00:05:05', '2020-05-18 00:05:06', NULL),
 	(2, 'Admin', 'Admin', 'empresa', '2020-05-18 00:05:41', '2020-05-18 00:05:42', NULL),
 	(3, 'Funcionario', 'Funcionario', 'empresa', '2020-06-09 20:22:21', '2020-06-09 20:22:23', NULL);
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.role_has_permissions
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.role_has_permissions
 CREATE TABLE IF NOT EXISTS `role_has_permissions` (
   `permission_id` bigint(20) unsigned NOT NULL,
   `role_id` bigint(20) unsigned NOT NULL,
@@ -3502,11 +2903,11 @@ CREATE TABLE IF NOT EXISTS `role_has_permissions` (
   KEY `role_has_permissions_role_id_foreign` (`role_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.role_has_permissions: ~0 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.role_has_permissions: ~0 rows (aproximadamente)
 INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES
 	(13, 1);
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.sequencias_documentos
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.sequencias_documentos
 CREATE TABLE IF NOT EXISTS `sequencias_documentos` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `sequencia` int(11) NOT NULL,
@@ -3521,7 +2922,7 @@ CREATE TABLE IF NOT EXISTS `sequencias_documentos` (
   CONSTRAINT `FK_sequencias_documentos_tipodocumentosequencias` FOREIGN KEY (`tipo_documento`) REFERENCES `tipodocumentosequencias` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.sequencias_documentos: ~13 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.sequencias_documentos: ~13 rows (aproximadamente)
 INSERT INTO `sequencias_documentos` (`id`, `sequencia`, `empresa_id`, `tipo_documento`, `tipoDocumentoNome`, `serie_documento`, `created_at`, `updated_at`) VALUES
 	(1, 1, NULL, 1, 'FATURA RECIBO', 'AGT', '2023-07-21 01:00:46', '2023-07-21 01:00:46'),
 	(2, 1, NULL, 2, 'FATURA', 'AGT', '2023-07-21 01:00:46', '2023-07-21 01:00:46'),
@@ -3537,7 +2938,7 @@ INSERT INTO `sequencias_documentos` (`id`, `sequencia`, `empresa_id`, `tipo_docu
 	(37, 1200, 53, 2, 'FATURA', 'RR', '2023-07-25 16:18:19', '2023-07-25 16:18:19'),
 	(38, 50, 53, 1, 'FATURA RECIBO', 'RR', '2023-07-26 19:31:29', '2023-07-26 19:31:29');
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.series_documento
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.series_documento
 CREATE TABLE IF NOT EXISTS `series_documento` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `serie` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -3547,18 +2948,18 @@ CREATE TABLE IF NOT EXISTS `series_documento` (
   CONSTRAINT `FK_serie_empresas` FOREIGN KEY (`empresa_id`) REFERENCES `empresas` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.series_documento: ~0 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.series_documento: ~0 rows (aproximadamente)
 INSERT INTO `series_documento` (`id`, `serie`, `empresa_id`) VALUES
 	(1, 'ATO', 1);
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.statuspagamentovendaonline
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.statuspagamentovendaonline
 CREATE TABLE IF NOT EXISTS `statuspagamentovendaonline` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `designacao` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.statuspagamentovendaonline: ~6 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.statuspagamentovendaonline: ~6 rows (aproximadamente)
 INSERT INTO `statuspagamentovendaonline` (`id`, `designacao`) VALUES
 	(1, 'Validado'),
 	(2, 'Pendente'),
@@ -3567,44 +2968,44 @@ INSERT INTO `statuspagamentovendaonline` (`id`, `designacao`) VALUES
 	(5, 'Entregue'),
 	(6, 'Devolvido');
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.status_factura
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.status_factura
 CREATE TABLE IF NOT EXISTS `status_factura` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `designacao` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.status_factura: ~3 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.status_factura: ~3 rows (aproximadamente)
 INSERT INTO `status_factura` (`id`, `designacao`) VALUES
 	(1, 'Activo'),
 	(2, 'Proforma'),
 	(3, 'Venda Crédito');
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.status_gerais
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.status_gerais
 CREATE TABLE IF NOT EXISTS `status_gerais` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `designacao` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.status_gerais: ~2 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.status_gerais: ~2 rows (aproximadamente)
 INSERT INTO `status_gerais` (`id`, `designacao`) VALUES
 	(1, 'Activo'),
 	(2, 'Inativo');
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.status_senha
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.status_senha
 CREATE TABLE IF NOT EXISTS `status_senha` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `designacao` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.status_senha: ~2 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.status_senha: ~2 rows (aproximadamente)
 INSERT INTO `status_senha` (`id`, `designacao`) VALUES
 	(1, 'Vulnerável'),
 	(2, 'Segura');
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.subscricao_emails
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.subscricao_emails
 CREATE TABLE IF NOT EXISTS `subscricao_emails` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `email` varchar(255) NOT NULL,
@@ -3615,9 +3016,9 @@ CREATE TABLE IF NOT EXISTS `subscricao_emails` (
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.subscricao_emails: ~0 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.subscricao_emails: ~0 rows (aproximadamente)
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.taxa_carga_aduaneira
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.taxa_carga_aduaneira
 CREATE TABLE IF NOT EXISTS `taxa_carga_aduaneira` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `designacao` char(10) NOT NULL,
@@ -3626,19 +3027,19 @@ CREATE TABLE IF NOT EXISTS `taxa_carga_aduaneira` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.taxa_carga_aduaneira: ~2 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.taxa_carga_aduaneira: ~2 rows (aproximadamente)
 INSERT INTO `taxa_carga_aduaneira` (`id`, `designacao`, `descricao`, `taxa`) VALUES
 	(1, 'Sim', 'Carga sujeita a despacho aduaneiro embarcada ou desembarcada', 0.08),
 	(2, 'Não', 'Carga não sujeita a despacho aduaneiro, apenas ao embarque', 0.07);
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.tipodocumentosequencias
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.tipodocumentosequencias
 CREATE TABLE IF NOT EXISTS `tipodocumentosequencias` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `designacao` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.tipodocumentosequencias: ~7 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.tipodocumentosequencias: ~7 rows (aproximadamente)
 INSERT INTO `tipodocumentosequencias` (`id`, `designacao`) VALUES
 	(1, 'FACTURA RECIBO'),
 	(2, 'FATURA'),
@@ -3648,28 +3049,28 @@ INSERT INTO `tipodocumentosequencias` (`id`, `designacao`) VALUES
 	(6, 'RECIBOS'),
 	(7, 'NOTA CREDITO/ANULAÇÃO RECIBO');
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.tipos_clientes
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.tipos_clientes
 CREATE TABLE IF NOT EXISTS `tipos_clientes` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `designacao` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.tipos_clientes: ~2 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.tipos_clientes: ~2 rows (aproximadamente)
 INSERT INTO `tipos_clientes` (`id`, `designacao`) VALUES
 	(1, 'Entidade levanta'),
 	(2, 'Entidade Assist. da Aeronave');
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.tipos_contactos
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.tipos_contactos
 CREATE TABLE IF NOT EXISTS `tipos_contactos` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `designacao` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.tipos_contactos: ~0 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.tipos_contactos: ~0 rows (aproximadamente)
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.tipos_entregas
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.tipos_entregas
 CREATE TABLE IF NOT EXISTS `tipos_entregas` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `designacao` varchar(50) NOT NULL,
@@ -3678,12 +3079,12 @@ CREATE TABLE IF NOT EXISTS `tipos_entregas` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.tipos_entregas: ~2 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.tipos_entregas: ~2 rows (aproximadamente)
 INSERT INTO `tipos_entregas` (`id`, `designacao`, `status_id`, `icon`) VALUES
 	(1, 'Receber o produto em Casa', 1, 'mdi-home'),
 	(2, 'Receber o produto na Loja', 1, 'mdi-store');
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.tipos_mercadoria
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.tipos_mercadoria
 CREATE TABLE IF NOT EXISTS `tipos_mercadoria` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `designacao` text NOT NULL,
@@ -3694,7 +3095,7 @@ CREATE TABLE IF NOT EXISTS `tipos_mercadoria` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.tipos_mercadoria: ~6 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.tipos_mercadoria: ~6 rows (aproximadamente)
 INSERT INTO `tipos_mercadoria` (`id`, `designacao`, `taxa`, `statuId`, `created_at`, `updated_at`) VALUES
 	(1, 'Carga Geral', 0.03, 1, '2024-01-30 13:50:46', '2024-02-13 01:24:43'),
 	(2, 'Carga Valiosa', 0.07, 1, '2024-01-30 13:50:46', '2024-01-30 13:50:47'),
@@ -3703,33 +3104,33 @@ INSERT INTO `tipos_mercadoria` (`id`, `designacao`, `taxa`, `statuId`, `created_
 	(5, 'Carga Viva', 0.04, 1, '2024-01-30 13:50:46', '2024-01-30 13:50:47'),
 	(6, 'Carga Trânsito', 0.08, 1, '2024-01-30 13:50:46', '2024-01-30 13:50:47');
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.tipos_nota_credito
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.tipos_nota_credito
 CREATE TABLE IF NOT EXISTS `tipos_nota_credito` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `designacao` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.tipos_nota_credito: ~3 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.tipos_nota_credito: ~3 rows (aproximadamente)
 INSERT INTO `tipos_nota_credito` (`id`, `designacao`) VALUES
 	(1, 'CREDITO'),
 	(2, 'ANULAÇÃO'),
 	(3, 'RETIFICAÇÃO');
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.tipos_regimes
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.tipos_regimes
 CREATE TABLE IF NOT EXISTS `tipos_regimes` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `Designacao` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.tipos_regimes: ~3 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.tipos_regimes: ~3 rows (aproximadamente)
 INSERT INTO `tipos_regimes` (`id`, `Designacao`) VALUES
 	(1, 'Regime Geral'),
 	(2, 'Regime Simplificado'),
 	(3, ' Regime de Exclusão');
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.tipos_servicos
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.tipos_servicos
 CREATE TABLE IF NOT EXISTS `tipos_servicos` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `designacao` varchar(255) NOT NULL,
@@ -3739,14 +3140,14 @@ CREATE TABLE IF NOT EXISTS `tipos_servicos` (
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.tipos_servicos: ~4 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.tipos_servicos: ~4 rows (aproximadamente)
 INSERT INTO `tipos_servicos` (`id`, `designacao`, `statuId`, `created_at`, `updated_at`) VALUES
-	(1, 'Carga', 1, '2024-01-30 13:50:46', '2024-01-30 13:50:47'),
-	(2, 'Aeronáutico', 1, '2024-01-30 13:50:46', '2024-01-30 13:50:47'),
-	(3, 'Outros Serviços', 1, '2024-01-30 13:50:46', '2024-01-30 13:50:47'),
+	(1, 'Serviços de Carga', 1, '2024-01-30 13:50:46', '2024-01-30 13:50:47'),
+	(2, 'Serviços Aeronáutico', 1, '2024-01-30 13:50:46', '2024-01-30 13:50:47'),
+	(3, 'Outros serviços', 1, '2024-01-30 13:50:46', '2024-01-30 13:50:47'),
 	(4, 'Serviços Comerciais', 1, '2024-01-30 13:50:46', '2024-01-30 13:50:47');
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.tipos_stocagens
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.tipos_stocagens
 CREATE TABLE IF NOT EXISTS `tipos_stocagens` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `designacao` varchar(145) NOT NULL,
@@ -3768,9 +3169,9 @@ CREATE TABLE IF NOT EXISTS `tipos_stocagens` (
   CONSTRAINT `FK_tipos_stocagens_user` FOREIGN KEY (`user_id`) REFERENCES `users_cliente` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.tipos_stocagens: ~0 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.tipos_stocagens: ~0 rows (aproximadamente)
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.tipos_stocagens_empresas
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.tipos_stocagens_empresas
 CREATE TABLE IF NOT EXISTS `tipos_stocagens_empresas` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `tipo_stocagem_id` int(10) unsigned NOT NULL,
@@ -3794,9 +3195,9 @@ CREATE TABLE IF NOT EXISTS `tipos_stocagens_empresas` (
   CONSTRAINT `FK_tipos_stocagens_empresas_user` FOREIGN KEY (`user_id`) REFERENCES `users_cliente` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.tipos_stocagens_empresas: ~0 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.tipos_stocagens_empresas: ~0 rows (aproximadamente)
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.tipotaxa
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.tipotaxa
 CREATE TABLE IF NOT EXISTS `tipotaxa` (
   `codigo` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `taxa` int(11) NOT NULL,
@@ -3815,13 +3216,13 @@ CREATE TABLE IF NOT EXISTS `tipotaxa` (
   CONSTRAINT `FK_tipotaxa_motivo` FOREIGN KEY (`codigoMotivo`) REFERENCES `motivo` (`codigo`)
 ) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.tipotaxa: ~3 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.tipotaxa: ~3 rows (aproximadamente)
 INSERT INTO `tipotaxa` (`codigo`, `taxa`, `codigostatus`, `codigoMotivo`, `descricao`, `created_at`, `updated_at`, `empresa_id`) VALUES
 	(1, 0, 1, 12, 'ISENTO(0,00%)', '2020-12-09 16:07:33', '2020-12-09 16:07:33', NULL),
 	(2, 14, 1, 9, 'IVA(14,00%)', '2020-12-09 16:07:33', '2020-12-09 16:07:33', NULL),
 	(14, 7, 1, 7, 'IVA(7,00%)', '2020-12-10 00:29:27', '2020-12-10 00:29:27', NULL);
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.tipo_documentos
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.tipo_documentos
 CREATE TABLE IF NOT EXISTS `tipo_documentos` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `designacao` varchar(45) NOT NULL,
@@ -3829,7 +3230,7 @@ CREATE TABLE IF NOT EXISTS `tipo_documentos` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.tipo_documentos: ~6 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.tipo_documentos: ~6 rows (aproximadamente)
 INSERT INTO `tipo_documentos` (`id`, `designacao`, `sigla`) VALUES
 	(1, 'FACTURA/RECIBO', 'FR'),
 	(2, 'FACTURA', 'FT'),
@@ -3838,7 +3239,7 @@ INSERT INTO `tipo_documentos` (`id`, `designacao`, `sigla`) VALUES
 	(5, 'NOTA DE CREDITO', 'NC'),
 	(6, 'RECIBO', 'RC');
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.tipo_documentos_empresas
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.tipo_documentos_empresas
 CREATE TABLE IF NOT EXISTS `tipo_documentos_empresas` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `tipo_documento_id` int(10) unsigned NOT NULL,
@@ -3863,18 +3264,18 @@ CREATE TABLE IF NOT EXISTS `tipo_documentos_empresas` (
   CONSTRAINT `FK_tipo_documentos_empresas_user` FOREIGN KEY (`user_id`) REFERENCES `users_cliente` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.tipo_documentos_empresas: ~0 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.tipo_documentos_empresas: ~0 rows (aproximadamente)
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.tipo_inventarios
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.tipo_inventarios
 CREATE TABLE IF NOT EXISTS `tipo_inventarios` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `designacao` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.tipo_inventarios: ~0 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.tipo_inventarios: ~0 rows (aproximadamente)
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.tipo_pagamento
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.tipo_pagamento
 CREATE TABLE IF NOT EXISTS `tipo_pagamento` (
   `designacao` varchar(255) DEFAULT NULL,
   `id` int(11) NOT NULL,
@@ -3882,7 +3283,7 @@ CREATE TABLE IF NOT EXISTS `tipo_pagamento` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.tipo_pagamento: ~6 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.tipo_pagamento: ~6 rows (aproximadamente)
 INSERT INTO `tipo_pagamento` (`designacao`, `id`, `sigla`) VALUES
 	('Cartão de Crédito', 1, 'CC'),
 	('Cartão de Débito', 2, 'CD'),
@@ -3891,21 +3292,21 @@ INSERT INTO `tipo_pagamento` (`designacao`, `id`, `sigla`) VALUES
 	('Transferencia bancaria ou meio autorizados', 5, 'TR'),
 	('Cheque bancario', 6, 'CH');
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.tipo_users
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.tipo_users
 CREATE TABLE IF NOT EXISTS `tipo_users` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `designacao` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.tipo_users: ~4 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.tipo_users: ~4 rows (aproximadamente)
 INSERT INTO `tipo_users` (`id`, `designacao`) VALUES
 	(1, 'Admin'),
 	(2, 'Empresa'),
 	(3, 'Funcionário'),
 	(4, 'Cliente');
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.transferencias_produtos
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.transferencias_produtos
 CREATE TABLE IF NOT EXISTS `transferencias_produtos` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int(11) DEFAULT NULL,
@@ -3926,9 +3327,9 @@ CREATE TABLE IF NOT EXISTS `transferencias_produtos` (
   CONSTRAINT `FK_transferencias_produtos_tipo_users` FOREIGN KEY (`tipo_user_id`) REFERENCES `tipo_users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.transferencias_produtos: ~0 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.transferencias_produtos: ~0 rows (aproximadamente)
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.transferencias_produto_items
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.transferencias_produto_items
 CREATE TABLE IF NOT EXISTS `transferencias_produto_items` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `produto_id` int(10) unsigned NOT NULL,
@@ -3952,9 +3353,9 @@ CREATE TABLE IF NOT EXISTS `transferencias_produto_items` (
   CONSTRAINT `FK_transferencias_produto_items_transferencias_produtos` FOREIGN KEY (`transferencia_produto_id`) REFERENCES `transferencias_produtos` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.transferencias_produto_items: ~0 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.transferencias_produto_items: ~0 rows (aproximadamente)
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.unidade_medidas
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.unidade_medidas
 CREATE TABLE IF NOT EXISTS `unidade_medidas` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `designacao` varchar(45) NOT NULL,
@@ -3975,11 +3376,11 @@ CREATE TABLE IF NOT EXISTS `unidade_medidas` (
   CONSTRAINT `FK_unidade_status` FOREIGN KEY (`status_id`) REFERENCES `status_gerais` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.unidade_medidas: ~0 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.unidade_medidas: ~0 rows (aproximadamente)
 INSERT INTO `unidade_medidas` (`id`, `designacao`, `empresa_id`, `user_id`, `canal_id`, `status_id`, `created_at`, `updated_at`, `diversos`) VALUES
 	(1, 'un', 1, NULL, 2, 1, '2024-01-29 12:51:31', '2024-01-29 12:51:32', '2');
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.users_centro_custo
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.users_centro_custo
 CREATE TABLE IF NOT EXISTS `users_centro_custo` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int(10) NOT NULL,
@@ -3988,7 +3389,7 @@ CREATE TABLE IF NOT EXISTS `users_centro_custo` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=79 DEFAULT CHARSET=latin1;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.users_centro_custo: ~7 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.users_centro_custo: ~7 rows (aproximadamente)
 INSERT INTO `users_centro_custo` (`id`, `user_id`, `centro_custo_id`, `status`) VALUES
 	(1, 1, 1, 'Y'),
 	(73, 747, 1, 'Y'),
@@ -3998,7 +3399,7 @@ INSERT INTO `users_centro_custo` (`id`, `user_id`, `centro_custo_id`, `status`) 
 	(77, 752, 1, 'Y'),
 	(78, 753, 1, 'Y');
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.users_cliente
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.users_cliente
 CREATE TABLE IF NOT EXISTS `users_cliente` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
@@ -4027,14 +3428,14 @@ CREATE TABLE IF NOT EXISTS `users_cliente` (
   KEY `FK_users_empresa` (`empresa_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=753 DEFAULT CHARSET=latin1;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.users_cliente: ~4 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.users_cliente: ~4 rows (aproximadamente)
 INSERT INTO `users_cliente` (`id`, `name`, `uuid`, `username`, `password`, `remember_token`, `created_at`, `updated_at`, `tipo_user_id`, `status_id`, `statusUserAdicional`, `status_senha_id`, `telefone`, `email`, `email_verified_at`, `canal_id`, `empresa_id`, `foto`, `guard`, `token_notification_firebase`) VALUES
-	(1, 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', '6a0d01a6-a1e0-4bad-933f-d400be070dc8', 'República de Angola Aeroporto Internacional Dr. António Agostino Neto Operador Temporário Aeroportuário ATO - AIAAN', '$2y$10$u/3Tz.i8Ildc0wO4uFZSOecJVCfc3i/YPoaCrIoRKw2cz6GrjfTUW', '7QexQAcxkVb9C0QcGOHD7SCTsk2truCfpVHfLUYmP0uXhrb6f0f9xmxyeqOx', '2024-01-23 16:10:54', '2024-03-13 09:19:04', 2, 1, 1, 2, '937036322', 'info@ato.ao', NULL, 3, 1, 'utilizadores/cliente//bvznhCYlAzFsDGmsfLxwBbnnfFyserJcK1YN5oIY.png', 'empresa', NULL),
+	(1, 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', '6a0d01a6-a1e0-4bad-933f-d400be070dc8', 'República de Angola Aeroporto Internacional Dr. António Agostino Neto Operador Temporário Aeroportuário ATO - AIAAN', '$2y$10$LJ82O3PRAjhe5vXd4xk/5uVJqLZndB808MgMHwdK/AGur.mA1aHKO', 'uThG4sL6nlIOgGlcTS96Wi5bCP9S1OnU0qe0cDOdLruYGAZ4NvlmCZoLlWpB', '2024-01-23 16:10:54', '2024-03-29 09:25:34', 2, 1, 1, 2, '937036322', 'info@ato.ao', NULL, 3, 1, 'utilizadores/cliente//4NLOQikHUe6MRF4Sv9gEoMNguUmLE8qBMhhqx2q0.png', 'empresa', NULL),
 	(750, 'Carlos Sampaio', 'ea7711d6-450b-4e91-b858-2df6eb8530e4', 'CSampaio', '$2y$10$eHc1HVG4bNdtFqHJtMeXV.5KkGk9s.cVqcyc6O/HjKEe0nTMrmv0C', NULL, '2024-02-16 09:54:03', '2024-02-16 10:03:08', 2, 1, 1, 2, '922605848', 'carlos.sampaio@ato.co.ao', NULL, 2, 1, 'utilizadores/cliente/avatarEmpresa.png', 'empresa', NULL),
 	(751, 'Milton Lucas', '2a7c4518-0909-4073-871b-9e23cd8396e4', 'MLucas', '$2y$10$mkcuY4kg9F8UCz3N.Y50yu/5N/a7Ad/9lAaJzmdgUfILLbIY1yL2e', NULL, '2024-02-16 09:55:07', '2024-02-16 10:05:55', 2, 1, 1, 2, '921689230', 'milton.lucas@ato.co.ao', NULL, 2, 1, 'utilizadores/cliente/avatarEmpresa.png', 'empresa', NULL),
 	(752, 'Tatiana', 'a4b96cfd-d128-416e-9604-dd24e74ba79b', 'Mouzinho', '$2y$10$JIkRsCEubh7s414WEDrZ9OahDedhTxXk54pbf.ADaRQBposrEWSwO', NULL, '2024-02-16 12:09:04', '2024-02-16 12:12:38', 2, 1, 1, 2, '924264160', 'tatiana.mouzinho@ato.co.ao', NULL, 2, 1, 'utilizadores/cliente/avatarEmpresa.png', 'empresa', NULL);
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.users_cliente_validacao
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.users_cliente_validacao
 CREATE TABLE IF NOT EXISTS `users_cliente_validacao` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
@@ -4057,7 +3458,7 @@ CREATE TABLE IF NOT EXISTS `users_cliente_validacao` (
   KEY `FK_users_empresa` (`empresa_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=786 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.users_cliente_validacao: ~8 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.users_cliente_validacao: ~8 rows (aproximadamente)
 INSERT INTO `users_cliente_validacao` (`id`, `name`, `uuid`, `username`, `password`, `codigo`, `created_at`, `updated_at`, `status_id`, `statusUserAdicional`, `status_senha_id`, `telefone`, `email`, `empresa_id`, `foto`, `used`) VALUES
 	(778, 'Emanuel Lima', '7801430b-8d2b-45c6-b09d-2354a04d8aa9', 'Emanuel Lima', '$2y$10$xGUEE5OvybkSQ1i7puQP9eJAQ84kUC9W2ZznkJh6RhsB9i9du6QSG', 'EWTJCY', '2023-11-14 16:24:03', '2023-11-14 16:24:03', 1, 1, 2, '943117628', 'emanuellima.lnb@gmail.com', NULL, 'utilizadores/cliente/avatarEmpresa.png', 'Y'),
 	(779, 'zua@gmail.com', '07cff175-da72-46d4-8cb7-35b6ad8e96d1', 'zua@gmail.com', '$2y$10$sFdH6qGZMnkAL8VX5XQSVOlrblLdA2RlpjjbiJuRLaYg0dl/8mzC6', 'JQ3XJM', '2023-11-16 13:09:58', '2023-11-16 13:09:58', 1, 1, 2, '923112233', 'conzuadas@gmail.com', NULL, 'utilizadores/cliente/avatarEmpresa.png', 'N'),
@@ -4068,7 +3469,7 @@ INSERT INTO `users_cliente_validacao` (`id`, `name`, `uuid`, `username`, `passwo
 	(784, 'Ramos Soft', '88b32a7d-114e-4ce4-9cae-7813bc40de94', 'Ramos Soft', '$2y$10$pmKv35XwnS1Pt6TsFvR1BOa6RJhnGLZ/xhvABTvukRqMPCIGNI5FC', 'N0C793', '2023-12-06 22:39:48', '2023-12-06 22:39:48', 1, 1, 2, '923292970', 'info@ramossoft.com', NULL, 'utilizadores/cliente/avatarEmpresa.png', 'Y'),
 	(785, 'Elizeu', 'f837c16d-7842-4169-a751-a2f4dc62e5f7', 'Elizeu', '$2y$10$oDxQ0LqHJA1L8oodGmUzDudvBdrQsf/uh5QZDXoPM55Vq5OQ2fN9.', 'U6L4U6', '2024-01-18 12:37:04', '2024-01-18 12:37:04', 1, 1, 2, '928789740', 'eliseucosta4693@gmail.com', NULL, 'utilizadores/cliente/avatarEmpresa.png', 'N');
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.user_perfil
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.user_perfil
 CREATE TABLE IF NOT EXISTS `user_perfil` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int(10) unsigned NOT NULL,
@@ -4078,7 +3479,7 @@ CREATE TABLE IF NOT EXISTS `user_perfil` (
   KEY `plan_profile_profile_id_foreign` (`perfil_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=821 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.user_perfil: ~7 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.user_perfil: ~7 rows (aproximadamente)
 INSERT INTO `user_perfil` (`id`, `user_id`, `perfil_id`) VALUES
 	(814, 749, 29),
 	(815, 750, 29),
@@ -4088,7 +3489,7 @@ INSERT INTO `user_perfil` (`id`, `user_id`, `perfil_id`) VALUES
 	(819, 1, 1),
 	(820, 1, 29);
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.validacao_user_recuperar_senha
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.validacao_user_recuperar_senha
 CREATE TABLE IF NOT EXISTS `validacao_user_recuperar_senha` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `userId` int(10) unsigned NOT NULL,
@@ -4097,7 +3498,7 @@ CREATE TABLE IF NOT EXISTS `validacao_user_recuperar_senha` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=latin1;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.validacao_user_recuperar_senha: ~36 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.validacao_user_recuperar_senha: ~36 rows (aproximadamente)
 INSERT INTO `validacao_user_recuperar_senha` (`id`, `userId`, `codigo`, `used`) VALUES
 	(1, 704, '48PL4I', 'N'),
 	(2, 704, 'EV337Y', 'N'),
@@ -4136,7 +3537,7 @@ INSERT INTO `validacao_user_recuperar_senha` (`id`, `userId`, `codigo`, `used`) 
 	(35, 708, 'WRXRHQ', 'Y'),
 	(36, 708, '30JAN5', 'Y');
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.valorcaracteristicas
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.valorcaracteristicas
 CREATE TABLE IF NOT EXISTS `valorcaracteristicas` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `categoria_caracteristica_id` int(11) NOT NULL,
@@ -4144,7 +3545,7 @@ CREATE TABLE IF NOT EXISTS `valorcaracteristicas` (
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=193 DEFAULT CHARSET=latin1;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.valorcaracteristicas: ~190 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.valorcaracteristicas: ~190 rows (aproximadamente)
 INSERT INTO `valorcaracteristicas` (`id`, `categoria_caracteristica_id`, `designacao`) VALUES
 	(1, 1, '16gb'),
 	(2, 2, 'Preta'),
@@ -4337,7 +3738,7 @@ INSERT INTO `valorcaracteristicas` (`id`, `categoria_caracteristica_id`, `design
 	(191, 251, 'PRETO'),
 	(192, 253, 'SIM');
 
--- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.valorcaracteristicas_produtos
+-- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.valorcaracteristicas_produtos
 CREATE TABLE IF NOT EXISTS `valorcaracteristicas_produtos` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `produto_id` int(11) NOT NULL,
@@ -4345,7 +3746,7 @@ CREATE TABLE IF NOT EXISTS `valorcaracteristicas_produtos` (
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=254 DEFAULT CHARSET=latin1;
 
--- A despejar dados para tabela mutue_negocios_aeroporto_cliente.valorcaracteristicas_produtos: ~201 rows (aproximadamente)
+-- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.valorcaracteristicas_produtos: ~201 rows (aproximadamente)
 INSERT INTO `valorcaracteristicas_produtos` (`id`, `produto_id`, `valor_caracteristica_id`) VALUES
 	(1, 646, 1),
 	(2, 646, 2),

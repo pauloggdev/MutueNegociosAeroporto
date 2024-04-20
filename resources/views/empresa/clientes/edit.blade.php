@@ -218,6 +218,15 @@
                                     </span>
                                     @endif
                                 </div>
+                                <div class="col-md-4">
+                                    <label class="control-label bold label-select2"></label>
+                                    <div class="checkbox">
+                                        <label class="block">
+                                            <input type="checkbox" wire:model="cliente.isencaoCargaTransito"  <?= $cliente['isencaoCargaTransito']?'checked':''?> class="ace input-lg"/>
+                                            <span class="lbl bigger-120"> Isenção 24h/Carga Transito</span>
+                                        </label>
+                                    </div>
+                                </div>
 
                             </div>
                         </div>

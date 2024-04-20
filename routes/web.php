@@ -271,10 +271,8 @@ Auth::routes();
 Route::get('/select2', [\App\Http\Controllers\Select2::class]);
 
 
-Route::get('/saft', function () {
-
-
-    $currectHash = new \App\Domain\Entity\Empresa\CorrectHash\CurrectHash('FR', 'facturas', false);
+Route::get('/hash', function () {
+    $currectHash = new \App\Domain\Entity\Empresa\CorrectHash\CurrectHash('FP', 'facturas', false);
     dd($currectHash->execute());
 
 
@@ -298,6 +296,8 @@ Route::get('/saft', function () {
 
 
 Route::get('/uuid', function () {
+
+    dd(Hash::make('ato123'));
 
 
     $motivos = DB::connection('mysql')->table('motivo')->get();
@@ -1052,7 +1052,7 @@ Route::group(['middleware' => ['auth:empresa']], function () {
             Route::get('empresa/facturas/cargas', FacturasIndexController::class)->name('facturas.index');
             Route::get('empresa/facturas/aeroportuario', FacturasAeroportuarioIndexController::class)->name('facturasAeroportuario.index');
             Route::get('empresa/facturas/outros/servicos', FacturasOutroServicoIndexController::class)->name('facturasOutrosServico.index');
-            Route::get('empresa/facturas/fatura/servicos/comerciais', FacturasServicoComercialIndexController::class)->name('facturasServicoComercial.index');
+            Route::get('empresa/facturas/servico/comerciais', FacturasServicoComercialIndexController::class)->name('facturasServicoComercial.index');
 
             Route::get('empresa/listarFacturas', [FacturacaoController::class, 'listarFacturasApi']);
             Route::get('empresa/facturasCliente/{clienteId}', [FacturaController::class, 'listarFacturasPorCliente']);
@@ -1121,8 +1121,8 @@ Route::group(['middleware' => ['auth:empresa']], function () {
             Route::get('/empresa/motivoIvaListar/{regimeEmpresa}', [MotivoIvaController::class, 'listar']);
 
             //Gerar Saft
-            Route::get('/empresa/gerarSaft', GerarSaftController::class)->middleware('hasPermission:gerar saft');
-            Route::get('/empresa/gerarSaftXml', [GerarSaftController::class, 'gerarSaft'])->middleware('hasPermission:gerar saft');
+            Route::get('/empresa/gerarSaft', GerarSaftController::class)->middleware('hasPermission:emitir ficheiro saft');
+            Route::get('/empresa/gerarSaftXml', [GerarSaftController::class, 'gerarSaft'])->middleware('hasPermission:emitir ficheiro saft');
             //STOCK
 
             Route::post('empresa/entradaStock', [StockController::class, 'entradaStock']);

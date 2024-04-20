@@ -35,27 +35,14 @@ class BancoCreateController extends Component
     public function salvarBanco()
     {
         $rules = [
-            'banco.designacao' => [
-                "required", function ($attr, $value, $fail) {
-                    $banco =  DB::table('bancos')
-                        ->where('empresa_id', auth()->user()->empresa_id)
-                        ->where('designacao', "like", $value)
-                        ->first();
-
-                    if ($banco) {
-                        $fail("Banco já cadastrado");
-                    }
-                }
-            ],
+            'banco.designacao' => ["required"],
             'banco.sigla' => "required",
-            'banco.num_conta' => "required",
             'banco.iban' => "required",
             'banco.status_id' => "required",
         ];
         $messages = [
             'banco.designacao.required' => 'Informe o nome do banco',
             'banco.sigla.required' => 'Informe a sigla',
-            'banco.num_conta.required' => 'Informe o número da conta',
             'banco.iban.required' => 'Informe o iban',
             'banco.status_id.required' => 'Informe o status',
         ];
@@ -77,6 +64,7 @@ class BancoCreateController extends Component
         $this->banco['sigla'] = NULL;
         $this->banco['num_conta'] = NULL;
         $this->banco['iban'] = NULL;
+        $this->banco['swift'] = NULL;
         $this->banco['canal_id'] = 2;
         $this->banco['status_id'] = 1;
         $this->banco['tipo_user_id'] = 2;

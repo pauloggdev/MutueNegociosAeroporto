@@ -8,6 +8,7 @@ use App\Models\empresa\Pais;
 use App\Models\empresa\TiposCliente;
 use App\Repositories\Empresa\ClienteRepository;
 use Carbon\Carbon;
+use Faker\Provider\DateTime;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
@@ -31,7 +32,22 @@ class ClienteUpdateController extends Component
     public function mount($clienteId)
     {
         $this->clienteId = $clienteId;
-        $this->cliente = $this->clienteRepository->getCliente($clienteId);
+        $cliente = $this->clienteRepository->getCliente($clienteId);
+        $this->cliente['id'] = $cliente['id'];
+        $this->cliente['nome'] = $cliente['nome'];
+        $this->cliente['email'] = $cliente['email'];
+        $this->cliente['telefone_cliente'] = $cliente['telefone_cliente'];
+        $this->cliente['website'] = $cliente['website'];
+        $this->cliente['endereco'] = $cliente['endereco'];
+        $this->cliente['cidade'] = $cliente['cidade'];
+        $this->cliente['pais_id'] = $cliente['pais_id'];
+        $this->cliente['nif'] = $cliente['nif'];
+        $this->cliente['tipo_cliente_id'] = $cliente['tipo_cliente_id'];
+        $this->cliente['pessoa_contacto'] = $cliente['pessoa_contacto'];
+        $this->cliente['numero_contrato'] = $cliente['numero_contrato'];
+        $this->cliente['centroCustoId'] = $cliente['centroCustoId'];
+        $this->cliente['data_contrato'] = $cliente['data_contrato']??null;
+        $this->cliente['isencaoCargaTransito'] = $cliente['isencaoCargaTransito'] == 'Y' ? true : false;
     }
 
 
@@ -41,10 +57,11 @@ class ClienteUpdateController extends Component
         $data['tiposClientes'] = TiposCliente::all();
         return view('empresa.clientes.edit', $data);
     }
+
     public function updateCliente()
     {
         $this->validate($this->rules(), $this->messages());
-        $this->clienteRepository->update($this->cliente, $this->cliente->id);
+        $this->clienteRepository->update($this->cliente, $this->cliente['id']);
         $this->alert('success', 'Operação realizada com sucesso');
     }
 

@@ -65,6 +65,8 @@ class EmissaoFaturaOutroServicoController extends Component
         'taxaIva' => 0,
         'cambioDia' => 0,
         'contraValor' => 0,
+        'valorliquido' => 0,
+        'valorDesconto' => 0,
         'valorIliquido' => 0,
         'valorImposto' => 0,
         'total' => 0,
@@ -97,6 +99,8 @@ class EmissaoFaturaOutroServicoController extends Component
         $this->fatura['taxaIva'] = 0;
         $this->fatura['cambioDia'] = 0;
         $this->fatura['contraValor'] = 0;
+        $this->fatura['valorliquido'] = 0;
+        $this->fatura['valorDesconto'] = 0;
         $this->fatura['valorIliquido'] = 0;
         $this->fatura['valorImposto'] = 0;
         $this->fatura['moeda'] = null;
@@ -112,6 +116,8 @@ class EmissaoFaturaOutroServicoController extends Component
         $this->fatura['taxaIva'] = 0;
         $this->fatura['cambioDia'] = 0;
         $this->fatura['contraValor'] = 0;
+        $this->fatura['valorliquido'] = 0;
+        $this->fatura['valorDesconto'] = 0;
         $this->fatura['valorIliquido'] = 0;
         $this->fatura['valorImposto'] = 0;
         $this->fatura['moeda'] = null;
@@ -129,7 +135,7 @@ class EmissaoFaturaOutroServicoController extends Component
             $this->fatura['formaPagamentoId'] = null;
             $this->formasPagamentos = [];
         }
-        $simuladorFaturaCarga = new SimuladorFaturaAeronauticoAeroporto(new DatabaseRepositoryFactory());
+        $simuladorFaturaCarga = new SimuladorOutroServicoAeroporto(new DatabaseRepositoryFactory());
         $fatura = $simuladorFaturaCarga->execute($this->fatura);
         $this->fatura = $this->conversorModelParaArray($fatura);
     }
@@ -137,7 +143,7 @@ class EmissaoFaturaOutroServicoController extends Component
     public function updatedFaturaFormaPagamentoId($formaPagamentoId)
     {
         $this->fatura['formaPagamentoId'] = $formaPagamentoId;
-        $simuladorFaturaCarga = new SimuladorFaturaAeronauticoAeroporto(new DatabaseRepositoryFactory());
+        $simuladorFaturaCarga = new SimuladorOutroServicoAeroporto(new DatabaseRepositoryFactory());
         $fatura = $simuladorFaturaCarga->execute($this->fatura);
         $this->fatura = $this->conversorModelParaArray($fatura);
     }
@@ -160,8 +166,8 @@ class EmissaoFaturaOutroServicoController extends Component
         $moedaEstrageiraUsado = new GetParametroPeloLabelNoParametro(new DatabaseRepositoryFactory());
         $this->fatura['moeda'] = $moedaEstrageiraUsado->execute('moeda_estrageira_usada')->valor;
 
-        $getClientes = new GetClientes(new DatabaseRepositoryFactory());
-        $this->clientes = $getClientes->execute();
+//        $getClientes = new GetClientes(new DatabaseRepositoryFactory());
+//        $this->clientes = $getClientes->execute();
 
         $this->empresa = auth()->user()->empresa;
 
@@ -184,6 +190,7 @@ class EmissaoFaturaOutroServicoController extends Component
 
     public function render()
     {
+        $this->clientes = DB::table('clientes')->where('empresa_id', auth()->user()->empresa_id)->get();
         return view("empresa.facturacao.createAeroportoOutroServico");
     }
 
@@ -280,6 +287,8 @@ class EmissaoFaturaOutroServicoController extends Component
             'taxaIva' => $output->getTaxaIva(),
             'cambioDia' => $output->getCambioDia(),
             'contraValor' => $output->getContraValor(),
+            'valorliquido' => $output->getValorLiquido(),
+            'valorDesconto' => $output->getDesconto(),
             'valorIliquido' => $output->getValorIliquido(),
             'valorImposto' => $output->getValorImposto(),
             'total' => $output->getTotal(),
@@ -307,11 +316,9 @@ class EmissaoFaturaOutroServicoController extends Component
     {
         $rules = [
             'fatura.clienteId' => 'required',
-            'fatura.nomeProprietario' => 'required',
         ];
         $messages = [
             'fatura.clienteId.required' => 'campo obrigatório',
-            'fatura.nomeProprietario.required' => 'campo obrigatório',
         ];
         $this->validate($rules, $messages);
 
@@ -406,6 +413,8 @@ class EmissaoFaturaOutroServicoController extends Component
             'taxaIva' => 0,
             'cambioDia' => 0,
             'contraValor' => 0,
+            'valorliquido' => 0,
+            'valorDesconto' => 0,
             'valorIliquido' => 0,
             'valorImposto' => 0,
             'total' => 0,

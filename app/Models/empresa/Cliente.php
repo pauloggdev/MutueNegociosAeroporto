@@ -18,6 +18,7 @@ class Cliente extends Model
         'uuid',
         'nome',
         'pessoa_contacto',
+        'isencaoCargaTransito',
         'email',
         'website',
         'numero_contrato',

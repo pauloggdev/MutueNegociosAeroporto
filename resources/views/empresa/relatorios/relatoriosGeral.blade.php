@@ -29,68 +29,66 @@
         <div class="col-md-12">
             <form class="filter-form form-horizontal validation-form" id="validation-form">
                 <div class="second-row">
-
                     <div class="tabbable">
                         <div class="tab-content profile-edit-tab-content">
                             <div class="form-group has-info bold" style="left: 0%; position: relative">
                                 <div class="col-md-6">
-                                    <label class="control-label bold label-select2" for="data_inicio">Data Inicial<b
+                                    <label class="control-label bold label-select2" for="dataInicio">Data Inicial<b
                                             class="red fa fa-question-circle"></b></label>
                                     <div class="input-group">
-                                        <input type="date" wire:model="data_inicio" class="form-control"
+                                        <input type="date" wire:model="relatorio.dataInicio" class="form-control"
                                                style="height: 35px; font-size: 10pt;<?= $errors->has('data_inicio') ? 'border-color: #ff9292;' : '' ?>"/>
                                         <span class="input-group-addon" id="basic-addon1">
                                             <i class="ace-icon fa fa-calendar bigger-150 text-info"
                                                data-target="form_supply_price_smartprice"></i>
                                         </span>
                                     </div>
-                                    @if ($errors->has('data_inicio'))
+                                    @if ($errors->has('relatorio.dataInicio'))
                                         <span class="help-block" style="color: red; font-weight: bold">
-                                        <strong>{{ $errors->first('data_inicio') }}</strong>
+                                        <strong>{{ $errors->first('relatorio.dataInicio') }}</strong>
                                     </span>
                                     @endif
                                 </div>
                                 <div class="col-md-6">
-                                    <label class="control-label bold label-select2" for="data_fim">Data Final<b
+                                    <label class="control-label bold label-select2" for="dataFim">Data Final<b
                                             class="red fa fa-question-circle"></b></label>
                                     <div class="input-group">
-                                        <input type="date" wire:model="data_fim" class="form-control"
+                                        <input type="date" wire:model="relatorio.dataFim" class="form-control"
                                                style="height: 35px; font-size: 10pt;<?= $errors->has('data_fim') ? 'border-color: #ff9292;' : '' ?>"/>
                                         <span class="input-group-addon" id="basic-addon1">
                                             <i class="ace-icon fa fa-calendar bigger-150 text-info"
                                                data-target="form_supply_price_smartprice"></i>
                                         </span>
                                     </div>
-                                    @if ($errors->has('data_fim'))
+                                    @if ($errors->has('relatorio.dataFim'))
                                         <span class="help-block" style="color: red; font-weight: bold">
-                                        <strong>{{ $errors->first('data_fim') }}</strong>
+                                        <strong>{{ $errors->first('relatorio.dataFim') }}</strong>
                                     </span>
                                     @endif
                                 </div>
                             </div>
                             <div class="form-group has-info bold" style="left: 0%; position: relative">
                                 <div class="col-md-6">
-                                    <label class="control-label bold label-select2" for="centroCusto">Selecione o
-                                        Cliente</label>
-                                    <select class="col-md-12 select2" wire:model="clienteId" data="clienteId"
+                                    <label class="control-label bold label-select2" for="tipoDocumentoId">Tipos de documentos</label>
+                                    <select class="col-md-12 select2" wire:model="relatorio.tipoDocumentoId" data="tipoDocumentoId"
                                             style="height:35px;<?= $errors->has('clienteId') ? 'border-color: #ff9292;' : '' ?>">
                                         <option value="">TODOS</option>
-                                        @foreach($clientes as $cliente)
+                                        @foreach($tiposDocumentos as $tipoDocumento)
                                             <option
-                                                value="{{ $cliente->id}}">{{ \Illuminate\Support\Str::upper($cliente->nome) }}</option>
+                                                value="{{ $tipoDocumento->id}}">{{ \Illuminate\Support\Str::upper($tipoDocumento->designacao) }}</option>
                                         @endforeach
                                     </select>
-                                    @if ($errors->has('clienteId'))
+                                    @if ($errors->has('relatorio.tipoDocumentoId'))
                                         <span class="help-block"
                                               style="color: red;position: absolute;margin-top: -2px;font-size: 12px;">
-                                            <strong>{{ $errors->first('clienteId') }}</strong>
+                                            <strong>{{ $errors->first('relatorio.tipoDocumentoId') }}</strong>
                                         </span>
                                     @endif
                                 </div>
                                 <div class="col-md-6">
-                                    <label class="control-label bold label-select2" for="centroCusto"> Tipo de serviços</label>
-                                    <select class="col-md-12 select2" wire:model="tipoMercadoriaId"
-                                            data="tipoMercadoriaId"
+                                    <label class="control-label bold label-select2" for="tipoServicoId"> Tipo de serviços</label>
+                                    <select class="col-md-12 select2" wire:model="relatorio.tipoServicoId"
+                                            data="tipoServicoId"
                                             style="height:35px;<?= $errors->has('tipoMercadoriaId') ? 'border-color: #ff9292;' : '' ?>">
                                         <option value="">TODOS</option>
                                         @foreach($tiposServicos as $servico)
@@ -98,53 +96,37 @@
                                                 value="{{ $servico->id}}">{{ \Illuminate\Support\Str::upper($servico->designacao) }}</option>
                                         @endforeach
                                     </select>
-                                    @if ($errors->has('tipoMercadoriaId'))
+                                    @if ($errors->has('relatorio.tipoServicoId'))
                                         <span class="help-block"
                                               style="color: red;position: absolute;margin-top: -2px;font-size: 12px;">
-                                            <strong>{{ $errors->first('tipoMercadoriaId') }}</strong>
+                                            <strong>{{ $errors->first('relatorio.tipoServicoId') }}</strong>
                                         </span>
                                     @endif
                                 </div>
-                                {{--                                <div class="col-md-3">--}}
-                                {{--                                    <label class="control-label bold label-select2" for="centroCusto">Tipo de Operação<b--}}
-                                {{--                                            class="red fa fa-question-circle"></b></label>--}}
-                                {{--                                    <select class="col-md-12 select2" wire:model="tipoOperacaoId" data="tipoOperacaoId"--}}
-                                {{--                                            style="height:35px;<?= $errors->has('tipoOperacaoId') ? 'border-color: #ff9292;' : '' ?>">--}}
-                                {{--                                        <option value="">TODOS</option>--}}
-                                {{--                                        <option value="1">Importação</option>--}}
-                                {{--                                        <option value="2">Exportação</option>--}}
-                                {{--                                    </select>--}}
-                                {{--                                    @if ($errors->has('tipoOperacaoId'))--}}
-                                {{--                                        <span class="help-block"--}}
-                                {{--                                              style="color: red;position: absolute;margin-top: -2px;font-size: 12px;">--}}
-                                {{--                                            <strong>{{ $errors->first('tipoOperacaoId') }}</strong>--}}
-                                {{--                                        </span>--}}
-                                {{--                                    @endif--}}
-                                {{--                                </div>--}}
                             </div>
                         </div>
                     </div>
                     <div class="clearfix form-actions">
                         <div class="col-md-offset-3 col-md-9">
                             <button class="search-btn" type="submit" style="border-radius: 10px"
-                                    wire:click.prevent="imprimirMapaFaturacao">
-                                <span wire:loading.remove wire:target="imprimirMapaFaturacao">
+                                    wire:click.prevent="imprimirRelatorioGeral">
+                                <span wire:loading.remove wire:target="imprimirRelatorioGeral">
                                     <i class="ace-icon fa fa-check bigger-110"></i>
                                     Visualizar PDF
                                 </span>
-                                <span wire:loading wire:target="imprimirMapaFaturacao">
+                                <span wire:loading wire:target="imprimirRelatorioGeral">
                                     <span class="loading"></span>
                                     Aguarde...</span>
                             </button>
 
                             <button class="search-btn" type="submit" style="border-radius: 10px"
-                                    wire:click.prevent="imprimirExcelMapaFaturacao">
-                        <span wire:loading.remove wire:target="imprimirExcelMapaFaturacao">
+                                    wire:click.prevent="imprimirExcelRelatorioGeral">
+                        <span wire:loading.remove wire:target="imprimirExcelRelatorioGeral">
                             <i class="ace-icon fa fa-check bigger-110"></i>
                             Visualizar EXCEL
 
                         </span>
-                                <span wire:loading wire:target="imprimirExcelMapaFaturacao">
+                                <span wire:loading wire:target="imprimirExcelRelatorioGeral">
                             <span class="loading"></span>
                             Aguarde...</span>
                             </button>

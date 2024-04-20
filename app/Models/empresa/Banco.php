@@ -9,15 +9,16 @@ class Banco extends Model
     protected $connection = 'mysql2';
     protected $table = 'bancos';
 
-    
+
     protected $fillable = [
-        'designacao', 
-        'sigla', 
-        'num_conta', 
-        'uuid', 
-        'iban', 
+        'designacao',
+        'sigla',
+        'swift',
+        'num_conta',
+        'uuid',
+        'iban',
         'status_id',
-        'empresa_id', 
+        'empresa_id',
         'user_id',
         'canal_id',
         'tipo_user_id',
@@ -31,12 +32,12 @@ class Banco extends Model
         return $this->belongsTo(Statu::class, 'status_id');
     }
 
-    // public function coordenada() 
+    // public function coordenada()
     // {
-    //     return $this->hasOne(CoordenadasBancaria::class, 'banco_id'); 
-    // }  
+    //     return $this->hasOne(CoordenadasBancaria::class, 'banco_id');
+    // }
 
-    
+
     public function scopeSearch($query, $term)
     {
         $term = "%$term%";

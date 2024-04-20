@@ -47,10 +47,10 @@ use Illuminate\Support\Str;
                         <div class="col-xs-12 widget-box widget-color-green" style="left: 0%">
                             <div class="clearfix" style="display: flex;padding: 5px 5px; align-items: center">
                                 <div>
-                                    <a href="{{ route('produto.create') }}" title="adicionar novo produto"
-                                       class="btn btn-success widget-box widget-color-blue botoes">
-                                        <i class="fa icofont-plus-circle"></i> Novo produto
-                                    </a>
+{{--                                    <a href="{{ route('produto.create') }}" title="adicionar novo produto"--}}
+{{--                                       class="btn btn-success widget-box widget-color-blue botoes">--}}
+{{--                                        <i class="fa icofont-plus-circle"></i> Novo produto--}}
+{{--                                    </a>--}}
                                     <a title="imprimir produtos" href="#" wire:click.prevent="imprimirProdutos"
                                        class="btn btn-primary widget-box widget-color-blue botoes">
                                         <span wire:loading wire:target="imprimirProdutos" class="loading"></span>

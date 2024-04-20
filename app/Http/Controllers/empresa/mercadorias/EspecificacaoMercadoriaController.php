@@ -48,7 +48,6 @@ class EspecificacaoMercadoriaController extends Component
     }
     public $tiposMercadorias;
     public $countespecificacaoMercadorias;
-    public $especificacaoMercadorias;
     public function mount()
     {
         $this->countespecificacaoMercadorias = EspecificacaoMercadoria::all();
@@ -58,9 +57,9 @@ class EspecificacaoMercadoriaController extends Component
     {
 
 
-        $this->especificacaoMercadorias = EspecificacaoMercadoria::all();
+        $data['especificacaoMercadorias'] = EspecificacaoMercadoria::all();
         // $this->especificacaoMercadorias = $especificacaoMercadorias;
-        return view('empresa.mercadorias.EspecificacaoMercadoria', compact($this->especificacaoMercadorias));
+        return view('empresa.mercadorias.EspecificacaoMercadoria', $data);
     }
     public function store(){
         $rules = [

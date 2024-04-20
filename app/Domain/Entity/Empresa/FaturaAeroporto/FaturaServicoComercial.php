@@ -17,9 +17,18 @@ class FaturaServicoComercial
     private $moeda;
     private $moedaPagamento;
     private $isencaoIVA;
+    private $unidadeMetrica;
+    private $addArCondicionado;
+    private $qtdMeses;
+    private $isencaoOcupacao;
+    private $dataEntradaEstacionamento;
+    private $dataSaidaEstacionamento;
     private $items = [];
-    public function __construct($tipoDocumento, $formaPagamentoId, $observacao, $nomeProprietario, $clienteId, $nomeCliente, $telefoneCliente, $nifCliente, $emailCliente, $enderecoCliente, $taxaIva, $cambioDia, $moeda, $moedaPagamento, $isencaoIVA, $retencao, $valorRetencao)
+
+    public function __construct($dataEntradaEstacionamento, $dataSaidaEstacionamento, $tipoDocumento, $formaPagamentoId, $observacao, $nomeProprietario, $clienteId, $nomeCliente, $telefoneCliente, $nifCliente, $emailCliente, $enderecoCliente, $taxaIva, $cambioDia, $moeda, $moedaPagamento, $isencaoIVA, $retencao, $valorRetencao, $unidadeMetrica, $addArCondicionado, $qtdMeses, $isencaoOcupacao)
     {
+        $this->dataEntradaEstacionamento = $dataEntradaEstacionamento;
+        $this->dataSaidaEstacionamento = $dataSaidaEstacionamento;
         $this->tipoDocumento = $tipoDocumento;
         $this->formaPagamentoId = $formaPagamentoId;
         $this->observacao = $observacao;
@@ -37,6 +46,11 @@ class FaturaServicoComercial
         $this->valorRetencao = $valorRetencao;
         $this->moedaPagamento = $moedaPagamento;
         $this->isencaoIVA = $isencaoIVA;
+        $this->unidadeMetrica = $unidadeMetrica;
+        $this->addArCondicionado = $addArCondicionado;
+        $this->qtdMeses = $qtdMeses;
+        $this->isencaoOcupacao = $isencaoOcupacao;
+
     }
     public function addItem(FaturaItemServicoComercial $items)
     {
@@ -96,6 +110,57 @@ class FaturaServicoComercial
     {
         return $this->isencaoIVA;
     }
+    public function getIsencaoOcupacao(){
+        return $this->isencaoOcupacao;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDataEntradaEstacionamento()
+    {
+        return $this->dataEntradaEstacionamento;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDataSaidaEstacionamento()
+    {
+        return $this->dataSaidaEstacionamento;
+    }
+
+    /**
+     * @return mixed
+     */
+
+
+
+
+    /**
+     * @return mixed
+     */
+    public function getUnidadeMetrica()
+    {
+        return $this->unidadeMetrica;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAddArCondicionado()
+    {
+        return $this->addArCondicionado;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getQtdMeses()
+    {
+        return $this->qtdMeses;
+    }
+
     public function getTaxaIva()
     {
         return $this->taxaIva;
@@ -125,11 +190,34 @@ class FaturaServicoComercial
         return $this->valorRetencao;
     }
 
+    public function getDescontoArCondicionado(){
+        $total = 0;
+        $SERVICOARCONDICIONADO = 37;
+        foreach ($this->getItems() as $item) {
+            if($item->getProdutoId() != $SERVICOARCONDICIONADO){
+                $total += $item->getTotal();
+            }
+        }
+        return $total;
+    }
+    public function getValorLiquido(){
+        return $this->getDesconto() + $this->getValorIliquido();
+    }
     public function getValorIliquido()
     {
         $total = 0;
         foreach ($this->getItems() as $item) {
             $total += $item->getTotal();
+        }
+        if($this->getIsencaoOcupacao()){
+            return $total - $this->getDescontoArCondicionado();
+        }
+        return $total;
+    }
+    public function getDesconto(){
+        $total = 0;
+        foreach ($this->getItems() as $item){
+            $total += $item->getDesconto();
         }
         return $total;
     }
@@ -138,7 +226,6 @@ class FaturaServicoComercial
     {
         return ($this->getValorIliquido() * $this->getTaxaIva()) / 100;
     }
-
     public function getTotal()
     {
         return $this->getValorIliquido() + $this->getValorImposto() - $this->getValorRetencao();

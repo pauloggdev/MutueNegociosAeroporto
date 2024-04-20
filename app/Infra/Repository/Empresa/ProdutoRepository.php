@@ -109,13 +109,14 @@ class ProdutoRepository
                 $query->where('centroCustoId', $centroCustoId);
             })->where('empresa_id', auth()->user()->empresa_id)
             ->get();
-
     }
+
     public function getProdutoPeloTipoServico($tipoServicoId){
         return ExistenciaStockDatabase::with(['produto', 'produto.tipoTaxa'])
             ->whereHas('produto', function ($query) use($tipoServicoId){
                 $query->where('centroCustoId', session()->get('centroCustoId'));
                 $query->where('tipoServicoId', $tipoServicoId);
+                $query->whereNotIn('id', [37]);
             })->where('empresa_id', auth()->user()->empresa_id)
             ->get();
     }

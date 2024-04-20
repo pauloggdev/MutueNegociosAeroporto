@@ -7,6 +7,7 @@ use App\Application\UseCase\Empresa\Clientes\GetClientes;
 use App\Application\UseCase\Empresa\Faturacao\EmitirDocumentoAeroporto;
 use App\Application\UseCase\Empresa\Faturacao\EmitirDocumentoAeroportoAeronave;
 use App\Application\UseCase\Empresa\Faturacao\EmitirDocumentoAeroportoCarga;
+use App\Application\UseCase\Empresa\Faturacao\EmitirDocumentoAeroportoServicoComercial;
 use App\Application\UseCase\Empresa\Faturacao\GetTipoDocumentoByFaturacao;
 use App\Application\UseCase\Empresa\Faturacao\SimuladorFaturaAeronauticoAeroporto;
 use App\Application\UseCase\Empresa\Faturacao\SimuladorFaturaCargaAeroporto;
@@ -33,6 +34,7 @@ use Livewire\Component;
 class EmissaoFaturaServicoComercialController extends Component
 {
     use LivewireAlert;
+
     public $clientes;
     public $bancos;
     public $moedas;
@@ -53,6 +55,11 @@ class EmissaoFaturaServicoComercialController extends Component
         'moedaPagamento' => 'AOA',
         'observacao' => null,
         'isencaoIVA' => false,
+        'isencaoOcupacao' => false,
+        'unidadeMetrica' => null,
+        'qtdMeses' => null,
+        'addArCondicionado' => false,
+        'totalDesconto' => 0,
         'retencao' => false,
         'taxaRetencao' => 0,
         'valorRetencao' => 0,
@@ -66,6 +73,8 @@ class EmissaoFaturaServicoComercialController extends Component
         'taxaIva' => 0,
         'cambioDia' => 0,
         'contraValor' => 0,
+        'valorliquido' => 0,
+        'valorDesconto' => 0,
         'valorIliquido' => 0,
         'valorImposto' => 0,
         'total' => 0,
@@ -99,6 +108,8 @@ class EmissaoFaturaServicoComercialController extends Component
         $this->fatura['taxaIva'] = 0;
         $this->fatura['cambioDia'] = 0;
         $this->fatura['contraValor'] = 0;
+        $this->fatura['valorliquido'] = 0;
+        $this->fatura['valorDesconto'] = 0;
         $this->fatura['valorIliquido'] = 0;
         $this->fatura['valorImposto'] = 0;
         $this->fatura['moeda'] = null;
@@ -106,14 +117,35 @@ class EmissaoFaturaServicoComercialController extends Component
         $this->fatura['items'] = [];
     }
 
+    public function updatedFaturaAddArCondicionado($addArCondicionado)
+    {
+//        $this->resetField();
+        $this->fatura['addArCondicionado'] = $addArCondicionado;
+        if ($addArCondicionado) {
+            $this->fatura['isencaoOcupacao'] = false;
+        }
+    }
+
+    public function updatedFaturaIsencaoOcupacao($isencaoOcupacao)
+    {
+        $this->resetField();
+        $this->fatura['isencaoOcupacao'] = $isencaoOcupacao;
+        if ($isencaoOcupacao) {
+            $this->fatura['addArCondicionado'] = false;
+        }
+
+
+    }
+
     public function updatedFaturaRetencao()
     {
-
         $this->fatura['taxaRetencao'] = 0;
         $this->fatura['valorRetencao'] = 0;
         $this->fatura['taxaIva'] = 0;
         $this->fatura['cambioDia'] = 0;
         $this->fatura['contraValor'] = 0;
+        $this->fatura['valorliquido'] = 0;
+        $this->fatura['valorDesconto'] = 0;
         $this->fatura['valorIliquido'] = 0;
         $this->fatura['valorImposto'] = 0;
         $this->fatura['moeda'] = null;
@@ -131,7 +163,7 @@ class EmissaoFaturaServicoComercialController extends Component
             $this->fatura['formaPagamentoId'] = null;
             $this->formasPagamentos = [];
         }
-        $simuladorFaturaCarga = new SimuladorFaturaAeronauticoAeroporto(new DatabaseRepositoryFactory());
+        $simuladorFaturaCarga = new SimuladorFaturaServicoComercial(new DatabaseRepositoryFactory());
         $fatura = $simuladorFaturaCarga->execute($this->fatura);
         $this->fatura = $this->conversorModelParaArray($fatura);
     }
@@ -139,7 +171,7 @@ class EmissaoFaturaServicoComercialController extends Component
     public function updatedFaturaFormaPagamentoId($formaPagamentoId)
     {
         $this->fatura['formaPagamentoId'] = $formaPagamentoId;
-        $simuladorFaturaCarga = new SimuladorFaturaAeronauticoAeroporto(new DatabaseRepositoryFactory());
+        $simuladorFaturaCarga = new SimuladorFaturaServicoComercial(new DatabaseRepositoryFactory());
         $fatura = $simuladorFaturaCarga->execute($this->fatura);
         $this->fatura = $this->conversorModelParaArray($fatura);
     }
@@ -148,6 +180,7 @@ class EmissaoFaturaServicoComercialController extends Component
     {
         $cliente = DB::table('clientes')->where('id', $clienteId)
             ->where('empresa_id', auth()->user()->empresa_id)->first();
+
         $this->fatura['clienteId'] = $cliente->id;
         $this->fatura['nomeCliente'] = $cliente->nome;
         $this->fatura['telefoneCliente'] = $cliente->telefone_cliente;
@@ -161,9 +194,6 @@ class EmissaoFaturaServicoComercialController extends Component
     {
         $moedaEstrageiraUsado = new GetParametroPeloLabelNoParametro(new DatabaseRepositoryFactory());
         $this->fatura['moeda'] = $moedaEstrageiraUsado->execute('moeda_estrageira_usada')->valor;
-
-        $getClientes = new GetClientes(new DatabaseRepositoryFactory());
-        $this->clientes = $getClientes->execute();
         $this->empresa = auth()->user()->empresa;
 
         $getBancos = new GetBancos(new DatabaseRepositoryFactory());
@@ -182,6 +212,7 @@ class EmissaoFaturaServicoComercialController extends Component
 
     public function render()
     {
+        $this->clientes = DB::table('clientes')->where('empresa_id', auth()->user()->empresa_id)->get();
         $this->especificaoMercadorias = DB::table('especificacao_mercadorias')->get();
         return view("empresa.facturacao.createAeroportoServicoComercial");
     }
@@ -189,7 +220,10 @@ class EmissaoFaturaServicoComercialController extends Component
     public function removeCart($item)
     {
         foreach ($this->fatura['items'] as $key => $itemCart) {
-            if ($itemCart['produtoId'] == $item['produtoId']) {
+            $SERVICOS_ARCONDICIONADO = 37;
+            if (($this->fatura['isencaoOcupacao'] || $this->fatura['addArCondicionado']) && ($item['produtoId'] == $SERVICOS_ARCONDICIONADO)) {
+                $this->fatura['items'] = [];
+            } else if ($itemCart['produtoId'] == $item['produtoId']) {
                 unset($this->fatura['items'][$key]);
             }
         }
@@ -206,33 +240,113 @@ class EmissaoFaturaServicoComercialController extends Component
             ]);
             return;
         }
-
         $produtoData = json_decode($this->item['produto']);
-        $rules = [
-            'fatura.dataEntradaEstacionamento' => 'required',
-            'fatura.dataSaidaEstacionamento' => 'required',
-        ];
-        $messages = [
-            'fatura.dataEntradaEstacionamento.required' => 'campo obrigatório',
-            'fatura.dataSaidaEstacionamento.required' => 'campo obrigatório'
-        ];
-        $this->validate($rules, $messages);
+        $SERVICO_PUBLICIDADE = 38;
+        $SERVICOS_OCUPACAO = $produtoData->id >= 28 && $produtoData->id <= 36;
 
-        $key = $this->isCart($produtoData);
-        if ($key !== false) {
-            $this->confirm('O serviço já foi adicionado', [
-                'showConfirmButton' => false,
-                'showCancelButton' => false,
-                'icon' => 'warning'
-            ]);
-            return;
+        if ($produtoData->id == $SERVICO_PUBLICIDADE || $SERVICOS_OCUPACAO) {
+            $rules = [
+                'fatura.qtdMeses' => 'required',
+                'fatura.unidadeMetrica' => 'required',
+            ];
+            $messages = [
+                'fatura.qtdMeses.required' => 'campo obrigatório',
+                'fatura.unidadeMetrica.required' => 'campo obrigatório',
+            ];
+            $this->validate($rules, $messages);
+        } else {
+            $rules = [
+                'fatura.dataEntradaEstacionamento' => 'required',
+                'fatura.dataSaidaEstacionamento' => 'required',
+            ];
+            $messages = [
+                'fatura.dataEntradaEstacionamento.required' => 'campo obrigatório',
+                'fatura.dataSaidaEstacionamento.required' => 'campo obrigatório'
+            ];
+            $this->validate($rules, $messages);
         }
+//        $key = $this->isCart($produtoData);
+//        if ($key !== false) {
+//            $this->confirm('O serviço já foi adicionado', [
+//                'showConfirmButton' => false,
+//                'showCancelButton' => false,
+//                'icon' => 'warning'
+//            ]);
+//            return;
+//        }
         $produto = json_decode($this->item['produto']);
         $this->item['nomeProduto'] = $produto->designacao;
         $this->item['produtoId'] = $produto->id;
         $this->item['produto'] = $this->item['produto'];
-        $this->fatura['items'][] = (array)$this->item;
+        $this->item['taxa'] = $produto->preco_venda;
+        $this->item['unidadeMetrica'] = $this->fatura['unidadeMetrica'];
+        $this->item['addArCondicionado'] = $this->fatura['addArCondicionado'];
+        $this->item['dataEntradaEstacionamento'] = $this->fatura['dataEntradaEstacionamento'];
+        $this->item['dataSaidaEstacionamento'] = $this->fatura['dataSaidaEstacionamento'];
+        $this->item['qtdMeses'] = $this->fatura['qtdMeses'];
+
+        if (($this->fatura['isencaoOcupacao'] || $this->fatura['addArCondicionado']) && $SERVICOS_OCUPACAO) {
+            $SERVICOS_ARCONDICIONADO = 37;
+            $servidoArcondicionado = DB::table('produtos')->where('id', $SERVICOS_ARCONDICIONADO)->first();
+            $this->fatura['items'][] = (array)$this->item;
+            $item['produto'] = json_encode($servidoArcondicionado);
+            $item['nomeProduto'] = $servidoArcondicionado->designacao;
+            $item['produtoId'] = $servidoArcondicionado->id;
+            $item['taxa'] = 0;
+            $item['unidadeMetrica'] = 0;
+            $item['addArCondicionado'] = true;
+            $item['qtdMeses'] = null;
+            if ($this->isExistServicoArCondicionado($item['produtoId']) === false) {
+                $this->fatura['items'][] = (array)$item;
+            }
+        } else {
+            $this->fatura['items'][] = (array)$this->item;
+        }
+        $this->fatura['items'] = $this->array_sort($this->fatura['items'], 'produtoId', SORT_ASC);
+        $this->resetQtdMesesAndUnidades();
         $this->calculadoraTotal();
+    }
+    public function resetQtdMesesAndUnidades(){
+        $this->fatura['qtdMeses'] = null;
+        $this->fatura['unidadeMetrica'] = null;
+    }
+    public function isExistServicoArCondicionado($produtoId)
+    {
+        $items = collect($this->fatura['items']);
+        $posicao = $items->search(function ($produto) use ($produtoId) {
+            return $produto['produtoId'] === $produtoId;
+        });
+        return $posicao;
+    }
+    function array_sort($array, $on, $order = SORT_ASC)
+    {
+        $new_array = array();
+        $sortable_array = array();
+        if (count($array) > 0) {
+            foreach ($array as $k => $v) {
+                if (is_array($v)) {
+                    foreach ($v as $k2 => $v2) {
+                        if ($k2 == $on) {
+                            $sortable_array[$k] = $v2;
+                        }
+                    }
+                } else {
+                    $sortable_array[$k] = $v;
+                }
+            }
+            switch ($order) {
+                case SORT_ASC:
+                    asort($sortable_array);
+                    break;
+                case SORT_DESC:
+                    arsort($sortable_array);
+                    break;
+            }
+            foreach ($sortable_array as $k => $v) {
+                $new_array[$k] = $array[$k];
+            }
+        }
+        return $new_array;
     }
 
     public function calculadoraTotal()
@@ -240,10 +354,6 @@ class EmissaoFaturaServicoComercialController extends Component
         $simuladorFaturaServicoComercial = new SimuladorFaturaServicoComercial(new DatabaseRepositoryFactory());
         $fatura = $simuladorFaturaServicoComercial->execute($this->fatura);
         $this->fatura = $this->conversorModelParaArray($fatura);
-
-//        $simuladorFaturaAeronautico = new SimuladorFaturaAeronauticoAeroporto(new DatabaseRepositoryFactory());
-//        $fatura = $simuladorFaturaAeronautico->execute($this->fatura);
-//        $this->fatura = $this->conversorModelParaArray($fatura);
     }
 
     private function isCart($item)
@@ -258,14 +368,19 @@ class EmissaoFaturaServicoComercialController extends Component
     private function conversorModelParaArray(FaturaServicoComercial $output)
     {
         $fatura = [
-            'dataEntradaEstacionamento' => null,
-            'dataSaidaEstacionamento' => null,
-            'moeda'=> $output->getMoeda(),
+            'dataEntradaEstacionamento' => $output->getDataEntradaEstacionamento(),
+            'dataSaidaEstacionamento' => $output->getDataSaidaEstacionamento(),
+            'moeda' => $output->getMoeda(),
+            'unidadeMetrica' => $output->getUnidadeMetrica(),
+            'qtdMeses' => $output->getQtdMeses(),
+            'addArCondicionado' => $output->getAddArCondicionado(),
+            'totalDesconto' => $output->getDesconto(),
             'tipoDocumento' => $output->getTipoDocumento(),
             'formaPagamentoId' => $output->getFormaPagamentoId(),
             'moedaPagamento' => $output->getMoedaPagamento(),
             'observacao' => $output->getObservacao(),
             'isencaoIVA' => $output->getIsencaoIVA(),
+            'isencaoOcupacao' => $output->getIsencaoOcupacao(),
             'retencao' => $output->getRetencao(),
             'taxaRetencao' => $output->getTaxaRetencao(),
             'valorRetencao' => $output->getValorRetencao(),
@@ -279,6 +394,8 @@ class EmissaoFaturaServicoComercialController extends Component
             'taxaIva' => $output->getTaxaIva(),
             'cambioDia' => $output->getCambioDia(),
             'contraValor' => $output->getContraValor(),
+            'valorliquido' => $output->getValorLiquido(),
+            'valorDesconto' => $output->getDesconto(),
             'valorIliquido' => $output->getValorIliquido(),
             'valorImposto' => $output->getValorImposto(),
             'total' => $output->getTotal(),
@@ -288,15 +405,21 @@ class EmissaoFaturaServicoComercialController extends Component
             array_push($fatura['items'], [
                 'produtoId' => $item->getProdutoId(),
                 'quantidade' => 1,
+                'qtdMeses' => $item->getQtdMeses(),
                 'nomeProduto' => $item->getNomeProduto(),
                 'valorIva' => $item->getValorIva(),
                 'taxaIva' => $item->getTaxaIva(),
-                'DescHoraEstacionamento' => $item->getDescHoraEstacionamento(),
-                'horaEstacionamento' => $item->getHoraEstacionamento(),
-                'taxa' => $item->getTaxaEstacionamento(),
+                'considera1hDepois30min' => $item->getConsidera1hDepois30min(),
+                'taxa' => $item->getTaxa(),
+                'unidadeMetrica' => $item->getUnidadeMetrica(),
+                'addArCondicionado' => $item->getAddArCondicionado(),
+                'desconto' => $item->getValorDesc(),
                 'cambioDia' => $item->getCambioDia(),
                 'total' => $item->getTotal(),
-                'totalIva' => $item->getTotalIva()
+                'totalIva' => $item->getTotalIva(),
+                'descHoraEstacionamento' => $item->getDescHoraEstacionamento(),
+                'dataEntradaEstacionamento' => $item->getDataEntradaEstacionamento(),
+                'dataSaidaEstacionamento' => $item->getDataSaidaEstacionamento(),
             ]);
         }
         return $fatura;
@@ -307,23 +430,9 @@ class EmissaoFaturaServicoComercialController extends Component
 
         $rules = [
             'fatura.clienteId' => 'required',
-            'fatura.tipoDeAeronave' => 'required',
-            'fatura.nomeProprietario' => 'required',
-            'fatura.pesoMaximoDescolagem' => 'required',
-            'fatura.dataDeAterragem' => 'required',
-            'fatura.dataDeDescolagem' => 'required',
-            'fatura.horaDeAterragem' => 'required',
-            'fatura.horaDeDescolagem' => 'required',
         ];
         $messages = [
             'fatura.clienteId.required' => 'campo obrigatório',
-            'fatura.tipoDeAeronave.required' => 'campo obrigatório',
-            'fatura.nomeProprietario.required' => 'campo obrigatório',
-            'fatura.pesoMaximoDescolagem.required' => 'campo obrigatório',
-            'fatura.dataDeAterragem.required' => 'campo obrigatório',
-            'fatura.dataDeDescolagem.required' => 'campo obrigatório',
-            'fatura.horaDeAterragem.required' => 'campo obrigatório',
-            'fatura.horaDeDescolagem.required' => 'campo obrigatório',
         ];
         $this->validate($rules, $messages);
 
@@ -344,24 +453,17 @@ class EmissaoFaturaServicoComercialController extends Component
             return;
         }
 
-        $emitirDocumento = new EmitirDocumentoAeroportoAeronave(new DatabaseRepositoryFactory());
+        $emitirDocumento = new EmitirDocumentoAeroportoServicoComercial(new DatabaseRepositoryFactory());
         $faturaId = $emitirDocumento->execute(new Request($this->fatura));
-        $this->printFaturaCarga($faturaId);
+        $this->printFaturaComercial($faturaId);
         $this->resetField();
     }
 
-    public function printFaturaCarga($facturaId)
+    public function printFaturaComercial($facturaId)
     {
-        $factura = DB::table('facturas')
-            ->where('id', $facturaId)->first();
+        $factura = DB::table('facturas')->where('id', $facturaId)->first();
 
-        $getParametro = new GetParametroPeloLabelNoParametro(new DatabaseRepositoryFactory());
-        $parametro = $getParametro->execute('tipoImpreensao');
-
-        $filename = "Winmarket-Aeronave";
-        if ($parametro->valor == 'A5') {
-            $filename = "Winmarket_A5";
-        }
+        $filename = "WinmarketServicoComercial";
         if ($factura->tipo_documento == 3) { //proforma
             $logotipo = public_path() . '/upload/_logo_ATO_vertical_com_TAG_color.png';
         } else {
@@ -388,10 +490,7 @@ class EmissaoFaturaServicoComercialController extends Component
                 ]
             ], "pdf", $DIR_SUBREPORT
         );
-
-
         $this->dispatchBrowserEvent('printPdf', ['data' => base64_encode($report['response']->getContent())]);
-        // $this->dispatchBrowserEvent('printPdf', ['data' => base64_encode($report['response']->getContent())]);
         unlink($report['filename']);
         flush();
     }
@@ -399,12 +498,19 @@ class EmissaoFaturaServicoComercialController extends Component
     public function resetField()
     {
         $this->fatura = [
+            'dataEntradaEstacionamento' => null,
+            'dataSaidaEstacionamento' => null,
             'moeda' => null,
             'tipoDocumento' => 3, //Fatura proforma
             'formaPagamentoId' => null, //Fatura proforma
             'moedaPagamento' => 'AOA',
             'observacao' => null,
+            'unidadeMetrica' => null,
+            'qtdMeses' => null,
+            'addArCondicionado' => false,
+            'totalDesconto' => 0,
             'isencaoIVA' => false,
+            'isencaoOcupacao' => false,
             'retencao' => false,
             'taxaRetencao' => 0,
             'valorRetencao' => 0,
@@ -426,13 +532,13 @@ class EmissaoFaturaServicoComercialController extends Component
             'taxaIva' => 0,
             'cambioDia' => 0,
             'contraValor' => 0,
+            'valorliquido' => 0,
+            'valorDesconto' => 0,
             'valorIliquido' => 0,
             'valorImposto' => 0,
             'total' => 0,
             'items' => []
         ];
         $this->formasPagamentos = [];
-
     }
-
 }

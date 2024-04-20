@@ -154,7 +154,7 @@
                                                                          style="margin-right: 15px">
                                                                         <label>Data de Entrada</label>
                                                                         <div>
-                                                                            <input type="date"
+                                                                            <input type="datetime-local"
                                                                                    wire:model="fatura.dataEntrada"
                                                                                    class="input-small"
                                                                                    style="width: 150px; <?= $errors->has('fatura.dataEntrada') ? 'border-color: #ff9292;' : '' ?>"/>
@@ -171,7 +171,7 @@
                                                                          style="margin-right: 15px">
                                                                         <label>Data de Saída</label>
                                                                         <div>
-                                                                            <input type="date"
+                                                                            <input type="datetime-local"
                                                                                    wire:model="fatura.dataSaida"
                                                                                    class="input-small"
                                                                                    style="width: 150px; <?= $errors->has('fatura.dataSaida') ? 'border-color: #ff9292;' : '' ?>"/>
@@ -221,6 +221,7 @@
                                                                                 <option value="1">Importação
                                                                                 </option>
                                                                                 <option value="2">Exportação</option>
+                                                                                <option value="3">Transito</option>
                                                                             </select>
                                                                         </div>
                                                                     </div>
@@ -270,6 +271,16 @@
                                                                             <input name="form-field-checkbox"
                                                                                    wire:model="fatura.retencao"
                                                                                    id="retencao" type="checkbox"
+                                                                                   class="ace input-lg"/>
+                                                                            <span class="lbl bigger-140"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group" style="margin-left: 15px">
+                                                                        <label for="isencaoCargaTransito">Isenção 24h/Carga trânsito</label>
+                                                                        <div>
+                                                                            <input name="form-field-checkbox"
+                                                                                   wire:model="fatura.isencaoCargaTransito"
+                                                                                   id="isencaoCargaTransito" type="checkbox"
                                                                                    class="ace input-lg"/>
                                                                             <span class="lbl bigger-140"></span>
                                                                         </div>
@@ -389,7 +400,6 @@
                                                                             <option
                                                                                 value="{{$especificacao->id}}">{{  substr($especificacao->designacao, 0, 40) }}</option>
                                                                         @endforeach
-
                                                                     </select>
                                                                 </td>
                                                                 <td>
@@ -408,7 +418,22 @@
                                                 </div>
                                             </div>
                                             <div class="hr hr8 hr-double hr-dotted"></div>
-
+                                            <div class="row" style="margin-bottom: 5px">
+                                                <div class="col-sm-5 pull-right">
+                                                    <h8 class="pull-right">
+                                                        VALOR LIQUIDO(AOA) :
+                                                        <span>{{ number_format($fatura['valorliquido'], 2,',','.') }}Kz</span>
+                                                    </h8>
+                                                </div>
+                                            </div>
+                                            <div class="row" style="margin-bottom: 5px">
+                                                <div class="col-sm-5 pull-right">
+                                                    <h8 class="pull-right">
+                                                        VALOR DESCONTO(AOA) :
+                                                        <span>{{ number_format($fatura['valorDesconto'], 2,',','.') }}Kz</span>
+                                                    </h8>
+                                                </div>
+                                            </div>
                                             <div class="row" style="margin-bottom: 5px">
                                                 <div class="col-sm-5 pull-right">
                                                     <h8 class="pull-right">

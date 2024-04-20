@@ -25,7 +25,6 @@ class CambioController extends Component
     public $mercadoria_id;
     public $cambio_id;
     public $cambio = [];
-    public $cambios;
 
     public $tiposMercadorias;
     public $especificacaoMercadorias;
@@ -41,9 +40,9 @@ class CambioController extends Component
     public function render()
     {
 
-        $this->cambios = Cambio::all();
+        $data['cambios'] = Cambio::all();
         // $this->especificacaoMercadorias = $especificacaoMercadorias;
-        return view('empresa.cambios.Cambio', compact($this->cambios));
+        return view('empresa.cambios.Cambio', $data);
     }
     public function store(){
         //  dd($this->cambio);

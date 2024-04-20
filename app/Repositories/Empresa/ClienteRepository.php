@@ -23,15 +23,18 @@ class ClienteRepository
         $this->cliente = $cliente;
         $this->recibo = $recibo;
     }
+
     public function listarClienteSemConsumidorFinal()
     {
-        $clientes = $this->cliente::with(['cartoesCliente','tipocliente', 'statuGeral', 'pais', 'empresa'])
+        $clientes = $this->cliente::with(['cartoesCliente', 'tipocliente', 'statuGeral', 'pais', 'empresa'])
             ->where('empresa_id', auth()->user()->empresa_id)
             ->where('diversos', '!=', 'Sim')
             ->get();
         return $clientes;
     }
-    public function quantidadeClientes(){
+
+    public function quantidadeClientes()
+    {
 
         return $this->cliente::where('empresa_id', auth()->user()->empresa_id)->count();
     }
@@ -44,6 +47,7 @@ class ClienteRepository
             ->get();
         return $clientes;
     }
+
     public function mostrarValorFaltanteApagarNaFaturaDoCliente($factura)
     {
         $valorEntregue = $this->recibo::where('empresa_id', auth()->user()->empresa_id)
@@ -51,24 +55,26 @@ class ClienteRepository
             ->sum('valor_total_entregue');
         return number_format($valorEntregue, 2, ',', '.');
     }
+
     public function mostrarSaldoAtualDoCliente($clienteId)
     {
-        $totalNotaCredito  = NotaCredito::where('cliente_id', $clienteId)->where('empresa_id', auth()->user()->empresa_id)->sum('valor_credito');
-        $totalNotaDebito  = NotaDebito::where('cliente_id', $clienteId)->where('empresa_id', auth()->user()->empresa_id)->sum('valor_debito');
-        $totalRecibos  = Recibos::where('cliente_id', $clienteId)->where('empresa_id', auth()->user()->empresa_id)->where('anulado', 1)->sum('valor_total_entregue');
-        $totalFacturas  = Factura::where('cliente_id', $clienteId)->where('tipo_documento', 2)->where('anulado', 1)->where('empresa_id', auth()->user()->empresa_id)->sum('valor_a_pagar');
+        $totalNotaCredito = NotaCredito::where('cliente_id', $clienteId)->where('empresa_id', auth()->user()->empresa_id)->sum('valor_credito');
+        $totalNotaDebito = NotaDebito::where('cliente_id', $clienteId)->where('empresa_id', auth()->user()->empresa_id)->sum('valor_debito');
+        $totalRecibos = Recibos::where('cliente_id', $clienteId)->where('empresa_id', auth()->user()->empresa_id)->where('anulado', 1)->sum('valor_total_entregue');
+        $totalFacturas = Factura::where('cliente_id', $clienteId)->where('tipo_documento', 2)->where('anulado', 1)->where('empresa_id', auth()->user()->empresa_id)->sum('valor_a_pagar');
         $saldoCliente = (($totalNotaCredito + $totalRecibos) - ($totalNotaDebito + $totalFacturas));
         return number_format($saldoCliente, 2, ',', '.');
     }
 
     public function getClientes($search = NULL)
     {
-        $clientes = $this->cliente::with(['cartoesCliente','tipocliente', 'statuGeral', 'pais', 'empresa'])
+        $clientes = $this->cliente::with(['cartoesCliente', 'tipocliente', 'statuGeral', 'pais', 'empresa'])
             ->where('empresa_id', auth()->user()->empresa_id)
             ->search(trim($search))
             ->paginate();
         return $clientes;
     }
+
     public function getClientesApi($search = NULL)
     {
         $clientes = $this->cliente::with(['tipocliente', 'statuGeral', 'pais', 'empresa'])
@@ -76,6 +82,7 @@ class ClienteRepository
             ->search(trim($search))->get();
         return $clientes;
     }
+
     public function getClientePeloNifStore($cliente)
     {
         $cliente = $this->cliente::where('empresa_id', auth()->user()->empresa_id)
@@ -102,6 +109,7 @@ class ClienteRepository
             ->first();
         return $cliente;
     }
+
     public function getClientePeloUuid($uuid)
     {
         $cliente = $this->cliente::with(['statuGeral'])->where('empresa_id', auth()->user()->empresa_id)
@@ -109,15 +117,17 @@ class ClienteRepository
             ->first();
         return $cliente;
     }
+
     public function store($data)
     {
         $cliente = $this->cliente::create([
             'uuid' => Str::uuid(),
             'nome' => $data['nome'],
-            'pessoa_contacto' => $data['pessoa_contacto']??NULL,
-            'email' => $data['email']??NULL,
-            'website' => $data['website']??NULL,
-            'numero_contrato' => $data['numero_contrato']??NULL,
+            'pessoa_contacto' => $data['pessoa_contacto'] ?? NULL,
+            'isencaoCargaTransito' => $data['isencaoCargaTransito'] ? 'Y' : 'N',
+            'email' => $data['email'] ?? NULL,
+            'website' => $data['website'] ?? NULL,
+            'numero_contrato' => $data['numero_contrato'] ?? NULL,
             'data_contrato' => $data['data_contrato'] ?? NULL,
             'telefone_cliente' => $data['telefone_cliente'],
             'taxa_de_desconto' => is_numeric($data['taxa_de_desconto']) ? $data['taxa_de_desconto'] : 0,
@@ -133,23 +143,23 @@ class ClienteRepository
             'pais_id' => $data['pais_id'] ?? 1,
             'cidade' => $data['cidade'] ?? 'Luanda',
             'tipo_conta_corrente' => $data['tipo_conta_corrente'],
-            'conta_corrente'=> $this->contaCorrente(),
-            'centroCustoId' => isset($data['centroCustoId'])?$data['centroCustoId']:(session()->get("centroCustoId")??null)
+            'conta_corrente' => $this->contaCorrente(),
+            'centroCustoId' => isset($data['centroCustoId']) ? $data['centroCustoId'] : (session()->get("centroCustoId") ?? null)
         ]);
         return $cliente;
     }
 
     private function contaCorrente()
     {
-        $resultado =  DB::connection('mysql2')->table('clientes')->orderBy('id', 'DESC')
+        $resultado = DB::connection('mysql2')->table('clientes')->orderBy('id', 'DESC')
             ->where('empresa_id', auth()->user()->empresa_id)->limit(1)->first();
 
         if ($resultado) {
             $array = explode('.', $resultado->conta_corrente);
-            $ultimoElemento = (int) end($array);
+            $ultimoElemento = (int)end($array);
             array_pop($array);
             $ultimoElemento++;
-            array_push($array, (string) $ultimoElemento);
+            array_push($array, (string)$ultimoElemento);
             $contaCorrente = implode(".", $array);
         } else {
             $contaCorrente = "31.1.2.1.1";
@@ -157,6 +167,7 @@ class ClienteRepository
 
         return $contaCorrente;
     }
+
     public function update($data, $clienteId)
     {
 
@@ -182,7 +193,7 @@ class ClienteRepository
                 'canal_id' => $data['canal_id'] ? $data['canal_id'] : 2,
                 'pais_id' => $data['pais_id'],
                 'cidade' => $data['cidade'],
-                'centroCustoId' =>$data['centroCustoId']
+                'centroCustoId' => $data['centroCustoId']
             ]);
 
         return $cliente;

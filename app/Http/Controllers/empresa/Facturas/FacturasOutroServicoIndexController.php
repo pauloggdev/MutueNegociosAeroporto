@@ -97,8 +97,6 @@ class FacturasOutroServicoIndexController extends Component
             ->search(trim($this->search))
             ->paginate();
 
-
-
         $this->dispatchBrowserEvent('reloadTableJquery');
         return view('empresa.facturas.facturasOutroServicoIndex', $data);
     }

@@ -35,7 +35,7 @@ class SimuladorFaturaServicoComercial
         return $data['hours'];
     }
 
-    public function execute($input)
+    public function execute($input, $items = [])
     {
         $input = (object)$input;
         if ($input->isencaoIVA) {
@@ -44,22 +44,21 @@ class SimuladorFaturaServicoComercial
             $taxaIva = new GetParametroPeloLabelNoParametro(new DatabaseRepositoryFactory());
             $taxaIva = (float)$taxaIva->execute('valor_iva_aplicado')->valor;
         }
-
         if ($input->retencao) {
             $retencaoFonte = new GetParametroPeloLabelNoParametro(new DatabaseRepositoryFactory());
             $valorRetencao = (float)$retencaoFonte->execute('valor_retencao_fonte')->valor;
         } else {
             $valorRetencao = 0;
         }
-
         $moedaEstrageiraUsado = new GetParametroPeloLabelNoParametro(new DatabaseRepositoryFactory());
         $moedaEstrageiraUsado = $moedaEstrageiraUsado->execute('moeda_estrageira_usada')->valor;
         $cambioDia = DB::table('cambios')->where('designacao', $moedaEstrageiraUsado)->first()->valor;
-
         $considera1hDepois30min = new GetParametroPeloLabelNoParametro(new DatabaseRepositoryFactory());
         $considera1hDepois30min = $considera1hDepois30min->execute('considerar1hdepois30min')->valor;
 
         $faturaServicoComercial = new FaturaServicoComercial(
+            $input->dataEntradaEstacionamento,
+            $input->dataSaidaEstacionamento,
             $input->tipoDocumento,
             $input->formaPagamentoId,
             $input->observacao,
@@ -76,23 +75,59 @@ class SimuladorFaturaServicoComercial
             $input->moedaPagamento,
             $input->isencaoIVA,
             $input->retencao,
-            $valorRetencao
+            $valorRetencao,
+            $input->unidadeMetrica,
+            $input->addArCondicionado,
+            $input->qtdMeses,
+            $input->isencaoOcupacao
         );
+        $totalServico = 0;
+//        if ($input->isencaoOcupacao || $input->addArCondicionado) {
+        $totalServicoDefault = 0;
         foreach ($input->items as $item) {
-            $item = (object) $item;
+            $item = (object)$item;
             $faturaItem = new FaturaItemServicoComercial(
                 $item->produtoId,
                 $item->nomeProduto,
+                $item->taxa,
                 $input->dataEntradaEstacionamento,
                 $input->dataSaidaEstacionamento,
                 $taxaIva,
                 $cambioDia,
-                $considera1hDepois30min
+                $considera1hDepois30min,
+                $item->unidadeMetrica,
+                $item->addArCondicionado,
+                $item->qtdMeses,
+                $input->isencaoOcupacao,
+                $totalServicoDefault
+            );
+            if ($item->addArCondicionado || $input->isencaoOcupacao) {
+                if ($item->produtoId != 37 && $item->produtoId != 38 && $item->produtoId != 39 && $item->produtoId != 40 && $item->produtoId != 41) {
+                    $totalServico += $faturaItem->getTotal();
+                }
+            }
+        }
+//        }
+        foreach ($input->items as $item) {
+            $item = (object)$item;
+            $faturaItem = new FaturaItemServicoComercial(
+                $item->produtoId,
+                $item->nomeProduto,
+                $item->taxa,
+                $item->dataEntradaEstacionamento ?? null,
+                $item->dataSaidaEstacionamento ?? null,
+                $taxaIva,
+                $cambioDia,
+                $considera1hDepois30min,
+                $item->unidadeMetrica,
+                $item->addArCondicionado,
+                $item->qtdMeses,
+                $input->isencaoOcupacao,
+                $totalServico,
             );
             $faturaServicoComercial->addItem($faturaItem);
         }
         return $faturaServicoComercial;
-
 
 //        $getTaxaEstacionameno = new GetParametroPeloLabelNoParametro(new DatabaseRepositoryFactory());
 //        $taxaEstacionamento = (float)$getTaxaEstacionameno->execute('tarifa_estacionamento')->valor;

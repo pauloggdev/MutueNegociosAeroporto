@@ -58,12 +58,12 @@ class ClienteCreateController extends Component
         ]);
         $this->setarValorPadrao();
     }
-
     public function setarValorPadrao()
     {
         $this->cliente['nome'] = NULL;
         $this->cliente['email'] = NULL;
         $this->cliente['telefone_cliente'] = NULL;
+        $this->cliente['isencaoCargaTransito'] = false;
         $this->cliente['website'] = NULL;
         $this->cliente['endereco'] = NULL;
         $this->cliente['cidade'] = NULL;

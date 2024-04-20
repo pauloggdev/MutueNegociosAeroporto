@@ -75,7 +75,7 @@
                                                                         <option value="">Seleciona o cliente</option>
                                                                         @foreach($clientes as $cliente)
                                                                             <option
-                                                                                value="{{ $cliente->id }}">{{ $cliente->nome }}</option>
+                                                                                value="{{ $cliente->id }}">{{Str::upper($cliente->nome)}}</option>
                                                                         @endforeach
                                                                     </select>
                                                                     @if ($errors->has('fatura.clienteId'))
@@ -84,19 +84,6 @@
                                                                         </span>
                                                                     @endif
                                                                 </li>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <div>
-                                                                    <input type="text"
-                                                                           wire:model="fatura.nomeProprietario"
-                                                                           style="width: 100%;<?= $errors->has('fatura.nomeProprietario') ? 'border-color: #ff9292;' : '' ?>"
-                                                                           placeholder="Companhia Aérea/Operadora..."/>
-                                                                    @if ($errors->has('fatura.nomeProprietario'))
-                                                                        <span style="color: red; font-weight: bold">
-                                                                            <strong>{{ $errors->first('fatura.nomeProprietario') }}</strong>
-                                                                        </span>
-                                                                    @endif
-                                                                </div>
                                                             </div>
                                                             <div class="form-group">
                                                                 <label>Observação</label>
@@ -118,7 +105,43 @@
                                                         <div class="widget-body">
                                                             <div class="widget-main" style="margin-bottom: 10px">
                                                                 <form class="form-inline">
-                                                                    <div class="form-group">
+                                                                    <div class="form-group"
+                                                                         style="margin-right: 15px;margin-bottom: 10px">
+                                                                        <label>Unidade</label>
+                                                                        <div>
+                                                                            <input type="number" id="money"
+                                                                                   wire:model="fatura.unidadeMetrica"
+                                                                                   value="0,00"
+                                                                                   name="money"
+                                                                                   class="input-small"
+                                                                                   style="width: 150px; <?= $errors->has('fatura.unidadeMetrica') ? 'border-color: #ff9292;' : '' ?>"/>
+                                                                            @if ($errors->has('fatura.unidadeMetrica'))
+                                                                                <span class="help-block"
+                                                                                      style="color: red; font-weight: bold">
+                                                                                    <strong>{{ $errors->first('fatura.unidadeMetrica') }}</strong>
+                                                                                </span>
+                                                                            @endif
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group"
+                                                                         style="margin-right: 15px;margin-bottom: 10px">
+                                                                        <label>Qtd. Mês</label>
+                                                                        <div>
+                                                                            <input type="number" id="money"
+                                                                                   wire:model="fatura.qtdMeses"
+                                                                                   value="0,00"
+                                                                                   name="money"
+                                                                                   class="input-small"
+                                                                                   style="width: 100px; <?= $errors->has('fatura.qtdMeses') ? 'border-color: #ff9292;' : '' ?>"/>
+                                                                            @if ($errors->has('fatura.qtdMeses'))
+                                                                                <span class="help-block"
+                                                                                      style="color: red; font-weight: bold">
+                                                                                    <strong>{{ $errors->first('fatura.qtdMeses') }}</strong>
+                                                                                </span>
+                                                                            @endif
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group" style="margin-bottom: 10px">
                                                                         <label>Data/Hora de entrada</label>
                                                                         <div>
                                                                             <input type="datetime-local" wire:model="fatura.dataEntradaEstacionamento" class="input-small" style="width: 200px; <?= $errors->has('fatura.dataEntradaEstacionamento') ? 'border-color: #ff9292;' : '' ?>"/>
@@ -132,7 +155,7 @@
 
                                                                     </div>
                                                                     <div class="form-group"
-                                                                         style="margin-right: 15px">
+                                                                         style="margin-right: 15px;margin-bottom: 10px">
                                                                         <label>Data/Hora de saída</label>
                                                                         <div>
                                                                             <input type="datetime-local" wire:model="fatura.dataSaidaEstacionamento" class="input-small" style="width: 200px; <?= $errors->has('fatura.dataSaidaEstacionamento') ? 'border-color: #ff9292;' : '' ?>"/>
@@ -144,7 +167,7 @@
                                                                             @endif
                                                                         </div>
                                                                     </div>
-                                                                    <div class="form-group">
+                                                                    <div class="form-group" style="margin-bottom: 10px">
                                                                         <label>Tipo Documento</label>
                                                                         <div>
                                                                             <select style="width: 200px;height: 34px"
@@ -162,7 +185,7 @@
                                                                         </div>
                                                                     </div>
 
-                                                                    <div class="form-group">
+                                                                    <div class="form-group" style="margin-bottom: 10px">
                                                                         <label>Forma Pagamento</label>
                                                                         <div>
                                                                             <select style="width: 200px;height: 34px"
@@ -177,10 +200,10 @@
                                                                             </select>
                                                                         </div>
                                                                     </div>
-                                                                    <div class="form-group">
+                                                                    <div class="form-group" style="margin-bottom: 10px">
                                                                         <label>Moeda</label>
                                                                         <div>
-                                                                            <select style="width: 200px;height: 34px"
+                                                                            <select style="width: 100px;height: 34px"
                                                                                     wire:model="fatura.moedaPagamento"
                                                                                     name="ship"
                                                                                     rowid="6"
@@ -192,7 +215,23 @@
                                                                             </select>
                                                                         </div>
                                                                     </div>
-                                                                    <div class="form-group" style="margin-left: 15px">
+                                                                    <div class="form-group" style="margin-left: 15px;margin-bottom: 10px">
+                                                                        <label for="addArCondicionado">Ar condicionado</label>
+                                                                        <div>
+                                                                            <input name="form-field-checkbox" <?= $fatura['isencaoOcupacao']?'disabled':''?>  wire:model="fatura.addArCondicionado" id="addArCondicionado" type="checkbox"
+                                                                                   class="ace input-lg"/>
+                                                                            <span class="lbl bigger-140"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group" style="margin-left: 15px;margin-bottom: 10px">
+                                                                        <label for="isencaoOcupacao">Isenção Ocupação</label>
+                                                                        <div>
+                                                                            <input name="form-field-checkbox" <?= $fatura['addArCondicionado']?'disabled':''?> wire:model="fatura.isencaoOcupacao" id="isencaoOcupacao" type="checkbox"
+                                                                                   class="ace input-lg"/>
+                                                                            <span class="lbl bigger-140"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group" style="margin-left: 15px;margin-bottom: 10px">
                                                                         <label for="isencaoIva">Isenção IVA</label>
                                                                         <div>
                                                                             <input name="form-field-checkbox" wire:model="fatura.isencaoIVA" id="isencaoIva" type="checkbox"
@@ -200,7 +239,7 @@
                                                                             <span class="lbl bigger-140"></span>
                                                                         </div>
                                                                     </div>
-                                                                    <div class="form-group" style="margin-left: 15px">
+                                                                    <div class="form-group" style="margin-left: 15px;margin-bottom: 10px">
                                                                         <label for="retencao">Incluir Retenção</label>
                                                                         <div>
                                                                             <input name="form-field-checkbox" wire:model="fatura.retencao" id="retencao" type="checkbox"
@@ -215,10 +254,8 @@
                                                 </div>
                                                 <div class="col-md-6"></div>
                                             </div>
-
-
                                             <div class="row">
-                                                <div class="col-md-6">
+                                                <div class="col-md-8">
                                                     <div>
 
                                                         <table class="table table-striped table-bordered">
@@ -226,7 +263,11 @@
                                                             <tr>
                                                                 <th>#</th>
                                                                 <th style="width: 400px; text-align: left">Tarifas</th>
-                                                                <th>Nº Dias/Hora</th>
+                                                                <th style="text-align: left">Unid. métrica</th>
+                                                                <th style="width: 60px; text-align: left">Ar condicionado</th>
+                                                                <th style="text-align: left">Qtd.Mês</th>
+                                                                <th>Desc(%)</th>
+                                                                <th>NºHora/min</th>
                                                                 <th style="text-align: right">Total</th>
                                                                 <th style="text-align: center"></th>
                                                             </tr>
@@ -236,17 +277,21 @@
                                                                 <tr>
                                                                     <td>{{++$key}}</td>
                                                                     <td style="width: 400px; text-align: left">{{ $faturaItem['nomeProduto'] }}</td>
-                                                                    <td>{{ $faturaItem['DescHoraEstacionamento'] }}</td>
+                                                                    <td>{{ number_format($faturaItem['unidadeMetrica'],2,',','.') }}</td>
+                                                                    <td>{{ $faturaItem['addArCondicionado']?'Sim': 'Não'}}</td>
+                                                                    <td>{{ number_format($faturaItem['qtdMeses'],1,',','.') }}</td>
+                                                                    <td>{{ number_format($faturaItem['desconto'], 1, ',', '.') }}</td>
+                                                                    <td>{{ $faturaItem['descHoraEstacionamento'] }}</td>
                                                                     <td style="text-align: right">{{ number_format($faturaItem['total'],2,',','.') }}</td>
                                                                     <td style="text-align: center">
-                                                                        <div
-                                                                            class="hidden-sm hidden-xs btn-group">
-                                                                            <button
-                                                                                class="btn btn-xs btn-danger"
-                                                                                wire:click.prevent="removeCart({{json_encode($faturaItem) }})">
-                                                                                <i class="ace-icon fa fa-remove bigger-120"></i>
-                                                                            </button>
-                                                                        </div>
+                                                                            <div
+                                                                                class="hidden-sm hidden-xs btn-group">
+                                                                                <button
+                                                                                    class="btn btn-xs btn-danger"
+                                                                                    wire:click.prevent="removeCart({{json_encode($faturaItem) }})">
+                                                                                    <i class="ace-icon fa fa-remove bigger-120"></i>
+                                                                                </button>
+                                                                            </div>
                                                                     </td>
                                                                 </tr>
                                                             @endforeach
@@ -254,7 +299,7 @@
                                                         </table>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-6">
+                                                <div class="col-md-4">
                                                     <div>
                                                         <table class="table table-striped table-bordered">
                                                             <thead>
@@ -263,7 +308,6 @@
                                                                 <th></th>
                                                             </tr>
                                                             </thead>
-
                                                             <tbody>
                                                             <tr>
                                                                 <td class="center">
@@ -275,7 +319,7 @@
                                                                         <option value="">Nenhum</option>
                                                                         @foreach($servicos as $servico)
                                                                             <option
-                                                                                value="{{json_encode($servico->produto)}}">{{ Str::title($servico->produto->designacao) }}</option>
+                                                                                value="{{json_encode($servico->produto)}}">{{ $servico->produto->designacao }}</option>
                                                                         @endforeach
                                                                     </select>
                                                                 </td>
@@ -295,6 +339,22 @@
                                             </div>
                                             <div class="hr hr8 hr-double hr-dotted"></div>
 
+                                            <div class="row" style="margin-bottom: 5px">
+                                                <div class="col-sm-5 pull-right">
+                                                    <h8 class="pull-right">
+                                                        VALOR LIQUIDO(AOA) :
+                                                        <span>{{ number_format($fatura['valorliquido'], 2,',','.') }}Kz</span>
+                                                    </h8>
+                                                </div>
+                                            </div>
+                                            <div class="row" style="margin-bottom: 5px">
+                                                <div class="col-sm-5 pull-right">
+                                                    <h8 class="pull-right">
+                                                        VALOR DESCONTO(AOA) :
+                                                        <span>{{ number_format($fatura['valorDesconto'], 2,',','.') }}Kz</span>
+                                                    </h8>
+                                                </div>
+                                            </div>
                                             <div class="row" style="margin-bottom: 5px">
                                                 <div class="col-sm-5 pull-right">
                                                     <h8 class="pull-right">
@@ -379,7 +439,6 @@
                                                         <span class="loading"></span>
                                                         Aguarde...
                                                     </span>
-
                                                     </a>
                                                 </div>
                                             </div>
@@ -399,7 +458,6 @@
         <i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
     </a>
 </div><!-- /.main-container -->
-
 
 </div>
 

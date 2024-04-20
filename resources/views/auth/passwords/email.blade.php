@@ -1,42 +1,11 @@
-{{-- @component('frontOffice/header', ['title'=>'Recuperar senha'])
-@endcomponent
-<div class="hero row align-items-center">
-    <div class="col-md-6">
-        <h2><span>Mutue</span> Negócios</h2>
-        <h2>A solução da sua empresa</h2><br>
-    </div>
-    <div class="col-md-6">
-        <div class="form">
-            <h3>Informe o email</h3>
-            @if (session('status'))
-            <div class="alert alert-success" role="alert">
-                {{ session('status') }}
-            </div>
-            @endif
-            <form method="POST" action="{{ route('password.email') }}" class="php-email-form" id="form-submit">
-                @csrf
-                <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ $email ?? old('email') }}" placeholder="Email" autofocus />
-                @error('email')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-                @enderror
-                <button class="btn btn-block" type="submit">{{ __('redefinir a senha') }}</button>
-            </form>
-        </div>
-    </div>
-</div>
-</div>
-</div> --}}
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Login V1</title>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-<!--===============================================================================================-->	
-	{{-- <link rel="icon" type="image/png" href="{{asset('assets/login/images/icons/favicon.ico')}}"/> --}}
+    <title>Login V1</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--===============================================================================================-->
+    {{-- <link rel="icon" type="image/png" href="{{asset('assets/login/images/icons/favicon.ico')}}"/> --}}
 
     <link rel="shortcut icon" sizes="57x57" href="{{asset('favicon/apple-icon-57x57.png')}}">
     <link rel="shortcut icon" sizes="60x60" href="{{asset('favicon/apple-icon-60x60.png')}}">
@@ -51,94 +20,112 @@
     <link rel="icon" type="image/png" sizes="32x32" href="{{asset('favicon/favicon-32x32.png')}}">
     <link rel="icon" type="image/png" sizes="96x96" href="{{asset('favicon/favicon-96x96.png')}}">
     <link rel="icon" type="image/png" sizes="16x16" href="{{asset('favicon/favicon-16x16.png')}}">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="{{asset('assets/login/vendor/bootstrap/css/bootstrap.min.css')}}">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="{{asset('assets/login/fonts/font-awesome-4.7.0/css/font-awesome.min.css')}}">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="{{asset('assets/login/vendor/animate/animate.css')}}">
-<!--===============================================================================================-->	
-	<link rel="stylesheet" type="text/css" href="{{asset('assets/login/vendor/css-hamburgers/hamburgers.min.css')}}">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="{{asset('assets/login/vendor/select2/select2.min.css')}}">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="{{asset('assets/login/css/util.css')}}">
-	<link rel="stylesheet" type="text/css" href="{{asset('assets/login/css/main.css')}}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{{asset('assets/login/vendor/bootstrap/css/bootstrap.min.css')}}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css"
+          href="{{asset('assets/login/fonts/font-awesome-4.7.0/css/font-awesome.min.css')}}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{{asset('assets/login/vendor/animate/animate.css')}}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{{asset('assets/login/vendor/css-hamburgers/hamburgers.min.css')}}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{{asset('assets/login/vendor/select2/select2.min.css')}}">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="{{asset('assets/login/css/util.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('assets/login/css/main.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('assets/login/css/myStyle.css')}}">
-<!--===============================================================================================-->
+    <!--===============================================================================================-->
 </head>
 <body>
-	
-	<div class="limiter">
-		<div class="container-login100">
-			<div class="wrap-login100">
-				<div class="login100-pic js-tilt" data-tilt>
-					<img src="{{asset('assets/login/images/img-02.jpg')}}" alt="IMG">
-				</div>
 
-				<form method="POST" action="{{ route('password.email') }}" class="login100-form validate-form" id="form-submit">
-                    @csrf
-					<span class="login100-form-title mb-4">
-						Informe o email
+<div class="limiter">
+    <div class="container-login100">
+        <div class="wrap-login100">
+            <div class="login100-pic js-tilt" data-tilt>
+                <img src="{{asset('assets/login/images/img-02.jpg')}}" alt="IMG">
+            </div>
+
+            <form method="POST" action="{{ route('password.email') }}" class="login100-form validate-form"
+                  id="form-submit">
+                @csrf
+                @if (session('status'))
+                    <div class="alert alert-success" role="alert">
+                        {{ session('status') }}
+                    </div>
+                @endif
+
+                <span class="login100-form-title mb-4">
 					</span>
+                <label>Informe o email</label>
 
-					<div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
-						<input class="input100 @error('email') is-invalid @enderror" type="text" name="email" placeholder="Email"  value="{{ $email ?? old('email') }}" required>
-						<span class="focus-input100"></span>
-						<span class="symbol-input100">
+                <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
+                    <input class="input100" style="<?= $errors->has('email') ? 'border-color: red;border:1px solid red' : '' ?>" type="text" name="email"
+                           placeholder="Email" value="{{ $email ?? old('email') }}" required>
+                    @if ($errors->has('email'))
+                        <span class="help-block" style="    color: red;
+    position: absolute;
+    font-size: 12px;
+    left: 16px;">
+                                        <strong>{{ $errors->first('email') }}</strong>
+                                    </span>
+                    @endif
+
+                    <span class="focus-input100"></span>
+
+                    <span class="symbol-input100">
 							<i class="fa fa-envelope" aria-hidden="true"></i>
 						</span>
-					</div>
-                    <div class="control-group d-none" aria-hidden="true">
-                        <select class="custom-select" name="tipoUser">
-                            <option value="2" selected>Empresa</option>
-                            <option value="1">Admin</option>
-                        </select>
-                    </div>
-					<div class="container-login100-form-btn">
-						<button class="login100-form-btn" type="submit">
-							redefinir a senha
-						</button>
-					</div>
+                </div>
 
-					<div class="text-center p-t-12">
+                <div class="control-group d-none" aria-hidden="true">
+                    <select class="custom-select" name="tipoUser">
+                        <option value="2" selected>Empresa</option>
+                        <option value="1">Admin</option>
+                    </select>
+                </div>
+                <div class="container-login100-form-btn">
+                    <button class="login100-form-btn" type="submit">
+                        redefinir a senha
+                    </button>
+                </div>
+
+                <div class="text-center p-t-12">
 						<span class="txt1">
 							Lembra
 						</span>
-						<a class="txt2" href="{{ route('password.reset') }}">
-							da sua senha?
-						</a>
-					</div>
+                    <a class="txt2" href="{{ route('password.reset') }}">
+                        da sua senha?
+                    </a>
+                </div>
 
 
-					<div class="text-center p-t-136">
-						<a class="txt2" href="#">
-							Contacta o Suporte Técnico
-							<i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
-						</a>
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
-	
-	
+                <div class="text-center p-t-136">
+                    <a class="txt2" href="#">
+                        Contacta o Suporte Técnico
+                        <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
-	
-<!--===============================================================================================-->	
-	<script src="{{asset('assets/login/vendor/jquery/jquery-3.2.1.min.js')}}"></script>
+
 <!--===============================================================================================-->
-	<script src="{{asset('assets/login/vendor/bootstrap/js/popper.js')}}"></script>
-	<script src="{{asset('assets/login/vendor/bootstrap/js/bootstrap.min.js')}}"></script>
+<script src="{{asset('assets/login/vendor/jquery/jquery-3.2.1.min.js')}}"></script>
 <!--===============================================================================================-->
-	<script src="{{asset('assets/login/vendor/select2/select2.min.js')}}"></script>
+<script src="{{asset('assets/login/vendor/bootstrap/js/popper.js')}}"></script>
+<script src="{{asset('assets/login/vendor/bootstrap/js/bootstrap.min.js')}}"></script>
 <!--===============================================================================================-->
-	<script src="{{asset('assets/login/vendor/tilt/tilt.jquery.min.js')}}"></script>
-	<script >
-		$('.js-tilt').tilt({
-			scale: 1.1
-		})
-	</script>
+<script src="{{asset('assets/login/vendor/select2/select2.min.js')}}"></script>
+<!--===============================================================================================-->
+<script src="{{asset('assets/login/vendor/tilt/tilt.jquery.min.js')}}"></script>
+<script>
+    $('.js-tilt').tilt({
+        scale: 1.1
+    })
+</script>
 
 <script>
     function togglePasswordVisibility() {
@@ -157,7 +144,7 @@
     }
 </script>
 <!--===============================================================================================-->
-	<script src="{{asset('assets/login/js/main.js')}}"></script>
+<script src="{{asset('assets/login/js/main.js')}}"></script>
 
 </body>
 </html>

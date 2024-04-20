@@ -137,12 +137,19 @@ class FaturaOutroServico
     {
         return $this->getTotal() / $this->getCambioDia();
     }
+    public function getValorLiquido(){
+        return $this->getDesconto() + $this->getValorIliquido();
+    }
+    public function getDesconto(){
+       return 0;
+    }
     public function getValorIliquido()
     {
         $total = 0;
         foreach ($this->getItems() as $item) {
             $total += $item->getTotal();
         }
+        $total = $total - $this->getDesconto();
         return $total;
     }
     public function getValorImposto()

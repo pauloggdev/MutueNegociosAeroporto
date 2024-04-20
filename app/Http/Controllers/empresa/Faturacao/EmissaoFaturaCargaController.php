@@ -50,6 +50,7 @@ class EmissaoFaturaCargaController extends Component
         'moedaPagamento' => 'AOA',
         'observacao' => null,
         'isencaoIVA' => false,
+        'isencaoCargaTransito' => false,
         'retencao' => false,
         'taxaRetencao' => 0,
         'valorRetencao' => 0,
@@ -67,6 +68,8 @@ class EmissaoFaturaCargaController extends Component
         'taxaIva' => 0,
         'cambioDia' => 0,
         'contraValor' => 0,
+        'valorliquido' => 0,
+        'valorDesconto' => 0,
         'valorIliquido' => 0,
         'valorImposto' => 0,
         'moeda' => null,
@@ -89,11 +92,12 @@ class EmissaoFaturaCargaController extends Component
 
     public function selectedItem($item)
     {
-        if($item['atributo'] == 'clienteId'){
+        if ($item['atributo'] == 'clienteId') {
             $this->updatedFaturaClienteId($item['valor']);
         }
         $this->fatura[$item['atributo']] = $item['valor'];
     }
+
     public function mount()
     {
         $moedaEstrageiraUsado = new GetParametroPeloLabelNoParametro(new DatabaseRepositoryFactory());
@@ -136,6 +140,7 @@ class EmissaoFaturaCargaController extends Component
             'tipoOperacao' => 1, //Importação
             'observacao' => null,
             'isencaoIVA' => false,
+            'isencaoCargaTransito' => false,
             'retencao' => false,
             'taxaRetencao' => 0,
             'valorRetencao' => 0,
@@ -153,6 +158,8 @@ class EmissaoFaturaCargaController extends Component
             'taxaIva' => 0,
             'cambioDia' => 0,
             'contraValor' => 0,
+            'valorliquido' => 0,
+            'valorDesconto' => 0,
             'valorIliquido' => 0,
             'valorImposto' => 0,
             'moeda' => null,
@@ -169,7 +176,40 @@ class EmissaoFaturaCargaController extends Component
         $this->especificaoMercadorias = DB::table('especificacao_mercadorias')->get();
         return view("empresa.facturacao.createAeroportoCarga");
     }
-    public function updatedFaturaIsencaoIVA(){
+
+    public function updatedFaturaIsencaoIVA()
+    {
+        $this->fatura['taxaRetencao'] = 0;
+        $this->fatura['valorRetencao'] = 0;
+        $this->fatura['taxaIva'] = 0;
+        $this->fatura['cambioDia'] = 0;
+        $this->fatura['contraValor'] = 0;
+        $this->fatura['valorliquido'] = 0;
+        $this->fatura['valorDesconto'] = 0;
+        $this->fatura['valorIliquido'] = 0;
+        $this->fatura['valorImposto'] = 0;
+        $this->fatura['moeda'] = null;
+        $this->fatura['total'] = 0;
+        $this->fatura['items'] = [];
+    }
+    public function updatedFaturaIsencaoCargaTransito()
+    {
+        $this->fatura['taxaRetencao'] = 0;
+        $this->fatura['valorRetencao'] = 0;
+        $this->fatura['taxaIva'] = 0;
+        $this->fatura['cambioDia'] = 0;
+        $this->fatura['contraValor'] = 0;
+        $this->fatura['valorliquido'] = 0;
+        $this->fatura['valorDesconto'] = 0;
+        $this->fatura['valorIliquido'] = 0;
+        $this->fatura['valorImposto'] = 0;
+        $this->fatura['moeda'] = null;
+        $this->fatura['total'] = 0;
+        $this->fatura['items'] = [];
+    }
+
+    public function updatedFaturaRetencao()
+    {
         $this->fatura['taxaRetencao'] = 0;
         $this->fatura['valorRetencao'] = 0;
         $this->fatura['taxaIva'] = 0;
@@ -181,18 +221,7 @@ class EmissaoFaturaCargaController extends Component
         $this->fatura['total'] = 0;
         $this->fatura['items'] = [];
     }
-    public function updatedFaturaRetencao(){
-        $this->fatura['taxaRetencao'] = 0;
-        $this->fatura['valorRetencao'] = 0;
-        $this->fatura['taxaIva'] = 0;
-        $this->fatura['cambioDia'] = 0;
-        $this->fatura['contraValor'] = 0;
-        $this->fatura['valorIliquido'] = 0;
-        $this->fatura['valorImposto'] = 0;
-        $this->fatura['moeda'] = null;
-        $this->fatura['total'] = 0;
-        $this->fatura['items'] = [];
-    }
+
     public function updatedFaturaClienteId($clienteId)
     {
         $cliente = DB::table('clientes')->where('id', $clienteId)
@@ -204,6 +233,7 @@ class EmissaoFaturaCargaController extends Component
         $this->fatura['emailCliente'] = $cliente->email;
         $this->fatura['enderecoCliente'] = $cliente->endereco;
     }
+
     public function removeCart($item)
     {
         foreach ($this->fatura['items'] as $key => $itemCart) {
@@ -214,7 +244,8 @@ class EmissaoFaturaCargaController extends Component
         $this->calculadoraTotal();
     }
 
-    public function dataErrada(){
+    public function dataErrada()
+    {
         $dataEntrada = new \DateTime($this->fatura['dataEntrada']);
         $dataSaida = new \DateTime($this->fatura['dataSaida']);
         return $dataEntrada > $dataSaida;
@@ -255,7 +286,7 @@ class EmissaoFaturaCargaController extends Component
             return;
         }
 
-        if($this->dataErrada()){
+        if ($this->dataErrada()) {
             $this->confirm('A data de entrada não deve ser maior que data de saída', [
                 'showConfirmButton' => false,
                 'showCancelButton' => false,
@@ -271,12 +302,14 @@ class EmissaoFaturaCargaController extends Component
 
         $this->calculadoraTotal();
     }
-    public function updatedFaturaTipoDocumento($tipoDocumento){
-        if($tipoDocumento == 1){
+
+    public function updatedFaturaTipoDocumento($tipoDocumento)
+    {
+        if ($tipoDocumento == 1) {
             $this->fatura['formaPagamentoId'] = 1;
             $getFormaPagamentoByFaturacao = new GetFormasPagamentoByFaturacao(new DatabaseRepositoryFactory());
             $this->formasPagamentos = $getFormaPagamentoByFaturacao->execute();
-        }else{
+        } else {
             $this->fatura['formaPagamentoId'] = null;
             $this->formasPagamentos = [];
         }
@@ -284,23 +317,20 @@ class EmissaoFaturaCargaController extends Component
         $fatura = $simuladorFaturaCarga->execute($this->fatura);
         $this->fatura = $this->conversorModelParaArray($fatura);
     }
-    public function updatedFaturaFormaPagamentoId($formaPagamentoId){
+
+    public function updatedFaturaFormaPagamentoId($formaPagamentoId)
+    {
         $this->fatura['formaPagamentoId'] = $formaPagamentoId;
         $simuladorFaturaCarga = new SimuladorFaturaCargaAeroporto(new DatabaseRepositoryFactory());
         $fatura = $simuladorFaturaCarga->execute($this->fatura);
         $this->fatura = $this->conversorModelParaArray($fatura);
     }
-
     public function calculadoraTotal()
     {
         $simuladorFaturaCarga = new SimuladorFaturaCargaAeroporto(new DatabaseRepositoryFactory());
         $fatura = $simuladorFaturaCarga->execute($this->fatura);
         $this->fatura = $this->conversorModelParaArray($fatura);
     }
-//    public function updatedFaturaPeso($peso){
-//        dd($peso);
-//    }
-
     private function isCart($item)
     {
         $items = collect($this->fatura['items']);
@@ -317,6 +347,7 @@ class EmissaoFaturaCargaController extends Component
             'tipoOperacao' => $output->getTipoOperacao(),
             'formaPagamentoId' => $output->getFormaPagamentoId(),
             'isencaoIVA' => $output->getIsencaoIVA(),
+            'isencaoCargaTransito' => $output->getIsencaoCargaTransito(),
             'retencao' => $output->getRetencao(),
             'taxaRetencao' => $output->getTaxaRetencao(),
             'valorRetencao' => $output->getValorRetencao(),
@@ -334,6 +365,8 @@ class EmissaoFaturaCargaController extends Component
             'taxaIva' => $output->getTaxaIva(),
             'cambioDia' => $output->getCambioDia(),
             'contraValor' => $output->getContraValor(),
+            'valorliquido' => $output->getValorLiquido(),
+            'valorDesconto' => $output->getDesconto(),
             'valorIliquido' => $output->getValorIliquido(),
             'valorImposto' => $output->getValorImposto(),
             'moeda' => $output->getMoeda(),
@@ -361,11 +394,11 @@ class EmissaoFaturaCargaController extends Component
         }
         return $fatura;
     }
+
     public function hydrate()
     {
         $this->emit('select2');
     }
-
 
 
     public function emitirDocumento()
@@ -427,7 +460,7 @@ class EmissaoFaturaCargaController extends Component
         $data1 = new \DateTime($dataEntrada);
         $data2 = new \DateTime($dataSaida);
         $diferenca = $data1->diff($data2);
-        return $diferenca->days <=0 ? 1 : $diferenca->days;
+        return $diferenca->days <= 0 ? 1 : $diferenca->days;
     }
 
     public function updatedFaturaDataSaida($dataSaida)
@@ -436,8 +469,5 @@ class EmissaoFaturaCargaController extends Component
             $dataEntrada = $this->fatura['dataEntrada'];
             $this->fatura['nDias'] = $this->diff($dataEntrada, $dataSaida);
         }
-
     }
-
-
 }

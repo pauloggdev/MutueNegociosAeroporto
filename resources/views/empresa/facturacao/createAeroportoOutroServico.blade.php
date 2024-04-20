@@ -86,19 +86,6 @@
                                                                 </li>
                                                             </div>
                                                             <div class="form-group">
-                                                                <div>
-                                                                    <input type="text"
-                                                                           wire:model="fatura.nomeProprietario"
-                                                                           style="width: 100%;<?= $errors->has('fatura.nomeProprietario') ? 'border-color: #ff9292;' : '' ?>"
-                                                                           placeholder="Companhia Aérea/Operadora..."/>
-                                                                    @if ($errors->has('fatura.nomeProprietario'))
-                                                                        <span style="color: red; font-weight: bold">
-                                                                            <strong>{{ $errors->first('fatura.nomeProprietario') }}</strong>
-                                                                        </span>
-                                                                    @endif
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group">
                                                                 <label>Observação</label>
                                                                 <div>
                                                                     <input type="text" style="width: 100%" wire:model="fatura.observacao" placeholder="Observação..."/>
@@ -280,6 +267,22 @@
                                                 </div>
                                             </div>
                                             <div class="hr hr8 hr-double hr-dotted"></div>
+                                            <div class="row" style="margin-bottom: 5px">
+                                                <div class="col-sm-5 pull-right">
+                                                    <h8 class="pull-right">
+                                                        VALOR LIQUIDO(AOA) :
+                                                        <span>{{ number_format($fatura['valorliquido'], 2,',','.') }}Kz</span>
+                                                    </h8>
+                                                </div>
+                                            </div>
+                                            <div class="row" style="margin-bottom: 5px">
+                                                <div class="col-sm-5 pull-right">
+                                                    <h8 class="pull-right">
+                                                        VALOR DESCONTO(AOA) :
+                                                        <span>{{ number_format($fatura['valorDesconto'], 2,',','.') }}Kz</span>
+                                                    </h8>
+                                                </div>
+                                            </div>
 
                                             <div class="row" style="margin-bottom: 5px">
                                                 <div class="col-sm-5 pull-right">

@@ -411,7 +411,22 @@
                                                 </div>
                                             </div>
                                             <div class="hr hr8 hr-double hr-dotted"></div>
-
+                                            <div class="row" style="margin-bottom: 5px">
+                                                <div class="col-sm-5 pull-right">
+                                                    <h8 class="pull-right">
+                                                        VALOR LIQUIDO(AOA) :
+                                                        <span>{{ number_format($fatura['valorliquido'], 2,',','.') }}Kz</span>
+                                                    </h8>
+                                                </div>
+                                            </div>
+                                            <div class="row" style="margin-bottom: 5px">
+                                                <div class="col-sm-5 pull-right">
+                                                    <h8 class="pull-right">
+                                                        VALOR DESCONTO(AOA) :
+                                                        <span>{{ number_format($fatura['valorDesconto'], 2,',','.') }}Kz</span>
+                                                    </h8>
+                                                </div>
+                                            </div>
                                             <div class="row" style="margin-bottom: 5px">
                                                 <div class="col-sm-5 pull-right">
                                                     <h8 class="pull-right">

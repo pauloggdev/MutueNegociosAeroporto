@@ -87,17 +87,8 @@ a[x-apple-data-detectors] {
            <table class="es-header-body" cellspacing="0" cellpadding="0" align="center" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;background-color:#E6EBEF;width:600px">
              <tr style="border-collapse:collapse">
               <td align="left" style="padding:20px;Margin:0">
-               <table width="100%" cellspacing="0" cellpadding="0" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
-                 <tr style="border-collapse:collapse">
-                  <td valign="top" align="center" style="padding:0;Margin:0;width:560px">
-                   <table width="100%" cellspacing="0" cellpadding="0" role="presentation" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
-                     <tr style="border-collapse:collapse">
-                      <td align="center" style="padding:0;Margin:0;font-size:0px"><a href="http://localhost:8000/mutuenegocio" target="_blank" class="rollover" style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;font-size:14px;text-decoration:none;color:#677D9E"><img src="https://izynpm.stripocdn.email/content/guids/CABINET_3197da5f650c22edd44807a7704f1fb0/images/76971613649271563.jpg" alt="Financial logo" title="Financial logo" style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic" class="rollover-first" height="111">
-                        <div style="font-size:0;mso-hide:all">
-                         <img alt="Financial logo" title="Financial logo" class="rollover-second" style="display:none;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic;max-height:0px" src="https://izynpm.stripocdn.email/content/guids/CABINET_3197da5f650c22edd44807a7704f1fb0/images/92161613649258769.jpg" height="111">
-                        </div></a></td>
-                     </tr>
-                   </table></td>
+              <h5>Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto</h5>
+               </td>
                  </tr>
                </table></td>
              </tr>

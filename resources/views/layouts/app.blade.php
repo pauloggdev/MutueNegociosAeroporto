@@ -432,18 +432,18 @@ if (Auth::guard('web')->check()) {
                             </a>
                             <b class="arrow"></b>
                         </li>
-{{--                        <li class="hover">--}}
-{{--                            <a href="/empresa/emissao/fatura/outros/servicos">--}}
-{{--                                <i class="menu-icon fa fa-wpforms"></i>OUTROS SERVIÇOS--}}
-{{--                            </a>--}}
-{{--                            <b class="arrow"></b>--}}
-{{--                        </li>--}}
-{{--                        <li class="hover">--}}
-{{--                            <a href="/empresa/emissao/fatura/servicos/comerciais">--}}
-{{--                                <i class="menu-icon fa fa-wpforms"></i>SERVIÇOS - COMERCIAIS--}}
-{{--                            </a>--}}
-{{--                            <b class="arrow"></b>--}}
-{{--                        </li>--}}
+                        <li class="hover">
+                            <a href="/empresa/emissao/fatura/outros/servicos">
+                                <i class="menu-icon fa fa-wpforms"></i>OUTROS SERVIÇOS
+                            </a>
+                            <b class="arrow"></b>
+                        </li>
+                        <li class="hover">
+                            <a href="/empresa/emissao/fatura/servicos/comerciais">
+                                <i class="menu-icon fa fa-wpforms"></i>SERVIÇOS - COMERCIAIS
+                            </a>
+                            <b class="arrow"></b>
+                        </li>
                         <li class="hover">
                             <a href="/empresa/facturas/cargas">
                                 <i class="menu-icon fa fa-list"></i>
@@ -458,13 +458,20 @@ if (Auth::guard('web')->check()) {
                             </a>
                             <b class="arrow"></b>
                         </li>
-{{--                        <li class="hover">--}}
-{{--                            <a href="/empresa/facturas/outros/servicos">--}}
-{{--                                <i class="menu-icon fa fa-list"></i>--}}
-{{--                                FATURAS - OUTROS SERVIÇOS--}}
-{{--                            </a>--}}
-{{--                            <b class="arrow"></b>--}}
-{{--                        </li>--}}
+                        <li class="hover">
+                            <a href="/empresa/facturas/outros/servicos">
+                                <i class="menu-icon fa fa-list"></i>
+                                OUTROS SERVIÇOS
+                            </a>
+                            <b class="arrow"></b>
+                        </li>
+                        <li class="hover">
+                            <a href="/empresa/facturas/servico/comerciais">
+                                <i class="menu-icon fa fa-list"></i>
+                                SERVIÇOS COMERCIAIS
+                            </a>
+                            <b class="arrow"></b>
+                        </li>
                     </ul>
                 </li>
 
@@ -606,9 +613,9 @@ if (Auth::guard('web')->check()) {
                     </a>
                     <ul class="submenu">
                         <li class="hover">
-                            <a href="{{route('relatorio.gerais')}}">
-                                <i class="menu-icon fa fa-file-text"></i>
-                                RELATÓRIO GERAL
+                            <a href=" /empresa/gerarSaft">
+                                <i class="menu-icon fa fa-caret-right"></i>
+                                GERAR O FICHEIRO SAFT
                             </a>
                             <b class="arrow"></b>
                         </li>

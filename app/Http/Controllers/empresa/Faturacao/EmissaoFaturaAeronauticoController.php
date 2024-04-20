@@ -70,6 +70,8 @@ class EmissaoFaturaAeronauticoController extends Component
         'taxaIva' => 0,
         'cambioDia' => 0,
         'contraValor' => 0,
+        'valorliquido' => 0,
+        'valorDesconto' => 0,
         'valorIliquido' => 0,
         'valorImposto' => 0,
         'total' => 0,
@@ -105,6 +107,8 @@ class EmissaoFaturaAeronauticoController extends Component
         $this->fatura['taxaIva'] = 0;
         $this->fatura['cambioDia'] = 0;
         $this->fatura['contraValor'] = 0;
+        $this->fatura['valorliquido'] = 0;
+        $this->fatura['valorDesconto'] = 0;
         $this->fatura['valorIliquido'] = 0;
         $this->fatura['valorImposto'] = 0;
         $this->fatura['moeda'] = null;
@@ -120,6 +124,8 @@ class EmissaoFaturaAeronauticoController extends Component
         $this->fatura['taxaIva'] = 0;
         $this->fatura['cambioDia'] = 0;
         $this->fatura['contraValor'] = 0;
+        $this->fatura['valorliquido'] = 0;
+        $this->fatura['valorDesconto'] = 0;
         $this->fatura['valorIliquido'] = 0;
         $this->fatura['valorImposto'] = 0;
         $this->fatura['moeda'] = null;
@@ -310,6 +316,8 @@ class EmissaoFaturaAeronauticoController extends Component
             'taxaIva' => $output->getTaxaIva(),
             'cambioDia' => $output->getCambioDia(),
             'contraValor' => $output->getContraValor(),
+            'valorliquido' => $output->getValorLiquido(),
+            'valorDesconto' => $output->getDesconto(),
             'valorIliquido' => $output->getValorIliquido(),
             'valorImposto' => $output->getValorImposto(),
             'total' => $output->getTotal(),
@@ -468,6 +476,8 @@ class EmissaoFaturaAeronauticoController extends Component
             'taxaIva' => 0,
             'cambioDia' => 0,
             'contraValor' => 0,
+            'valorliquido' => 0,
+            'valorDesconto' => 0,
             'valorIliquido' => 0,
             'valorImposto' => 0,
             'total' => 0,

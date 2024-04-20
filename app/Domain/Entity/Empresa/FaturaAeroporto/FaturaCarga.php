@@ -9,6 +9,7 @@ class FaturaCarga
     private $tipoOperacao;
     private $formaPagamentoId;
     private $isencaoIVA;
+    private $isencaoCargaTransito;
     private $retencao;
     private $valorRetencao;
     private $clienteId;
@@ -29,13 +30,14 @@ class FaturaCarga
     private $observacao;
     private $items = [];
 
-    public function __construct($cartaDePorte, $tipoDocumento, $tipoOperacao, $formaPagamentoId, $isencaoIVA, $retencao, $valorRetencao, $clienteId, $nomeCliente, $nomeProprietario, $telefoneCliente, $nifCliente, $emailCliente, $enderecoCliente, $peso, $dataEntrada, $dataSaida, $nDias, $taxaIva, $cambioDia, $moedaEstrageiraUsado, $moedaPagamento, $observacao)
+    public function __construct($cartaDePorte, $tipoDocumento, $tipoOperacao, $formaPagamentoId, $isencaoIVA,$isencaoCargaTransito, $retencao, $valorRetencao, $clienteId, $nomeCliente, $nomeProprietario, $telefoneCliente, $nifCliente, $emailCliente, $enderecoCliente, $peso, $dataEntrada, $dataSaida, $nDias, $taxaIva, $cambioDia, $moedaEstrageiraUsado, $moedaPagamento, $observacao)
     {
         $this->cartaDePorte = $cartaDePorte;
         $this->tipoDocumento = $tipoDocumento;
         $this->tipoOperacao = $tipoOperacao;
         $this->formaPagamentoId = $formaPagamentoId;
         $this->isencaoIVA = $isencaoIVA;
+        $this->isencaoCargaTransito = $isencaoCargaTransito;
         $this->retencao = $retencao;
         $this->valorRetencao = $valorRetencao;
         $this->clienteId = $clienteId;
@@ -118,6 +120,13 @@ class FaturaCarga
         return $this->formaPagamentoId;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getIsencaoCargaTransito()
+    {
+        return $this->isencaoCargaTransito;
+    }
 
     public function getIsencaoIVA()
     {
@@ -222,6 +231,16 @@ class FaturaCarga
     {
         return $this->items;
     }
+    public function getValorLiquido(){
+        return $this->getDesconto() + $this->getValorIliquido();
+    }
+    public function getDesconto(){
+        $total = 0;
+        foreach ($this->getItems() as $item){
+            $total += $item->getValorDesconto();
+        }
+        return $total;
+    }
 
     public function getValorIliquido()
     {
@@ -229,6 +248,7 @@ class FaturaCarga
         foreach ($this->getItems() as $item) {
             $total += $item->getTotal();
         }
+        $total = $total - $this->getDesconto();
         return $total;
     }
 
