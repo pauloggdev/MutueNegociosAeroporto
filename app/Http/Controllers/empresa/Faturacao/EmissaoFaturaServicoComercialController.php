@@ -59,6 +59,7 @@ class EmissaoFaturaServicoComercialController extends Component
         'unidadeMetrica' => null,
         'qtdMeses' => null,
         'addArCondicionado' => false,
+        'tarifaConsumo' => true,
         'totalDesconto' => 0,
         'retencao' => false,
         'taxaRetencao' => 0,
@@ -77,6 +78,8 @@ class EmissaoFaturaServicoComercialController extends Component
         'valorDesconto' => 0,
         'valorIliquido' => 0,
         'valorImposto' => 0,
+        'taxaImpostoPredial' => 0,
+        'valorImpostoPredial' => 0,
         'total' => 0,
         'items' => []
     ];
@@ -112,6 +115,8 @@ class EmissaoFaturaServicoComercialController extends Component
         $this->fatura['valorDesconto'] = 0;
         $this->fatura['valorIliquido'] = 0;
         $this->fatura['valorImposto'] = 0;
+        $this->fatura['taxaImpostoPredial'] = 0;
+        $this->fatura['valorImpostoPredial'] = 0;
         $this->fatura['moeda'] = null;
         $this->fatura['total'] = 0;
         $this->fatura['items'] = [];
@@ -120,22 +125,22 @@ class EmissaoFaturaServicoComercialController extends Component
     public function updatedFaturaAddArCondicionado($addArCondicionado)
     {
 //        $this->resetField();
-        $this->fatura['addArCondicionado'] = $addArCondicionado;
-        if ($addArCondicionado) {
-            $this->fatura['isencaoOcupacao'] = false;
-        }
+//        $this->fatura['addArCondicionado'] = $addArCondicionado;
+//        if ($addArCondicionado) {
+//            $this->fatura['isencaoOcupacao'] = false;
+//        }
     }
 
-    public function updatedFaturaIsencaoOcupacao($isencaoOcupacao)
-    {
-        $this->resetField();
-        $this->fatura['isencaoOcupacao'] = $isencaoOcupacao;
-        if ($isencaoOcupacao) {
-            $this->fatura['addArCondicionado'] = false;
-        }
-
-
-    }
+//    public function updatedFaturaIsencaoOcupacao($isencaoOcupacao)
+//    {
+//        $this->resetField();
+//        $this->fatura['isencaoOcupacao'] = $isencaoOcupacao;
+//        if ($isencaoOcupacao) {
+//            $this->fatura['addArCondicionado'] = false;
+//        }
+//
+//
+//    }
 
     public function updatedFaturaRetencao()
     {
@@ -148,6 +153,8 @@ class EmissaoFaturaServicoComercialController extends Component
         $this->fatura['valorDesconto'] = 0;
         $this->fatura['valorIliquido'] = 0;
         $this->fatura['valorImposto'] = 0;
+        $this->fatura['taxaImpostoPredial'] = 0;
+        $this->fatura['valorImpostoPredial'] = 0;
         $this->fatura['moeda'] = null;
         $this->fatura['total'] = 0;
         $this->fatura['items'] = [];
@@ -220,8 +227,11 @@ class EmissaoFaturaServicoComercialController extends Component
     public function removeCart($item)
     {
         foreach ($this->fatura['items'] as $key => $itemCart) {
-            $SERVICOS_ARCONDICIONADO = 37;
-            if (($this->fatura['isencaoOcupacao'] || $this->fatura['addArCondicionado']) && ($item['produtoId'] == $SERVICOS_ARCONDICIONADO)) {
+            $SERVICOS_ARCONDICIONADO = 39;
+            $TARIFACONSUMO = 44;
+            if ($TARIFACONSUMO) {
+                $this->fatura['items'] = [];
+            } else if (($this->fatura['isencaoOcupacao'] || $this->fatura['addArCondicionado']) && ($item['produtoId'] == $SERVICOS_ARCONDICIONADO)) {
                 $this->fatura['items'] = [];
             } else if ($itemCart['produtoId'] == $item['produtoId']) {
                 unset($this->fatura['items'][$key]);
@@ -241,8 +251,8 @@ class EmissaoFaturaServicoComercialController extends Component
             return;
         }
         $produtoData = json_decode($this->item['produto']);
-        $SERVICO_PUBLICIDADE = 38;
-        $SERVICOS_OCUPACAO = $produtoData->id >= 28 && $produtoData->id <= 36;
+        $SERVICO_PUBLICIDADE = 40;
+        $SERVICOS_OCUPACAO = $produtoData->id >= 28 && $produtoData->id <= 38;
 
         if ($produtoData->id == $SERVICO_PUBLICIDADE || $SERVICOS_OCUPACAO) {
             $rules = [
@@ -274,6 +284,7 @@ class EmissaoFaturaServicoComercialController extends Component
 //            ]);
 //            return;
 //        }
+
         $produto = json_decode($this->item['produto']);
         $this->item['nomeProduto'] = $produto->designacao;
         $this->item['produtoId'] = $produto->id;
@@ -284,9 +295,27 @@ class EmissaoFaturaServicoComercialController extends Component
         $this->item['dataEntradaEstacionamento'] = $this->fatura['dataEntradaEstacionamento'];
         $this->item['dataSaidaEstacionamento'] = $this->fatura['dataSaidaEstacionamento'];
         $this->item['qtdMeses'] = $this->fatura['qtdMeses'];
+//        if ($this->fatura['tarifaConsumo'] && $SERVICOS_OCUPACAO) {
 
+        $SERVICOS_GABINETE = $produtoData->id == 30 || $produtoData->id == 32 || $produtoData->id == 34 || $produtoData->id == 37;
+
+        $SERVICOS_CONSUMO = 44;
+        $servidoConsumo = DB::table('produtos')->where('id', $SERVICOS_CONSUMO)->first();
+        if ($this->isExistServico($servidoConsumo->id) === false && $SERVICOS_GABINETE) {
+//            $this->fatura['items'][] = (array)$this->item;
+            $item['produto'] = json_encode($servidoConsumo);
+            $item['nomeProduto'] = $servidoConsumo->designacao;
+            $item['produtoId'] = $servidoConsumo->id;
+            $item['taxa'] = 0;
+            $item['unidadeMetrica'] = 0;
+            $item['addArCondicionado'] = false;
+            $item['qtdMeses'] = null;
+            $this->fatura['items'][] = (array)$item;
+        }
+
+//        }
         if (($this->fatura['isencaoOcupacao'] || $this->fatura['addArCondicionado']) && $SERVICOS_OCUPACAO) {
-            $SERVICOS_ARCONDICIONADO = 37;
+            $SERVICOS_ARCONDICIONADO = 39;
             $servidoArcondicionado = DB::table('produtos')->where('id', $SERVICOS_ARCONDICIONADO)->first();
             $this->fatura['items'][] = (array)$this->item;
             $item['produto'] = json_encode($servidoArcondicionado);
@@ -296,7 +325,7 @@ class EmissaoFaturaServicoComercialController extends Component
             $item['unidadeMetrica'] = 0;
             $item['addArCondicionado'] = true;
             $item['qtdMeses'] = null;
-            if ($this->isExistServicoArCondicionado($item['produtoId']) === false) {
+            if ($this->isExistServico($item['produtoId']) === false) {
                 $this->fatura['items'][] = (array)$item;
             }
         } else {
@@ -306,11 +335,14 @@ class EmissaoFaturaServicoComercialController extends Component
         $this->resetQtdMesesAndUnidades();
         $this->calculadoraTotal();
     }
-    public function resetQtdMesesAndUnidades(){
+
+    public function resetQtdMesesAndUnidades()
+    {
         $this->fatura['qtdMeses'] = null;
         $this->fatura['unidadeMetrica'] = null;
     }
-    public function isExistServicoArCondicionado($produtoId)
+
+    public function isExistServico($produtoId)
     {
         $items = collect($this->fatura['items']);
         $posicao = $items->search(function ($produto) use ($produtoId) {
@@ -318,6 +350,7 @@ class EmissaoFaturaServicoComercialController extends Component
         });
         return $posicao;
     }
+
     function array_sort($array, $on, $order = SORT_ASC)
     {
         $new_array = array();
@@ -367,6 +400,7 @@ class EmissaoFaturaServicoComercialController extends Component
 
     private function conversorModelParaArray(FaturaServicoComercial $output)
     {
+
         $fatura = [
             'dataEntradaEstacionamento' => $output->getDataEntradaEstacionamento(),
             'dataSaidaEstacionamento' => $output->getDataSaidaEstacionamento(),
@@ -381,6 +415,7 @@ class EmissaoFaturaServicoComercialController extends Component
             'observacao' => $output->getObservacao(),
             'isencaoIVA' => $output->getIsencaoIVA(),
             'isencaoOcupacao' => $output->getIsencaoOcupacao(),
+            'tarifaConsumo' => $output->getTarifaConsumo(),
             'retencao' => $output->getRetencao(),
             'taxaRetencao' => $output->getTaxaRetencao(),
             'valorRetencao' => $output->getValorRetencao(),
@@ -393,15 +428,18 @@ class EmissaoFaturaServicoComercialController extends Component
             'enderecoCliente' => $output->getEnderecoCliente(),
             'taxaIva' => $output->getTaxaIva(),
             'cambioDia' => $output->getCambioDia(),
+            'valorConsumo' => $output->getTotalTarifaConsumo(),
             'contraValor' => $output->getContraValor(),
             'valorliquido' => $output->getValorLiquido(),
             'valorDesconto' => $output->getDesconto(),
             'valorIliquido' => $output->getValorIliquido(),
             'valorImposto' => $output->getValorImposto(),
+            'taxaImpostoPredial' => $output->getTaxaImpostoPredial(),
+            'valorImpostoPredial' => $output->getValorImpostoPredial(),
             'total' => $output->getTotal(),
             'items' => []
         ];
-        foreach ($output->getItems() as $item) {
+        foreach ($output->getItems() as $key => $item) {
             array_push($fatura['items'], [
                 'produtoId' => $item->getProdutoId(),
                 'quantidade' => 1,
@@ -409,6 +447,8 @@ class EmissaoFaturaServicoComercialController extends Component
                 'nomeProduto' => $item->getNomeProduto(),
                 'valorIva' => $item->getValorIva(),
                 'taxaIva' => $item->getTaxaIva(),
+                'taxaImpostoPredial'=> $item->getTaxaImpostoPredial(),
+                'valorImpostoPredial'=> $item->getValorImpostoPredial(),
                 'considera1hDepois30min' => $item->getConsidera1hDepois30min(),
                 'taxa' => $item->getTaxa(),
                 'unidadeMetrica' => $item->getUnidadeMetrica(),
@@ -416,6 +456,7 @@ class EmissaoFaturaServicoComercialController extends Component
                 'desconto' => $item->getValorDesc(),
                 'cambioDia' => $item->getCambioDia(),
                 'total' => $item->getTotal(),
+                'valorConsumo' => $item->getTotal(),
                 'totalIva' => $item->getTotalIva(),
                 'descHoraEstacionamento' => $item->getDescHoraEstacionamento(),
                 'dataEntradaEstacionamento' => $item->getDataEntradaEstacionamento(),
@@ -511,6 +552,7 @@ class EmissaoFaturaServicoComercialController extends Component
             'totalDesconto' => 0,
             'isencaoIVA' => false,
             'isencaoOcupacao' => false,
+            'tarifaConsumo' => true,
             'retencao' => false,
             'taxaRetencao' => 0,
             'valorRetencao' => 0,
@@ -536,6 +578,8 @@ class EmissaoFaturaServicoComercialController extends Component
             'valorDesconto' => 0,
             'valorIliquido' => 0,
             'valorImposto' => 0,
+            'taxaImpostoPredial' => 0,
+            'valorImpostoPredial' => 0,
             'total' => 0,
             'items' => []
         ];

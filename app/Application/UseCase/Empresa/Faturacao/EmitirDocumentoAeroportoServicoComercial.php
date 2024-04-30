@@ -86,6 +86,8 @@ class EmitirDocumentoAeroportoServicoComercial
         $signaturePlaintext = $rsa->sign($plaintext); //Assinando o texto $plaintext(resultado das concatenaÃ§Ãµes)
         $hashValor = base64_encode($signaturePlaintext);
 
+
+
         $faturaId = DB::table('facturas')->insertGetId([
             'texto_hash' => $plaintext,
             'tipo_documento' => $request->tipoDocumento,
@@ -112,10 +114,13 @@ class EmitirDocumentoAeroportoServicoComercial
             'tipoDocumento' => $request->tipoDocumento,
             'taxaIva' => $request->taxaIva,
             'cambioDia' => $request->cambioDia,
+            'valorConsumo' => $request->valorConsumo,
             'contraValor' => $request->contraValor,
             'valorIliquido' => $request->valorIliquido,
             'valorliquido' => $request->valorliquido,
             'valorImposto' => $request->valorImposto,
+            'taxaImpostoPredial' => $request->taxaImpostoPredial,
+            'valorImpostoPredial' => $request->valorImpostoPredial,
             'totalDesconto' => $request->totalDesconto,
             'tipoFatura' => 4,
             'total' => $request->total,
@@ -141,8 +146,11 @@ class EmitirDocumentoAeroportoServicoComercial
                 'addArCondicionado' => $request->addArCondicionado ? 'Y' : 'N',
                 'qtdMeses' => $item->qtdMeses,
                 'total' => $item->total,
+                'valorConsumo' => $request->total,
                 'totalIva' => $item->totalIva,
                 'taxaIva' => $item->taxaIva,
+                'taxaImpostoPredial' => $item->taxaImpostoPredial,
+                'valorImpostoPredial' => $item->valorImpostoPredial,
                 'valorIva' => $item->valorIva,
                 'factura_id' => $faturaId,
                 'descHoraEstacionamento' => $item->descHoraEstacionamento,

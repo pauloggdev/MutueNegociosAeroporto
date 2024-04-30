@@ -106,9 +106,7 @@ class AtualizacaoEstoqueCreateController extends Component
             Log::error($e->getMessage());
             DB::rollBack();
         }
-
     }
-
     public function buscarQuantidadeAnterior($existencias)
     {
         foreach ($existencias as $existencia) {

@@ -256,7 +256,6 @@ class FaturaCarga
     {
         return ($this->getValorIliquido() * $this->getTaxaIva()) / 100;
     }
-
     public function getTotal()
     {
         return $this->getValorIliquido() + $this->getValorImposto() - $this->getValorRetencao();

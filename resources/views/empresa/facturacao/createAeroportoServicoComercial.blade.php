@@ -19,7 +19,6 @@
                                         </div>
                                         <h5>SERVIÇOS COMERCIAIS</h5>
                                     </div>
-
                                     <div class="widget-body">
                                         <div class="widget-main padding-24">
                                             <div class="row">
@@ -132,7 +131,7 @@
                                                                                    value="0,00"
                                                                                    name="money"
                                                                                    class="input-small"
-                                                                                   style="width: 100px; <?= $errors->has('fatura.qtdMeses') ? 'border-color: #ff9292;' : '' ?>"/>
+                                                                                   style="width: 80px; <?= $errors->has('fatura.qtdMeses') ? 'border-color: #ff9292;' : '' ?>"/>
                                                                             @if ($errors->has('fatura.qtdMeses'))
                                                                                 <span class="help-block"
                                                                                       style="color: red; font-weight: bold">
@@ -170,7 +169,7 @@
                                                                     <div class="form-group" style="margin-bottom: 10px">
                                                                         <label>Tipo Documento</label>
                                                                         <div>
-                                                                            <select style="width: 200px;height: 34px"
+                                                                            <select style="width: 150px;height: 34px"
                                                                                     wire:model="fatura.tipoDocumento"
                                                                                     name="ship"
                                                                                     rowid="6"
@@ -203,7 +202,7 @@
                                                                     <div class="form-group" style="margin-bottom: 10px">
                                                                         <label>Moeda</label>
                                                                         <div>
-                                                                            <select style="width: 100px;height: 34px"
+                                                                            <select style="width: 80px;height: 34px"
                                                                                     wire:model="fatura.moedaPagamento"
                                                                                     name="ship"
                                                                                     rowid="6"
@@ -216,23 +215,23 @@
                                                                         </div>
                                                                     </div>
                                                                     <div class="form-group" style="margin-left: 15px;margin-bottom: 10px">
-                                                                        <label for="addArCondicionado">Ar condicionado</label>
+                                                                        <label for="addArCondicionado">Arcondicionado</label>
                                                                         <div>
-                                                                            <input name="form-field-checkbox" <?= $fatura['isencaoOcupacao']?'disabled':''?>  wire:model="fatura.addArCondicionado" id="addArCondicionado" type="checkbox"
+                                                                            <input name="form-field-checkbox" wire:model="fatura.addArCondicionado" id="addArCondicionado" type="checkbox"
                                                                                    class="ace input-lg"/>
                                                                             <span class="lbl bigger-140"></span>
                                                                         </div>
                                                                     </div>
                                                                     <div class="form-group" style="margin-left: 15px;margin-bottom: 10px">
-                                                                        <label for="isencaoOcupacao">Isenção Ocupação</label>
+                                                                        <label for="isencaoOcupacao">Isenção/Ocupação</label>
                                                                         <div>
-                                                                            <input name="form-field-checkbox" <?= $fatura['addArCondicionado']?'disabled':''?> wire:model="fatura.isencaoOcupacao" id="isencaoOcupacao" type="checkbox"
+                                                                            <input name="form-field-checkbox" wire:model="fatura.isencaoOcupacao" id="isencaoOcupacao" type="checkbox"
                                                                                    class="ace input-lg"/>
                                                                             <span class="lbl bigger-140"></span>
                                                                         </div>
                                                                     </div>
                                                                     <div class="form-group" style="margin-left: 15px;margin-bottom: 10px">
-                                                                        <label for="isencaoIva">Isenção IVA</label>
+                                                                        <label for="isencaoIva">Isenção/IVA</label>
                                                                         <div>
                                                                             <input name="form-field-checkbox" wire:model="fatura.isencaoIVA" id="isencaoIva" type="checkbox"
                                                                                    class="ace input-lg"/>
@@ -240,7 +239,7 @@
                                                                         </div>
                                                                     </div>
                                                                     <div class="form-group" style="margin-left: 15px;margin-bottom: 10px">
-                                                                        <label for="retencao">Incluir Retenção</label>
+                                                                        <label for="retencao">Incluir/Retenção</label>
                                                                         <div>
                                                                             <input name="form-field-checkbox" wire:model="fatura.retencao" id="retencao" type="checkbox"
                                                                                    class="ace input-lg"/>
@@ -377,6 +376,22 @@
                                                     <h8 class="pull-right">
                                                         VALOR DO IMPOSTO(AOA) :
                                                         <span>{{ number_format($fatura['valorImposto'], 2,',','.') }}Kz</span>
+                                                    </h8>
+                                                </div>
+                                            </div>
+                                            <div class="row" style="margin-bottom: 5px">
+                                                <div class="col-sm-5 pull-right">
+                                                    <h8 class="pull-right">
+                                                        IP(%) :
+                                                        <span>{{ number_format($fatura['taxaImpostoPredial'], 2,',','.') }}%</span>
+                                                    </h8>
+                                                </div>
+                                            </div>
+                                            <div class="row" style="margin-bottom: 5px">
+                                                <div class="col-sm-5 pull-right">
+                                                    <h8 class="pull-right">
+                                                        VALOR DO IMPOSTO PREDIAL(AOA) :
+                                                        <span>{{ number_format($fatura['valorImpostoPredial'], 2,',','.') }}Kz</span>
                                                     </h8>
                                                 </div>
                                             </div>

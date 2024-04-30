@@ -116,7 +116,7 @@ class ProdutoRepository
             ->whereHas('produto', function ($query) use($tipoServicoId){
                 $query->where('centroCustoId', session()->get('centroCustoId'));
                 $query->where('tipoServicoId', $tipoServicoId);
-                $query->whereNotIn('id', [37]);
+                $query->whereNotIn('id', [39]);
             })->where('empresa_id', auth()->user()->empresa_id)
             ->get();
     }

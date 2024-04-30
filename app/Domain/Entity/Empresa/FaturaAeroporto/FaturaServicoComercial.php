@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Domain\Entity\Empresa\FaturaAeroporto;
 class FaturaServicoComercial
 {
@@ -13,6 +14,7 @@ class FaturaServicoComercial
     private $emailCliente;
     private $enderecoCliente;
     private $taxaIva;
+    private $taxaImpostoPredial;
     private $cambioDia;
     private $moeda;
     private $moedaPagamento;
@@ -21,11 +23,12 @@ class FaturaServicoComercial
     private $addArCondicionado;
     private $qtdMeses;
     private $isencaoOcupacao;
+    private $tarifaConsumo;
     private $dataEntradaEstacionamento;
     private $dataSaidaEstacionamento;
     private $items = [];
 
-    public function __construct($dataEntradaEstacionamento, $dataSaidaEstacionamento, $tipoDocumento, $formaPagamentoId, $observacao, $nomeProprietario, $clienteId, $nomeCliente, $telefoneCliente, $nifCliente, $emailCliente, $enderecoCliente, $taxaIva, $cambioDia, $moeda, $moedaPagamento, $isencaoIVA, $retencao, $valorRetencao, $unidadeMetrica, $addArCondicionado, $qtdMeses, $isencaoOcupacao)
+    public function __construct($dataEntradaEstacionamento, $dataSaidaEstacionamento, $tipoDocumento, $formaPagamentoId, $observacao, $nomeProprietario, $clienteId, $nomeCliente, $telefoneCliente, $nifCliente, $emailCliente, $enderecoCliente, $taxaIva, $taxaImpostoPredial, $cambioDia, $moeda, $moedaPagamento, $isencaoIVA, $retencao, $valorRetencao, $unidadeMetrica, $addArCondicionado, $qtdMeses, $isencaoOcupacao, $tarifaConsumo)
     {
         $this->dataEntradaEstacionamento = $dataEntradaEstacionamento;
         $this->dataSaidaEstacionamento = $dataSaidaEstacionamento;
@@ -40,6 +43,7 @@ class FaturaServicoComercial
         $this->emailCliente = $emailCliente;
         $this->enderecoCliente = $enderecoCliente;
         $this->taxaIva = $taxaIva;
+        $this->taxaImpostoPredial = $taxaImpostoPredial;
         $this->cambioDia = $cambioDia;
         $this->moeda = $moeda;
         $this->retencao = $retencao;
@@ -50,68 +54,90 @@ class FaturaServicoComercial
         $this->addArCondicionado = $addArCondicionado;
         $this->qtdMeses = $qtdMeses;
         $this->isencaoOcupacao = $isencaoOcupacao;
+        $this->tarifaConsumo = $tarifaConsumo;
 
     }
+
     public function addItem(FaturaItemServicoComercial $items)
     {
         $this->items[] = $items;
     }
+
     public function getTipoDocumento()
     {
         return $this->tipoDocumento;
     }
+
     public function getProprietario()
     {
         return $this->nomeProprietario;
     }
+
     public function getClienteId()
     {
         return $this->clienteId;
     }
+
     public function getNomeCliente()
     {
         return $this->nomeCliente;
     }
+
     public function getTelefoneCliente()
     {
         return $this->telefoneCliente;
     }
+
     public function getNifCliente()
     {
         return $this->nifCliente;
     }
+
     public function getEmailCliente()
     {
         return $this->emailCliente;
     }
+
     public function getEnderecoCliente()
     {
         return $this->enderecoCliente;
     }
+
     public function getMoeda()
     {
         return $this->moeda;
     }
+
     public function getMoedaPagamento()
     {
         return $this->moedaPagamento;
     }
+
     public function getFormaPagamentoId()
     {
         if ($this->getTipoDocumento() == 3) return null;
         if ($this->getTipoDocumento() == 2) return 2;
         return $this->formaPagamentoId;
     }
+
     public function getObservacao()
     {
         return $this->observacao;
     }
+
     public function getIsencaoIVA()
     {
         return $this->isencaoIVA;
     }
-    public function getIsencaoOcupacao(){
+
+    public function getIsencaoOcupacao()
+    {
         return $this->isencaoOcupacao;
+    }
+
+    public function getTarifaConsumo()
+    {
+        return $this->tarifaConsumo;
     }
 
     /**
@@ -133,8 +159,6 @@ class FaturaServicoComercial
     /**
      * @return mixed
      */
-
-
 
 
     /**
@@ -165,58 +189,91 @@ class FaturaServicoComercial
     {
         return $this->taxaIva;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getTaxaImpostoPredial()
+    {
+        return $this->taxaImpostoPredial;
+    }
+
     public function getCambioDia()
     {
         return $this->cambioDia;
     }
+
     public function getItems(): array
     {
         return $this->items;
     }
+
     public function getRetencao()
     {
         return $this->retencao;
     }
+
     public function getValorRetencao()
     {
         return ($this->getValorIliquido() * $this->getTaxaRetencao()) / 100;
     }
+
     public function getContraValor()
     {
         return $this->getTotal() / $this->getCambioDia();
     }
+
     public function getTaxaRetencao()
     {
         return $this->valorRetencao;
     }
 
-    public function getDescontoArCondicionado(){
+    public function getDescontoArCondicionado()
+    {
         $total = 0;
-        $SERVICOARCONDICIONADO = 37;
+        $SERVICOARCONDICIONADO = 39;
         foreach ($this->getItems() as $item) {
-            if($item->getProdutoId() != $SERVICOARCONDICIONADO){
+            if ($item->getProdutoId() != $SERVICOARCONDICIONADO) {
                 $total += $item->getTotal();
             }
         }
         return $total;
     }
-    public function getValorLiquido(){
+
+    public function getTotalTarifaConsumo()
+    {
+        $total = 0;
+        $SERVICOCONSUMO = 44;
+        foreach ($this->getItems() as $item) {
+            if ($item->getProdutoId() == $SERVICOCONSUMO) {
+                $total += $item->getTotal();
+            }
+        }
+        return $total;
+    }
+
+    public function getValorLiquido()
+    {
         return $this->getDesconto() + $this->getValorIliquido();
     }
+
     public function getValorIliquido()
     {
         $total = 0;
         foreach ($this->getItems() as $item) {
             $total += $item->getTotal();
         }
-        if($this->getIsencaoOcupacao()){
+        $total += $this->getTotalTarifaConsumo();
+        if ($this->getIsencaoOcupacao()) {
             return $total - $this->getDescontoArCondicionado();
         }
         return $total;
     }
-    public function getDesconto(){
+
+    public function getDesconto()
+    {
         $total = 0;
-        foreach ($this->getItems() as $item){
+        foreach ($this->getItems() as $item) {
             $total += $item->getDesconto();
         }
         return $total;
@@ -224,10 +281,25 @@ class FaturaServicoComercial
 
     public function getValorImposto()
     {
-        return ($this->getValorIliquido() * $this->getTaxaIva()) / 100;
+
+        $total = 0;
+        foreach ($this->getItems() as $item) {
+            $total += $item->getValorIva();
+        }
+        return $total;
+//        return ($this->getValorIliquido() * $this->getTaxaIva()) / 100;
+    }
+
+    public function getValorImpostoPredial()
+    {
+        $total = 0;
+        foreach ($this->getItems() as $item) {
+            $total += $item->getValorImpostoPredial();
+        }
+        return $total;
     }
     public function getTotal()
     {
-        return $this->getValorIliquido() + $this->getValorImposto() - $this->getValorRetencao();
+        return ($this->getValorIliquido() + $this->getValorImposto() + $this->getValorImpostoPredial()) - $this->getValorRetencao();
     }
 }

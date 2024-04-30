@@ -146,19 +146,16 @@ class FaturaItemCarga
         }
         return $this->taxa->getDesconto();
     }
+
     public function getValorDesconto()
     {
         return $this->getTotal() * $this->getDesconto() / 100;
     }
 
-    /**
-     * @return mixed
-     */
     public function getImposto()
     {
         return "T";
     }
-
     public function getTotalIva()
     {
         return $this->getTotal() + $this->getValorIva();
@@ -176,7 +173,16 @@ class FaturaItemCarga
             ++$horas;
         }
         return $horas;
+
+//        $start_date = new \DateTime($this->getDataEntrada());
+//        $end_date = new \DateTime($this->getDataSaida());
+//
+//        for ($date = $start_date; $date->lte($end_date); $date->addDay()) {
+//            dd($date);
+////            echo $date->toDateString() . "\n"; // Exibe a data formatada
+//        }
     }
+
     public function getTotal()
     {
         if ($this->getProdutoId() == 1) {

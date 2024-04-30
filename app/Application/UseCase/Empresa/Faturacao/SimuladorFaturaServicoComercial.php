@@ -44,6 +44,9 @@ class SimuladorFaturaServicoComercial
             $taxaIva = new GetParametroPeloLabelNoParametro(new DatabaseRepositoryFactory());
             $taxaIva = (float)$taxaIva->execute('valor_iva_aplicado')->valor;
         }
+        $taxaImpostoPredial = DB::table('parametros')
+            ->where('empresa_id', 1)->where('label', 'valor_imposto_predial_aplicado')->first()->valor;
+
         if ($input->retencao) {
             $retencaoFonte = new GetParametroPeloLabelNoParametro(new DatabaseRepositoryFactory());
             $valorRetencao = (float)$retencaoFonte->execute('valor_retencao_fonte')->valor;
@@ -70,6 +73,7 @@ class SimuladorFaturaServicoComercial
             $input->emailCliente,
             $input->enderecoCliente,
             $taxaIva,
+            $taxaImpostoPredial,
             $cambioDia,
             $moedaEstrageiraUsado,
             $input->moedaPagamento,
@@ -79,9 +83,11 @@ class SimuladorFaturaServicoComercial
             $input->unidadeMetrica,
             $input->addArCondicionado,
             $input->qtdMeses,
-            $input->isencaoOcupacao
+            $input->isencaoOcupacao,
+            $input->tarifaConsumo
         );
-        $totalServico = 0;
+        $totalServicoComArCondicionado = 0;
+        $totalServicoOcupacaoByConsumo = 0;
 //        if ($input->isencaoOcupacao || $input->addArCondicionado) {
         $totalServicoDefault = 0;
         foreach ($input->items as $item) {
@@ -99,15 +105,20 @@ class SimuladorFaturaServicoComercial
                 $item->addArCondicionado,
                 $item->qtdMeses,
                 $input->isencaoOcupacao,
-                $totalServicoDefault
+                $input->tarifaConsumo,
+                $totalServicoDefault,
+                $totalServicoOcupacaoByConsumo,
+                $taxaImpostoPredial
             );
-            if ($item->addArCondicionado || $input->isencaoOcupacao) {
-                if ($item->produtoId != 37 && $item->produtoId != 38 && $item->produtoId != 39 && $item->produtoId != 40 && $item->produtoId != 41) {
-                    $totalServico += $faturaItem->getTotal();
-                }
+            $SERVICO_OCUPACAO = ($item->produtoId >= 28 && $item->produtoId <= 38);
+            $SERVICOS_GABINETE = ($item->produtoId == 30 || $item->produtoId == 32 || $item->produtoId == 34 || $item->produtoId == 37);
+            if($SERVICOS_GABINETE){
+                $totalServicoOcupacaoByConsumo += $faturaItem->getTotal();
+            }
+            if (($item->addArCondicionado || $input->isencaoOcupacao) && $SERVICO_OCUPACAO) {
+                $totalServicoComArCondicionado += $faturaItem->getTotal();
             }
         }
-//        }
         foreach ($input->items as $item) {
             $item = (object)$item;
             $faturaItem = new FaturaItemServicoComercial(
@@ -123,7 +134,10 @@ class SimuladorFaturaServicoComercial
                 $item->addArCondicionado,
                 $item->qtdMeses,
                 $input->isencaoOcupacao,
-                $totalServico,
+                $input->tarifaConsumo,
+                $totalServicoComArCondicionado,
+                $totalServicoOcupacaoByConsumo,
+                $taxaImpostoPredial
             );
             $faturaServicoComercial->addItem($faturaItem);
         }

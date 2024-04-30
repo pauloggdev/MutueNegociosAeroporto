@@ -224,7 +224,7 @@
                                                             <thead>
                                                             <tr>
                                                                 <th>Tarifas</th>
-                                                                <th>Qtd lugares oferecido / Qtd passes</th>
+                                                                <th>Qtd lugares oferecido / Qtd passes / Qtd litros</th>
                                                                 <th></th>
                                                             </tr>
                                                             </thead>

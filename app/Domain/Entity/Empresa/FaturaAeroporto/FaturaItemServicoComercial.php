@@ -16,9 +16,12 @@ class FaturaItemServicoComercial
     private $addArCondicionado;
     private $qtdMeses;
     private $isencaoOcupacao;
+    private $tarifaConsumo;
     private $totalServico;
+    private $totalServicoOcupacaoByConsumo;
+    private $taxaImpostoPredial;
 
-    public function __construct($produtoId, $nomeProduto, $taxa, $dataEntradaEstacionamento, $dataSaidaEstacionamento, $taxaIva, $cambioDia, $considera1hDepois30min, $unidadeMetrica, $addArCondicionado, $qtdMeses, $isencaoOcupacao, $totalServico)
+    public function __construct($produtoId, $nomeProduto, $taxa, $dataEntradaEstacionamento, $dataSaidaEstacionamento, $taxaIva, $cambioDia, $considera1hDepois30min, $unidadeMetrica, $addArCondicionado, $qtdMeses, $isencaoOcupacao,$tarifaConsumo, $totalServico, $totalServicoOcupacaoByConsumo, $taxaImpostoPredial)
     {
         $this->produtoId = $produtoId;
         $this->nomeProduto = $nomeProduto;
@@ -32,7 +35,10 @@ class FaturaItemServicoComercial
         $this->addArCondicionado = $addArCondicionado;
         $this->qtdMeses = $qtdMeses;
         $this->isencaoOcupacao = $isencaoOcupacao;
+        $this->tarifaConsumo = $tarifaConsumo;
         $this->totalServico = $totalServico;
+        $this->totalServicoOcupacaoByConsumo = $totalServicoOcupacaoByConsumo;
+        $this->taxaImpostoPredial = $taxaImpostoPredial;
     }
 
     public function getProdutoId()
@@ -64,10 +70,15 @@ class FaturaItemServicoComercial
     {
         return $this->isencaoOcupacao;
     }
+    public function getTarifaConsumo(){
+        return $this->tarifaConsumo;
+    }
 
     public function getQtdMeses()
     {
-        if (($this->getProdutoId() >= 28 && $this->getProdutoId() <= 36) || $this->getProdutoId() == 38) {
+        $SERVICO_OCUPACAO = (($this->getProdutoId() >= 28 && $this->getProdutoId() <= 38) || $this->getProdutoId() == 40);
+        $SERVICO_ARCONDICIONADO = 39;
+        if ($SERVICO_OCUPACAO || ($this->getProdutoId() == $SERVICO_ARCONDICIONADO)) {
             return $this->qtdMeses;
         }
         return null;
@@ -75,7 +86,8 @@ class FaturaItemServicoComercial
 
     public function getValorDesc()
     {
-        if ($this->getIsencaoOcupacao() && ($this->getProdutoId() >= 28 && $this->getProdutoId() <= 36)) {
+        $SERVICO_OCUPACAO = ($this->getProdutoId() >= 28 && $this->getProdutoId() <= 38);
+        if ($this->getIsencaoOcupacao() && $SERVICO_OCUPACAO) {
             return 100;
         }
         return 0;
@@ -96,6 +108,17 @@ class FaturaItemServicoComercial
         return $this->taxaIva;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getTaxaImpostoPredial()
+    {
+        $SERVICO_OCUPACAO = ($this->getProdutoId() >= 28 && $this->getProdutoId() <= 38);
+        if(!$SERVICO_OCUPACAO) return 0;
+        return $this->taxaImpostoPredial;
+    }
+
+
     public function getCambioDia()
     {
         return $this->cambioDia;
@@ -109,6 +132,11 @@ class FaturaItemServicoComercial
     public function getValorIva()
     {
         return ($this->getTotal() * $this->getTaxaIva()) / 100;
+    }
+    public function getValorImpostoPredial(){
+        $SERVICO_OCUPACAO = ($this->getProdutoId() >= 28 && $this->getProdutoId() <= 38);
+        if(!$SERVICO_OCUPACAO) return 0;
+        return ($this->getTotal() * $this->getTaxaImpostoPredial()) / 100;
     }
 
     public function getTotalIva()
@@ -166,6 +194,15 @@ class FaturaItemServicoComercial
         return $this->totalServico;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getTotalServicoOcupacaoByConsumo()
+    {
+        return $this->totalServicoOcupacaoByConsumo;
+    }
+
+
     function conversorDeHoraParaMinuto()
     {
         $dataInicial = $this->getDataEntradaEstacionamento();
@@ -182,24 +219,37 @@ class FaturaItemServicoComercial
         return ($horas * 60) + $minutos;
     }
 
+
     public function getTotal()
     {
         $DESCONTOARCONDICIONADO = 20;
+        $DESCONTOTARIFACONSUMO = 15;
         //Serviços de ocupação
-        if (($this->getProdutoId() >= 28 && $this->getProdutoId() <= 37) && ($this->getIsencaoOcupacao() || $this->getAddArCondicionado())) {
-            if ($this->getProdutoId() == 37) {
+        $SERVICO_OCUPACAO_COM_ARCONDICIONADO = ($this->getProdutoId() >= 28 && $this->getProdutoId() <= 39);
+        $SERVICO_OCUPACAO_SEM_ARCONDICIONADO = ($this->getProdutoId() >= 28 && $this->getProdutoId() <= 38);
+
+        $PUBLICIDADE = 40;
+        $SERVICO_TARIFA_CONSUMO = 44;
+
+        if ($SERVICO_OCUPACAO_COM_ARCONDICIONADO && ($this->getIsencaoOcupacao() || $this->getAddArCondicionado())) {
+            $SERVICO_ARCONDICIONADO = 39;
+            if ($this->getProdutoId() == $SERVICO_ARCONDICIONADO) {
                 return $this->getTotalServico() * $DESCONTOARCONDICIONADO / 100;
             }
             return $this->getSubtotal();
-        } else if (($this->getProdutoId() >= 28 && $this->getProdutoId() <= 36) && $this->getAddArCondicionado()) {
+        }else if($this->getTarifaConsumo() && $this->getProdutoId() == $SERVICO_TARIFA_CONSUMO){
+            return $this->getTotalServicoOcupacaoByConsumo() * $DESCONTOTARIFACONSUMO / 100;
+        }
+        else if ($SERVICO_OCUPACAO_SEM_ARCONDICIONADO && $this->getAddArCondicionado()) {
             return $this->getSubtotal() + $this->getDesconto();
-        } else if ($this->getProdutoId() == 38) {
+        } else if ($this->getProdutoId() == $PUBLICIDADE) {
             return $this->getTaxa() * $this->getUnidadeMetrica() * $this->getQtdMeses() * $this->getCambioDia();
         } //Fim Serviços de ocupação
         else {
-            $estacionamentoCamiaoDentroTCA = $this->getProdutoId() == 39;
-            $estacionamentoCamiaoForaTCA = $this->getProdutoId() == 40;
-            $estacionamentoDeVeiculo = $this->getProdutoId() == 41;
+            $estacionamentoCamiaoDentroTCA = $this->getProdutoId() == 41;
+            $estacionamentoCamiaoForaTCA = $this->getProdutoId() == 42;
+            $estacionamentoDeVeiculo = $this->getProdutoId() == 43;
+
             if ($estacionamentoCamiaoDentroTCA) {
                 if ($this->conversorDeHoraParaMinuto() <= 30) {
                     return $this->getTaxaDentroDoTca0a30() * $this->getCambioDia();
@@ -296,6 +346,4 @@ class FaturaItemServicoComercial
     {
         return 0.59;
     }
-
-
 }

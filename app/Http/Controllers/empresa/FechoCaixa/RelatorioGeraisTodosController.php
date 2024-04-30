@@ -14,11 +14,14 @@ use App\Models\empresa\TipoMercadoria;
 use App\Models\empresa\TipoServico;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
 
 class RelatorioGeraisTodosController extends Component
 {
+    use LivewireAlert;
+
     public $relatorio = [
         'dataInicio' => null,
         'dataFim' => null,
@@ -45,13 +48,12 @@ class RelatorioGeraisTodosController extends Component
     public function render()
     {
         $data['tiposDocumentos'] = TipoDocumento::whereIn('id', [1, 2, 3])->get();
-        $data['tiposServicos'] = TipoServico::whereIn('id', [1, 2])->get();
+        $data['tiposServicos'] = TipoServico::get();
         return view('empresa.relatorios.relatoriosGeral', $data);
     }
 
     public function imprimirRelatorioGeral()
     {
-
         $dataInicio = date_format(date_create($this->relatorio['dataInicio']), "d/m/Y") . " 00:00:00";
         $dataFinal = date_format(date_create($this->relatorio['dataFim']), "d/m/Y") . " 23:59:59";
 
@@ -60,9 +62,6 @@ class RelatorioGeraisTodosController extends Component
         if ($this->relatorio['dataInicio'] && $this->relatorio['dataFim']) {
             $formatoData = $dataInicio . " à " . $dataFinal;
             $setarData = true;
-        }else{
-            $dataInicio = null;
-            $dataFinal = null;
         }
 
         $rules = [
@@ -76,13 +75,46 @@ class RelatorioGeraisTodosController extends Component
             'relatorio.dataInicio' => 'campo obrigatório',
             'relatorio.dataFim' => 'campo obrigatório',
         ];
-
-
         $this->validate($rules, $messages);
+        $dataInicio1 = $this->relatorio['dataInicio'] . " 00:00:00";
+        $dataFinal1 = $this->relatorio['dataFim'] . " 23:59:59";
+        $tipoDocumentoId = $this->relatorio['tipoDocumentoId'];
+        $tipoServicoId = $this->relatorio['tipoServicoId'];
+
+        $vendas = DB::table('facturas')
+            ->where(function ($query) use ($tipoDocumentoId) {
+                if ($tipoDocumentoId) {
+                    $query->where('tipoDocumento', $tipoDocumentoId);
+                } else {
+                    $query->where('id', '>=', 1);
+                }
+            })->where(function ($query) use ($tipoServicoId) {
+                if ($tipoServicoId) {
+                    $query->where('tipoFatura', $tipoServicoId);
+                } else {
+                    $query->where('id', '>=', 1);
+                }
+            })->where(function ($query) use ($dataInicio1, $dataFinal1) {
+                if ($dataInicio1 && $dataFinal1) {
+                    $query->whereDate('created_at', '>=', $dataInicio1)
+                        ->whereDate('created_at', '<=', $dataFinal1);
+                } else {
+                    $query->where('id', '>=', 1);
+                }
+            })->get();
+
+        if (count($vendas) <= 0) {
+            $this->confirm('Não existe dados com estes filtros', [
+                'showConfirmButton' => false,
+                'showCancelButton' => false,
+                'icon' => 'warning'
+            ]);
+            return;
+        }
+
         $logotipo = public_path() . '/upload//' . auth()->user()->empresa->logotipo;
         $filename = "relatoriosDeVendasGerais";
         $reportController = new ReportShowController();
-//        dd($dataInicio);
 
         $report = $reportController->show(
             [
@@ -93,8 +125,8 @@ class RelatorioGeraisTodosController extends Component
                     'logotipo' => $logotipo,
                     'tipoDocumentoId' => $this->relatorio['tipoDocumentoId'],
                     'tipoServicoId' => $this->relatorio['tipoServicoId'],
-                    'data_inicio' => $dataInicio,
-                    'data_fim' => $dataFinal,
+                    'data_inicio' => $this->relatorio['dataInicio'] . " 00:00:00",
+                    'data_fim' => $this->relatorio['dataFim'] . " 23:59:59",
                     'formatoData' => $formatoData,
                     'setarData' => $setarData
                 ]
@@ -106,15 +138,14 @@ class RelatorioGeraisTodosController extends Component
         flush();
     }
 
-
     public function imprimirExcelRelatorioGeral()
     {
-        $dataInicio = date_format(date_create($this->relatorio['dataInicio']), "d/m/Y H:m:s");
-        $dataFinal = date_format(date_create($this->relatorio['dataFim']), "d/m/Y H:m:s");
+        $dataInicio = date_format(date_create($this->relatorio['dataInicio']), "d/m/Y") . " 00:00:00";
+        $dataFinal = date_format(date_create($this->relatorio['dataFim']), "d/m/Y") . " 23:59:59";
 
         $formatoData = "TODO PERIODO";
         $setarData = false;
-        if ($this->relatorio['dataInicio']) {
+        if ($this->relatorio['dataInicio'] && $this->relatorio['dataFim']) {
             $formatoData = $dataInicio . " à " . $dataFinal;
             $setarData = true;
         }
@@ -130,8 +161,42 @@ class RelatorioGeraisTodosController extends Component
             'relatorio.dataInicio' => 'campo obrigatório',
             'relatorio.dataFim' => 'campo obrigatório',
         ];
-
         $this->validate($rules, $messages);
+        $dataInicio1 = $this->relatorio['dataInicio'] . " 00:00:00";
+        $dataFinal1 = $this->relatorio['dataFim'] . " 23:59:59";
+        $tipoDocumentoId = $this->relatorio['tipoDocumentoId'];
+        $tipoServicoId = $this->relatorio['tipoServicoId'];
+
+        $vendas = DB::table('facturas')
+            ->where(function ($query) use ($tipoDocumentoId) {
+                if ($tipoDocumentoId) {
+                    $query->where('tipoDocumento', $tipoDocumentoId);
+                } else {
+                    $query->where('id', '>=', 1);
+                }
+            })->where(function ($query) use ($tipoServicoId) {
+                if ($tipoServicoId) {
+                    $query->where('tipoFatura', $tipoServicoId);
+                } else {
+                    $query->where('id', '>=', 1);
+                }
+            })->where(function ($query) use ($dataInicio1, $dataFinal1) {
+                if ($dataInicio1 && $dataFinal1) {
+                    $query->whereDate('created_at', '>=', $dataInicio1)
+                        ->whereDate('created_at', '<=', $dataFinal1);
+                } else {
+                    $query->where('id', '>=', 1);
+                }
+            })->get();
+
+        if (count($vendas) <= 0) {
+            $this->confirm('Não existe dados com estes filtros', [
+                'showConfirmButton' => false,
+                'showCancelButton' => false,
+                'icon' => 'warning'
+            ]);
+            return;
+        }
         $logotipo = public_path() . '/upload//' . auth()->user()->empresa->logotipo;
         $filename = "relatoriosDeVendasGerais";
         $reportController = new ReportShowController('xls');

@@ -1,7 +1,7 @@
 -- --------------------------------------------------------
--- Servidor:                     127.0.0.1
--- Versão do servidor:           5.7.39 - MySQL Community Server (GPL)
--- OS do Servidor:               Win64
+-- Anfitrião:                    127.0.0.1
+-- Versão do servidor:           5.7.24 - MySQL Community Server (GPL)
+-- SO do servidor:               Win64
 -- HeidiSQL Versão:              12.1.0.6537
 -- --------------------------------------------------------
 
@@ -15,11 +15,11 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 
--- Copiando estrutura do banco de dados para mutue_negocios_aeroporto_cliente
+-- A despejar estrutura da base de dados para mutue_negocios_aeroporto_cliente
 CREATE DATABASE IF NOT EXISTS `mutue_negocios_aeroporto_cliente` /*!40100 DEFAULT CHARACTER SET latin1 */;
 USE `mutue_negocios_aeroporto_cliente`;
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.actualizacao_stocks
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.actualizacao_stocks
 CREATE TABLE IF NOT EXISTS `actualizacao_stocks` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `empresa_id` int(10) unsigned NOT NULL,
@@ -50,9 +50,9 @@ CREATE TABLE IF NOT EXISTS `actualizacao_stocks` (
   CONSTRAINT `FK_actualizacao_stocks_tipo_users` FOREIGN KEY (`tipo_user_id`) REFERENCES `tipo_users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.actualizacao_stocks: ~0 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.actualizacao_stocks: ~0 rows (aproximadamente)
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.armazens
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.armazens
 CREATE TABLE IF NOT EXISTS `armazens` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `designacao` varchar(255) NOT NULL,
@@ -71,18 +71,19 @@ CREATE TABLE IF NOT EXISTS `armazens` (
   KEY `FK_armazens_empresa` (`empresa_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.armazens: ~0 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.armazens: ~0 rows (aproximadamente)
 INSERT INTO `armazens` (`id`, `designacao`, `sigla`, `codigo`, `localizacao`, `status_id`, `user_id`, `empresa_id`, `created_at`, `updated_at`, `diversos`) VALUES
 	(1, 'LOJA PRINCIPAL', NULL, '206217692', 'Estrada nacional 230, km 42 - Municipio do Icolo e Bengo, Distrito  do Bom Jesus, Luanda-Angola', 1, NULL, 1, '2024-01-23 16:10:54', '2024-01-23 16:10:54', '1');
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.bancos
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.bancos
 CREATE TABLE IF NOT EXISTS `bancos` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `designacao` varchar(45) NOT NULL,
   `sigla` varchar(45) DEFAULT NULL,
   `uuid` varchar(255) DEFAULT NULL,
-  `num_conta` varchar(45) NOT NULL,
+  `num_conta` varchar(45) DEFAULT NULL,
   `titular` varchar(255) NOT NULL,
+  `swift` varchar(255) DEFAULT NULL,
   `moeda` char(50) DEFAULT 'AOA',
   `iban` varchar(45) NOT NULL,
   `status_id` int(10) unsigned NOT NULL,
@@ -99,14 +100,16 @@ CREATE TABLE IF NOT EXISTS `bancos` (
   KEY `FK_bancos_status` (`status_id`),
   KEY `FK_bancos_empresas` (`empresa_id`),
   KEY `FK_bancos_tipo_users` (`tipo_user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.bancos: ~2 rows (aproximadamente)
-INSERT INTO `bancos` (`id`, `designacao`, `sigla`, `uuid`, `num_conta`, `titular`, `moeda`, `iban`, `status_id`, `canal_id`, `created_at`, `empresa_id`, `tipo_user_id`, `user_id`, `centroCustoId`, `updated_at`) VALUES
-	(1, 'Banco Fomento Angola', 'BFA', '1678532d-e1fb-4619-b62e-1e7ce2fe1edb', '000610002000300', 'AIRPORT TEMPORARY OPERATOR', 'AOA', 'AO06 0066 0000 0683 4061 1016 7', 1, 2, '2024-01-26 12:50:42', 1, 2, 1, NULL, '2024-01-26 12:50:42'),
-	(2, 'Banco Fomento Angola', 'BFA', '1678532d-e1fb-4619-b62e-1e7ce2fe1edc', '000610002000300', 'AIRPORT TEMPORARY OPERATOR', 'USD', 'AO06 0066 0000 0683 4061 1210 7', 1, 2, '2024-01-26 12:50:42', 1, 2, 1, NULL, '2024-01-26 12:50:42');
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.bancos: ~4 rows (aproximadamente)
+INSERT INTO `bancos` (`id`, `designacao`, `sigla`, `uuid`, `num_conta`, `titular`, `swift`, `moeda`, `iban`, `status_id`, `canal_id`, `created_at`, `empresa_id`, `tipo_user_id`, `user_id`, `centroCustoId`, `updated_at`) VALUES
+	(1, 'Banco Fomento Angola', 'BFA', '1678532d-e1fb-4619-b62e-1e7ce2fe1edb', '000610002000300', 'AIRPORT TEMPORARY OPERATOR', '', 'AOA', 'AO06 0066 0000 0683 4061 1016 7', 1, 2, '2024-01-26 12:50:42', 1, 2, 1, NULL, '2024-04-19 10:40:20'),
+	(2, 'Banco Fomento Angola', 'BFA', '1678532d-e1fb-4619-b62e-1e7ce2fe1edc', '000610002000300', 'AIRPORT TEMPORARY OPERATOR', NULL, 'USD', 'AO06 0066 0000 0683 4061 1210 7', 1, 2, '2024-01-26 12:50:42', 1, 2, 1, NULL, '2024-01-26 12:50:42'),
+	(3, 'Banco Privado Atlântico', 'BPA', '01b5cf34-9cd7-4c11-a284-14a3a640e70d', NULL, 'ATO & OC S.A\n', 'PRTLAOLU', 'AOA', 'AO06 0055 0000 2391 2811 1011 1', 1, 2, '2024-04-19 10:45:18', 1, 2, 1, NULL, '2024-04-19 10:45:18'),
+	(4, 'Banco Privado Atlântico', 'BPA', '295773eb-1fd7-480c-a72c-c2173bceb2b4', NULL, 'ATO & OC S.A', 'PRTLAOLU', 'USD', 'AO06 0055 0000 2391 2811 1214 8', 1, 2, '2024-04-19 10:47:33', 1, 2, 1, NULL, '2024-04-19 10:47:33');
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.banner
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.banner
 CREATE TABLE IF NOT EXISTS `banner` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(60) NOT NULL,
@@ -121,12 +124,12 @@ CREATE TABLE IF NOT EXISTS `banner` (
   CONSTRAINT `FK_banner_status_gerais` FOREIGN KEY (`status_id`) REFERENCES `status_gerais` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.banner: ~2 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.banner: ~2 rows (aproximadamente)
 INSERT INTO `banner` (`id`, `nome`, `descricao`, `imagens`, `status_id`, `created_at`, `updated_at`, `deleted_at`) VALUES
 	(1, 'Banner 1', 'Banner 1', 'upload/banner/DAEctpr1MX5xHL3pXWn6jLALFAKICgzlCGwfLkSn.jpg', 1, '2023-11-18 11:26:10', '2023-11-21 10:28:40', NULL),
 	(2, 'Banner 2', 'Banner 2', 'upload/banner/ISCc82cSHvxV6oVcjmE2MrwVlljHZk3oF3LuW2wJ.jpg', 1, '2023-11-18 11:28:02', '2023-11-21 10:28:57', NULL);
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.bonus_cartao_cliente
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.bonus_cartao_cliente
 CREATE TABLE IF NOT EXISTS `bonus_cartao_cliente` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `bonus` double NOT NULL DEFAULT '0',
@@ -139,12 +142,12 @@ CREATE TABLE IF NOT EXISTS `bonus_cartao_cliente` (
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.bonus_cartao_cliente: ~2 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.bonus_cartao_cliente: ~2 rows (aproximadamente)
 INSERT INTO `bonus_cartao_cliente` (`id`, `bonus`, `user_id`, `empresa_id`, `status_id`, `created_at`, `updated_at`, `deleted_at`) VALUES
 	(3, 10, 35, 53, 1, '2023-08-26 11:16:27', '2023-10-27 10:07:10', NULL),
 	(4, 1, 638, 148, 1, '2023-11-20 09:12:20', '2023-11-20 09:12:20', NULL);
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.bonus_cartao_cliente_range
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.bonus_cartao_cliente_range
 CREATE TABLE IF NOT EXISTS `bonus_cartao_cliente_range` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `valorInicial` double DEFAULT '0',
@@ -158,9 +161,9 @@ CREATE TABLE IF NOT EXISTS `bonus_cartao_cliente_range` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.bonus_cartao_cliente_range: ~0 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.bonus_cartao_cliente_range: ~0 rows (aproximadamente)
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.cambios
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.cambios
 CREATE TABLE IF NOT EXISTS `cambios` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `designacao` char(50) NOT NULL,
@@ -168,26 +171,26 @@ CREATE TABLE IF NOT EXISTS `cambios` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.cambios: ~2 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.cambios: ~2 rows (aproximadamente)
 INSERT INTO `cambios` (`id`, `designacao`, `valor`) VALUES
-	(1, 'USD', 832.633),
+	(1, 'USD', 832.825),
 	(2, 'EURO', 898.24);
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.canais_comunicacoes
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.canais_comunicacoes
 CREATE TABLE IF NOT EXISTS `canais_comunicacoes` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `designacao` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.canais_comunicacoes: ~4 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.canais_comunicacoes: ~4 rows (aproximadamente)
 INSERT INTO `canais_comunicacoes` (`id`, `designacao`) VALUES
 	(1, 'BD'),
 	(2, 'Portal Cliente'),
 	(3, 'Portal Admin'),
 	(4, 'Mobile');
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.carateristica_produtos
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.carateristica_produtos
 CREATE TABLE IF NOT EXISTS `carateristica_produtos` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `altura` double DEFAULT '0',
@@ -198,9 +201,9 @@ CREATE TABLE IF NOT EXISTS `carateristica_produtos` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.carateristica_produtos: ~0 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.carateristica_produtos: ~0 rows (aproximadamente)
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.carrinho_produtos
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.carrinho_produtos
 CREATE TABLE IF NOT EXISTS `carrinho_produtos` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `quantidade` int(10) NOT NULL DEFAULT '0',
@@ -215,9 +218,9 @@ CREATE TABLE IF NOT EXISTS `carrinho_produtos` (
   CONSTRAINT `FK_carrinho_produtos_users_cliente` FOREIGN KEY (`users_id`) REFERENCES `users_cliente` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.carrinho_produtos: ~0 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.carrinho_produtos: ~0 rows (aproximadamente)
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.cartao_clientes
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.cartao_clientes
 CREATE TABLE IF NOT EXISTS `cartao_clientes` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `clienteId` int(11) NOT NULL,
@@ -234,20 +237,20 @@ CREATE TABLE IF NOT EXISTS `cartao_clientes` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.cartao_clientes: ~3 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.cartao_clientes: ~3 rows (aproximadamente)
 INSERT INTO `cartao_clientes` (`id`, `clienteId`, `numeroCartao`, `dataEmissao`, `dataValidade`, `numeracaoSequencia`, `empresaId`, `saldo`, `centroCustoId`, `created_at`, `updated_at`, `deleted_at`) VALUES
 	(2, 34, '5300001', '2023-09-20', '2024-09-30', 1, 53, 1000, NULL, '2023-09-20 13:00:53', '2023-10-13 09:38:57', NULL),
 	(4, 207, '5300002', '2023-10-13', '2024-10-13', 2, 53, 2000, NULL, '2023-10-13 10:11:54', '2023-10-13 10:11:54', NULL),
 	(5, 204, '5300003', '2023-10-13', '2024-10-26', 2, 53, 2162, NULL, '2023-10-13 10:11:54', '2023-10-24 18:03:19', NULL);
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.categoriacaracteristicas
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.categoriacaracteristicas
 CREATE TABLE IF NOT EXISTS `categoriacaracteristicas` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `designacao` varchar(255) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=254 DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.categoriacaracteristicas: ~200 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.categoriacaracteristicas: ~200 rows (aproximadamente)
 INSERT INTO `categoriacaracteristicas` (`id`, `designacao`) VALUES
 	(1, 'Memória'),
 	(2, 'Cor'),
@@ -450,7 +453,7 @@ INSERT INTO `categoriacaracteristicas` (`id`, `designacao`) VALUES
 	(252, 'LIGAÇÃO'),
 	(253, 'BLUETOOTH');
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.categorias
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.categorias
 CREATE TABLE IF NOT EXISTS `categorias` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `designacao` varchar(255) NOT NULL,
@@ -474,11 +477,11 @@ CREATE TABLE IF NOT EXISTS `categorias` (
   CONSTRAINT `FK_categorias_user` FOREIGN KEY (`user_id`) REFERENCES `users_cliente` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.categorias: ~0 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.categorias: ~0 rows (aproximadamente)
 INSERT INTO `categorias` (`id`, `designacao`, `imagem`, `icon`, `uuid`, `status_id`, `categoria_pai`, `user_id`, `empresa_id`, `created_at`, `updated_at`, `deleted_at`, `canal_id`) VALUES
 	(1, 'DIVERSO', NULL, NULL, '78d1a432-cd63-46b2-a406-49b26a6ad73c', 1, NULL, NULL, NULL, '2021-09-06 17:17:53', '2023-10-11 14:16:17', NULL, NULL);
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.centro_custos
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.centro_custos
 CREATE TABLE IF NOT EXISTS `centro_custos` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `uuid` char(36) NOT NULL,
@@ -503,11 +506,11 @@ CREATE TABLE IF NOT EXISTS `centro_custos` (
   KEY `FK_centro_custos_status_gerais` (`status_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.centro_custos: ~0 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.centro_custos: ~0 rows (aproximadamente)
 INSERT INTO `centro_custos` (`id`, `uuid`, `empresa_id`, `status_id`, `endereco`, `nif`, `cidade`, `logotipo`, `email`, `website`, `telefone`, `pessoa_de_contacto`, `file_alvara`, `file_nif`, `nome`, `updated_at`, `created_at`, `deleted_at`) VALUES
 	(1, '7bc3cea5-4cc1-4145-89e4-760fc882dd0e', 1, 1, 'Estrada nacional 230, km 42 - Municipio do Icolo e Bengo, Distrito  do Bom Jesus, Luanda-Angola', '5001720538', 'Luanda', 'utilizadores/cliente/Sy25ugUGqoST3TRMFLTF4O9bvJiP6sv5ayOtfari.png', 'info@ato.ao', 'ato.ao', '937036322', '937036322', NULL, NULL, 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', '2024-02-07 09:32:31', '2024-02-07 09:32:31', NULL);
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.cidades
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.cidades
 CREATE TABLE IF NOT EXISTS `cidades` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `designacao` varchar(255) DEFAULT NULL,
@@ -517,7 +520,7 @@ CREATE TABLE IF NOT EXISTS `cidades` (
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.cidades: ~18 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.cidades: ~18 rows (aproximadamente)
 INSERT INTO `cidades` (`id`, `designacao`, `created_at`, `updated_at`, `deleted_at`) VALUES
 	(1, 'Luanda', '2022-02-11 05:03:03', '2022-02-11 05:03:03', NULL),
 	(2, 'Zaire', '2022-02-11 05:03:03', '2022-02-11 05:03:03', NULL),
@@ -538,7 +541,7 @@ INSERT INTO `cidades` (`id`, `designacao`, `created_at`, `updated_at`, `deleted_
 	(17, 'Namibe', '2022-02-11 05:03:03', '2022-02-11 05:03:03', NULL),
 	(18, 'Cunene', '2022-02-11 05:03:03', '2022-02-11 05:03:03', NULL);
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.classes
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.classes
 CREATE TABLE IF NOT EXISTS `classes` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `designacao` varchar(255) NOT NULL,
@@ -559,9 +562,9 @@ CREATE TABLE IF NOT EXISTS `classes` (
   CONSTRAINT `FK__users` FOREIGN KEY (`user_id`) REFERENCES `users_cliente` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.classes: ~0 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.classes: ~0 rows (aproximadamente)
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.classificacao
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.classificacao
 CREATE TABLE IF NOT EXISTS `classificacao` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `produto_id` int(10) unsigned NOT NULL,
@@ -577,9 +580,9 @@ CREATE TABLE IF NOT EXISTS `classificacao` (
   CONSTRAINT `FK_classificacao_users_cliente` FOREIGN KEY (`user_id`) REFERENCES `users_cliente` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.classificacao: ~0 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.classificacao: ~0 rows (aproximadamente)
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.clientes
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.clientes
 CREATE TABLE IF NOT EXISTS `clientes` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `nome` varchar(255) NOT NULL,
@@ -590,6 +593,7 @@ CREATE TABLE IF NOT EXISTS `clientes` (
   `numero_contrato` varchar(30) DEFAULT NULL,
   `data_contrato` date DEFAULT NULL,
   `tipo_conta_corrente` enum('Nacional','Estrangeiro') DEFAULT 'Nacional',
+  `isencaoCargaTransito` enum('Y','N') DEFAULT 'N',
   `conta_corrente` varchar(50) DEFAULT NULL,
   `telefone_cliente` varchar(50) DEFAULT NULL,
   `taxa_de_desconto` double DEFAULT '0',
@@ -619,40 +623,43 @@ CREATE TABLE IF NOT EXISTS `clientes` (
   KEY `FK_clientes_pais` (`pais_id`),
   KEY `FK_clientes_operador` (`operador`),
   KEY `FK_clientes_tipos_clientes` (`tipo_cliente_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=289 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=292 DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.clientes: ~28 rows (aproximadamente)
-INSERT INTO `clientes` (`id`, `nome`, `uuid`, `pessoa_contacto`, `email`, `website`, `numero_contrato`, `data_contrato`, `tipo_conta_corrente`, `conta_corrente`, `telefone_cliente`, `taxa_de_desconto`, `limite_de_credito`, `endereco`, `gestor_id`, `canal_id`, `status_id`, `nif`, `operador`, `tipo_cliente_id`, `user_id`, `created_by`, `empresa_id`, `created_at`, `updated_at`, `pais_id`, `diversos`, `cidade`, `centroCustoId`) VALUES
-	(1, 'Consumidor final', '673dc30a-5cb0-4d9d-be19-aeae663f0c05', NULL, NULL, NULL, NULL, NULL, 'Nacional', '31.1.2.1.1', NULL, 0, 0, NULL, NULL, 2, 1, '999999999', NULL, 2, NULL, NULL, 1, '2021-04-16 10:36:11', '2021-04-16 10:36:11', 1, 'Sim', 'Luanda', NULL),
-	(2, 'SCHLUMBERGER LOGELCO, INC', 'c184ca0b-c2ff-4a84-8dc1-120b85cae437', 'SCHLUMBERGER LOGELCO, INC', 'airport.lad@tlc-com.ch', NULL, NULL, '2024-02-03', 'Nacional', '31.1.2.1.2', '932338415', 0, 0, 'TLC Lda', NULL, 2, 1, '999999999', 'Airport Temporary Operator', 2, 1, NULL, 1, '2024-02-03 07:23:34', '2024-02-03 07:23:34', 1, 'Não', 'Luanda', 1),
-	(3, 'NGONGO THOMAS & FILHOS COMERCIO GERAL LTD', 'c609441e-438e-468d-a3bf-eadb41f556a2', 'Thomas', 'kingsleychima75@gmail.com', NULL, NULL, '2023-12-19', 'Nacional', '31.1.2.1.3', '+244923437631', 0, 0, 'Rua Santos Nº18, Bairro Cassenda', NULL, 2, 1, '54176617919', 'Milton Lucas', 1, 751, NULL, 1, '2024-02-06 15:06:06', '2024-02-20 10:18:06', 1, 'Não', 'Luanda', 1),
-	(264, 'GRUPO LIZ - COMERCIO E SERVIÇOS, LIMITADA', '26f1d557-74d5-453e-8884-415c815971ea', 'Ian Pereira', 'ian.pereira@grupoliz.com', NULL, NULL, '2023-12-19', 'Nacional', '31.1.2.1.4', '923520471', 0, 0, 'Bairro Cassenda - Rua 02, Casa nº 12, Maianga', NULL, 2, 1, '5403084690', 'Milton Lucas', 2, 751, NULL, 1, '2024-02-19 10:11:36', '2024-02-22 12:37:59', 1, 'Não', 'Luanda', 1),
-	(265, 'DHL GLOBAL FORWARDING ANGOLA LTD', '73ca5753-3193-46a0-bc7d-52b273cc9a5f', 'Ana Pinto', 'anacruz.pinto@dhl.com', NULL, NULL, '2023-12-19', 'Nacional', '31.1.2.1.5', '948625996', 0, 0, 'Avenida 21 de Janeiro  Aeroporto', NULL, 2, 1, '5401071809', 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', 1, 1, NULL, 1, '2024-02-19 10:30:35', '2024-03-25 11:43:37', 1, 'Não', 'Luanda', 1),
-	(266, 'Panalpina Transportes Mundiais Navegação e Transitos SA', 'fc7e0fcb-de7a-4fed-81dd-d55d53c500f6', 'Dario Manuel', 'dario.manuel@ao.dsv.com', NULL, NULL, '2023-12-19', 'Nacional', '31.1.2.1.6', '226422041', 0, 0, 'Rua Kima Kienda 106, Estr. da Boavista – Luanda', NULL, 2, 1, '5403005862', 'Milton Lucas', 1, 751, NULL, 1, '2024-02-20 08:59:35', '2024-02-22 12:40:01', 1, 'Não', 'Luanda', 1),
-	(267, 'MULTIFLIGHT LDA', 'c397309b-7a26-4843-80cc-1187089aa8b3', 'Silvestre', 'opsmultiflight@gmail.com', NULL, NULL, '2023-12-19', 'Nacional', '31.1.2.1.7', '+244933535482', 0, 0, 'Av. Revolução de Outubro, Bloco 47 B-3 Andar', NULL, 2, 1, '5417323659', 'Carlos Sampaio', 2, 750, NULL, 1, '2024-02-20 11:03:01', '2024-02-21 12:24:28', 1, 'Não', 'Luanda', 1),
-	(268, 'CELTA SERVIÇOS & COMÉRCIO, LDA', 'f4678f33-4035-4be4-9de7-861778fe89ba', 'Joana Da Costa ', NULL, NULL, NULL, '2023-12-19', 'Nacional', '31.1.2.1.8', '+244912505071', 0, 0, 'Rua Fernando Pessoa, Nº52', NULL, 2, 1, '5402032955', 'Milton Lucas', 2, 751, NULL, 1, '2024-02-20 14:35:24', '2024-02-20 14:35:24', 1, 'Não', 'Luanda', 1),
-	(269, 'TAAG - LINHAS AEREAS DE ANGOLA', 'd0411628-e892-4030-bc28-229377ee0c1b', 'TAAG', NULL, NULL, NULL, NULL, 'Nacional', '31.1.2.1.9', NULL, 0, 0, NULL, NULL, 2, 1, '5410002830', 'Carlos Sampaio', 2, 750, NULL, 1, '2024-02-26 14:33:52', '2024-02-26 14:33:52', 1, 'Não', 'Luanda', 1),
-	(270, 'TLC LDA', '7e170ed0-ffd9-4014-ab96-8d59196140cb', 'Débora Sousa', 'dsousa.an@tlc-com.ch', NULL, NULL, '2023-12-19', 'Nacional', '31.1.2.1.10', '+244 926 515 109', 0, 0, 'Avenida 4 de Fevereiro nº33 Luanda, Angola', NULL, 2, 1, ' 5401146655', 'Milton Lucas', 1, 751, NULL, 1, '2024-02-26 16:43:29', '2024-02-26 16:43:29', 1, 'Não', 'Luanda', 1),
-	(271, 'SUPERMARITIME TRANSITÁRIOS LDA', '61d4f97a-b1a8-406e-8595-ce290b4c3707', 'Diogo Lussala', 'dlussala@supermaritime.com', NULL, NULL, '2023-12-19', 'Nacional', '31.1.2.1.11', '+244936759737', 0, 0, 'Rua das Flores Nº10, Ingombota', NULL, 2, 1, '50000338415', 'Milton Lucas', 1, 751, NULL, 1, '2024-02-27 10:14:22', '2024-02-27 10:14:22', 1, 'Não', 'Luanda', 1),
-	(272, 'PONTICELLI ANGOIL', '7d8ca958-3a98-44ea-93a9-d09db329d33e', 'Renato Gois', NULL, NULL, NULL, '2023-12-19', 'Nacional', '31.1.2.1.12', NULL, 0, 0, 'Av. Comandante Kima-Kyenda, Nº311', NULL, 2, 1, '5403090762', 'Milton Lucas', 1, 751, NULL, 1, '2024-02-27 12:24:18', '2024-02-27 12:24:18', 1, 'Não', 'Luanda', 1),
-	(273, 'AZULE ENERGY ANGOLA(BLOCK 18), B.V. - SUCURSAL DE ANGOLA', '00a6b73e-98b1-409a-bce9-c0cd0f975210', 'Onésimo dos Santos', NULL, NULL, NULL, NULL, 'Nacional', '31.1.2.1.13', NULL, 0, 0, 'AV 4 DE FEVEREIRO TORRES ATLANTICO N 197', NULL, 2, 1, '5410003667', 'Carlos Sampaio', 1, 750, NULL, 1, '2024-02-27 14:45:07', '2024-02-27 14:45:07', 1, 'Não', 'LUANDA', 1),
-	(274, 'BANCO NACIONAL DE ANGOLA - BNA', '0da0d527-2f4c-4d67-8a31-699a76d2d38a', 'Sebastião Banganga', NULL, NULL, NULL, NULL, 'Nacional', '31.1.2.1.14', '+244222679200', 0, 0, NULL, NULL, 2, 1, '7401012332', 'Milton Lucas', 1, 751, NULL, 1, '2024-02-27 15:11:09', '2024-02-27 15:11:09', 1, 'Não', 'Luanda', 1),
-	(275, 'ANJANI FOOD & BEVERAGES, LDA', 'ccfd9898-2f8f-4fc7-823c-8cbd6d2d7152', 'Sr. Saturnino', 'logistics@anjanifood.com', NULL, NULL, NULL, 'Nacional', '31.1.2.1.15', '+244 937 395 890', 0, 0, 'Estrada Direita da Funda - Kifangondo', NULL, 2, 1, '5419007835', 'Carlos Sampaio', 1, 750, NULL, 1, '2024-03-01 11:44:26', '2024-03-01 11:44:26', 1, 'Não', 'LUANDA', 1),
-	(276, 'VITALIS CHUKWULOTA OZOCHI', '218aeb9d-af44-4998-adcf-9200371aa1ed', 'Sr. Edgar', 'mailto:edgarpedro687@gmail.com', NULL, NULL, NULL, 'Nacional', '31.1.2.1.16', '928434868', 0, 0, 'Sambizanga Casa S Zona 10', NULL, 2, 1, '0000032603', 'Carlos Sampaio', 1, 750, NULL, 1, '2024-03-01 12:53:34', '2024-03-01 12:53:34', 1, 'Não', 'Luanda', 1),
-	(277, 'COMPANHIA CASTEL DE BEBIDAS DE LUANDA-CCBL, S.A', '6db1bb9e-670b-4077-857b-bec064a81f7b', 'TEU TRANSITARIO ', NULL, NULL, NULL, '2023-12-17', 'Nacional', '31.1.2.1.17', '923967562', 0, 0, 'RUA N´GOLA KILUANGE Nº370', NULL, 2, 1, '5410000757', 'Milton Lucas', 1, 751, NULL, 1, '2024-03-04 09:52:30', '2024-03-04 09:52:30', 1, 'Não', 'LUANDA', 1),
-	(278, 'OPS SERVIÇOS DE PRODUÇÃO DE PETRÓLEOS, LTD', 'e7e791e0-e424-4681-82d0-3e1d6ff98671', 'Sebastião Santos', ' Sebastiao.Santos@sbmoffshore.com', NULL, NULL, '2023-12-19', 'Nacional', '31.1.2.1.18', '+244939452739', 0, 0, 'Rua Comandante Arguelles, nº 103', NULL, 2, 1, '5402068909', 'Milton Lucas', 1, 751, NULL, 1, '2024-03-04 13:01:36', '2024-03-04 13:01:36', 1, 'Não', 'LUANDA', 1),
-	(279, 'SIMPORTEX - COMERCIALIZAÇÃO DE EQUIPAMENTOS M.M', '51344979-a6db-4096-98c9-1c95014fe3a8', 'SIMPORTEX', NULL, NULL, NULL, NULL, 'Nacional', '31.1.2.1.19', NULL, 0, 0, 'RUA RAINHA GINGA Nº 24 - INGOMBOTA', NULL, 2, 1, '5410003519', 'Carlos Sampaio', 1, 750, NULL, 1, '2024-03-04 14:45:55', '2024-03-04 14:45:55', 1, 'Não', 'LUANDA', 1),
-	(280, 'INDUSTRIAS TOPACK, LDA', 'e11ee4c9-a80b-4854-804a-4e8a452b4755', 'Emanuel DÁbril', NULL, NULL, NULL, NULL, 'Nacional', '31.1.2.1.20', NULL, 0, 0, 'POLO INDUSTRIA DE VIANA VIA EXPRESSA', NULL, 2, 1, '5417251135', 'Milton Lucas', 1, 751, NULL, 1, '2024-03-05 10:54:25', '2024-03-05 10:54:25', 1, 'Não', 'LUANDA', 1),
-	(281, 'ASCO ANGOLAN SERVICES COMPANY', '8defd71f-d9d7-4e64-8d03-701a7993eab4', 'OLICARGO LDA', 'nelson.costa@olicargo.com', NULL, NULL, NULL, 'Nacional', '31.1.2.1.21', '+244926671315', 0, 0, 'RUA EMILIO M BINDI N 9/11', NULL, 2, 1, '5417219770', 'Milton Lucas', 1, 751, NULL, 1, '2024-03-05 13:14:44', '2024-03-05 13:14:44', 1, 'Não', 'LUANDA', 1),
-	(282, 'BESTFLY, LDA', '525e6809-802c-4ee2-ab01-1dc1ec862efc', 'Julia Ornelas', 'ops@bestfly.aero', 'www.bestfly.aero', NULL, NULL, 'Nacional', '31.1.2.1.22', '+244925928831', 0, 0, 'AV. 21 DE JANEIRO-AEROPORTO 4 DE FEVEREIRO', NULL, 2, 1, '5417077976', 'Milton Lucas', 1, 751, NULL, 1, '2024-03-06 13:08:03', '2024-03-06 13:08:03', 1, 'Não', 'LUANDA', 1),
-	(283, 'MANUEL GOMES PACA', 'f28924d4-5cc6-478f-a37a-4aa2f7481263', 'MANUEL GOMES PACA', NULL, NULL, NULL, NULL, 'Nacional', '31.1.2.1.23', NULL, 0, 0, 'CASA S Nº ZONA A CABINDA', NULL, 2, 1, '000107432CA014', 'Carlos Sampaio', 1, 750, NULL, 1, '2024-03-07 12:45:46', '2024-03-07 12:45:46', 1, 'Não', 'CABINDA', 1),
-	(284, 'NOCEBO SA', 'e912006a-4502-4a61-9210-0e455de04ff4', 'Arlindo Sampaio', 'angelino@castel-afrique.com', NULL, NULL, NULL, 'Nacional', '31.1.2.1.24', '937 393 718', 0, 0, 'RUA CONEGO MANUEL DAS NEVES NR 403', NULL, 2, 1, '5410777832', 'Carlos Sampaio', 1, 750, NULL, 1, '2024-03-11 11:51:40', '2024-03-11 11:51:40', 1, 'Não', 'LUANDA - ANGOLA', 1),
-	(285, 'Kuehne e Nagel (Angola) Transitarios, LDA', 'f251c371-b91c-45c0-9d2f-274c623d9d1d', 'Kuehne-nagel', 'knao.pagamentos@kuehne-nagel.com', NULL, NULL, NULL, 'Nacional', '31.1.2.1.25', '946 901 469', 0, 0, 'Rua Rainha Ginga, Nº 29, Edifício Elisée Trade Center 16º Andar, Distrito Urbano da Ingombota', NULL, 2, 1, '5403088504', 'Carlos Sampaio', 1, 750, NULL, 1, '2024-03-11 15:39:47', '2024-03-11 15:39:47', 1, 'Não', 'LUANDA', 1),
-	(286, 'YAPAMA SAÚDE, LDA', '579deb9b-5329-4239-91d0-d500bdbd3751', 'Naftali Miguel', NULL, NULL, NULL, NULL, 'Nacional', '31.1.2.1.26', '+244932102227', 0, 0, 'Belas Business Park, Edifício Cabinda Nº304', NULL, 2, 1, '5417163783', 'Milton Lucas', 1, 751, NULL, 1, '2024-03-12 13:27:18', '2024-03-12 13:27:18', 1, 'Não', 'LUANDA', 1),
-	(287, 'ADVANCED MARITIME TRANSPORTS LDA', '50c15b8b-4861-493a-8955-cd57a7785de4', 'AMT', 'm.simao@amt-sa.com', NULL, NULL, NULL, 'Nacional', '31.1.2.1.27', '940198085', 0, 0, NULL, NULL, 2, 1, '5403087095', 'Milton Lucas', 1, 751, NULL, 1, '2024-03-25 12:10:31', '2024-03-25 12:10:31', 1, 'Não', 'Luanda', 1),
-	(288, 'SONASURF (ANGOLA) COMP. SERVIÇOS MARITIMOS LDA', '4f32a233-b7f9-4e67-a1ea-ff2e5b97e7ab', 'Sr. Guedes', 'lilguedes16@gmail.com', NULL, NULL, NULL, 'Nacional', '31.1.2.1.28', NULL, 0, 0, 'ESTRADA NACIONAL DE CACUACO 315', NULL, 2, 1, '5403084460', 'Carlos Sampaio', 1, 750, NULL, 1, '2024-03-25 15:18:36', '2024-03-25 15:18:36', 1, 'Não', 'LUANDA', 1);
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.clientes: ~28 rows (aproximadamente)
+INSERT INTO `clientes` (`id`, `nome`, `uuid`, `pessoa_contacto`, `email`, `website`, `numero_contrato`, `data_contrato`, `tipo_conta_corrente`, `isencaoCargaTransito`, `conta_corrente`, `telefone_cliente`, `taxa_de_desconto`, `limite_de_credito`, `endereco`, `gestor_id`, `canal_id`, `status_id`, `nif`, `operador`, `tipo_cliente_id`, `user_id`, `created_by`, `empresa_id`, `created_at`, `updated_at`, `pais_id`, `diversos`, `cidade`, `centroCustoId`) VALUES
+	(1, 'Consumidor final', '673dc30a-5cb0-4d9d-be19-aeae663f0c05', NULL, NULL, NULL, NULL, NULL, 'Nacional', 'N', '31.1.2.1.1', NULL, 0, 0, NULL, NULL, 2, 1, '999999999', NULL, 2, NULL, NULL, 1, '2021-04-16 10:36:11', '2021-04-16 10:36:11', 1, 'Sim', 'Luanda', NULL),
+	(2, 'SCHLUMBERGER LOGELCO, INC', 'c184ca0b-c2ff-4a84-8dc1-120b85cae437', 'SCHLUMBERGER LOGELCO, INC', 'airport.lad@tlc-com.ch', NULL, NULL, '2024-02-03', 'Nacional', 'N', '31.1.2.1.2', '932338415', 0, 0, 'TLC Lda', NULL, 2, 1, '999999999', 'Airport Temporary Operator', 2, 1, NULL, 1, '2024-02-03 07:23:34', '2024-02-03 07:23:34', 1, 'Não', 'Luanda', 1),
+	(3, 'NGONGO THOMAS & FILHOS COMERCIO GERAL LTD', 'c609441e-438e-468d-a3bf-eadb41f556a2', 'Thomas', 'kingsleychima75@gmail.com', NULL, NULL, '2023-12-19', 'Nacional', 'N', '31.1.2.1.3', '+244923437631', 0, 0, 'Rua Santos Nº18, Bairro Cassenda', NULL, 2, 1, '54176617919', 'Milton Lucas', 1, 751, NULL, 1, '2024-02-06 15:06:06', '2024-02-20 10:18:06', 1, 'Não', 'Luanda', 1),
+	(264, 'GRUPO LIZ - COMERCIO E SERVIÇOS, LIMITADA', '26f1d557-74d5-453e-8884-415c815971ea', 'Ian Pereira', 'ian.pereira@grupoliz.com', NULL, NULL, '2023-12-19', 'Nacional', 'N', '31.1.2.1.4', '923520471', 0, 0, 'Bairro Cassenda - Rua 02, Casa nº 12, Maianga', NULL, 2, 1, '5403084690', 'Milton Lucas', 2, 751, NULL, 1, '2024-02-19 10:11:36', '2024-02-22 12:37:59', 1, 'Não', 'Luanda', 1),
+	(265, 'DHL GLOBAL FORWARDING ANGOLA LTD', '73ca5753-3193-46a0-bc7d-52b273cc9a5f', 'Ana Pinto', 'anacruz.pinto@dhl.com', NULL, NULL, '2023-12-19', 'Nacional', 'N', '31.1.2.1.5', '948625996', 0, 0, 'Avenida 21 de Janeiro  Aeroporto', NULL, 2, 1, '5401071809', 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', 1, 1, NULL, 1, '2024-02-19 10:30:35', '2024-03-25 11:43:37', 1, 'Não', 'Luanda', 1),
+	(266, 'Panalpina Transportes Mundiais Navegação e Transitos SA', 'fc7e0fcb-de7a-4fed-81dd-d55d53c500f6', 'Dario Manuel', 'dario.manuel@ao.dsv.com', NULL, NULL, '2023-12-19', 'Nacional', 'N', '31.1.2.1.6', '226422041', 0, 0, 'Rua Kima Kienda 106, Estr. da Boavista – Luanda', NULL, 2, 1, '5403005862', 'Milton Lucas', 1, 751, NULL, 1, '2024-02-20 08:59:35', '2024-02-22 12:40:01', 1, 'Não', 'Luanda', 1),
+	(267, 'MULTIFLIGHT LDA', 'c397309b-7a26-4843-80cc-1187089aa8b3', 'Silvestre', 'opsmultiflight@gmail.com', NULL, NULL, '2023-12-19', 'Nacional', 'N', '31.1.2.1.7', '+244933535482', 0, 0, 'Av. Revolução de Outubro, Bloco 47 B-3 Andar', NULL, 2, 1, '5417323659', 'Carlos Sampaio', 2, 750, NULL, 1, '2024-02-20 11:03:01', '2024-02-21 12:24:28', 1, 'Não', 'Luanda', 1),
+	(268, 'CELTA SERVIÇOS & COMÉRCIO, LDA', 'f4678f33-4035-4be4-9de7-861778fe89ba', 'Joana Da Costa ', NULL, NULL, NULL, '2023-12-19', 'Nacional', 'N', '31.1.2.1.8', '+244912505071', 0, 0, 'Rua Fernando Pessoa, Nº52', NULL, 2, 1, '5402032955', 'Milton Lucas', 2, 751, NULL, 1, '2024-02-20 14:35:24', '2024-02-20 14:35:24', 1, 'Não', 'Luanda', 1),
+	(269, 'TAAG - LINHAS AEREAS DE ANGOLA', 'd0411628-e892-4030-bc28-229377ee0c1b', 'TAAG', NULL, NULL, NULL, NULL, 'Nacional', 'N', '31.1.2.1.9', NULL, 0, 0, NULL, NULL, 2, 1, '5410002830', 'Carlos Sampaio', 2, 750, NULL, 1, '2024-02-26 14:33:52', '2024-02-26 14:33:52', 1, 'Não', 'Luanda', 1),
+	(270, 'TLC LDA', '7e170ed0-ffd9-4014-ab96-8d59196140cb', 'Débora Sousa', 'dsousa.an@tlc-com.ch', NULL, NULL, '2023-12-19', 'Nacional', 'N', '31.1.2.1.10', '+244 926 515 109', 0, 0, 'Avenida 4 de Fevereiro nº33 Luanda, Angola', NULL, 2, 1, ' 5401146655', 'Milton Lucas', 1, 751, NULL, 1, '2024-02-26 16:43:29', '2024-02-26 16:43:29', 1, 'Não', 'Luanda', 1),
+	(271, 'SUPERMARITIME TRANSITÁRIOS LDA', '61d4f97a-b1a8-406e-8595-ce290b4c3707', 'Diogo Lussala', 'dlussala@supermaritime.com', NULL, NULL, '2023-12-19', 'Nacional', 'N', '31.1.2.1.11', '+244936759737', 0, 0, 'Rua das Flores Nº10, Ingombota', NULL, 2, 1, '50000338415', 'Milton Lucas', 1, 751, NULL, 1, '2024-02-27 10:14:22', '2024-02-27 10:14:22', 1, 'Não', 'Luanda', 1),
+	(272, 'PONTICELLI ANGOIL', '7d8ca958-3a98-44ea-93a9-d09db329d33e', 'Renato Gois', NULL, NULL, NULL, '2023-12-19', 'Nacional', 'N', '31.1.2.1.12', NULL, 0, 0, 'Av. Comandante Kima-Kyenda, Nº311', NULL, 2, 1, '5403090762', 'Milton Lucas', 1, 751, NULL, 1, '2024-02-27 12:24:18', '2024-02-27 12:24:18', 1, 'Não', 'Luanda', 1),
+	(273, 'AZULE ENERGY ANGOLA(BLOCK 18), B.V. - SUCURSAL DE ANGOLA', '00a6b73e-98b1-409a-bce9-c0cd0f975210', 'Onésimo dos Santos', NULL, NULL, NULL, NULL, 'Nacional', 'N', '31.1.2.1.13', NULL, 0, 0, 'AV 4 DE FEVEREIRO TORRES ATLANTICO N 197', NULL, 2, 1, '5410003667', 'Carlos Sampaio', 1, 750, NULL, 1, '2024-02-27 14:45:07', '2024-02-27 14:45:07', 1, 'Não', 'LUANDA', 1),
+	(274, 'BANCO NACIONAL DE ANGOLA - BNA', '0da0d527-2f4c-4d67-8a31-699a76d2d38a', 'Sebastião Banganga', NULL, NULL, NULL, NULL, 'Nacional', 'N', '31.1.2.1.14', '+244222679200', 0, 0, NULL, NULL, 2, 1, '7401012332', 'Milton Lucas', 1, 751, NULL, 1, '2024-02-27 15:11:09', '2024-02-27 15:11:09', 1, 'Não', 'Luanda', 1),
+	(275, 'ANJANI FOOD & BEVERAGES, LDA', 'ccfd9898-2f8f-4fc7-823c-8cbd6d2d7152', 'Sr. Saturnino', 'logistics@anjanifood.com', NULL, NULL, '0000-00-00', 'Nacional', 'N', '31.1.2.1.15', '+244 937 395 890', 0, 0, 'Estrada Direita da Funda - Kifangondo', NULL, 2, 1, '5419007835', 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', 1, 1, NULL, 1, '2024-03-01 11:44:26', '2024-04-18 10:43:53', 1, 'Não', 'LUANDA', 1),
+	(276, 'VITALIS CHUKWULOTA OZOCHI', '218aeb9d-af44-4998-adcf-9200371aa1ed', 'Sr. Edgar', 'mailto:edgarpedro687@gmail.com', NULL, NULL, NULL, 'Nacional', 'N', '31.1.2.1.16', '928434868', 0, 0, 'Sambizanga Casa S Zona 10', NULL, 2, 1, '0000032603', 'Carlos Sampaio', 1, 750, NULL, 1, '2024-03-01 12:53:34', '2024-03-01 12:53:34', 1, 'Não', 'Luanda', 1),
+	(277, 'COMPANHIA CASTEL DE BEBIDAS DE LUANDA-CCBL, S.A', '6db1bb9e-670b-4077-857b-bec064a81f7b', 'TEU TRANSITARIO ', NULL, NULL, NULL, '2023-12-17', 'Nacional', 'N', '31.1.2.1.17', '923967562', 0, 0, 'RUA N´GOLA KILUANGE Nº370', NULL, 2, 1, '5410000757', 'Milton Lucas', 1, 751, NULL, 1, '2024-03-04 09:52:30', '2024-03-04 09:52:30', 1, 'Não', 'LUANDA', 1),
+	(278, 'OPS SERVIÇOS DE PRODUÇÃO DE PETRÓLEOS, LTD', 'e7e791e0-e424-4681-82d0-3e1d6ff98671', 'Sebastião Santos', ' Sebastiao.Santos@sbmoffshore.com', NULL, NULL, '2023-12-19', 'Nacional', 'N', '31.1.2.1.18', '+244939452739', 0, 0, 'Rua Comandante Arguelles, nº 103', NULL, 2, 1, '5402068909', 'Milton Lucas', 1, 751, NULL, 1, '2024-03-04 13:01:36', '2024-03-04 13:01:36', 1, 'Não', 'LUANDA', 1),
+	(279, 'SIMPORTEX - COMERCIALIZAÇÃO DE EQUIPAMENTOS M.M', '51344979-a6db-4096-98c9-1c95014fe3a8', 'SIMPORTEX', NULL, NULL, NULL, NULL, 'Nacional', 'N', '31.1.2.1.19', NULL, 0, 0, 'RUA RAINHA GINGA Nº 24 - INGOMBOTA', NULL, 2, 1, '5410003519', 'Carlos Sampaio', 1, 750, NULL, 1, '2024-03-04 14:45:55', '2024-03-04 14:45:55', 1, 'Não', 'LUANDA', 1),
+	(280, 'INDUSTRIAS TOPACK, LDA', 'e11ee4c9-a80b-4854-804a-4e8a452b4755', 'Emanuel DÁbril', NULL, NULL, NULL, NULL, 'Nacional', 'N', '31.1.2.1.20', NULL, 0, 0, 'POLO INDUSTRIA DE VIANA VIA EXPRESSA', NULL, 2, 1, '5417251135', 'Milton Lucas', 1, 751, NULL, 1, '2024-03-05 10:54:25', '2024-03-05 10:54:25', 1, 'Não', 'LUANDA', 1),
+	(281, 'ASCO ANGOLAN SERVICES COMPANY', '8defd71f-d9d7-4e64-8d03-701a7993eab4', 'OLICARGO LDA', 'nelson.costa@olicargo.com', NULL, NULL, NULL, 'Nacional', 'N', '31.1.2.1.21', '+244926671315', 0, 0, 'RUA EMILIO M BINDI N 9/11', NULL, 2, 1, '5417219770', 'Milton Lucas', 1, 751, NULL, 1, '2024-03-05 13:14:44', '2024-03-05 13:14:44', 1, 'Não', 'LUANDA', 1),
+	(282, 'BESTFLY, LDA', '525e6809-802c-4ee2-ab01-1dc1ec862efc', 'Julia Ornelas', 'ops@bestfly.aero', 'www.bestfly.aero', NULL, NULL, 'Nacional', 'N', '31.1.2.1.22', '+244925928831', 0, 0, 'AV. 21 DE JANEIRO-AEROPORTO 4 DE FEVEREIRO', NULL, 2, 1, '5417077976', 'Milton Lucas', 1, 751, NULL, 1, '2024-03-06 13:08:03', '2024-03-06 13:08:03', 1, 'Não', 'LUANDA', 1),
+	(283, 'MANUEL GOMES PACA', 'f28924d4-5cc6-478f-a37a-4aa2f7481263', 'MANUEL GOMES PACA', NULL, NULL, NULL, NULL, 'Nacional', 'N', '31.1.2.1.23', NULL, 0, 0, 'CASA S Nº ZONA A CABINDA', NULL, 2, 1, '000107432CA014', 'Carlos Sampaio', 1, 750, NULL, 1, '2024-03-07 12:45:46', '2024-03-07 12:45:46', 1, 'Não', 'CABINDA', 1),
+	(284, 'NOCEBO SA', 'e912006a-4502-4a61-9210-0e455de04ff4', 'Arlindo Sampaio', 'angelino@castel-afrique.com', NULL, NULL, NULL, 'Nacional', 'N', '31.1.2.1.24', '937 393 718', 0, 0, 'RUA CONEGO MANUEL DAS NEVES NR 403', NULL, 2, 1, '5410777832', 'Carlos Sampaio', 1, 750, NULL, 1, '2024-03-11 11:51:40', '2024-03-11 11:51:40', 1, 'Não', 'LUANDA - ANGOLA', 1),
+	(285, 'Kuehne e Nagel (Angola) Transitarios, LDA', 'f251c371-b91c-45c0-9d2f-274c623d9d1d', 'Kuehne-nagel', 'knao.pagamentos@kuehne-nagel.com', NULL, NULL, NULL, 'Nacional', 'N', '31.1.2.1.25', '946 901 469', 0, 0, 'Rua Rainha Ginga, Nº 29, Edifício Elisée Trade Center 16º Andar, Distrito Urbano da Ingombota', NULL, 2, 1, '5403088504', 'Carlos Sampaio', 1, 750, NULL, 1, '2024-03-11 15:39:47', '2024-03-11 15:39:47', 1, 'Não', 'LUANDA', 1),
+	(286, 'YAPAMA SAÚDE, LDA', '579deb9b-5329-4239-91d0-d500bdbd3751', 'Naftali Miguel', NULL, NULL, NULL, NULL, 'Nacional', 'N', '31.1.2.1.26', '+244932102227', 0, 0, 'Belas Business Park, Edifício Cabinda Nº304', NULL, 2, 1, '5417163783', 'Milton Lucas', 1, 751, NULL, 1, '2024-03-12 13:27:18', '2024-03-12 13:27:18', 1, 'Não', 'LUANDA', 1),
+	(287, 'ADVANCED MARITIME TRANSPORTS LDA', '50c15b8b-4861-493a-8955-cd57a7785de4', 'AMT', 'm.simao@amt-sa.com', NULL, NULL, NULL, 'Nacional', 'N', '31.1.2.1.27', '940198085', 0, 0, NULL, NULL, 2, 1, '5403087095', 'Milton Lucas', 1, 751, NULL, 1, '2024-03-25 12:10:31', '2024-03-25 12:10:31', 1, 'Não', 'Luanda', 1),
+	(288, 'SONASURF (ANGOLA) COMP. SERVIÇOS MARITIMOS LDA', '4f32a233-b7f9-4e67-a1ea-ff2e5b97e7ab', 'Sr. Guedes', 'lilguedes16@gmail.com', NULL, NULL, NULL, 'Nacional', 'N', '31.1.2.1.28', NULL, 0, 0, 'ESTRADA NACIONAL DE CACUACO 315', NULL, 2, 1, '5403084460', 'Carlos Sampaio', 1, 750, NULL, 1, '2024-03-25 15:18:36', '2024-03-25 15:18:36', 1, 'Não', 'LUANDA', 1),
+	(289, 'BBBBBB', '71b27846-672c-424c-91a6-b5bd0253a1b2', 'BBBBBBBB', NULL, NULL, NULL, NULL, 'Nacional', 'N', '31.1.2.1.29', NULL, 0, 0, NULL, NULL, 2, 1, '999999999', 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', 1, 1, NULL, 1, '2024-04-18 10:12:01', '2024-04-18 10:12:01', 1, 'Não', 'Luanda', 1),
+	(290, 'AAAAAAA', '2732751e-20ce-4a33-beaa-f93828607de9', 'AAAAAAAAAAA', NULL, NULL, NULL, NULL, 'Nacional', 'N', '31.1.2.1.30', NULL, 0, 0, NULL, NULL, 2, 1, '999999999', 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', 1, 1, NULL, 1, '2024-04-18 10:12:43', '2024-04-18 10:12:43', 1, 'Não', 'Luanda', 1),
+	(291, 'EMPRESA ISENCAO 24H', 'e640b9f3-2e0a-4311-bfb0-815ea0523a9f', 'AAAAAAAAAA', NULL, NULL, NULL, '2024-04-18', 'Nacional', 'Y', '31.1.2.1.31', NULL, 0, 0, NULL, NULL, 2, 1, '999999999', 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', 1, 1, NULL, 1, '2024-04-18 10:13:56', '2024-04-18 10:44:10', 1, 'Não', 'Luanda', 1);
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.comunas
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.comunas
 CREATE TABLE IF NOT EXISTS `comunas` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `designacao` varchar(255) NOT NULL,
@@ -662,7 +669,7 @@ CREATE TABLE IF NOT EXISTS `comunas` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.comunas: ~50 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.comunas: ~50 rows (aproximadamente)
 INSERT INTO `comunas` (`id`, `designacao`, `statusId`, `municipioId`, `valor_entrega`) VALUES
 	(1, 'Vila Verde', 1, 2, 9000),
 	(2, 'Barra Do Kwanza', 1, 2, 20000),
@@ -715,7 +722,7 @@ INSERT INTO `comunas` (`id`, `designacao`, `statusId`, `municipioId`, `valor_ent
 	(49, 'Camama', 1, 9, 4000),
 	(50, 'Cidade Universitária', 1, 9, 3000);
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.contactos
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.contactos
 CREATE TABLE IF NOT EXISTS `contactos` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `tipo_contacto_id` int(10) unsigned NOT NULL,
@@ -731,9 +738,9 @@ CREATE TABLE IF NOT EXISTS `contactos` (
   CONSTRAINT `FK_contactos_tipo_contacto` FOREIGN KEY (`tipo_contacto_id`) REFERENCES `tipos_contactos` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.contactos: ~0 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.contactos: ~0 rows (aproximadamente)
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.coupon_desconto
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.coupon_desconto
 CREATE TABLE IF NOT EXISTS `coupon_desconto` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `codigo` varchar(255) NOT NULL,
@@ -746,13 +753,13 @@ CREATE TABLE IF NOT EXISTS `coupon_desconto` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.coupon_desconto: ~3 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.coupon_desconto: ~3 rows (aproximadamente)
 INSERT INTO `coupon_desconto` (`id`, `codigo`, `percentagem`, `used`, `data_expiracao`, `empresa_id`, `created_at`, `updated_at`) VALUES
 	(9, 'P29EN2023/1', 50, 'N', '2023-06-17 08:03:00', 53, '2023-06-13 07:06:12', '2023-06-13 07:06:12'),
 	(10, '3TZI92023/10', 10, 'N', '2023-06-28 11:22:00', 53, '2023-06-27 11:22:19', '2023-06-27 11:22:19'),
 	(11, 'BR0VO2023/11', 30, 'N', '2023-07-22 16:17:00', 53, '2023-07-20 16:17:25', '2023-07-20 16:17:25');
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.documento_anulados
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.documento_anulados
 CREATE TABLE IF NOT EXISTS `documento_anulados` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `cliente_id` int(10) unsigned NOT NULL,
@@ -789,9 +796,9 @@ CREATE TABLE IF NOT EXISTS `documento_anulados` (
   CONSTRAINT `FK_documento_anulados_tipo_users` FOREIGN KEY (`tipo_user_id`) REFERENCES `tipo_users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.documento_anulados: ~0 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.documento_anulados: ~0 rows (aproximadamente)
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.empresas
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.empresas
 CREATE TABLE IF NOT EXISTS `empresas` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `nome` varchar(255) NOT NULL,
@@ -835,11 +842,11 @@ CREATE TABLE IF NOT EXISTS `empresas` (
   CONSTRAINT `FK_empresas_tipos_regimes` FOREIGN KEY (`tipo_regime_id`) REFERENCES `tipos_regimes` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.empresas: ~0 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.empresas: ~0 rows (aproximadamente)
 INSERT INTO `empresas` (`id`, `nome`, `pessoal_Contacto`, `telefone1`, `telefone2`, `endereco`, `pais_id`, `saldo`, `canal_id`, `status_id`, `nif`, `gestor_cliente_id`, `tipo_cliente_id`, `tipo_regime_id`, `logotipo`, `website`, `email`, `referencia`, `pessoa_de_contacto`, `created_at`, `updated_at`, `cidade`, `file_alvara`, `file_nif`, `venda_online`) VALUES
 	(1, 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', NULL, NULL, NULL, 'Estrada nacional 230, km 42 - Municipio do Icolo e Bengo, Distrito  do Bom Jesus, Luanda-Angola', 1, 0, 2, 1, '5001720538', 1, 1, 1, 'utilizadores/cliente/1o4Qrb1TxFZ22reZApq7fIoZn0hq5T3Vj5sltIei.png', 'ato.ao', 'info@ato.ao', '4EEJFPK', NULL, '2024-01-23 16:10:54', '2024-01-23 16:10:54', 'Luanda', NULL, NULL, 'N');
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.entradas_stocks
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.entradas_stocks
 CREATE TABLE IF NOT EXISTS `entradas_stocks` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `data_factura_fornecedor` date NOT NULL,
@@ -882,9 +889,9 @@ CREATE TABLE IF NOT EXISTS `entradas_stocks` (
   CONSTRAINT `FK_entradas_stocks_tipo_users` FOREIGN KEY (`tipo_user_id`) REFERENCES `tipo_users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.entradas_stocks: ~0 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.entradas_stocks: ~0 rows (aproximadamente)
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.entradas_stock_items
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.entradas_stock_items
 CREATE TABLE IF NOT EXISTS `entradas_stock_items` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `entrada_stock_id` int(10) unsigned NOT NULL,
@@ -904,9 +911,9 @@ CREATE TABLE IF NOT EXISTS `entradas_stock_items` (
   CONSTRAINT `FK_entradas_stock_items_produto` FOREIGN KEY (`produto_id`) REFERENCES `produtos_` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.entradas_stock_items: ~0 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.entradas_stock_items: ~0 rows (aproximadamente)
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.especificacao_mercadorias
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.especificacao_mercadorias
 CREATE TABLE IF NOT EXISTS `especificacao_mercadorias` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `designacao` text NOT NULL,
@@ -917,7 +924,7 @@ CREATE TABLE IF NOT EXISTS `especificacao_mercadorias` (
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.especificacao_mercadorias: ~10 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.especificacao_mercadorias: ~10 rows (aproximadamente)
 INSERT INTO `especificacao_mercadorias` (`id`, `designacao`, `desconto`, `status`, `created_at`, `updated_at`) VALUES
 	(1, 'Ordinária com isenção', 0, 1, '2024-01-30 13:50:46', '2024-02-13 01:26:18'),
 	(2, 'Moedas estrangeiras, quando importadas pelo Estado', 100, 1, '2024-01-30 13:50:46', '2024-01-30 13:50:47'),
@@ -930,7 +937,7 @@ INSERT INTO `especificacao_mercadorias` (`id`, `designacao`, `desconto`, `status
 	(9, 'Roupas usadas, livros e material didáctico, de cidadãos nacionais, quando de regresso ao país no cumprimento de missão diplomática ou de formação.', 50, 1, '2024-01-30 13:50:46', '2024-01-30 13:50:47'),
 	(10, 'Ordinária sem isenção', 100, 1, '2024-01-30 13:50:46', '2024-01-30 13:50:47');
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.existencias_stocks
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.existencias_stocks
 CREATE TABLE IF NOT EXISTS `existencias_stocks` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `produto_id` int(10) unsigned NOT NULL,
@@ -952,9 +959,9 @@ CREATE TABLE IF NOT EXISTS `existencias_stocks` (
   KEY `FK_existencias_status` (`status_id`),
   KEY `FK_existencias_empresa` (`empresa_id`),
   KEY `FK_existencias_stocks_tipos_stocagens` (`tipo_stocagem_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.existencias_stocks: ~41 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.existencias_stocks: ~43 rows (aproximadamente)
 INSERT INTO `existencias_stocks` (`id`, `produto_id`, `armazem_id`, `tipo_stocagem_id`, `quantidade`, `canal_id`, `user_id`, `status_id`, `empresa_id`, `created_at`, `updated_at`, `observacao`) VALUES
 	(1, 1, 1, NULL, 0, 2, 1, 1, 1, '2024-02-02 02:35:27', '2024-02-02 02:35:28', NULL),
 	(2, 2, 1, NULL, 0, 2, 1, 1, 1, '2024-02-02 02:35:27', '2024-02-02 02:35:28', NULL),
@@ -996,9 +1003,11 @@ INSERT INTO `existencias_stocks` (`id`, `produto_id`, `armazem_id`, `tipo_stocag
 	(38, 38, 1, NULL, 0, 2, 1, 1, 1, '2024-02-03 09:21:09', '2024-02-03 09:21:09', NULL),
 	(39, 39, 1, NULL, 0, 2, 1, 1, 1, '2024-02-03 09:21:09', '2024-02-03 09:21:09', NULL),
 	(40, 40, 1, NULL, 0, 2, 1, 1, 1, '2024-02-03 09:21:09', '2024-02-03 09:21:09', NULL),
-	(41, 41, 1, NULL, 0, 2, 1, 1, 1, '2024-02-03 09:21:09', '2024-02-03 09:21:09', NULL);
+	(41, 41, 1, NULL, 0, 2, 1, 1, 1, '2024-02-03 09:21:09', '2024-02-03 09:21:09', NULL),
+	(42, 42, 1, NULL, 0, 2, 1, 1, 1, '2024-02-03 09:21:09', '2024-02-03 09:21:09', NULL),
+	(43, 43, 1, NULL, 0, 2, 1, 1, 1, '2024-02-03 09:21:09', '2024-02-03 09:21:09', NULL);
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.fabricantes
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.fabricantes
 CREATE TABLE IF NOT EXISTS `fabricantes` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `designacao` varchar(255) NOT NULL,
@@ -1018,11 +1027,11 @@ CREATE TABLE IF NOT EXISTS `fabricantes` (
   KEY `FK_fabricantes_tipo_users` (`tipo_user_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.fabricantes: ~0 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.fabricantes: ~0 rows (aproximadamente)
 INSERT INTO `fabricantes` (`id`, `designacao`, `empresa_id`, `user_id`, `canal_id`, `status_id`, `created_at`, `updated_at`, `diversos`, `tipo_user_id`) VALUES
 	(1, 'DIVERSOS', 1, 1, 2, 1, '2024-01-23 16:10:54', '2024-01-23 16:10:54', 'Sim', 2);
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.facturas
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.facturas
 CREATE TABLE IF NOT EXISTS `facturas` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `texto_hash` varchar(345) DEFAULT NULL,
@@ -1066,6 +1075,7 @@ CREATE TABLE IF NOT EXISTS `facturas` (
   `horaExtra` int(11) DEFAULT NULL,
   `contraValor` double DEFAULT '0',
   `valorIliquido` double DEFAULT '0',
+  `valorliquido` double DEFAULT '0',
   `valorImposto` double unsigned DEFAULT '0',
   `totalDesconto` double DEFAULT '0',
   `total` double DEFAULT '0',
@@ -1075,6 +1085,7 @@ CREATE TABLE IF NOT EXISTS `facturas` (
   `tipoOperacao` int(11) DEFAULT NULL COMMENT '1=>Importação, 2=>Exportação',
   `isencaoIVA` enum('Y','N') DEFAULT 'N',
   `isencaoOcupacao` enum('Y','N') DEFAULT 'N',
+  `isencao24hCargaTransito` enum('Y','N') DEFAULT 'N',
   `convertido` enum('Y','N') DEFAULT 'N',
   `anulado` enum('Y','N') DEFAULT 'N',
   `taxaRetencao` double DEFAULT '0',
@@ -1087,17 +1098,16 @@ CREATE TABLE IF NOT EXISTS `facturas` (
   KEY `FK_facturas_empresas` (`empresa_id`),
   KEY `FK_facturas_moedas` (`codigo_moeda`),
   KEY `FK_facturas_tipo_documentos` (`tipo_documento`)
-) ENGINE=InnoDB AUTO_INCREMENT=407 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=423 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.facturas: ~3 rows (aproximadamente)
-INSERT INTO `facturas` (`id`, `texto_hash`, `codigo_moeda`, `clienteId`, `nome_do_cliente`, `nomeProprietario`, `telefone_cliente`, `nif_cliente`, `email_cliente`, `endereco_cliente`, `tipo_documento`, `numSequenciaFactura`, `numeracaoFactura`, `numeracaoProforma`, `hashValor`, `cliente_id`, `empresa_id`, `centroCustoId`, `user_id`, `operador`, `created_at`, `updated_at`, `paisOrigemId`, `cartaDePorte`, `tipoDeAeronave`, `pesoMaximoDescolagem`, `dataDeAterragem`, `dataDeDescolagem`, `horaDeAterragem`, `horaDeDescolagem`, `horaEstacionamento`, `peso`, `dataEntrada`, `dataSaida`, `nDias`, `taxaIva`, `cambioDia`, `moeda`, `moedaPagamento`, `horaExtra`, `contraValor`, `valorIliquido`, `valorImposto`, `totalDesconto`, `total`, `codigoBarra`, `tipoDocumento`, `formaPagamentoId`, `tipoOperacao`, `isencaoIVA`, `isencaoOcupacao`, `convertido`, `anulado`, `taxaRetencao`, `valorRetencao`, `tipoFatura`, `tipoMercadoria`, `observacao`) VALUES
-	(402, '2024-04-15;2024-04-15T04:55:15;PP ATO2024/1;25438.60;', 1, 287, 'ADVANCED MARITIME TRANSPORTS LDA', 'AAAAAAA', '940198085', '5403087095', 'm.simao@amt-sa.com', NULL, 3, 1, 'FP ATO2024/1', NULL, 'rCynR2L4bgjYH1Z3DspPvxvlJZuld/ZFe97s3sEUVWXWu1UpCGaXetIJmAYV6D+GTC7cG1PGg9hRSsDDbSVfaLHvwrH0vZwk4e2zuY8WdGJnx2ExtcHsFoL5jJ5N8ysG0Yvd4HLG9RqiaVhO1EUxPcUtRq5tR76AT5/ok8QbsqU=', NULL, 1, 1, 1, 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', '2024-04-15 04:55:15', '2024-04-15 04:55:15', NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 14, 832.633, 'USD', 'AOA', NULL, 30.552, 22314.5644, 3124.039016, 111572.822, 25438.603416, '10002874021', 3, NULL, NULL, 'N', 'Y', 'N', 'N', 0, 0, 4, NULL, NULL),
-	(403, '2024-04-15;2024-04-15T05:47:40;PP ATO2024/2;45561.68;rCynR2L4bgjYH1Z3DspPvxvlJZuld/ZFe97s3sEUVWXWu1UpCGaXetIJmAYV6D+GTC7cG1PGg9hRSsDDbSVfaLHvwrH0vZwk4e2zuY8WdGJnx2ExtcHsFoL5jJ5N8ysG0Yvd4HLG9RqiaVhO1EUxPcUtRq5tR76AT5/ok8QbsqU=', 1, 287, 'ADVANCED MARITIME TRANSPORTS LDA', 'AAAAAAAA', '940198085', '5403087095', 'm.simao@amt-sa.com', NULL, 3, 2, 'FP ATO2024/2', NULL, 'MWaxCep1hP6bmAkJAcKY2g1/3qsI7h347Fdbnrnv/b8EzSjnyKtTe0AXftzlHw+17sDsC6lHvsFJxvMrQPAKzEK4DzByMROaroNxrbjXQ6RDJBJp8BIC5/QzNM7RSCsbIpstYNNh6/tmUKEYyPZxz8IP1DeHsVJAuc/Gd5GA4dY=', NULL, 1, 1, 1, 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', '2024-04-15 05:47:40', '2024-04-15 05:47:40', NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 14, 832.633, 'USD', 'AOA', NULL, 54.72, 39966.384, 5595.29376, 199831.92, 45561.67776, '10002874031', 3, NULL, NULL, 'N', 'Y', 'N', 'N', 0, 0, 4, NULL, NULL),
-	(404, '2024-04-15;2024-04-15T05:49:38;PP ATO2024/3;26197964.71;MWaxCep1hP6bmAkJAcKY2g1/3qsI7h347Fdbnrnv/b8EzSjnyKtTe0AXftzlHw+17sDsC6lHvsFJxvMrQPAKzEK4DzByMROaroNxrbjXQ6RDJBJp8BIC5/QzNM7RSCsbIpstYNNh6/tmUKEYyPZxz8IP1DeHsVJAuc/Gd5GA4dY=', 1, 287, 'ADVANCED MARITIME TRANSPORTS LDA', 'BBBBBB', '940198085', '5403087095', 'm.simao@amt-sa.com', NULL, 3, 3, 'FP ATO2024/3', NULL, 'UaNGJqAYY4DRljtjx/XcjAVsGIiEpYOJwVNuMTUAmgHrm1DHVUCEpiB5gQ3x/7SJ3W5PwUXB8zjNx1klu1ddegeUiiHvdZhN6Z7PmblMjmCI7h4tCw8EFNC0pkliV0NFj93qVF6FqmdRJgYOdMpN9H5g2VZadGmJpgzfgG5Jj7U=', NULL, 1, 1, 1, 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', '2024-04-15 05:49:38', '2024-04-15 05:49:38', NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 14, 832.633, 'USD', 'AOA', NULL, 31464, 22980670.8, 3217293.912, 0, 26197964.712, '10002874041', 3, NULL, NULL, 'N', 'N', 'N', 'N', 0, 0, 4, NULL, NULL),
-	(405, '2024-04-15;2024-04-15T06:04:18;PP ATO2024/4;23730.04;UaNGJqAYY4DRljtjx/XcjAVsGIiEpYOJwVNuMTUAmgHrm1DHVUCEpiB5gQ3x/7SJ3W5PwUXB8zjNx1klu1ddegeUiiHvdZhN6Z7PmblMjmCI7h4tCw8EFNC0pkliV0NFj93qVF6FqmdRJgYOdMpN9H5g2VZadGmJpgzfgG5Jj7U=', 1, 287, 'ADVANCED MARITIME TRANSPORTS LDA', 'bbbbb', '940198085', '5403087095', 'm.simao@amt-sa.com', NULL, 3, 4, 'FP ATO2024/4', NULL, 'GaxGTtulB+nXyQejK1D2eCTpSfT4x0/w1avfiqNtS1BPTq9NHNE6d1qCAeeLzpJ/qpaYaSjluiVqMQlji3PI4C0FDY4ZTbWB7ODXrgndYMSv7BARbCW6kvfAdexd8ArlgTYRSOsti6nohG3B6GlzR7HlEnN5y00kn88ibONQ83E=', NULL, 1, 1, 1, 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', '2024-04-15 06:04:18', '2024-04-15 06:04:18', NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 14, 832.633, 'USD', 'AOA', NULL, 28.5, 20815.825, 2914.2155, 0, 23730.0405, '10002874051', 3, NULL, NULL, 'N', 'N', 'N', 'N', 0, 0, 4, NULL, NULL),
-	(406, '2024-04-15;2024-04-15T06:08:33;PP ATO2024/5;3143755.77;GaxGTtulB+nXyQejK1D2eCTpSfT4x0/w1avfiqNtS1BPTq9NHNE6d1qCAeeLzpJ/qpaYaSjluiVqMQlji3PI4C0FDY4ZTbWB7ODXrgndYMSv7BARbCW6kvfAdexd8ArlgTYRSOsti6nohG3B6GlzR7HlEnN5y00kn88ibONQ83E=', 1, 287, 'ADVANCED MARITIME TRANSPORTS LDA', 'AAAAAAA', '940198085', '5403087095', 'm.simao@amt-sa.com', NULL, 3, 5, 'FP ATO2024/5', NULL, 'c1lUSPOxsKcG1rPVPpO2V707tdToGlNIGQUMlccAEE+9zK5hC9UaaHF0kPiO5FpQcVUhyauhPLWvQI9Dqp6StWyHRJFMqrRVUH0xQP/OrgIUM7g3PLKLGBF4U9wGIM3NKCEzoGBe+0Swzo7tEP/QPjVQqWQ7ddEHdgpqjsDi/I0=', NULL, 1, 1, 1, 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', '2024-04-15 06:08:33', '2024-04-15 06:08:33', NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 14, 832.633, 'USD', 'AOA', NULL, 3775.68, 2757680.496, 386075.26944, 0, 3143755.76544, '10002874061', 3, NULL, NULL, 'N', 'N', 'N', 'N', 0, 0, 3, NULL, NULL);
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.facturas: ~3 rows (aproximadamente)
+INSERT INTO `facturas` (`id`, `texto_hash`, `codigo_moeda`, `clienteId`, `nome_do_cliente`, `nomeProprietario`, `telefone_cliente`, `nif_cliente`, `email_cliente`, `endereco_cliente`, `tipo_documento`, `numSequenciaFactura`, `numeracaoFactura`, `numeracaoProforma`, `hashValor`, `cliente_id`, `empresa_id`, `centroCustoId`, `user_id`, `operador`, `created_at`, `updated_at`, `paisOrigemId`, `cartaDePorte`, `tipoDeAeronave`, `pesoMaximoDescolagem`, `dataDeAterragem`, `dataDeDescolagem`, `horaDeAterragem`, `horaDeDescolagem`, `horaEstacionamento`, `peso`, `dataEntrada`, `dataSaida`, `nDias`, `taxaIva`, `cambioDia`, `moeda`, `moedaPagamento`, `horaExtra`, `contraValor`, `valorIliquido`, `valorliquido`, `valorImposto`, `totalDesconto`, `total`, `codigoBarra`, `tipoDocumento`, `formaPagamentoId`, `tipoOperacao`, `isencaoIVA`, `isencaoOcupacao`, `isencao24hCargaTransito`, `convertido`, `anulado`, `taxaRetencao`, `valorRetencao`, `tipoFatura`, `tipoMercadoria`, `observacao`) VALUES
+	(419, '2024-04-19;2024-04-19T15:39:21;PP ATO2024/1;37.98;', 1, 2, 'SCHLUMBERGER LOGELCO, INC', NULL, '932338415', '999999999', 'airport.lad@tlc-com.ch', 'TLC Lda', 3, 1, 'FP ATO2024/1', NULL, 'TKIoqVUG7F60s6v/XHP7Xngk1tf38BpaPnINmAXemPIOkXvPKD2p+2l7Z4gr3Li0Jmdmwlyfue4MrelJNM3IkXLLQQAixcBYM41uRengXreLNLXDELcNPyVuPFBgsVVGg0hAcWOq9Uv0EB8slwYXoS191NC8DFMnIj6OHnJueIc=', NULL, 1, 1, 1, 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', '2024-04-18 15:39:21', '2024-04-18 15:39:21', NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 14, 832.825, 'USD', 'AOA', NULL, 0.0456, 33.313, 33.313, 4.66382, 0, 37.97682, '100024191', 3, NULL, NULL, 'N', 'N', 'N', 'N', 'N', 0, 0, 3, NULL, 'EFDAFAFD'),
+	(420, '2024-04-19;2024-04-19T15:47:40;PP ATO2024/2;101777.88;TKIoqVUG7F60s6v/XHP7Xngk1tf38BpaPnINmAXemPIOkXvPKD2p+2l7Z4gr3Li0Jmdmwlyfue4MrelJNM3IkXLLQQAixcBYM41uRengXreLNLXDELcNPyVuPFBgsVVGg0hAcWOq9Uv0EB8slwYXoS191NC8DFMnIj6OHnJueIc=', 1, 2, 'SCHLUMBERGER LOGELCO, INC', NULL, '932338415', '999999999', 'airport.lad@tlc-com.ch', 'TLC Lda', 3, 2, 'FP ATO2024/2', NULL, 'KuochA0kX9zSKcaLq3idxixODLPw/oW0XHolDpbmEr6+egTor9+dKFshGUXwKC39/hd0sfBFOFRWyP8isJZO3F1RsiF5BInEg3hGzF00BTmQdKP/hLexQ0fvFGho60jEejjd96pPMIUWv6ccGFlRG4RZt4Xz6enbL2d6D52kjB8=', NULL, 1, 1, 1, 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', '2024-04-19 15:47:40', '2024-04-19 15:47:40', NULL, NULL, NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 14, 832.825, 'USD', 'AOA', NULL, 122.208, 89278.84, 89278.84, 12499.0376, 446394.2, 101777.8776, '100024201', 3, NULL, NULL, 'N', 'Y', 'N', 'N', 'N', 0, 0, 4, NULL, 'RRRRRR'),
+	(421, '2024-04-22;2024-04-22T10:19:16;PP ATO2024/3;0.00;KuochA0kX9zSKcaLq3idxixODLPw/oW0XHolDpbmEr6+egTor9+dKFshGUXwKC39/hd0sfBFOFRWyP8isJZO3F1RsiF5BInEg3hGzF00BTmQdKP/hLexQ0fvFGho60jEejjd96pPMIUWv6ccGFlRG4RZt4Xz6enbL2d6D52kjB8=', 1, 287, 'ADVANCED MARITIME TRANSPORTS LDA', 'BBBBBBB', '940198085', '5403087095', 'm.simao@amt-sa.com', NULL, 3, 3, 'FP ATO2024/3', NULL, 'ri7Gev9zcyJTstmgo2xOAag3Rrz1xeXH6pRfNRyVuCpoUwwX3dnP6PZEHfy9oK92JP4MZaQNHNGTybCNHcuEJsVCMmLiBuOPOhjlE5qMsbHH1L0vQeVHvSj7IHX3VNXysvOraoFzi1Z7J4TYAy/erx1qoNhkrXOYzSIvSatM6DE=', NULL, 1, 1, 1, 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', '2024-04-22 10:19:16', '2024-04-22 10:19:16', NULL, 'AAAA', NULL, 0, NULL, NULL, NULL, NULL, NULL, 200, '2024-04-22 10:17:00', '2024-04-23 10:17:00', 1, 14, 832.825, 'USD', 'AOA', NULL, 0, 0, 0, 0, 23319.1, 0, '10002874211', 3, NULL, 3, 'N', 'N', 'Y', 'N', 'N', 0, 0, 1, 1, NULL),
+	(422, '2024-04-24;2024-04-24T11:28:07;FT ATO2024/1;6656969.60;', 1, 287, 'ADVANCED MARITIME TRANSPORTS LDA', 'AAAAAAAA', '940198085', '5403087095', 'm.simao@amt-sa.com', NULL, 2, 1, 'FT ATO2024/1', NULL, 'afq3XLptCz3e69KIRRLTBA00sdFhIFUCp8WUe5OUBiP7Xj00G7ntp+MDtmFk2o5uBF0wwJXcWuiQrnyXjjSXPYc2+StWo0SEftAX7BznzzohXSXf/ajLOyQdmN6V7d6zyas+PdQ/v/GfoFnHB7VKRpl4r0RedWbeK92ij2lxVOk=', NULL, 1, 1, 1, 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', '2024-04-24 11:28:07', '2024-04-24 11:28:07', NULL, NULL, 'BOEING 744', 396.9, '2024-04-20', '2024-04-20', '10:06:00', '14:40:00', NULL, 56603.43, NULL, NULL, NULL, 0, 832.825, 'USD', 'AOA', NULL, 7993.2394, 6656969.603305, 6656969.603305, 0, 0, 6656969.603305, '10002874221', 2, 2, NULL, 'Y', 'N', 'N', 'N', 'N', 0, 0, 2, NULL, NULL);
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.facturas_original
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.facturas_original
 CREATE TABLE IF NOT EXISTS `facturas_original` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `total_preco_factura` double NOT NULL,
@@ -1166,9 +1176,9 @@ CREATE TABLE IF NOT EXISTS `facturas_original` (
   CONSTRAINT `facturas_original_ibfk_9` FOREIGN KEY (`tipo_user_id`) REFERENCES `tipo_users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.facturas_original: ~0 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.facturas_original: ~0 rows (aproximadamente)
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.factura_items
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.factura_items
 CREATE TABLE IF NOT EXISTS `factura_items` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `produtoId` int(11) DEFAULT NULL,
@@ -1204,20 +1214,21 @@ CREATE TABLE IF NOT EXISTS `factura_items` (
   `dataSaida` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_factura_items_factura` (`factura_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=977 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=1007 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.factura_items: ~7 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.factura_items: ~8 rows (aproximadamente)
 INSERT INTO `factura_items` (`id`, `produtoId`, `quantidade`, `nomeProduto`, `taxa`, `considera1hDepois30min`, `addArCondicionado`, `taxaLuminosa`, `taxaAduaneiro`, `taxaEstacionamento`, `taxaIva`, `valorIva`, `nDias`, `peso`, `horaExtra`, `taxaAbertoAeroporto`, `horaFechoAeroporto`, `horaEstacionamento`, `descHoraEstacionamento`, `sujeitoDespachoId`, `tipoMercadoriaId`, `especificacaoMercadoriaId`, `horaAberturaAeroporto`, `desconto`, `qtdMeses`, `valorImposto`, `unidadeMetrica`, `total`, `totalIva`, `factura_id`, `dataEntrada`, `dataSaida`) VALUES
-	(969, 28, 1, 'Ocupação de terrenos sem edificações(Por m²)', 0.67, 'SIM', 'N', 0, 0, 0, 14, 15620.19508, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 100, NULL, NULL, 200, 111572.822, 127193.01708, 402, NULL, NULL),
-	(970, 37, 1, 'Ar condicionado 20% do valor do tarifa de ocupação', 0, 'SIM', 'N', 0, 0, 0, 14, 3124.039016, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 0, NULL, NULL, 0, 22314.5644, 25438.603416, 402, NULL, NULL),
-	(971, 28, 1, 'Ocupação de terrenos sem edificações(Por m²)', 0.67, 'SIM', 'N', 0, 0, 0, 14, 15620.19508, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 100, NULL, NULL, 200, 111572.822, 127193.01708, 403, NULL, NULL),
-	(972, 29, 1, 'Ocupação de terrenos com edificações e instalações(Por m²)', 0.53, 'SIM', 'N', 0, 0, 0, 14, 12356.27372, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 100, NULL, NULL, 200, 88259.098, 100615.37172, 403, NULL, NULL),
-	(973, 37, 1, 'Ar condicionado 20% do valor do tarifa de ocupação', 0, 'SIM', 'N', 0, 0, 0, 14, 5595.29376, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 0, NULL, NULL, 0, 39966.384, 45561.67776, 403, NULL, NULL),
-	(974, 38, 1, 'Publicidade(Unidade métrica x mês)', 69, 'SIM', 'N', 0, 0, 0, 14, 3217293.912, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 0, 2, NULL, 200, 22980670.8, 26197964.712, 404, NULL, NULL),
-	(975, 39, 1, 'Estacionamento Camiões Dentro do TCA', 0, 'SIM', 'N', 0, 0, 0, 14, 2914.2155, 1, NULL, NULL, NULL, NULL, NULL, '25h:5min', NULL, 1, 1, 1, 0, NULL, NULL, 0, 20815.825, 23730.0405, 405, '2024-04-15 01:54:00', '2024-04-16 02:59:00'),
-	(976, 22, 2, 'Passes de viaturas - empresa aérea doméstico', 1656, 'SIM', 'N', 0, 0, 0, 14, 386075.26944, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 0, 0, NULL, 0, 2757680.496, 3143755.76544, 406, NULL, NULL);
+	(998, 14, 2, 'Assistência administrativa', 0.02, 'SIM', 'N', 0, 0, 0, 14, 4.66382, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 0, 0, NULL, 0, 33.313, 37.97682, 419, NULL, NULL),
+	(999, 28, 1, 'Ocupação de terrenos sem edificações(Por m²)', 0.67, 'SIM', 'N', 0, 0, 0, 14, 62495.188, 1, NULL, NULL, NULL, NULL, NULL, '0h:0min', NULL, 1, 1, 1, 100, 4, NULL, 200, 446394.2, 508889.388, 420, NULL, NULL),
+	(1000, 37, 1, 'Ar condicionado 20% do valor do tarifa de ocupação', 0, 'SIM', 'N', 0, 0, 0, 14, 12499.0376, 1, NULL, NULL, NULL, NULL, NULL, '0h:0min', NULL, 1, 1, 1, 0, NULL, NULL, 0, 89278.84, 101777.8776, 420, NULL, NULL),
+	(1001, 1, 1, 'Carga', 0.08, 'SIM', 'N', 0, 0, 0, 14, 1865.528, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 100, 0, 'T', 0, 13325.2, 15190.728, 421, NULL, NULL),
+	(1002, 2, 1, 'Armazenagem', 0.03, 'SIM', 'N', 0, 0, 0, 14, 699.573, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 100, 0, 'T', 0, 4996.95, 5696.523, 421, NULL, NULL),
+	(1003, 3, 1, 'Manuseamento', 0.03, 'SIM', 'N', 0, 0, 0, 14, 699.573, 1, NULL, NULL, NULL, NULL, NULL, NULL, 1, 1, 1, 1, 100, 0, 'T', 0, 4996.95, 5696.523, 421, NULL, NULL),
+	(1004, 5, 1, 'Aterragem', 0.25, 'SIM', 'N', 197.88, 0, 0, 0, 0, 1, NULL, 0, 546.94, 19, 5, NULL, NULL, 1, 1, 7, 0, 0, 'T', 0, 2637798.29425, 2637798.29425, 422, NULL, NULL),
+	(1005, 4, 1, 'Estacionamento', 0.25, 'SIM', 'N', 197.88, 0, 0, 0, 0, 1, NULL, 0, 546.94, 19, 5, NULL, NULL, 1, 1, 7, 0, 0, 'T', 0, 247911.181875, 247911.181875, 422, NULL, NULL),
+	(1006, 7, 1, 'Carga', 0.25, 'SIM', 'N', 197.88, 0.08, 0, 0, 0, 1, 56603.43, 0, 546.94, 19, 5, NULL, 1, 1, 1, 7, 0, 0, 'T', 0, 3771260.12718, 3771260.12718, 422, NULL, NULL);
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.factura_items_original
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.factura_items_original
 CREATE TABLE IF NOT EXISTS `factura_items_original` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `descricao_produto` varchar(250) DEFAULT '0',
@@ -1239,9 +1250,9 @@ CREATE TABLE IF NOT EXISTS `factura_items_original` (
   CONSTRAINT `factura_items_original_ibfk_2` FOREIGN KEY (`produto_id`) REFERENCES `produtos_` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.factura_items_original: ~0 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.factura_items_original: ~0 rows (aproximadamente)
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.failed_jobs
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.failed_jobs
 CREATE TABLE IF NOT EXISTS `failed_jobs` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `connection` text COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -1252,9 +1263,9 @@ CREATE TABLE IF NOT EXISTS `failed_jobs` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.failed_jobs: ~0 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.failed_jobs: ~0 rows (aproximadamente)
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.firebase_notification
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.firebase_notification
 CREATE TABLE IF NOT EXISTS `firebase_notification` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(255) NOT NULL,
@@ -1269,11 +1280,11 @@ CREATE TABLE IF NOT EXISTS `firebase_notification` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.firebase_notification: ~0 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.firebase_notification: ~0 rows (aproximadamente)
 INSERT INTO `firebase_notification` (`id`, `title`, `body`, `type`, `object`, `route`, `userId`, `statuId`, `created_at`, `updated_at`) VALUES
 	(1, 'sfdsds', 'dsdsd', 'dsdsd', 'dsdsds', 'dsdsds', 729, 1, '2024-01-25 16:02:28', '2024-01-29 13:50:10');
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.formas_pagamentos
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.formas_pagamentos
 CREATE TABLE IF NOT EXISTS `formas_pagamentos` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `tipo_pagamento_id` int(10) NOT NULL,
@@ -1302,9 +1313,9 @@ CREATE TABLE IF NOT EXISTS `formas_pagamentos` (
   CONSTRAINT `FK_formas_pagamentos_tipo_pagamento` FOREIGN KEY (`tipo_pagamento_id`) REFERENCES `tipo_pagamento` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.formas_pagamentos: ~0 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.formas_pagamentos: ~0 rows (aproximadamente)
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.formas_pagamentos_geral
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.formas_pagamentos_geral
 CREATE TABLE IF NOT EXISTS `formas_pagamentos_geral` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `descricao` varchar(50) NOT NULL,
@@ -1316,7 +1327,7 @@ CREATE TABLE IF NOT EXISTS `formas_pagamentos_geral` (
   CONSTRAINT `FK_formas_pagamentos_geral_status_gerais` FOREIGN KEY (`status_id`) REFERENCES `status_gerais` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.formas_pagamentos_geral: ~6 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.formas_pagamentos_geral: ~6 rows (aproximadamente)
 INSERT INTO `formas_pagamentos_geral` (`id`, `descricao`, `sigla_tipo_pagamento`, `tipo_credito`, `status_id`) VALUES
 	(1, 'NUMERÁRIO', 'NU', '2', 1),
 	(2, 'VENDA CRÉDITO', 'CC', '1', 1),
@@ -1325,7 +1336,7 @@ INSERT INTO `formas_pagamentos_geral` (`id`, `descricao`, `sigla_tipo_pagamento`
 	(5, 'DEPÓSITO', 'NU', '2', 1),
 	(6, 'DUPLO', 'OU', '2', 1);
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.fornecedores
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.fornecedores
 CREATE TABLE IF NOT EXISTS `fornecedores` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `nome` varchar(255) NOT NULL,
@@ -1358,11 +1369,11 @@ CREATE TABLE IF NOT EXISTS `fornecedores` (
   KEY `FK_fornecedores_tipo_users` (`tipo_user_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.fornecedores: ~0 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.fornecedores: ~0 rows (aproximadamente)
 INSERT INTO `fornecedores` (`id`, `nome`, `telefone_empresa`, `email_empresa`, `nif`, `website`, `pessoal_contacto`, `endereco`, `telefone_contacto`, `email_contacto`, `conta_corrente`, `empresa_id`, `canal_id`, `status_id`, `user_id`, `data_contracto`, `pais_nacionalidade_id`, `created_at`, `updated_at`, `tipo_user_id`, `diversos`, `centroCustoId`) VALUES
 	(1, 'DIVERSOS', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '31.1.2.1.1', 1, 2, 1, 1, NULL, 1, '2024-01-23 16:10:54', '2024-01-23 16:10:54', 2, '1', NULL);
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.gestor_clientes
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.gestor_clientes
 CREATE TABLE IF NOT EXISTS `gestor_clientes` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `nome` varchar(145) NOT NULL,
@@ -1383,9 +1394,9 @@ CREATE TABLE IF NOT EXISTS `gestor_clientes` (
   CONSTRAINT `FK_gestor_clientes_user` FOREIGN KEY (`user_id`) REFERENCES `users_cliente` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.gestor_clientes: ~0 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.gestor_clientes: ~0 rows (aproximadamente)
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.historico_extrato_cartao_cliente
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.historico_extrato_cartao_cliente
 CREATE TABLE IF NOT EXISTS `historico_extrato_cartao_cliente` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `clienteId` int(10) unsigned NOT NULL DEFAULT '0',
@@ -1401,7 +1412,7 @@ CREATE TABLE IF NOT EXISTS `historico_extrato_cartao_cliente` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.historico_extrato_cartao_cliente: ~6 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.historico_extrato_cartao_cliente: ~6 rows (aproximadamente)
 INSERT INTO `historico_extrato_cartao_cliente` (`id`, `clienteId`, `bonus`, `saldo_anterior`, `saldo_atual`, `valorBonus`, `valorDescontarCartao`, `userId`, `documetoReferente`, `created_at`, `updated_at`) VALUES
 	(4, 166, 1, 0, 30, 30, 0, 638, 'FR MUT2023/2', '2023-10-10 17:26:21', '2023-10-10 17:26:21'),
 	(5, 166, 1, 30, 90, 60, 0, 638, 'FR MUT2023/3', '2023-10-10 17:27:25', '2023-10-10 17:27:25'),
@@ -1410,7 +1421,7 @@ INSERT INTO `historico_extrato_cartao_cliente` (`id`, `clienteId`, `bonus`, `sal
 	(8, 166, 1, 136, 150, 34, 20, 638, 'FR MUT2023/10(3.420,00)', '2023-10-20 17:01:42', '2023-10-20 17:01:42'),
 	(9, 204, 2, 2000, 2162, 162, 0, 35, 'FR RR2023/92(8.100,00)', '2023-10-24 18:03:19', '2023-10-24 18:03:19');
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.historico_pagamentos_vendas_online
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.historico_pagamentos_vendas_online
 CREATE TABLE IF NOT EXISTS `historico_pagamentos_vendas_online` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `pagamento_id` int(10) NOT NULL,
@@ -1422,7 +1433,7 @@ CREATE TABLE IF NOT EXISTS `historico_pagamentos_vendas_online` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.historico_pagamentos_vendas_online: ~6 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.historico_pagamentos_vendas_online: ~6 rows (aproximadamente)
 INSERT INTO `historico_pagamentos_vendas_online` (`id`, `pagamento_id`, `status_pagamento_id`, `descricao`, `user_id`, `created_at`, `updated_at`) VALUES
 	(1, 37, 1, 'Pagamento válido pelo operador Mutue Soluções Tecnológicas Inteligentes Lda', 638, '2023-11-24 16:39:49', '2023-11-24 16:39:49'),
 	(2, 37, 5, 'O operador Manuel Bumba confirmou a entrega do pagamento N.º 00001', 734, '2023-11-24 16:41:46', '2023-11-24 16:41:46'),
@@ -1431,16 +1442,16 @@ INSERT INTO `historico_pagamentos_vendas_online` (`id`, `pagamento_id`, `status_
 	(5, 2, 1, 'Pagamento válido pelo operador Fernando Gilberto', 642, '2024-01-11 16:41:23', '2024-01-11 16:41:23'),
 	(6, 2, 1, 'Pagamento válido pelo operador Mutue Soluções Tecnológicas Inteligentes Lda', 638, '2024-01-24 16:19:00', '2024-01-24 16:19:00');
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.idiomas
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.idiomas
 CREATE TABLE IF NOT EXISTS `idiomas` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `designacao` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.idiomas: ~0 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.idiomas: ~0 rows (aproximadamente)
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.images
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.images
 CREATE TABLE IF NOT EXISTS `images` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -1449,9 +1460,9 @@ CREATE TABLE IF NOT EXISTS `images` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.images: ~0 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.images: ~0 rows (aproximadamente)
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.intervalo_pmd
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.intervalo_pmd
 CREATE TABLE IF NOT EXISTS `intervalo_pmd` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `toneladas_min` double NOT NULL DEFAULT '0',
@@ -1460,7 +1471,7 @@ CREATE TABLE IF NOT EXISTS `intervalo_pmd` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.intervalo_pmd: ~5 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.intervalo_pmd: ~5 rows (aproximadamente)
 INSERT INTO `intervalo_pmd` (`id`, `toneladas_min`, `toneladas_max`, `taxa`) VALUES
 	(1, 0, 10, 7.21),
 	(2, 10, 25, 6.62),
@@ -1468,7 +1479,7 @@ INSERT INTO `intervalo_pmd` (`id`, `toneladas_min`, `toneladas_max`, `taxa`) VAL
 	(4, 75, 150, 8.26),
 	(5, 150, 1e113, 8.1);
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.inventarios
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.inventarios
 CREATE TABLE IF NOT EXISTS `inventarios` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `empresa_id` int(10) unsigned NOT NULL,
@@ -1502,9 +1513,9 @@ CREATE TABLE IF NOT EXISTS `inventarios` (
   CONSTRAINT `FK_inventarios_tipo_users` FOREIGN KEY (`tipo_user_id`) REFERENCES `tipo_users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.inventarios: ~0 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.inventarios: ~0 rows (aproximadamente)
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.inventario_itens
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.inventario_itens
 CREATE TABLE IF NOT EXISTS `inventario_itens` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `inventario_id` int(10) unsigned NOT NULL,
@@ -1524,9 +1535,9 @@ CREATE TABLE IF NOT EXISTS `inventario_itens` (
   CONSTRAINT `FK_inventario_itens_produto` FOREIGN KEY (`produto_id`) REFERENCES `produtos_` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.inventario_itens: ~0 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.inventario_itens: ~0 rows (aproximadamente)
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.jobs
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.jobs
 CREATE TABLE IF NOT EXISTS `jobs` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `queue` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -1537,9 +1548,9 @@ CREATE TABLE IF NOT EXISTS `jobs` (
   `created_at` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`),
   KEY `jobs_queue_index` (`queue`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.jobs: ~16 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.jobs: ~19 rows (aproximadamente)
 INSERT INTO `jobs` (`id`, `queue`, `payload`, `attempts`, `reserved_at`, `available_at`, `created_at`) VALUES
 	(1, 'default', '{"uuid":"50ed0442-7b2a-4f91-8e15-e96a012bd13f","displayName":"App\\\\Events\\\\EnvioPagamentoVendaOnline","job":"Illuminate\\\\Queue\\\\CallQueuedHandler@call","maxTries":null,"maxExceptions":null,"delay":null,"timeout":null,"timeoutAt":null,"data":{"commandName":"Illuminate\\\\Broadcasting\\\\BroadcastEvent","command":"O:38:\\"Illuminate\\\\Broadcasting\\\\BroadcastEvent\\":10:{s:5:\\"event\\";O:36:\\"App\\\\Events\\\\EnvioPagamentoVendaOnline\\":2:{s:8:\\"somedata\\";s:9:\\"some data\\";s:6:\\"socket\\";N;}s:5:\\"tries\\";N;s:7:\\"timeout\\";N;s:10:\\"connection\\";N;s:5:\\"queue\\";N;s:15:\\"chainConnection\\";N;s:10:\\"chainQueue\\";N;s:5:\\"delay\\";N;s:10:\\"middleware\\";a:0:{}s:7:\\"chained\\";a:0:{}}"}}', 0, NULL, 1712583846, 1712583846),
 	(2, 'default', '{"uuid":"0490859b-598a-494c-bb1e-0ed55f0b7348","displayName":"App\\\\Events\\\\EnvioPagamentoVendaOnline","job":"Illuminate\\\\Queue\\\\CallQueuedHandler@call","maxTries":null,"maxExceptions":null,"delay":null,"timeout":null,"timeoutAt":null,"data":{"commandName":"Illuminate\\\\Broadcasting\\\\BroadcastEvent","command":"O:38:\\"Illuminate\\\\Broadcasting\\\\BroadcastEvent\\":10:{s:5:\\"event\\";O:36:\\"App\\\\Events\\\\EnvioPagamentoVendaOnline\\":2:{s:8:\\"somedata\\";s:9:\\"some data\\";s:6:\\"socket\\";N;}s:5:\\"tries\\";N;s:7:\\"timeout\\";N;s:10:\\"connection\\";N;s:5:\\"queue\\";N;s:15:\\"chainConnection\\";N;s:10:\\"chainQueue\\";N;s:5:\\"delay\\";N;s:10:\\"middleware\\";a:0:{}s:7:\\"chained\\";a:0:{}}"}}', 0, NULL, 1712583851, 1712583851),
@@ -1559,20 +1570,35 @@ INSERT INTO `jobs` (`id`, `queue`, `payload`, `attempts`, `reserved_at`, `availa
 	(16, 'default', '{"uuid":"0a7e091f-b2c8-48dd-983e-18d956f3d8d8","displayName":"App\\\\Events\\\\EnvioPagamentoVendaOnline","job":"Illuminate\\\\Queue\\\\CallQueuedHandler@call","maxTries":null,"maxExceptions":null,"failOnTimeout":false,"backoff":null,"timeout":null,"retryUntil":null,"data":{"commandName":"Illuminate\\\\Broadcasting\\\\BroadcastEvent","command":"O:38:\\"Illuminate\\\\Broadcasting\\\\BroadcastEvent\\":12:{s:5:\\"event\\";O:36:\\"App\\\\Events\\\\EnvioPagamentoVendaOnline\\":2:{s:8:\\"somedata\\";s:9:\\"some data\\";s:6:\\"socket\\";N;}s:5:\\"tries\\";N;s:7:\\"timeout\\";N;s:10:\\"connection\\";N;s:5:\\"queue\\";N;s:15:\\"chainConnection\\";N;s:10:\\"chainQueue\\";N;s:19:\\"chainCatchCallbacks\\";N;s:5:\\"delay\\";N;s:11:\\"afterCommit\\";N;s:10:\\"middleware\\";a:0:{}s:7:\\"chained\\";a:0:{}}"}}', 0, NULL, 1712913517, 1712913517),
 	(17, 'default', '{"uuid":"c3b57188-e1e5-46f4-a578-36820085d08e","displayName":"App\\\\Events\\\\EnvioPagamentoVendaOnline","job":"Illuminate\\\\Queue\\\\CallQueuedHandler@call","maxTries":null,"maxExceptions":null,"failOnTimeout":false,"backoff":null,"timeout":null,"retryUntil":null,"data":{"commandName":"Illuminate\\\\Broadcasting\\\\BroadcastEvent","command":"O:38:\\"Illuminate\\\\Broadcasting\\\\BroadcastEvent\\":12:{s:5:\\"event\\";O:36:\\"App\\\\Events\\\\EnvioPagamentoVendaOnline\\":2:{s:8:\\"somedata\\";s:9:\\"some data\\";s:6:\\"socket\\";N;}s:5:\\"tries\\";N;s:7:\\"timeout\\";N;s:10:\\"connection\\";N;s:5:\\"queue\\";N;s:15:\\"chainConnection\\";N;s:10:\\"chainQueue\\";N;s:19:\\"chainCatchCallbacks\\";N;s:5:\\"delay\\";N;s:11:\\"afterCommit\\";N;s:10:\\"middleware\\";a:0:{}s:7:\\"chained\\";a:0:{}}"}}', 0, NULL, 1713076741, 1713076741),
 	(18, 'default', '{"uuid":"dd0408a8-72fe-4759-80da-322d22f471ad","displayName":"App\\\\Events\\\\EnvioPagamentoVendaOnline","job":"Illuminate\\\\Queue\\\\CallQueuedHandler@call","maxTries":null,"maxExceptions":null,"failOnTimeout":false,"backoff":null,"timeout":null,"retryUntil":null,"data":{"commandName":"Illuminate\\\\Broadcasting\\\\BroadcastEvent","command":"O:38:\\"Illuminate\\\\Broadcasting\\\\BroadcastEvent\\":12:{s:5:\\"event\\";O:36:\\"App\\\\Events\\\\EnvioPagamentoVendaOnline\\":2:{s:8:\\"somedata\\";s:9:\\"some data\\";s:6:\\"socket\\";N;}s:5:\\"tries\\";N;s:7:\\"timeout\\";N;s:10:\\"connection\\";N;s:5:\\"queue\\";N;s:15:\\"chainConnection\\";N;s:10:\\"chainQueue\\";N;s:19:\\"chainCatchCallbacks\\";N;s:5:\\"delay\\";N;s:11:\\"afterCommit\\";N;s:10:\\"middleware\\";a:0:{}s:7:\\"chained\\";a:0:{}}"}}', 0, NULL, 1713108251, 1713108251),
-	(19, 'default', '{"uuid":"aeb55908-1261-4316-9d6c-b434408dec07","displayName":"App\\\\Events\\\\EnvioPagamentoVendaOnline","job":"Illuminate\\\\Queue\\\\CallQueuedHandler@call","maxTries":null,"maxExceptions":null,"failOnTimeout":false,"backoff":null,"timeout":null,"retryUntil":null,"data":{"commandName":"Illuminate\\\\Broadcasting\\\\BroadcastEvent","command":"O:38:\\"Illuminate\\\\Broadcasting\\\\BroadcastEvent\\":12:{s:5:\\"event\\";O:36:\\"App\\\\Events\\\\EnvioPagamentoVendaOnline\\":2:{s:8:\\"somedata\\";s:9:\\"some data\\";s:6:\\"socket\\";N;}s:5:\\"tries\\";N;s:7:\\"timeout\\";N;s:10:\\"connection\\";N;s:5:\\"queue\\";N;s:15:\\"chainConnection\\";N;s:10:\\"chainQueue\\";N;s:19:\\"chainCatchCallbacks\\";N;s:5:\\"delay\\";N;s:11:\\"afterCommit\\";N;s:10:\\"middleware\\";a:0:{}s:7:\\"chained\\";a:0:{}}"}}', 0, NULL, 1713152241, 1713152241);
+	(19, 'default', '{"uuid":"aeb55908-1261-4316-9d6c-b434408dec07","displayName":"App\\\\Events\\\\EnvioPagamentoVendaOnline","job":"Illuminate\\\\Queue\\\\CallQueuedHandler@call","maxTries":null,"maxExceptions":null,"failOnTimeout":false,"backoff":null,"timeout":null,"retryUntil":null,"data":{"commandName":"Illuminate\\\\Broadcasting\\\\BroadcastEvent","command":"O:38:\\"Illuminate\\\\Broadcasting\\\\BroadcastEvent\\":12:{s:5:\\"event\\";O:36:\\"App\\\\Events\\\\EnvioPagamentoVendaOnline\\":2:{s:8:\\"somedata\\";s:9:\\"some data\\";s:6:\\"socket\\";N;}s:5:\\"tries\\";N;s:7:\\"timeout\\";N;s:10:\\"connection\\";N;s:5:\\"queue\\";N;s:15:\\"chainConnection\\";N;s:10:\\"chainQueue\\";N;s:19:\\"chainCatchCallbacks\\";N;s:5:\\"delay\\";N;s:11:\\"afterCommit\\";N;s:10:\\"middleware\\";a:0:{}s:7:\\"chained\\";a:0:{}}"}}', 0, NULL, 1713152241, 1713152241),
+	(20, 'default', '{"uuid":"3d271b16-6f85-490e-a475-6047d0dc8232","displayName":"App\\\\Events\\\\EnvioPagamentoVendaOnline","job":"Illuminate\\\\Queue\\\\CallQueuedHandler@call","maxTries":null,"maxExceptions":null,"failOnTimeout":false,"backoff":null,"timeout":null,"retryUntil":null,"data":{"commandName":"Illuminate\\\\Broadcasting\\\\BroadcastEvent","command":"O:38:\\"Illuminate\\\\Broadcasting\\\\BroadcastEvent\\":12:{s:5:\\"event\\";O:36:\\"App\\\\Events\\\\EnvioPagamentoVendaOnline\\":2:{s:8:\\"somedata\\";s:9:\\"some data\\";s:6:\\"socket\\";N;}s:5:\\"tries\\";N;s:7:\\"timeout\\";N;s:10:\\"connection\\";N;s:5:\\"queue\\";N;s:15:\\"chainConnection\\";N;s:10:\\"chainQueue\\";N;s:19:\\"chainCatchCallbacks\\";N;s:5:\\"delay\\";N;s:11:\\"afterCommit\\";N;s:10:\\"middleware\\";a:0:{}s:7:\\"chained\\";a:0:{}}"}}', 0, NULL, 1713256960, 1713256960),
+	(21, 'default', '{"uuid":"65c6e1ea-feab-42fc-9c48-c19c1f78d0c4","displayName":"App\\\\Events\\\\EnvioPagamentoVendaOnline","job":"Illuminate\\\\Queue\\\\CallQueuedHandler@call","maxTries":null,"maxExceptions":null,"failOnTimeout":false,"backoff":null,"timeout":null,"retryUntil":null,"data":{"commandName":"Illuminate\\\\Broadcasting\\\\BroadcastEvent","command":"O:38:\\"Illuminate\\\\Broadcasting\\\\BroadcastEvent\\":12:{s:5:\\"event\\";O:36:\\"App\\\\Events\\\\EnvioPagamentoVendaOnline\\":2:{s:8:\\"somedata\\";s:9:\\"some data\\";s:6:\\"socket\\";N;}s:5:\\"tries\\";N;s:7:\\"timeout\\";N;s:10:\\"connection\\";N;s:5:\\"queue\\";N;s:15:\\"chainConnection\\";N;s:10:\\"chainQueue\\";N;s:19:\\"chainCatchCallbacks\\";N;s:5:\\"delay\\";N;s:11:\\"afterCommit\\";N;s:10:\\"middleware\\";a:0:{}s:7:\\"chained\\";a:0:{}}"}}', 0, NULL, 1713274583, 1713274583),
+	(22, 'default', '{"uuid":"8ff6b8a9-f4de-40ba-8d21-f370c1f58ff3","displayName":"App\\\\Events\\\\EnvioPagamentoVendaOnline","job":"Illuminate\\\\Queue\\\\CallQueuedHandler@call","maxTries":null,"maxExceptions":null,"failOnTimeout":false,"backoff":null,"timeout":null,"retryUntil":null,"data":{"commandName":"Illuminate\\\\Broadcasting\\\\BroadcastEvent","command":"O:38:\\"Illuminate\\\\Broadcasting\\\\BroadcastEvent\\":12:{s:5:\\"event\\";O:36:\\"App\\\\Events\\\\EnvioPagamentoVendaOnline\\":2:{s:8:\\"somedata\\";s:9:\\"some data\\";s:6:\\"socket\\";N;}s:5:\\"tries\\";N;s:7:\\"timeout\\";N;s:10:\\"connection\\";N;s:5:\\"queue\\";N;s:15:\\"chainConnection\\";N;s:10:\\"chainQueue\\";N;s:19:\\"chainCatchCallbacks\\";N;s:5:\\"delay\\";N;s:11:\\"afterCommit\\";N;s:10:\\"middleware\\";a:0:{}s:7:\\"chained\\";a:0:{}}"}}', 0, NULL, 1713340289, 1713340289),
+	(23, 'default', '{"uuid":"c10ffaac-ef91-4496-8148-81d9dfa31eda","displayName":"App\\\\Events\\\\EnvioPagamentoVendaOnline","job":"Illuminate\\\\Queue\\\\CallQueuedHandler@call","maxTries":null,"maxExceptions":null,"failOnTimeout":false,"backoff":null,"timeout":null,"retryUntil":null,"data":{"commandName":"Illuminate\\\\Broadcasting\\\\BroadcastEvent","command":"O:38:\\"Illuminate\\\\Broadcasting\\\\BroadcastEvent\\":12:{s:5:\\"event\\";O:36:\\"App\\\\Events\\\\EnvioPagamentoVendaOnline\\":2:{s:8:\\"somedata\\";s:9:\\"some data\\";s:6:\\"socket\\";N;}s:5:\\"tries\\";N;s:7:\\"timeout\\";N;s:10:\\"connection\\";N;s:5:\\"queue\\";N;s:15:\\"chainConnection\\";N;s:10:\\"chainQueue\\";N;s:19:\\"chainCatchCallbacks\\";N;s:5:\\"delay\\";N;s:11:\\"afterCommit\\";N;s:10:\\"middleware\\";a:0:{}s:7:\\"chained\\";a:0:{}}"}}', 0, NULL, 1713359002, 1713359002),
+	(24, 'default', '{"uuid":"433c351a-f60d-4e6e-bf3b-42ef15959a15","displayName":"App\\\\Events\\\\EnvioPagamentoVendaOnline","job":"Illuminate\\\\Queue\\\\CallQueuedHandler@call","maxTries":null,"maxExceptions":null,"failOnTimeout":false,"backoff":null,"timeout":null,"retryUntil":null,"data":{"commandName":"Illuminate\\\\Broadcasting\\\\BroadcastEvent","command":"O:38:\\"Illuminate\\\\Broadcasting\\\\BroadcastEvent\\":12:{s:5:\\"event\\";O:36:\\"App\\\\Events\\\\EnvioPagamentoVendaOnline\\":2:{s:8:\\"somedata\\";s:9:\\"some data\\";s:6:\\"socket\\";N;}s:5:\\"tries\\";N;s:7:\\"timeout\\";N;s:10:\\"connection\\";N;s:5:\\"queue\\";N;s:15:\\"chainConnection\\";N;s:10:\\"chainQueue\\";N;s:19:\\"chainCatchCallbacks\\";N;s:5:\\"delay\\";N;s:11:\\"afterCommit\\";N;s:10:\\"middleware\\";a:0:{}s:7:\\"chained\\";a:0:{}}"}}', 0, NULL, 1713431399, 1713431399),
+	(25, 'default', '{"uuid":"6619edaa-d530-4b94-8f2f-89a8cd7568fb","displayName":"App\\\\Events\\\\EnvioPagamentoVendaOnline","job":"Illuminate\\\\Queue\\\\CallQueuedHandler@call","maxTries":null,"maxExceptions":null,"failOnTimeout":false,"backoff":null,"timeout":null,"retryUntil":null,"data":{"commandName":"Illuminate\\\\Broadcasting\\\\BroadcastEvent","command":"O:38:\\"Illuminate\\\\Broadcasting\\\\BroadcastEvent\\":12:{s:5:\\"event\\";O:36:\\"App\\\\Events\\\\EnvioPagamentoVendaOnline\\":2:{s:8:\\"somedata\\";s:9:\\"some data\\";s:6:\\"socket\\";N;}s:5:\\"tries\\";N;s:7:\\"timeout\\";N;s:10:\\"connection\\";N;s:5:\\"queue\\";N;s:15:\\"chainConnection\\";N;s:10:\\"chainQueue\\";N;s:19:\\"chainCatchCallbacks\\";N;s:5:\\"delay\\";N;s:11:\\"afterCommit\\";N;s:10:\\"middleware\\";a:0:{}s:7:\\"chained\\";a:0:{}}"}}', 0, NULL, 1713517315, 1713517315),
+	(26, 'default', '{"uuid":"38f11cec-fae4-4e73-b4a1-702cd8f8cbae","displayName":"App\\\\Events\\\\EnvioPagamentoVendaOnline","job":"Illuminate\\\\Queue\\\\CallQueuedHandler@call","maxTries":null,"maxExceptions":null,"failOnTimeout":false,"backoff":null,"timeout":null,"retryUntil":null,"data":{"commandName":"Illuminate\\\\Broadcasting\\\\BroadcastEvent","command":"O:38:\\"Illuminate\\\\Broadcasting\\\\BroadcastEvent\\":12:{s:5:\\"event\\";O:36:\\"App\\\\Events\\\\EnvioPagamentoVendaOnline\\":2:{s:8:\\"somedata\\";s:9:\\"some data\\";s:6:\\"socket\\";N;}s:5:\\"tries\\";N;s:7:\\"timeout\\";N;s:10:\\"connection\\";N;s:5:\\"queue\\";N;s:15:\\"chainConnection\\";N;s:10:\\"chainQueue\\";N;s:19:\\"chainCatchCallbacks\\";N;s:5:\\"delay\\";N;s:11:\\"afterCommit\\";N;s:10:\\"middleware\\";a:0:{}s:7:\\"chained\\";a:0:{}}"}}', 0, NULL, 1713614651, 1713614651),
+	(27, 'default', '{"uuid":"d2a05082-9a29-40c9-a27b-fee92d46010b","displayName":"App\\\\Events\\\\EnvioPagamentoVendaOnline","job":"Illuminate\\\\Queue\\\\CallQueuedHandler@call","maxTries":null,"maxExceptions":null,"failOnTimeout":false,"backoff":null,"timeout":null,"retryUntil":null,"data":{"commandName":"Illuminate\\\\Broadcasting\\\\BroadcastEvent","command":"O:38:\\"Illuminate\\\\Broadcasting\\\\BroadcastEvent\\":12:{s:5:\\"event\\";O:36:\\"App\\\\Events\\\\EnvioPagamentoVendaOnline\\":2:{s:8:\\"somedata\\";s:9:\\"some data\\";s:6:\\"socket\\";N;}s:5:\\"tries\\";N;s:7:\\"timeout\\";N;s:10:\\"connection\\";N;s:5:\\"queue\\";N;s:15:\\"chainConnection\\";N;s:10:\\"chainQueue\\";N;s:19:\\"chainCatchCallbacks\\";N;s:5:\\"delay\\";N;s:11:\\"afterCommit\\";N;s:10:\\"middleware\\";a:0:{}s:7:\\"chained\\";a:0:{}}"}}', 0, NULL, 1713777411, 1713777411),
+	(28, 'default', '{"uuid":"6254a6fd-f930-484a-84d8-ed386a0ab96d","displayName":"App\\\\Events\\\\EnvioPagamentoVendaOnline","job":"Illuminate\\\\Queue\\\\CallQueuedHandler@call","maxTries":null,"maxExceptions":null,"failOnTimeout":false,"backoff":null,"timeout":null,"retryUntil":null,"data":{"commandName":"Illuminate\\\\Broadcasting\\\\BroadcastEvent","command":"O:38:\\"Illuminate\\\\Broadcasting\\\\BroadcastEvent\\":12:{s:5:\\"event\\";O:36:\\"App\\\\Events\\\\EnvioPagamentoVendaOnline\\":2:{s:8:\\"somedata\\";s:9:\\"some data\\";s:6:\\"socket\\";N;}s:5:\\"tries\\";N;s:7:\\"timeout\\";N;s:10:\\"connection\\";N;s:5:\\"queue\\";N;s:15:\\"chainConnection\\";N;s:10:\\"chainQueue\\";N;s:19:\\"chainCatchCallbacks\\";N;s:5:\\"delay\\";N;s:11:\\"afterCommit\\";N;s:10:\\"middleware\\";a:0:{}s:7:\\"chained\\";a:0:{}}"}}', 0, NULL, 1713782494, 1713782494),
+	(29, 'default', '{"uuid":"56a92788-2ba7-4ab8-a9a7-e13a16cb589c","displayName":"App\\\\Events\\\\EnvioPagamentoVendaOnline","job":"Illuminate\\\\Queue\\\\CallQueuedHandler@call","maxTries":null,"maxExceptions":null,"failOnTimeout":false,"backoff":null,"timeout":null,"retryUntil":null,"data":{"commandName":"Illuminate\\\\Broadcasting\\\\BroadcastEvent","command":"O:38:\\"Illuminate\\\\Broadcasting\\\\BroadcastEvent\\":12:{s:5:\\"event\\";O:36:\\"App\\\\Events\\\\EnvioPagamentoVendaOnline\\":2:{s:8:\\"somedata\\";s:9:\\"some data\\";s:6:\\"socket\\";N;}s:5:\\"tries\\";N;s:7:\\"timeout\\";N;s:10:\\"connection\\";N;s:5:\\"queue\\";N;s:15:\\"chainConnection\\";N;s:10:\\"chainQueue\\";N;s:19:\\"chainCatchCallbacks\\";N;s:5:\\"delay\\";N;s:11:\\"afterCommit\\";N;s:10:\\"middleware\\";a:0:{}s:7:\\"chained\\";a:0:{}}"}}', 0, NULL, 1713782812, 1713782812),
+	(30, 'default', '{"uuid":"758a6451-2dd2-4de1-8bc6-d2701118bdbf","displayName":"App\\\\Events\\\\EnvioPagamentoVendaOnline","job":"Illuminate\\\\Queue\\\\CallQueuedHandler@call","maxTries":null,"maxExceptions":null,"failOnTimeout":false,"backoff":null,"timeout":null,"retryUntil":null,"data":{"commandName":"Illuminate\\\\Broadcasting\\\\BroadcastEvent","command":"O:38:\\"Illuminate\\\\Broadcasting\\\\BroadcastEvent\\":12:{s:5:\\"event\\";O:36:\\"App\\\\Events\\\\EnvioPagamentoVendaOnline\\":2:{s:8:\\"somedata\\";s:9:\\"some data\\";s:6:\\"socket\\";N;}s:5:\\"tries\\";N;s:7:\\"timeout\\";N;s:10:\\"connection\\";N;s:5:\\"queue\\";N;s:15:\\"chainConnection\\";N;s:10:\\"chainQueue\\";N;s:19:\\"chainCatchCallbacks\\";N;s:5:\\"delay\\";N;s:11:\\"afterCommit\\";N;s:10:\\"middleware\\";a:0:{}s:7:\\"chained\\";a:0:{}}"}}', 0, NULL, 1713863939, 1713863939),
+	(31, 'default', '{"uuid":"a3daf054-88be-496f-b110-2d8236351321","displayName":"App\\\\Events\\\\EnvioPagamentoVendaOnline","job":"Illuminate\\\\Queue\\\\CallQueuedHandler@call","maxTries":null,"maxExceptions":null,"failOnTimeout":false,"backoff":null,"timeout":null,"retryUntil":null,"data":{"commandName":"Illuminate\\\\Broadcasting\\\\BroadcastEvent","command":"O:38:\\"Illuminate\\\\Broadcasting\\\\BroadcastEvent\\":12:{s:5:\\"event\\";O:36:\\"App\\\\Events\\\\EnvioPagamentoVendaOnline\\":2:{s:8:\\"somedata\\";s:9:\\"some data\\";s:6:\\"socket\\";N;}s:5:\\"tries\\";N;s:7:\\"timeout\\";N;s:10:\\"connection\\";N;s:5:\\"queue\\";N;s:15:\\"chainConnection\\";N;s:10:\\"chainQueue\\";N;s:19:\\"chainCatchCallbacks\\";N;s:5:\\"delay\\";N;s:11:\\"afterCommit\\";N;s:10:\\"middleware\\";a:0:{}s:7:\\"chained\\";a:0:{}}"}}', 0, NULL, 1713950096, 1713950096),
+	(32, 'default', '{"uuid":"b7f08ba6-d84e-438a-8af7-396d2516ea1e","displayName":"App\\\\Events\\\\EnvioPagamentoVendaOnline","job":"Illuminate\\\\Queue\\\\CallQueuedHandler@call","maxTries":null,"maxExceptions":null,"failOnTimeout":false,"backoff":null,"timeout":null,"retryUntil":null,"data":{"commandName":"Illuminate\\\\Broadcasting\\\\BroadcastEvent","command":"O:38:\\"Illuminate\\\\Broadcasting\\\\BroadcastEvent\\":12:{s:5:\\"event\\";O:36:\\"App\\\\Events\\\\EnvioPagamentoVendaOnline\\":2:{s:8:\\"somedata\\";s:9:\\"some data\\";s:6:\\"socket\\";N;}s:5:\\"tries\\";N;s:7:\\"timeout\\";N;s:10:\\"connection\\";N;s:5:\\"queue\\";N;s:15:\\"chainConnection\\";N;s:10:\\"chainQueue\\";N;s:19:\\"chainCatchCallbacks\\";N;s:5:\\"delay\\";N;s:11:\\"afterCommit\\";N;s:10:\\"middleware\\";a:0:{}s:7:\\"chained\\";a:0:{}}"}}', 0, NULL, 1714034166, 1714034166),
+	(33, 'default', '{"uuid":"b8c60604-32be-40b8-9014-ed5c81d05239","displayName":"App\\\\Events\\\\EnvioPagamentoVendaOnline","job":"Illuminate\\\\Queue\\\\CallQueuedHandler@call","maxTries":null,"maxExceptions":null,"failOnTimeout":false,"backoff":null,"timeout":null,"retryUntil":null,"data":{"commandName":"Illuminate\\\\Broadcasting\\\\BroadcastEvent","command":"O:38:\\"Illuminate\\\\Broadcasting\\\\BroadcastEvent\\":12:{s:5:\\"event\\";O:36:\\"App\\\\Events\\\\EnvioPagamentoVendaOnline\\":2:{s:8:\\"somedata\\";s:9:\\"some data\\";s:6:\\"socket\\";N;}s:5:\\"tries\\";N;s:7:\\"timeout\\";N;s:10:\\"connection\\";N;s:5:\\"queue\\";N;s:15:\\"chainConnection\\";N;s:10:\\"chainQueue\\";N;s:19:\\"chainCatchCallbacks\\";N;s:5:\\"delay\\";N;s:11:\\"afterCommit\\";N;s:10:\\"middleware\\";a:0:{}s:7:\\"chained\\";a:0:{}}"}}', 0, NULL, 1714053459, 1714053459),
+	(34, 'default', '{"uuid":"d2c3402d-e433-4f55-b6aa-dde9c91fdb63","displayName":"App\\\\Events\\\\EnvioPagamentoVendaOnline","job":"Illuminate\\\\Queue\\\\CallQueuedHandler@call","maxTries":null,"maxExceptions":null,"failOnTimeout":false,"backoff":null,"timeout":null,"retryUntil":null,"data":{"commandName":"Illuminate\\\\Broadcasting\\\\BroadcastEvent","command":"O:38:\\"Illuminate\\\\Broadcasting\\\\BroadcastEvent\\":12:{s:5:\\"event\\";O:36:\\"App\\\\Events\\\\EnvioPagamentoVendaOnline\\":2:{s:8:\\"somedata\\";s:9:\\"some data\\";s:6:\\"socket\\";N;}s:5:\\"tries\\";N;s:7:\\"timeout\\";N;s:10:\\"connection\\";N;s:5:\\"queue\\";N;s:15:\\"chainConnection\\";N;s:10:\\"chainQueue\\";N;s:19:\\"chainCatchCallbacks\\";N;s:5:\\"delay\\";N;s:11:\\"afterCommit\\";N;s:10:\\"middleware\\";a:0:{}s:7:\\"chained\\";a:0:{}}"}}', 0, NULL, 1714122698, 1714122698);
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.json
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.json
 CREATE TABLE IF NOT EXISTS `json` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `texto` longtext,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.json: ~0 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.json: ~0 rows (aproximadamente)
 INSERT INTO `json` (`id`, `texto`) VALUES
 	(2, '{"id":2,"uuid":"e6aee384-6564-4789-b58b-be427b0d73ab","codigo":"00002","bancoId":6,"empresaId":null,"dataPagamentoBanco":"2024-01-11 00:00:00","totalPagamento":8266.25,"totalDesconto":0,"totalIva":1157.275,"comprovativoBancario":"comprovativosVendasOnline\\/TlpevWPFeVtf1lA9mjtuJD7JqakqkwnHQHGWpRUk.pdf","formaPagamentoId":4,"userId":741,"nomeUser":"Ramos Soft","statusPagamentoId":2,"enderecoEntrega":null,"nomeUserEntrega":"Ramos Soft","apelidoUserEntrega":"Ramos Soft","pontoReferenciaEntrega":null,"telefoneUserEntrega":"923292970","provinciaIdEntrega":1,"comunaId":null,"taxaEntrega":0,"tipoEntregaId":2,"operadorId":638,"emailEntrega":"info@ramossoft.com","numeroCartaoCliente":null,"observacaoEntrega":null,"motivoRejeicao":null,"created_at":"2024-01-11T13:03:18.000000Z","estimativaEntrega":"2024-01-13 14:03:18","updated_at":"2024-01-24T16:19:00.000000Z","deleted_at":null,"pagamento_vendas_online_items":[{"id":3,"uuid":"e19c8d13-7e9a-402d-a7e6-98c45ff4c7c3","produtoId":1510,"precoVendaProduto":3372.5,"nomeProduto":"CABO ALIMENT. PC 1.8 MT MANHT","quantidade":1,"pagamentoVendasOnlineId":2,"taxaIvaValor":472.15,"subtotal":3372.5,"taxaIva":14},{"id":4,"uuid":"067bd8a2-b788-43dc-99e2-6d7f455d53f6","produtoId":1047,"precoVendaProduto":4893.75,"nomeProduto":"BLOCO TOM.TRIPLA 1.5 MT C\\/INT BRANCA","quantidade":1,"pagamentoVendasOnlineId":2,"taxaIvaValor":685.125,"subtotal":4893.75,"taxaIva":14}],"user":{"id":741,"name":"Ramos Soft","uuid":"88b32a7d-114e-4ce4-9cae-7813bc40de94","username":"Ramos Soft","created_at":"2023-12-06T23:44:12.000000Z","updated_at":"2023-12-06T23:44:12.000000Z","tipo_user_id":4,"status_id":1,"statusUserAdicional":1,"status_senha_id":1,"telefone":"923292970","email":"info@ramossoft.com","email_verified_at":null,"canal_id":4,"empresa_id":null,"foto":"utilizadores\\/cliente\\/avatarEmpresa.png","guard":"empresa","token_notification_firebase":null,"all_permissions":[],"can":{"gerir utilizadores":true,"gerir permiss\\u00f5es":true,"gerir licen\\u00e7as":true,"consultar licen\\u00e7as":true,"gerir fornecedores":true,"gerir empresas":true,"gerir funcionario":true,"gerir fabricantes":true,"gerir armazens":true,"gerir bancos":true,"gerir marcas":true,"gerir categoria":true,"gerir clientes":true,"gerir produtos":true,"gerir nota credito":true,"gerir nota debito":true,"gerir rectificar documento":true,"gerir anular documento":true,"gerir actualizar estoque":true,"gerir transferir produto":true,"gerir entrada produto":true,"gerir pagamento fornecedor":true,"gerir taxas":true,"gerir motivos isencao":true,"gerir vendas":true,"gerir inventario":true,"visualizar minhas licen\\u00e7as":true,"visualizar facturas licencas":true,"visualizar recibo pagamento factura":true,"gerir funcao":true,"gerir movimento diario":true,"gerir recibos":true,"visualizar produtos mais vendidos":true,"visualizar existencia estoque produto":true,"converter proforma":true,"gerar saft":true,"gerir empresa":true,"editar modelo documento":true,"definir parametros":true,"visualizar relatorio por centro custo":true,"gerir centro de custo":true,"visualizar relatorios":true,"imprimir_fecho_caixa":true,"gerir permissao":true,"Sem acesso a dashboard":true},"permissions":[],"roles":[]},"statu":{"id":2,"designacao":"Pendente"},"banco":{"id":6,"designacao":"BANCO DE FOMENTO ANGOLA","sigla":"BFA","uuid":"404f6f31-f11b-42c3-812b-7f1e05168ccb","num_conta":"273036373 30 001","titular":"","iban":"AO06 0006.0000.7303.6373.3014.3","status_id":1,"canal_id":2,"created_at":"2021-04-16T11:42:08.000000Z","empresa_id":148,"tipo_user_id":2,"user_id":641,"centroCustoId":null,"updated_at":"2022-10-20T12:41:50.000000Z"}}');
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.log_acessos
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.log_acessos
 CREATE TABLE IF NOT EXISTS `log_acessos` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `descricao` text COLLATE utf8_unicode_ci NOT NULL,
@@ -1586,9 +1612,9 @@ CREATE TABLE IF NOT EXISTS `log_acessos` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `user_id` bigint(20) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=373731 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=373737 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.log_acessos: ~63 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.log_acessos: ~63 rows (aproximadamente)
 INSERT INTO `log_acessos` (`id`, `descricao`, `ip`, `maquina`, `browser`, `rota_acessado`, `user_name`, `outra_informacao`, `created_at`, `updated_at`, `user_id`) VALUES
 	(373668, 'No dia 13 de March de 2024 o Senhor(a) Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto fez um acesso ao sistema mutue aeroporto as 06 horas 41 minutos e 08 segundos', '172.68.40.139', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'https://ato.mutue-negocios.ao/empresa/anulacao/fatura/novo', 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', NULL, '2024-03-13 18:41:08', '2024-03-13 18:41:08', 1),
 	(373669, 'No dia 13 de March de 2024 o Senhor(a) Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto fez um acesso ao sistema mutue aeroporto as 06 horas 42 minutos e 24 segundos', '172.68.40.135', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36', 'https://ato.mutue-negocios.ao/empresa/anulacao/fatura/novo', 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', NULL, '2024-03-13 18:42:24', '2024-03-13 18:42:24', 1),
@@ -1652,9 +1678,15 @@ INSERT INTO `log_acessos` (`id`, `descricao`, `ip`, `maquina`, `browser`, `rota_
 	(373727, 'No dia 28 de mar?o de 2024 o Senhor(a) Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto fez um acesso ao sistema mutue aeroporto as 09 horas 17 minutos e 59 segundos', '127.0.0.1', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36', 'http://127.0.0.1:8000/empresa/gerarSaft', 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', NULL, '2024-03-28 08:17:59', '2024-03-28 08:17:59', 1),
 	(373728, 'No dia 28 de mar?o de 2024 o Senhor(a) Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto fez um acesso ao sistema mutue aeroporto as 09 horas 19 minutos e 45 segundos', '127.0.0.1', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36', 'http://127.0.0.1:8000/empresa/gerarSaft', 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', NULL, '2024-03-28 08:19:45', '2024-03-28 08:19:45', 1),
 	(373729, 'No dia 28 de mar?o de 2024 o Senhor(a) Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto fez um acesso ao sistema mutue aeroporto as 09 horas 21 minutos e 16 segundos', '127.0.0.1', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36', 'http://127.0.0.1:8000/empresa/gerarSaft', 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', NULL, '2024-03-28 08:21:16', '2024-03-28 08:21:16', 1),
-	(373730, 'No dia 28 de mar?o de 2024 o Senhor(a) Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto fez um acesso ao sistema mutue aeroporto as 09 horas 29 minutos e 47 segundos', '127.0.0.1', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36', 'http://127.0.0.1:8000/empresa/gerarSaft', 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', NULL, '2024-03-28 08:29:47', '2024-03-28 08:29:47', 1);
+	(373730, 'No dia 28 de mar?o de 2024 o Senhor(a) Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto fez um acesso ao sistema mutue aeroporto as 09 horas 29 minutos e 47 segundos', '127.0.0.1', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36', 'http://127.0.0.1:8000/empresa/gerarSaft', 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', NULL, '2024-03-28 08:29:47', '2024-03-28 08:29:47', 1),
+	(373731, 'No dia 19 de abril de 2024 o Senhor(a) Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto fez um acesso ao sistema mutue aeroporto as 11 horas 37 minutos e 48 segundos', '127.0.0.1', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36', 'http://127.0.0.1:8000/empresa/banco/editar/1', 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', NULL, '2024-04-19 10:37:48', '2024-04-19 10:37:48', 1),
+	(373732, 'No dia 19 de abril de 2024 o Senhor(a) Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto fez um acesso ao sistema mutue aeroporto as 11 horas 38 minutos e 21 segundos', '127.0.0.1', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36', 'http://127.0.0.1:8000/empresa/banco/editar/1', 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', NULL, '2024-04-19 10:38:21', '2024-04-19 10:38:21', 1),
+	(373733, 'No dia 19 de abril de 2024 o Senhor(a) Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto fez um acesso ao sistema mutue aeroporto as 11 horas 40 minutos e 06 segundos', '127.0.0.1', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36', 'http://127.0.0.1:8000/empresa/banco/editar/1', 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', NULL, '2024-04-19 10:40:06', '2024-04-19 10:40:06', 1),
+	(373734, 'No dia 19 de abril de 2024 o Senhor(a) Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto fez um acesso ao sistema mutue aeroporto as 11 horas 40 minutos e 20 segundos', '127.0.0.1', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36', 'http://127.0.0.1:8000/empresa/banco/editar/1', 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', NULL, '2024-04-19 10:40:20', '2024-04-19 10:40:20', 1),
+	(373735, 'No dia 19 de abril de 2024 o Senhor(a) Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto fez um acesso ao sistema mutue aeroporto as 11 horas 45 minutos e 18 segundos', '127.0.0.1', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36', 'http://127.0.0.1:8000/empresa/banco/novo', 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', NULL, '2024-04-19 10:45:18', '2024-04-19 10:45:18', 1),
+	(373736, 'No dia 19 de abril de 2024 o Senhor(a) Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto fez um acesso ao sistema mutue aeroporto as 11 horas 47 minutos e 33 segundos', '127.0.0.1', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36', 'http://127.0.0.1:8000/empresa/banco/novo', 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', NULL, '2024-04-19 10:47:33', '2024-04-19 10:47:33', 1);
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.marcas
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.marcas
 CREATE TABLE IF NOT EXISTS `marcas` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `designacao` varchar(255) DEFAULT NULL,
@@ -1675,9 +1707,9 @@ CREATE TABLE IF NOT EXISTS `marcas` (
   CONSTRAINT `FK_marcas_users` FOREIGN KEY (`user_id`) REFERENCES `users_cliente` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.marcas: ~0 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.marcas: ~0 rows (aproximadamente)
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.migrations
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.migrations
 CREATE TABLE IF NOT EXISTS `migrations` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -1685,9 +1717,9 @@ CREATE TABLE IF NOT EXISTS `migrations` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.migrations: ~0 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.migrations: ~0 rows (aproximadamente)
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.modelo_documento_ativo
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.modelo_documento_ativo
 CREATE TABLE IF NOT EXISTS `modelo_documento_ativo` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `modelo_id` int(10) unsigned NOT NULL,
@@ -1697,11 +1729,11 @@ CREATE TABLE IF NOT EXISTS `modelo_documento_ativo` (
   KEY `FK_modelo_documento_ativo_empresas` (`empresa_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.modelo_documento_ativo: ~0 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.modelo_documento_ativo: ~0 rows (aproximadamente)
 INSERT INTO `modelo_documento_ativo` (`id`, `modelo_id`, `empresa_id`) VALUES
 	(1, 2, 1);
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.modelo_facturas
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.modelo_facturas
 CREATE TABLE IF NOT EXISTS `modelo_facturas` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `designacao` varchar(255) NOT NULL,
@@ -1723,7 +1755,7 @@ CREATE TABLE IF NOT EXISTS `modelo_facturas` (
   CONSTRAINT `FK_modelo_facturas_user` FOREIGN KEY (`user_id`) REFERENCES `users_cliente` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.modelo_facturas: ~5 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.modelo_facturas: ~5 rows (aproximadamente)
 INSERT INTO `modelo_facturas` (`id`, `designacao`, `nome_jasper`, `name_pdf`, `formato`, `user_id`, `canal_id`, `status_id`, `created_at`, `updated_at`, `obs`) VALUES
 	(1, 'Default', 'FacturaDefaultA4', 'upload/documentos/empresa/modelosFacturas/a4/defaultPDF.pdf', 'A4', NULL, 2, 1, '2021-09-01 10:11:36', '2021-09-01 10:11:40', NULL),
 	(2, 'Winmarket', 'Winmarket', 'upload/documentos/empresa/modelosFacturas/a4/winmarketPDF.pdf', 'A4', NULL, 2, 1, '2021-09-01 10:11:36', '2021-09-01 10:11:40', NULL),
@@ -1731,7 +1763,7 @@ INSERT INTO `modelo_facturas` (`id`, `designacao`, `nome_jasper`, `name_pdf`, `f
 	(4, 'Moduseasy', 'Moduseasy', 'upload/documentos/empresa/modelosFacturas/a4/ModuseasyPDF.pdf', 'A4', NULL, 2, 1, '2021-09-01 10:11:36', '2021-09-01 10:11:40', NULL),
 	(5, 'Modelo aluno', 'Modelo aluno', 'upload/documentos/empresa/modelosFacturas/a4/ModuseasyPDF.pdf', 'A4', NULL, 2, 1, '2021-09-01 10:11:36', '2021-09-01 10:11:40', NULL);
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.model_has_permissions
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.model_has_permissions
 CREATE TABLE IF NOT EXISTS `model_has_permissions` (
   `permission_id` bigint(20) unsigned NOT NULL,
   `model_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -1740,7 +1772,7 @@ CREATE TABLE IF NOT EXISTS `model_has_permissions` (
   KEY `model_has_permissions_model_id_model_type_index` (`model_id`,`model_type`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.model_has_permissions: ~47 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.model_has_permissions: ~47 rows (aproximadamente)
 INSERT INTO `model_has_permissions` (`permission_id`, `model_type`, `model_id`) VALUES
 	(1, 'App\\Models\\empresa\\User', 1),
 	(14, 'App\\Models\\empresa\\User', 1),
@@ -1790,7 +1822,7 @@ INSERT INTO `model_has_permissions` (`permission_id`, `model_type`, `model_id`) 
 	(20, 'App\\Models\\empresa\\User', 753),
 	(21, 'App\\Models\\empresa\\User', 753);
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.model_has_roles
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.model_has_roles
 CREATE TABLE IF NOT EXISTS `model_has_roles` (
   `role_id` bigint(20) unsigned NOT NULL,
   `model_type` varchar(255) CHARACTER SET utf8 NOT NULL,
@@ -1799,11 +1831,11 @@ CREATE TABLE IF NOT EXISTS `model_has_roles` (
   KEY `model_has_roles_model_id_model_type_index` (`model_id`,`model_type`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.model_has_roles: ~0 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.model_has_roles: ~0 rows (aproximadamente)
 INSERT INTO `model_has_roles` (`role_id`, `model_type`, `model_id`) VALUES
 	(1, 'App\\Models\\empresa\\User', 1);
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.moedas
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.moedas
 CREATE TABLE IF NOT EXISTS `moedas` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `designacao` varchar(45) NOT NULL,
@@ -1812,13 +1844,13 @@ CREATE TABLE IF NOT EXISTS `moedas` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.moedas: ~3 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.moedas: ~3 rows (aproximadamente)
 INSERT INTO `moedas` (`id`, `designacao`, `codigo`, `cambio`) VALUES
 	(1, 'AOA', 'AOA', 1),
 	(2, 'USD', 'USD', 1),
 	(3, 'EURO', 'EURO', 1);
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.motivo
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.motivo
 CREATE TABLE IF NOT EXISTS `motivo` (
   `codigo` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `codigoMotivo` varchar(50) NOT NULL,
@@ -1838,7 +1870,7 @@ CREATE TABLE IF NOT EXISTS `motivo` (
   CONSTRAINT `FK_motivo_status_gerais` FOREIGN KEY (`status_id`) REFERENCES `status_gerais` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.motivo: ~39 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.motivo: ~39 rows (aproximadamente)
 INSERT INTO `motivo` (`codigo`, `codigoMotivo`, `descricao`, `codigoStatus`, `canal_id`, `user_id`, `status_id`, `created_at`, `updated_at`, `empresa_id`) VALUES
 	(7, 'M04', 'IVA – Regime de Exclusão', 1, 1, 1, 1, '2020-04-23 20:56:46', '2020-04-23 20:56:46', NULL),
 	(8, 'M02', 'Transmissão de bens e serviço não sujeita', 1, 1, 1, 1, '2020-04-23 20:56:46', '2020-04-23 20:56:46', NULL),
@@ -1880,7 +1912,7 @@ INSERT INTO `motivo` (`codigo`, `codigoMotivo`, `descricao`, `codigoStatus`, `ca
 	(44, 'M93', 'Isento nos termos da alínea d) do nº1 do artigo 16.º', 1, 1, 1, 1, '2020-04-23 20:56:46', '2020-04-23 20:56:46', NULL),
 	(45, 'M94', 'Isento nos termos da alínea e) do nº1 do artigo 16.º', 1, 1, 1, 1, '2020-04-23 20:56:46', '2020-04-23 20:56:46', NULL);
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.municipios_
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.municipios_
 CREATE TABLE IF NOT EXISTS `municipios_` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `designacao` varchar(255) DEFAULT NULL,
@@ -1893,7 +1925,7 @@ CREATE TABLE IF NOT EXISTS `municipios_` (
   KEY `FK_municipios__provincia_id` (`cidade_id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.municipios_: ~9 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.municipios_: ~9 rows (aproximadamente)
 INSERT INTO `municipios_` (`id`, `designacao`, `cidade_id`, `status_id`, `created_at`, `updated_at`, `deleted_at`) VALUES
 	(1, 'Luanda', 1, 1, '2023-09-01 11:11:35', '2023-09-28 09:40:19', NULL),
 	(2, 'Belas', 1, 1, '2023-09-01 17:34:16', '2023-09-28 10:19:29', NULL),
@@ -1905,7 +1937,7 @@ INSERT INTO `municipios_` (`id`, `designacao`, `cidade_id`, `status_id`, `create
 	(8, 'Ícolo e Bengo', 1, 1, '2023-11-25 08:24:25', '2023-11-25 08:24:51', NULL),
 	(9, 'Talatona', 1, 1, '2023-11-25 08:24:45', '2023-11-25 08:24:55', NULL);
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.notas_creditos
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.notas_creditos
 CREATE TABLE IF NOT EXISTS `notas_creditos` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `uuid` varchar(255) NOT NULL,
@@ -1925,9 +1957,9 @@ CREATE TABLE IF NOT EXISTS `notas_creditos` (
   KEY `notas_creditos_facturas_id_fk` (`numDoc`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.notas_creditos: ~0 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.notas_creditos: ~0 rows (aproximadamente)
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.notas_debito_clientes
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.notas_debito_clientes
 CREATE TABLE IF NOT EXISTS `notas_debito_clientes` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `empresa_id` int(10) unsigned NOT NULL,
@@ -1957,9 +1989,9 @@ CREATE TABLE IF NOT EXISTS `notas_debito_clientes` (
   CONSTRAINT `FK_notas_debito_clientes_tipo_users` FOREIGN KEY (`tipo_user_id`) REFERENCES `tipo_users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.notas_debito_clientes: ~0 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.notas_debito_clientes: ~0 rows (aproximadamente)
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.notas_entregas
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.notas_entregas
 CREATE TABLE IF NOT EXISTS `notas_entregas` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `numeracao_documento` varchar(100) NOT NULL,
@@ -1972,13 +2004,13 @@ CREATE TABLE IF NOT EXISTS `notas_entregas` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.notas_entregas: ~3 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.notas_entregas: ~3 rows (aproximadamente)
 INSERT INTO `notas_entregas` (`id`, `numeracao_documento`, `operador_nome`, `operador_id`, `factura_id`, `empresa_id`, `created_at`, `updated_at`) VALUES
 	(8, 'FR RR2023/69', 'Mutue Negócio Teste Mobile', 35, 32792, 53, '2023-10-16 15:36:09', '2023-10-16 15:36:09'),
 	(9, 'FR RR2023/78', 'Mutue Negócio Teste Mobile', 35, 32875, 53, '2023-10-24 18:02:19', '2023-10-24 18:02:19'),
 	(10, 'FR RR2023/79', 'Mutue Negócio Teste Mobile', 35, 32970, 53, '2023-10-25 14:21:32', '2023-10-25 14:21:32');
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.nota_credito_items
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.nota_credito_items
 CREATE TABLE IF NOT EXISTS `nota_credito_items` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `descricao_produto` varchar(250) DEFAULT '0',
@@ -2002,9 +2034,9 @@ CREATE TABLE IF NOT EXISTS `nota_credito_items` (
   CONSTRAINT `nota_credito_items_ibfk_2` FOREIGN KEY (`produto_id`) REFERENCES `produtos_` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.nota_credito_items: ~0 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.nota_credito_items: ~0 rows (aproximadamente)
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.notifications
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.notifications
 CREATE TABLE IF NOT EXISTS `notifications` (
   `id` char(36) COLLATE utf8mb4_unicode_ci NOT NULL,
   `type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -2020,14 +2052,14 @@ CREATE TABLE IF NOT EXISTS `notifications` (
   KEY `notifications_notifiable_type_notifiable_id_index` (`notifiable_type`,`notifiable_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.notifications: ~4 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.notifications: ~4 rows (aproximadamente)
 INSERT INTO `notifications` (`id`, `type`, `notifiable_type`, `notifiable_id`, `data`, `read_at`, `created_at`, `updated_at`, `empresa_id`, `canal_id`) VALUES
 	('5cd6174c-1833-4718-b863-ba0c9326052d', 'App\\Notifications\\AtivacaoLicenca', 'App\\Models\\empresa\\Empresa_Cliente', 109, '{"notificacao":{"id":69,"licenca_id":2,"empresa_id":94,"pagamento_id":20,"data_inicio":"2021-10-27T09:29:53.000000Z","data_fim":"2021-11-27T09:29:53.000000Z","data_activacao":"2021-10-27T09:29:53.390872Z","user_id":1,"canal_id":2,"status_licenca_id":1,"created_at":"2021-10-27 10:23:52","updated_at":"2021-10-27 10:29:53","data_rejeicao":null,"observacao":"activo a licen\\u00e7a Mensal no dia 2021-10-27 10:29:53","data_notificaticao":null,"notificacaoFimLicenca":null,"licenca":{"id":2,"tipo_licenca_id":2,"designacao":"Mensal","status_licenca_id":1,"created_at":"2021-01-31 12:38:02","updated_at":"2021-01-31 15:49:18","canal_id":3,"user_id":1,"descricao":"Plano Mensal","valor":10000,"tipo_taxa_id":1,"limite_usuario":5,"tipo_licenca":{"id":2,"designacao":"Mensal"}},"empresa":{"id":94,"nome":"Jacinto Vicuya","pessoal_Contacto":"923041279","endereco":"Bairro Miru Viana","empresa_id":null,"pais_id":1,"saldo":0,"nif":"005196135kS044","gestor_cliente_id":1,"tipo_cliente_id":2,"tipo_regime_id":3,"logotipo":"utilizadores\\/cliente\\/avatarEmpresa.png","website":null,"email":"gabrieljacinto@gmail.com","referencia":"MMT21J7","pessoa_de_contacto":null,"status_id":1,"canal_id":3,"user_id":null,"created_at":"2021-08-19 16:18:26","updated_at":"2021-08-19 16:18:26","cidade":"Luanda","file_alvara":null,"file_nif":null}},"empresa":"F\\u00c1BRICA DE SOFTWARES  LDA","mensagem":"Foi activo uma nova licen\\u00e7a Mensal em sua conta ","descricao":"A empresa F\\u00c1BRICA DE SOFTWARES  LDA activou uma licen\\u00e7a Mensal em sua conta, sendo assim a contagem da sua licen\\u00e7a inicia no dia 27-10-2021 at\\u00e9 o  dia 27-11-2021"}', NULL, '2021-10-27 10:29:54', '2021-10-27 10:29:54', NULL, NULL),
 	('91234d38-0996-4c8c-b64c-6a4fdeef8595', 'App\\Notifications\\AtivacaoLicenca', 'App\\Models\\empresa\\Empresa_Cliente', 53, '{"notificacao":{"id":56,"licenca_id":2,"empresa_id":38,"pagamento_id":19,"data_inicio":"2021-10-21T15:29:00.000000Z","data_fim":"2021-11-21T15:29:00.000000Z","data_activacao":"2021-09-23T15:29:00.546031Z","user_id":1,"canal_id":2,"status_licenca_id":1,"created_at":"2021-09-23 16:24:44","updated_at":"2021-09-23 16:29:00","data_rejeicao":null,"observacao":"activo a licen\\u00e7a Mensal no dia 2021-09-23 16:29:00","data_notificaticao":null,"notificacaoFimLicenca":null,"licenca":{"id":2,"tipo_licenca_id":2,"designacao":"Mensal","status_licenca_id":1,"created_at":"2021-01-31 12:38:02","updated_at":"2021-01-31 15:49:18","canal_id":3,"user_id":1,"descricao":"Plano Mensal","valor":10000,"tipo_taxa_id":1,"limite_usuario":5,"tipo_licenca":{"id":2,"designacao":"Mensal"}},"empresa":{"id":38,"nome":"Mutue Neg\\u00f3cio Teste Mobile","pessoal_Contacto":"999999999","endereco":"Luanda","empresa_id":null,"pais_id":1,"saldo":0,"nif":"999999999","gestor_cliente_id":1,"tipo_cliente_id":2,"tipo_regime_id":2,"logotipo":"utilizadores\\/cliente\\/O5sB8nzuIxoaiFAAsiyyMrSUCmc9ovDVCrFVRwVO.png","website":null,"email":"mutuemobile@gmail.com","referencia":"5VA9C58","pessoa_de_contacto":null,"status_id":1,"canal_id":3,"user_id":null,"created_at":"2021-04-16 10:36:11","updated_at":"2021-04-26 14:03:13","cidade":"Luanda","file_alvara":"documentos\\/empresa\\/documentos\\/C7quc6x6QB3pdcWhQZuh7rgKHA3UOnAiCzYufyaO.pdf","file_nif":"documentos\\/empresa\\/documentos\\/2McsxTfjst7do5jcAEZZwdtcQg0UR229SJvW5Rg6.pdf"}},"empresa":"F\\u00c1BRICA DE SOFTWARES  LDA","mensagem":"Foi activo uma nova licen\\u00e7a Mensal em sua conta ","descricao":"A empresa F\\u00c1BRICA DE SOFTWARES  LDA activou uma licen\\u00e7a Mensal em sua conta, sendo assim a contagem da sua licen\\u00e7a inicia no dia 21-10-2021 at\\u00e9 o  dia 21-11-2021"}', '2023-02-20 21:40:23', '2021-09-23 16:29:03', '2023-02-20 21:40:23', NULL, NULL),
 	('b14647d0-5e48-4e3c-a0b0-a85440782250', 'App\\Notifications\\AtivacaoLicenca', 'App\\Models\\empresa\\Empresa_Cliente', 53, '{"notificacao":{"id":88,"licenca_id":3,"empresa_id":38,"pagamento_id":22,"data_inicio":"2022-06-01T10:50:06.000000Z","data_fim":"2023-06-01T10:50:06.000000Z","data_activacao":"2022-06-01T10:50:06.470413Z","user_id":1,"canal_id":2,"status_licenca_id":1,"created_at":"2022-06-01 10:44:06","updated_at":"2022-06-01 11:50:06","data_rejeicao":null,"observacao":"activo a licen\\u00e7a Anual no dia 2022-06-01 11:50:06","data_notificaticao":null,"notificacaoFimLicenca":null,"licenca":{"id":3,"tipo_licenca_id":3,"designacao":"Anual","status_licenca_id":1,"created_at":"2021-01-31 12:38:41","updated_at":"2021-04-28 15:23:10","canal_id":3,"user_id":1,"descricao":"Plano Anual","valor":50000,"tipo_taxa_id":1,"limite_usuario":50,"tipo_licenca":{"id":3,"designacao":"Anual"}},"empresa":{"id":38,"nome":"Mutue Neg\\u00f3cio Teste Mobile","pessoal_Contacto":"999999999","endereco":"Luanda","empresa_id":null,"pais_id":1,"saldo":0,"nif":"999999999","gestor_cliente_id":1,"tipo_cliente_id":2,"tipo_regime_id":2,"logotipo":"utilizadores\\/cliente\\/O5sB8nzuIxoaiFAAsiyyMrSUCmc9ovDVCrFVRwVO.png","website":null,"email":"mutuemobile@gmail.com","referencia":"5VA9C58","pessoa_de_contacto":null,"status_id":1,"canal_id":3,"user_id":null,"created_at":"2021-04-16 10:36:11","updated_at":"2021-04-26 14:03:13","cidade":"Luanda","file_alvara":"documentos\\/empresa\\/documentos\\/C7quc6x6QB3pdcWhQZuh7rgKHA3UOnAiCzYufyaO.pdf","file_nif":"documentos\\/empresa\\/documentos\\/2McsxTfjst7do5jcAEZZwdtcQg0UR229SJvW5Rg6.pdf","licenca":"ativo"}},"empresa":"MUTUE SOLU\\u00c7\\u00d5ES TECNOL\\u00d3GICAS INTELIGENTES LDA","mensagem":"Foi activo uma nova licen\\u00e7a Anual em sua conta ","descricao":"A empresa MUTUE SOLU\\u00c7\\u00d5ES TECNOL\\u00d3GICAS INTELIGENTES LDA activou uma licen\\u00e7a Anual em sua conta, sendo assim a contagem da sua licen\\u00e7a inicia no dia 01-06-2022 at\\u00e9 o  dia 01-06-2023"}', '2023-02-15 10:11:13', '2022-06-01 11:50:08', '2023-02-15 10:11:13', NULL, NULL),
 	('fc58fc52-bf4c-4b56-bcec-d77ee3adbc3e', 'App\\Notifications\\AtivacaoLicenca', 'App\\Models\\empresa\\Empresa_Cliente', 117, '{"notificacao":{"id":78,"licenca_id":3,"empresa_id":102,"pagamento_id":21,"data_inicio":"2022-01-03T09:09:50.000000Z","data_fim":"2023-01-03T09:09:50.000000Z","data_activacao":"2022-01-03T09:09:50.651663Z","user_id":1,"canal_id":2,"status_licenca_id":1,"created_at":"2022-01-03 10:07:38","updated_at":"2022-01-03 10:09:50","data_rejeicao":null,"observacao":"activo a licen\\u00e7a Anual no dia 2022-01-03 10:09:50","data_notificaticao":null,"notificacaoFimLicenca":null,"licenca":{"id":3,"tipo_licenca_id":3,"designacao":"Anual","status_licenca_id":1,"created_at":"2021-01-31 12:38:41","updated_at":"2021-04-28 15:23:10","canal_id":3,"user_id":1,"descricao":"Plano Anual","valor":50000,"tipo_taxa_id":1,"limite_usuario":50,"tipo_licenca":{"id":3,"designacao":"Anual"}},"empresa":{"id":102,"nome":"Domingos Ngola","pessoal_Contacto":"923963451","endereco":"Luanda","empresa_id":null,"pais_id":1,"saldo":0,"nif":"005406294KN041","gestor_cliente_id":1,"tipo_cliente_id":2,"tipo_regime_id":3,"logotipo":"utilizadores\\/cliente\\/avatarEmpresa.png","website":null,"email":"domingosgoncalves619@gmail.com","referencia":"RU1N11N","pessoa_de_contacto":null,"status_id":1,"canal_id":3,"user_id":null,"created_at":"2021-09-13 11:03:56","updated_at":"2021-09-13 11:03:56","cidade":"Luanda","file_alvara":null,"file_nif":null}},"empresa":"F\\u00c1BRICA DE SOFTWARES  LDA","mensagem":"Foi activo uma nova licen\\u00e7a Anual em sua conta ","descricao":"A empresa F\\u00c1BRICA DE SOFTWARES  LDA activou uma licen\\u00e7a Anual em sua conta, sendo assim a contagem da sua licen\\u00e7a inicia no dia 03-01-2022 at\\u00e9 o  dia 03-01-2023"}', NULL, '2022-01-03 10:09:50', '2022-01-03 10:09:50', NULL, NULL);
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.observacao_factura
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.observacao_factura
 CREATE TABLE IF NOT EXISTS `observacao_factura` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `observacao` text,
@@ -2037,9 +2069,9 @@ CREATE TABLE IF NOT EXISTS `observacao_factura` (
   CONSTRAINT `FK_observacao_factura_empresas` FOREIGN KEY (`empresa_id`) REFERENCES `empresas` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.observacao_factura: ~0 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.observacao_factura: ~0 rows (aproximadamente)
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.orderbyprodutos
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.orderbyprodutos
 CREATE TABLE IF NOT EXISTS `orderbyprodutos` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `valor` varchar(50) NOT NULL,
@@ -2047,14 +2079,14 @@ CREATE TABLE IF NOT EXISTS `orderbyprodutos` (
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.orderbyprodutos: ~4 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.orderbyprodutos: ~4 rows (aproximadamente)
 INSERT INTO `orderbyprodutos` (`id`, `valor`, `designacao`) VALUES
 	(1, 'min', 'Menor preço'),
 	(2, 'max', 'Maior preço'),
 	(3, 'asc', 'Nome de Produto: A a Z'),
 	(4, 'desc', 'Nome de Produto: Z a A');
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.pagamentos
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.pagamentos
 CREATE TABLE IF NOT EXISTS `pagamentos` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `factura_id` int(10) unsigned NOT NULL,
@@ -2075,9 +2107,9 @@ CREATE TABLE IF NOT EXISTS `pagamentos` (
   CONSTRAINT `FK_pagamentos_user` FOREIGN KEY (`user_id`) REFERENCES `users_cliente` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.pagamentos: ~0 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.pagamentos: ~0 rows (aproximadamente)
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.pagamentos_vendas_online
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.pagamentos_vendas_online
 CREATE TABLE IF NOT EXISTS `pagamentos_vendas_online` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `uuid` varchar(255) DEFAULT NULL,
@@ -2118,12 +2150,12 @@ CREATE TABLE IF NOT EXISTS `pagamentos_vendas_online` (
   CONSTRAINT `FK_pagamentos_vendas_online_provincias` FOREIGN KEY (`provinciaIdEntrega`) REFERENCES `cidades` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.pagamentos_vendas_online: ~2 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.pagamentos_vendas_online: ~2 rows (aproximadamente)
 INSERT INTO `pagamentos_vendas_online` (`id`, `uuid`, `codigo`, `bancoId`, `empresaId`, `dataPagamentoBanco`, `totalPagamento`, `totalDesconto`, `totalIva`, `comprovativoBancario`, `formaPagamentoId`, `userId`, `nomeUser`, `statusPagamentoId`, `enderecoEntrega`, `nomeUserEntrega`, `apelidoUserEntrega`, `pontoReferenciaEntrega`, `telefoneUserEntrega`, `provinciaIdEntrega`, `comunaId`, `taxaEntrega`, `tipoEntregaId`, `operadorId`, `emailEntrega`, `numeroCartaoCliente`, `observacaoEntrega`, `motivoRejeicao`, `created_at`, `estimativaEntrega`, `updated_at`, `deleted_at`) VALUES
 	(1, 'c15fa1ad-67f2-47f0-b24c-bae3f48a0274', '00001', 6, NULL, '2023-12-06 00:00:00', 7985, 0, 1117.9, 'comprovativosVendasOnline/Q8r570nojzwpsT1orJShyopyW9GaQke6HXQQTdhr.pdf', 4, 741, 'Ramos Soft', 2, NULL, 'Ramos Soft', 'Ramos Soft', NULL, '923292970', 1, NULL, 0, 2, 642, 'info@ramossoft.com', NULL, NULL, NULL, '2023-12-06 23:51:35', '2023-12-08 23:51:35', '2023-12-08 11:33:29', NULL),
 	(2, 'e6aee384-6564-4789-b58b-be427b0d73ab', '00002', 6, NULL, '2024-01-11 00:00:00', 8266.25, 0, 1157.275, 'comprovativosVendasOnline/TlpevWPFeVtf1lA9mjtuJD7JqakqkwnHQHGWpRUk.pdf', 4, 741, 'Ramos Soft', 2, NULL, 'Ramos Soft', 'Ramos Soft', NULL, '923292970', 1, NULL, 0, 2, 638, 'info@ramossoft.com', NULL, NULL, NULL, '2024-01-11 13:03:18', '2024-01-13 13:03:18', '2024-01-24 16:19:00', NULL);
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.pagamentos_vendas_online_itens
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.pagamentos_vendas_online_itens
 CREATE TABLE IF NOT EXISTS `pagamentos_vendas_online_itens` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `uuid` varchar(255) DEFAULT NULL,
@@ -2139,14 +2171,14 @@ CREATE TABLE IF NOT EXISTS `pagamentos_vendas_online_itens` (
   KEY `FK_pagamentos_vendas_online_itens_pagamentos_vendas_online` (`pagamentoVendasOnlineId`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.pagamentos_vendas_online_itens: ~4 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.pagamentos_vendas_online_itens: ~4 rows (aproximadamente)
 INSERT INTO `pagamentos_vendas_online_itens` (`id`, `uuid`, `produtoId`, `precoVendaProduto`, `nomeProduto`, `quantidade`, `pagamentoVendasOnlineId`, `taxaIvaValor`, `subtotal`, `taxaIva`) VALUES
 	(1, '4866ecdb-87b2-4597-8b1f-c58016fdf2d5', 1051, 4610, 'BLOCO TOM.TRIPLA1.5 MT C/INT PRETA', 1, 1, 645.4, 4610, 14),
 	(2, 'ad8082de-83a1-4556-a85a-05d7de87bffb', 1153, 3375, 'PEN DRIVE 32GB KINGSTON', 1, 1, 472.5, 3375, 14),
 	(3, 'e19c8d13-7e9a-402d-a7e6-98c45ff4c7c3', 1510, 3372.5, 'CABO ALIMENT. PC 1.8 MT MANHT', 1, 2, 472.15, 3372.5, 14),
 	(4, '067bd8a2-b788-43dc-99e2-6d7f455d53f6', 1047, 4893.75, 'BLOCO TOM.TRIPLA 1.5 MT C/INT BRANCA', 1, 2, 685.125, 4893.75, 14);
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.pagamento_fornecedor
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.pagamento_fornecedor
 CREATE TABLE IF NOT EXISTS `pagamento_fornecedor` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `entrada_produto_id` int(10) unsigned NOT NULL,
@@ -2176,9 +2208,9 @@ CREATE TABLE IF NOT EXISTS `pagamento_fornecedor` (
   CONSTRAINT `FK_pagamento_fornecedor_status_gerais` FOREIGN KEY (`status_id`) REFERENCES `status_gerais` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.pagamento_fornecedor: ~0 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.pagamento_fornecedor: ~0 rows (aproximadamente)
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.paises
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.paises
 CREATE TABLE IF NOT EXISTS `paises` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `designacao` varchar(45) NOT NULL,
@@ -2190,7 +2222,7 @@ CREATE TABLE IF NOT EXISTS `paises` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=248 DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.paises: ~207 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.paises: ~207 rows (aproximadamente)
 INSERT INTO `paises` (`id`, `designacao`, `sigla`, `indicativo`, `moeda_id`, `idioma_id`, `code`) VALUES
 	(1, 'Angola', 'ANG', '+244', 1, 1, 'AO'),
 	(2, 'Argélia', NULL, NULL, NULL, NULL, 'DZ'),
@@ -2400,7 +2432,7 @@ INSERT INTO `paises` (`id`, `designacao`, `sigla`, `indicativo`, `moeda_id`, `id
 	(246, 'Zâmbia', NULL, NULL, NULL, NULL, 'ZM'),
 	(247, 'Zimbabwe', NULL, NULL, NULL, NULL, 'ZW');
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.parametros
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.parametros
 CREATE TABLE IF NOT EXISTS `parametros` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `designacao` varchar(255) DEFAULT NULL,
@@ -2414,7 +2446,7 @@ CREATE TABLE IF NOT EXISTS `parametros` (
   KEY `FK_parametros_empresas` (`empresa_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=85 DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.parametros: ~18 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.parametros: ~18 rows (aproximadamente)
 INSERT INTO `parametros` (`id`, `designacao`, `valor`, `valorSelects`, `vida`, `empresa_id`, `label`, `type`) VALUES
 	(1, 'IMPRESSÃO A4', 'A4', 'A4,ticket,A5', 1, 1, 'tipoImpreensao', 'select'),
 	(2, 'Nº Dias Vencimento Factura', NULL, NULL, 15, 1, 'n_dias_vencimento_factura', 'number'),
@@ -2435,7 +2467,7 @@ INSERT INTO `parametros` (`id`, `designacao`, `valor`, `valorSelects`, `vida`, `
 	(83, 'Considerar 1h depois de 14min nos serviços aeroportuário', 'SIM', 'SIM,NAO', NULL, 1, 'considerar1hdepois14min', 'select'),
 	(84, 'Considerar 1h depois de 30min nos serviços comercial', 'SIM', 'SIM,NAO', NULL, 1, 'considerar1hdepois30min', 'select');
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.parametro_impressao
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.parametro_impressao
 CREATE TABLE IF NOT EXISTS `parametro_impressao` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `valor` enum('A4','A5','TICKET') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'A4',
@@ -2449,7 +2481,7 @@ CREATE TABLE IF NOT EXISTS `parametro_impressao` (
   KEY `FK_parametro_impressao_empresas` (`empresa_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.parametro_impressao: ~7 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.parametro_impressao: ~7 rows (aproximadamente)
 INSERT INTO `parametro_impressao` (`id`, `valor`, `designacao`, `vida`, `empresa_id`, `created_at`, `updated_at`, `tipoFolha`) VALUES
 	(1, 'A4', 'IMPRESSÃO A4', 'A4', NULL, '2021-04-11 10:56:22', '2021-04-11 10:56:22', 1),
 	(4, 'A4', 'IMPRESSÃO A4', 'A4', 47, '2021-04-12 01:21:18', '2021-04-12 01:21:18', 1),
@@ -2459,7 +2491,7 @@ INSERT INTO `parametro_impressao` (`id`, `valor`, `designacao`, `vida`, `empresa
 	(8, 'A4', 'IMPRESSÃO A4', 'A4', 156, '2022-08-26 10:41:27', '2022-08-26 10:41:27', 1),
 	(9, 'TICKET', 'IMPRESSÃO TICKET', 'TICKET', 158, '2022-09-01 12:20:06', '2022-09-01 12:20:06', 3);
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.password_resets
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.password_resets
 CREATE TABLE IF NOT EXISTS `password_resets` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `email` varchar(255) NOT NULL,
@@ -2468,7 +2500,7 @@ CREATE TABLE IF NOT EXISTS `password_resets` (
   PRIMARY KEY (`id`,`email`)
 ) ENGINE=InnoDB AUTO_INCREMENT=70 DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.password_resets: ~14 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.password_resets: ~14 rows (aproximadamente)
 INSERT INTO `password_resets` (`id`, `email`, `token`, `created_at`) VALUES
 	(5, 'tatianacabral2804@gmail.com', '$2y$10$Ov6kKZlE9w7doYp9j0bpKeg0ETZKKbxzCDH0rna5pNDQt7//8jE2W', '2021-08-19 11:29:05'),
 	(6, 'usdera7@gmail.com', '$2y$10$VxTdAYyBiWYUUH4PwJDiqOMhHKXY5ZLiPwW9ChJSCQv3B3twHB9.u', '2022-01-13 15:31:02'),
@@ -2485,7 +2517,7 @@ INSERT INTO `password_resets` (`id`, `email`, `token`, `created_at`) VALUES
 	(66, 'paulojoao@unesc.net', '$2y$10$UEqLFgmozwEW0YqFHFXY6uB5itCfIlwntffLxc/3kxcgYJIttdvwe', '2023-10-26 18:31:57'),
 	(69, 'eustaquiocandinba@gmail.com', '$2y$10$iecCQXrrYOAEBWE1t2krRe1B/5WSLwP3GJHUEr3rzDe6mloCWN2ba', '2023-11-12 12:41:16');
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.perfils
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.perfils
 CREATE TABLE IF NOT EXISTS `perfils` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `designacao` varchar(255) NOT NULL,
@@ -2497,7 +2529,7 @@ CREATE TABLE IF NOT EXISTS `perfils` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.perfils: ~19 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.perfils: ~19 rows (aproximadamente)
 INSERT INTO `perfils` (`id`, `designacao`, `status_id`, `created_at`, `updated_at`, `empresa_id`, `uuid`) VALUES
 	(1, 'Super Administrador', 1, '2023-01-07 13:57:30', '2023-01-07 13:57:31', NULL, '57723dce-88b3-4a23-85e9-83d0fade77eb'),
 	(12, 'Operador', 1, '2023-01-13 10:56:29', '2023-01-13 10:56:29', 53, 'd32e91c2-e502-464d-a786-11290f0edbd5'),
@@ -2519,7 +2551,7 @@ INSERT INTO `perfils` (`id`, `designacao`, `status_id`, `created_at`, `updated_a
 	(28, 'VENDEDOR', 1, '2024-01-07 18:52:04', '2024-01-07 18:52:04', 178, 'fc5524a1-50e0-4ab8-a451-af72027660f7'),
 	(29, 'Operador', 1, '2024-02-15 09:38:15', '2024-02-15 09:38:15', 1, '30786c69-8b98-4b44-be62-269fe4451d17');
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.perguntas_frequentes
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.perguntas_frequentes
 CREATE TABLE IF NOT EXISTS `perguntas_frequentes` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `pergunta` mediumtext NOT NULL,
@@ -2530,7 +2562,7 @@ CREATE TABLE IF NOT EXISTS `perguntas_frequentes` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.perguntas_frequentes: ~8 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.perguntas_frequentes: ~8 rows (aproximadamente)
 INSERT INTO `perguntas_frequentes` (`id`, `pergunta`, `resposta`, `created_at`, `updated_at`, `deleted_at`) VALUES
 	(8, 'Qual é o prazo de entrega ? ', ' O prazo de entrega é de 24/48h após a confirmação do pagamento.', '2023-11-06 22:04:36', '2023-12-07 08:09:31', NULL),
 	(9, 'Como entro em contato com o serviço de atendimento ao cliente?', 'Pode entrar em contato connosco através do chat disponível no site, por e-mail em loja@mutue.net ou pelo telefone (244) 934 660 003\',', '2023-11-24 11:38:39', '2023-12-07 08:11:06', NULL),
@@ -2541,7 +2573,7 @@ INSERT INTO `perguntas_frequentes` (`id`, `pergunta`, `resposta`, `created_at`, 
 	(22, 'Posso receber notificações sobre as novidade da MUTUE ?', 'Pode sim, para tal basta subscrever-se a nossa newsletter em: https://loja.mutue.net/#/', '2023-11-25 07:14:30', '2023-11-25 07:14:30', NULL),
 	(23, 'Esqueci-me da minha palavra passe, e agora ?', 'Se deseja aceder à sua conta e se esqueceu da sua palavra-chave, basta clicar em «Recuperar\npalavra-chave». Introduza o endereço de e-mail com o qual criou a sua conta na loja online em https://loja.mutue.net/#/. na janela que se abre. Enviar-lhe-emos um e-mail onde deve de colocar a\nsua nova palavra passe e confirmar a mesma.', '2023-11-25 07:16:23', '2023-11-25 07:16:23', NULL);
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.permissions
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.permissions
 CREATE TABLE IF NOT EXISTS `permissions` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -2555,7 +2587,7 @@ CREATE TABLE IF NOT EXISTS `permissions` (
   CONSTRAINT `FK_permissions_status_gerais` FOREIGN KEY (`status_id`) REFERENCES `status_gerais` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.permissions: ~24 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.permissions: ~24 rows (aproximadamente)
 INSERT INTO `permissions` (`id`, `name`, `guard_name`, `created_at`, `updated_at`, `label`, `status_id`) VALUES
 	(1, 'gerir utilizadores', 'empresa', '2020-05-04 16:07:01', '2020-05-04 16:07:02', 'Gerir utilizadores', 1),
 	(2, 'gerir permissões', 'empresa', '2020-05-18 01:08:13', '2020-05-18 01:08:15', 'Gerir permissões', 1),
@@ -2582,7 +2614,7 @@ INSERT INTO `permissions` (`id`, `name`, `guard_name`, `created_at`, `updated_at
 	(23, 'visualizar logs de acesso', 'empresa', '2023-09-29 08:07:11', '2023-09-29 08:07:12', 'visualizar_logs_de_acesso', 1),
 	(24, 'emitir fatura servicos comerciais', 'empresa', '2023-09-29 08:07:11', '2023-09-29 08:07:12', 'emitir_fatura_servicos_comerciais', 1);
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.personal_access_tokens
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.personal_access_tokens
 CREATE TABLE IF NOT EXISTS `personal_access_tokens` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `tokenable_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -2598,7 +2630,7 @@ CREATE TABLE IF NOT EXISTS `personal_access_tokens` (
   KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`,`tokenable_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1595 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.personal_access_tokens: ~20 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.personal_access_tokens: ~20 rows (aproximadamente)
 INSERT INTO `personal_access_tokens` (`id`, `tokenable_type`, `tokenable_id`, `name`, `token`, `abilities`, `last_used_at`, `created_at`, `updated_at`) VALUES
 	(836, 'App\\Models\\empresa\\User', 668, 'mobile', '7622444f3fcf2ef81b3e19b16dbcc5bfb609f5efc1673836835fe97d79c28ebc', '["*"]', '2023-07-11 15:30:10', '2023-07-11 15:28:10', '2023-07-11 15:30:10'),
 	(1036, 'App\\Models\\empresa\\User', 557, 'mobile', '13a8583f9054731941c763e2e7a2f7539e8e5028f2f99bf47d4b59087fb324a6', '["*"]', '2023-08-23 02:01:58', '2023-08-23 02:01:56', '2023-08-23 02:01:58'),
@@ -2621,7 +2653,7 @@ INSERT INTO `personal_access_tokens` (`id`, `tokenable_type`, `tokenable_id`, `n
 	(1570, 'App\\Models\\empresa\\User', 704, 'mobile', '59be38aabbaf0fb5579c14d00c5451daf2e58a4a0b9da86bafa03e8e8f99ce98', '["*"]', '2024-01-23 16:08:57', '2024-01-23 15:02:24', '2024-01-23 16:08:57'),
 	(1594, 'App\\Models\\empresa\\User', 729, 'mobile', '6beebdf19951e2af4cf5e65a33f2a725ab85ef8e4fd88ee688a2e7207402a116', '["*"]', NULL, '2024-01-29 13:50:10', '2024-01-29 13:50:10');
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.precos
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.precos
 CREATE TABLE IF NOT EXISTS `precos` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `produto_is` int(10) unsigned NOT NULL,
@@ -2640,9 +2672,9 @@ CREATE TABLE IF NOT EXISTS `precos` (
   CONSTRAINT `FK_precos_user` FOREIGN KEY (`user_id`) REFERENCES `users_cliente` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.precos: ~0 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.precos: ~0 rows (aproximadamente)
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.produtos
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.produtos
 CREATE TABLE IF NOT EXISTS `produtos` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `designacao` varchar(255) NOT NULL,
@@ -2693,9 +2725,9 @@ CREATE TABLE IF NOT EXISTS `produtos` (
   KEY `FK_produtos_categorias` (`categoria_id`) USING BTREE,
   KEY `FK_produtos_classes` (`classe_id`) USING BTREE,
   KEY `FK_produtos_tipoTaxa` (`codigo_taxa`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=101 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.produtos: ~41 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.produtos: ~44 rows (aproximadamente)
 INSERT INTO `produtos` (`id`, `designacao`, `uuid`, `preco_venda`, `pvp`, `preco_compra`, `classificacao`, `marca_id`, `categoria_id`, `orderCategoria1`, `orderCategoria2`, `orderCategoria3`, `centroCustoId`, `tipoServicoId`, `classe_id`, `unidade_medida_id`, `fabricante_id`, `user_id`, `canal_id`, `status_id`, `codigo_taxa`, `motivo_isencao_id`, `quantidade_minima`, `quantidade_critica`, `imagem_produto`, `referencia`, `codigo_barra`, `data_expiracao`, `descricao`, `stocavel`, `venda_online`, `cartaGarantia`, `empresa_id`, `created_at`, `updated_at`, `tempoGarantiaProduto`, `tipoGarantia`) VALUES
 	(1, 'Carga', 'd7a06a73-6c40-4cdb-9984-34f2b8810a25', 0, 0, 0, NULL, NULL, 2, NULL, NULL, NULL, 1, 1, NULL, 1, 1, 1, 2, 1, 2, 8, 0, 0, 'upload/produtos/default.png', 'P3KFW8', NULL, NULL, NULL, 'Não', 'N', 'N', 1, '2024-02-01 09:59:26', '2024-02-01 11:02:15', NULL, NULL),
 	(2, 'Armazenagem', '04926be2-1158-46af-aaf3-8c865590dfcb', 0, 0, 0, NULL, NULL, 1, 1, NULL, NULL, 1, 1, NULL, 1, 1, 1, 2, 1, 2, 8, 0, 0, 'upload/produtos/default.png', 'XRY51O', NULL, NULL, NULL, 'Não', 'N', 'N', 1, '2024-02-01 11:01:47', '2024-02-01 11:01:47', NULL, NULL),
@@ -2726,20 +2758,23 @@ INSERT INTO `produtos` (`id`, `designacao`, `uuid`, `preco_venda`, `pvp`, `preco
 	(27, 'Passes de pessoas - prestadores de serviço', '918a30ed-ba39-4c19-a530-f944e07fa2b016', 575, 0, 0, NULL, NULL, 1, 2, NULL, NULL, 1, 3, NULL, 1, 1, 1, 2, 1, 2, 8, 0, 0, 'upload/produtos/default.png', '04W8G7', NULL, NULL, NULL, 'Não', 'N', 'N', 1, '2024-02-03 09:21:09', '2024-02-03 09:21:09', NULL, NULL),
 	(28, 'Ocupação de terrenos sem edificações(Por m²)', '918a30ed-ba39-4c19-a530-f944e07fa2b017', 0.67, 0, 0, NULL, NULL, 1, 2, NULL, NULL, 1, 4, NULL, 1, 1, 1, 2, 1, 2, 8, 0, 0, 'upload/produtos/default.png', '04W8G7', NULL, NULL, NULL, 'Não', 'N', 'N', 1, '2024-02-03 09:21:09', '2024-02-03 09:21:09', NULL, NULL),
 	(29, 'Ocupação de terrenos com edificações e instalações(Por m²)', '918a30ed-ba39-4c19-a530-f944e07fa2b018', 0.53, 0, 0, NULL, NULL, 1, 2, NULL, NULL, 1, 4, NULL, 1, 1, 1, 2, 1, 2, 8, 0, 0, 'upload/produtos/default.png', '04W8G7', NULL, NULL, NULL, 'Não', 'N', 'N', 1, '2024-02-03 09:21:09', '2024-02-03 09:21:09', NULL, NULL),
-	(30, 'Ocupação Aerogares - Gabinetes(Por m²)', '918a30ed-ba39-4c19-a530-f944e07fa2b019', 57.5, 0, 0, NULL, NULL, 1, 2, NULL, NULL, 1, 4, NULL, 1, 1, 1, 2, 1, 2, 8, 0, 0, 'upload/produtos/default.png', '04W8G7', NULL, NULL, NULL, 'Não', 'N', 'N', 1, '2024-02-03 09:21:09', '2024-02-03 09:21:09', NULL, NULL),
-	(31, 'Ocupação Aerogares - Espaços abertos(Por m²)', '918a30ed-ba39-4c19-a530-f944e07fa2b020', 80.23, 0, 0, NULL, NULL, 1, 2, NULL, NULL, 1, 4, NULL, 1, 1, 1, 2, 1, 2, 8, 0, 0, 'upload/produtos/default.png', '04W8G7', NULL, NULL, NULL, 'Não', 'N', 'N', 1, '2024-02-03 09:21:09', '2024-02-03 09:21:09', NULL, NULL),
-	(32, 'Ocupação Hangares - Gabinetes(Por m²)', '918a30ed-ba39-4c19-a530-f944e07fa2b021', 17.38, 0, 0, NULL, NULL, 1, 2, NULL, NULL, 1, 4, NULL, 1, 1, 1, 2, 1, 2, 8, 0, 0, 'upload/produtos/default.png', '04W8G7', NULL, NULL, NULL, 'Não', 'N', 'N', 1, '2024-02-03 09:21:09', '2024-02-03 09:21:09', NULL, NULL),
-	(33, 'Ocupação - Hangares - Espaços abertos(Por m²)', '918a30ed-ba39-4c19-a530-f944e07fa2b022', 9.36, 0, 0, NULL, NULL, 1, 2, NULL, NULL, 1, 4, NULL, 1, 1, 1, 2, 1, 2, 8, 0, 0, 'upload/produtos/default.png', '04W8G7', NULL, NULL, NULL, 'Não', 'N', 'N', 1, '2024-02-03 09:21:09', '2024-02-03 09:21:09', NULL, NULL),
-	(34, 'Ocupação - Terminais de Carga - Uso das prateleiras(Por m²)', '918a30ed-ba39-4c19-a530-f944e07fa2b023', 12.16, 0, 0, NULL, NULL, 1, 2, NULL, NULL, 1, 4, NULL, 1, 1, 1, 2, 1, 2, 8, 0, 0, 'upload/produtos/default.png', '04W8G7', NULL, NULL, NULL, 'Não', 'N', 'N', 1, '2024-02-03 09:21:09', '2024-02-03 09:21:09', NULL, NULL),
-	(35, 'Ocupação - Geral de Ocupação - Gabinetes(Por m²)', '918a30ed-ba39-4c19-a530-f944e07fa2b024', 7.62, 0, 0, NULL, NULL, 1, 2, NULL, NULL, 1, 4, NULL, 1, 1, 1, 2, 1, 2, 8, 0, 0, 'upload/produtos/default.png', '04W8G7', NULL, NULL, NULL, 'Não', 'N', 'N', 1, '2024-02-03 09:21:09', '2024-02-03 09:21:09', NULL, NULL),
-	(36, 'Ocupação - Geral de Ocupação - Espaços abertos(Por m²)', '918a30ed-ba39-4c19-a530-f944e07fa2b025', 4.1, 0, 0, NULL, NULL, 1, 2, NULL, NULL, 1, 4, NULL, 1, 1, 1, 2, 1, 2, 8, 0, 0, 'upload/produtos/default.png', '04W8G7', NULL, NULL, NULL, 'Não', 'N', 'N', 1, '2024-02-03 09:21:09', '2024-02-03 09:21:09', NULL, NULL),
-	(37, 'Ar condicionado 20% do valor do tarifa de ocupação', '918a30ed-ba39-4c19-a530-f944e07fa2b026', 0, 0, 0, NULL, NULL, 1, 2, NULL, NULL, 1, 4, NULL, 1, 1, 1, 2, 1, 2, 8, 0, 0, 'upload/produtos/default.png', '04W8G7', NULL, NULL, NULL, 'Não', 'N', 'N', 1, '2024-02-03 09:21:09', '2024-02-03 09:21:09', NULL, NULL),
-	(38, 'Publicidade(Unidade métrica x mês)', '918a30ed-ba39-4c19-a530-f944e07fa2b026', 69, 0, 0, NULL, NULL, 1, 2, NULL, NULL, 1, 4, NULL, 1, 1, 1, 2, 1, 2, 8, 0, 0, 'upload/produtos/default.png', '04W8G7', NULL, NULL, NULL, 'Não', 'N', 'N', 1, '2024-02-03 09:21:09', '2024-02-03 09:21:09', NULL, NULL),
-	(39, 'Estacionamento Camiões Dentro do TCA', '918a30ed-ba39-4c19-a530-f944e07fa2b027', 0, 0, 0, NULL, NULL, 1, 2, NULL, NULL, 1, 4, NULL, 1, 1, 1, 2, 1, 2, 8, 0, 0, 'upload/produtos/default.png', '04W8G7', NULL, NULL, NULL, 'Não', 'N', 'N', 1, '2024-02-03 09:21:09', '2024-02-03 09:21:09', NULL, NULL),
-	(40, 'Estacionamento Camiões Fora do TCA', '918a30ed-ba39-4c19-a530-f944e07fa2b028', 0, 0, 0, NULL, NULL, 1, 2, NULL, NULL, 1, 4, NULL, 1, 1, 1, 2, 1, 2, 8, 0, 0, 'upload/produtos/default.png', '04W8G7', NULL, NULL, NULL, 'Não', 'N', 'N', 1, '2024-02-03 09:21:09', '2024-02-03 09:21:09', NULL, NULL),
-	(41, 'Estacionamento de Veículos', '918a30ed-ba39-4c19-a530-f944e07fa2b029', 0, 0, 0, NULL, NULL, 1, 2, NULL, NULL, 1, 4, NULL, 1, 1, 1, 2, 1, 2, 8, 0, 0, 'upload/produtos/default.png', '04W8G7', NULL, NULL, NULL, 'Não', 'N', 'N', 1, '2024-02-03 09:21:09', '2024-02-03 09:21:09', NULL, NULL);
+	(30, 'Aerogares - Gabinetes(Por m²)', '918a30ed-ba39-4c19-a530-f944e07fa2b019', 57.5, 0, 0, NULL, NULL, 1, 2, NULL, NULL, 1, 4, NULL, 1, 1, 1, 2, 1, 2, 8, 0, 0, 'upload/produtos/default.png', '04W8G7', NULL, NULL, NULL, 'Não', 'N', 'N', 1, '2024-02-03 09:21:09', '2024-02-03 09:21:09', NULL, NULL),
+	(31, 'Aerogares - Espaços abertos(Por m²)', '918a30ed-ba39-4c19-a530-f944e07fa2b020', 80.23, 0, 0, NULL, NULL, 1, 2, NULL, NULL, 1, 4, NULL, 1, 1, 1, 2, 1, 2, 8, 0, 0, 'upload/produtos/default.png', '04W8G7', NULL, NULL, NULL, 'Não', 'N', 'N', 1, '2024-02-03 09:21:09', '2024-02-03 09:21:09', NULL, NULL),
+	(32, 'Hangares - Gabinetes(Por m²)', '918a30ed-ba39-4c19-a530-f944e07fa2b021', 17.38, 0, 0, NULL, NULL, 1, 2, NULL, NULL, 1, 4, NULL, 1, 1, 1, 2, 1, 2, 8, 0, 0, 'upload/produtos/default.png', '04W8G7', NULL, NULL, NULL, 'Não', 'N', 'N', 1, '2024-02-03 09:21:09', '2024-02-03 09:21:09', NULL, NULL),
+	(33, 'Hangares - Espaços abertos(Por m²)', '918a30ed-ba39-4c19-a530-f944e07fa2b022', 9.36, 0, 0, NULL, NULL, 1, 2, NULL, NULL, 1, 4, NULL, 1, 1, 1, 2, 1, 2, 8, 0, 0, 'upload/produtos/default.png', '04W8G7', NULL, NULL, NULL, 'Não', 'N', 'N', 1, '2024-02-03 09:21:09', '2024-02-03 09:21:09', NULL, NULL),
+	(34, 'Terminais de Carga - Gabinetes(Por m²)', '918a30ed-ba39-4c19-a530-f944e07fa2b023', 17.38, 0, 0, NULL, NULL, 1, 2, NULL, NULL, 1, 4, NULL, 1, 1, 1, 2, 1, 2, 8, 0, 0, 'upload/produtos/default.png', '04W8G7', NULL, NULL, NULL, 'Não', 'N', 'N', 1, '2024-02-03 09:21:09', '2024-02-03 09:21:09', NULL, NULL),
+	(35, 'Terminais de Carga - Espaços abertos(Por m²)', '918a30ed-ba39-4c19-a530-f944e07fa2b024', 9.36, 0, 0, NULL, NULL, 1, 2, NULL, NULL, 1, 4, NULL, 1, 1, 1, 2, 1, 2, 8, 0, 0, 'upload/produtos/default.png', '04W8G7', NULL, NULL, NULL, 'Não', 'N', 'N', 1, '2024-02-03 09:21:09', '2024-02-03 09:21:09', NULL, NULL),
+	(36, 'Terminais de Carga - Uso das prateleiras(Por m²)', '918a30ed-ba39-4c19-a530-f944e07fa2b025', 12.16, 0, 0, NULL, NULL, 1, 2, NULL, NULL, 1, 4, NULL, 1, 1, 1, 2, 1, 2, 8, 0, 0, 'upload/produtos/default.png', '04W8G7', NULL, NULL, NULL, 'Não', 'N', 'N', 1, '2024-02-03 09:21:09', '2024-02-03 09:21:09', NULL, NULL),
+	(37, 'Geral de Ocupação - Gabinetes(Por m²)', '918a30ed-ba39-4c19-a530-f944e07fa2b026', 7.62, 0, 0, NULL, NULL, 1, 2, NULL, NULL, 1, 4, NULL, 1, 1, 1, 2, 1, 2, 8, 0, 0, 'upload/produtos/default.png', '04W8G7', NULL, NULL, NULL, 'Não', 'N', 'N', 1, '2024-02-03 09:21:09', '2024-02-03 09:21:09', NULL, NULL),
+	(38, 'Geral de Ocupação - Espaços abertos(Por m²)', '918a30ed-ba39-4c19-a530-f944e07fa2b027', 4.1, 0, 0, NULL, NULL, 1, 2, NULL, NULL, 1, 4, NULL, 1, 1, 1, 2, 1, 2, 8, 0, 0, 'upload/produtos/default.png', '04W8G7', NULL, NULL, NULL, 'Não', 'N', 'N', 1, '2024-02-03 09:21:09', '2024-02-03 09:21:09', NULL, NULL),
+	(39, 'Ar condicionado 20% do valor das tarifa de ocupação', '918a30ed-ba39-4c19-a530-f944e07fa2b028', 0, 0, 0, NULL, NULL, 1, 2, NULL, NULL, 1, 4, NULL, 1, 1, 1, 2, 1, 2, 8, 0, 0, 'upload/produtos/default.png', '04W8G7', NULL, NULL, NULL, 'Não', 'N', 'N', 1, '2024-02-03 09:21:09', '2024-02-03 09:21:09', NULL, NULL),
+	(40, 'Publicidade(Unidade métrica x mês)', '918a30ed-ba39-4c19-a530-f944e07fa2b029', 69, 0, 0, NULL, NULL, 1, 2, NULL, NULL, 1, 4, NULL, 1, 1, 1, 2, 1, 2, 8, 0, 0, 'upload/produtos/default.png', '04W8G7', NULL, NULL, NULL, 'Não', 'N', 'N', 1, '2024-02-03 09:21:09', '2024-02-03 09:21:09', NULL, NULL),
+	(41, 'Estacionamento Camiões Dentro do TCA', '918a30ed-ba39-4c19-a530-f944e07fa2b030', 0, 0, 0, NULL, NULL, 1, 2, NULL, NULL, 1, 4, NULL, 1, 1, 1, 2, 1, 2, 8, 0, 0, 'upload/produtos/default.png', '04W8G7', NULL, NULL, NULL, 'Não', 'N', 'N', 1, '2024-02-03 09:21:09', '2024-02-03 09:21:09', NULL, NULL),
+	(42, 'Estacionamento Camiões Fora do TCA', '918a30ed-ba39-4c19-a530-f944e07fa2b031', 0, 0, 0, NULL, NULL, 1, 2, NULL, NULL, 1, 4, NULL, 1, 1, 1, 2, 1, 2, 8, 0, 0, 'upload/produtos/default.png', '04W8G7', NULL, NULL, NULL, 'Não', 'N', 'N', 1, '2024-02-03 09:21:09', '2024-02-03 09:21:09', NULL, NULL),
+	(43, 'Estacionamento de Veículos', '918a30ed-ba39-4c19-a530-f944e07fa2b032', 0, 0, 0, NULL, NULL, 1, 2, NULL, NULL, 1, 4, NULL, 1, 1, 1, 2, 1, 2, 8, 0, 0, 'upload/produtos/default.png', '04W8G7', NULL, NULL, NULL, 'Não', 'N', 'N', 1, '2024-02-03 09:21:09', '2024-02-03 09:21:09', NULL, NULL),
+	(44, 'Tarifa de Consumo 15% do valor das tarifas de ocupação', '918a30ed-ba39-4c19-a530-f944e07fa2b033', 0, 0, 0, NULL, NULL, 1, 2, NULL, NULL, 1, 4, NULL, 1, 1, 1, 2, 1, 2, 8, 0, 0, 'upload/produtos/default.png', '04W8G7', NULL, NULL, NULL, 'Não', 'N', 'N', 1, '2024-02-03 09:21:09', '2024-02-03 09:21:09', NULL, NULL);
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.produtos_destaque
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.produtos_destaque
 CREATE TABLE IF NOT EXISTS `produtos_destaque` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `produto_id` int(11) DEFAULT NULL,
@@ -2752,9 +2787,9 @@ CREATE TABLE IF NOT EXISTS `produtos_destaque` (
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.produtos_destaque: ~0 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.produtos_destaque: ~0 rows (aproximadamente)
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.produtos_favoritos
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.produtos_favoritos
 CREATE TABLE IF NOT EXISTS `produtos_favoritos` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int(10) unsigned NOT NULL,
@@ -2766,9 +2801,9 @@ CREATE TABLE IF NOT EXISTS `produtos_favoritos` (
   CONSTRAINT `FK_produtos_favoritos_users_cliente` FOREIGN KEY (`user_id`) REFERENCES `users_cliente` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.produtos_favoritos: ~0 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.produtos_favoritos: ~0 rows (aproximadamente)
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.produtos_lojas
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.produtos_lojas
 CREATE TABLE IF NOT EXISTS `produtos_lojas` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `produto_id` int(10) unsigned NOT NULL,
@@ -2798,9 +2833,9 @@ CREATE TABLE IF NOT EXISTS `produtos_lojas` (
   CONSTRAINT `FK_produtos_lojas_users` FOREIGN KEY (`user_id`) REFERENCES `users_cliente` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.produtos_lojas: ~0 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.produtos_lojas: ~0 rows (aproximadamente)
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.produto_imagens
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.produto_imagens
 CREATE TABLE IF NOT EXISTS `produto_imagens` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `url` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
@@ -2812,9 +2847,9 @@ CREATE TABLE IF NOT EXISTS `produto_imagens` (
   CONSTRAINT `FK_produto_imagens_produtos` FOREIGN KEY (`produto_id`) REFERENCES `produtos_` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.produto_imagens: ~0 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.produto_imagens: ~0 rows (aproximadamente)
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.recibos
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.recibos
 CREATE TABLE IF NOT EXISTS `recibos` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `empresaId` int(10) unsigned NOT NULL,
@@ -2846,12 +2881,12 @@ CREATE TABLE IF NOT EXISTS `recibos` (
   KEY `FK_recibos_formas_pagamentos` (`formaPagamentoId`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.recibos: ~2 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.recibos: ~2 rows (aproximadamente)
 INSERT INTO `recibos` (`id`, `empresaId`, `numeracaoRecibo`, `clienteId`, `created_at`, `updated_at`, `totalEntregue`, `userId`, `facturaId`, `totalFatura`, `totalImposto`, `totalDebitar`, `formaPagamentoId`, `observacao`, `numSequenciaRecibo`, `nomeCliente`, `telefoneCliente`, `nifCliente`, `emailCliente`, `enderecoCliente`, `dataOperacao`, `numeroOperacaoBancaria`, `comprovativoBancario`, `anulado`) VALUES
 	(1, 1, 'RC ATO2024/1', 279, '2024-03-26 14:11:02', '2024-03-26 14:11:02', 1140845.427078, 750, 345, 1140845.427078, 140103.824378, 0, 4, 'Pagamento dos serviços de carga referente a AWB Nº118-11506110', 1, 'SIMPORTEX - COMERCIALIZAÇÃO DE EQUIPAMENTOS M.M', NULL, '5410003519', NULL, 'RUA RAINHA GINGA Nº 24 - INGOMBOTA', '2023-03-26', '642555505', 'comprovativos/642555505.pdf', 'N'),
 	(2, 1, 'RC ATO2024/2', 282, '2024-03-26 16:43:07', '2024-03-26 16:43:07', 51057.5551398, 750, 352, 51057.5551398, 6270.2260698, 0, 4, NULL, 2, 'BESTFLY, LDA', '+244925928831', '5417077976', 'ops@bestfly.aero', 'AV. 21 DE JANEIRO-AEROPORTO 4 DE FEVEREIRO', '2024-03-26', '00670', 'comprovativos/00670.pdf', 'N');
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.recibos_items
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.recibos_items
 CREATE TABLE IF NOT EXISTS `recibos_items` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `recibo_id` int(10) unsigned NOT NULL,
@@ -2873,9 +2908,9 @@ CREATE TABLE IF NOT EXISTS `recibos_items` (
   CONSTRAINT `recibo_id` FOREIGN KEY (`recibo_id`) REFERENCES `recibos` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.recibos_items: ~0 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.recibos_items: ~0 rows (aproximadamente)
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.roles
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.roles
 CREATE TABLE IF NOT EXISTS `roles` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `label` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -2889,13 +2924,13 @@ CREATE TABLE IF NOT EXISTS `roles` (
   CONSTRAINT `FK_roles_empresas` FOREIGN KEY (`empresa_id`) REFERENCES `empresas` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.roles: ~3 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.roles: ~3 rows (aproximadamente)
 INSERT INTO `roles` (`id`, `label`, `name`, `guard_name`, `created_at`, `updated_at`, `empresa_id`) VALUES
 	(1, 'Super Admin', 'Super-Admin', 'empresa', '2020-05-18 00:05:05', '2020-05-18 00:05:06', NULL),
 	(2, 'Admin', 'Admin', 'empresa', '2020-05-18 00:05:41', '2020-05-18 00:05:42', NULL),
 	(3, 'Funcionario', 'Funcionario', 'empresa', '2020-06-09 20:22:21', '2020-06-09 20:22:23', NULL);
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.role_has_permissions
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.role_has_permissions
 CREATE TABLE IF NOT EXISTS `role_has_permissions` (
   `permission_id` bigint(20) unsigned NOT NULL,
   `role_id` bigint(20) unsigned NOT NULL,
@@ -2903,11 +2938,11 @@ CREATE TABLE IF NOT EXISTS `role_has_permissions` (
   KEY `role_has_permissions_role_id_foreign` (`role_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.role_has_permissions: ~0 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.role_has_permissions: ~0 rows (aproximadamente)
 INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES
 	(13, 1);
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.sequencias_documentos
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.sequencias_documentos
 CREATE TABLE IF NOT EXISTS `sequencias_documentos` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `sequencia` int(11) NOT NULL,
@@ -2922,7 +2957,7 @@ CREATE TABLE IF NOT EXISTS `sequencias_documentos` (
   CONSTRAINT `FK_sequencias_documentos_tipodocumentosequencias` FOREIGN KEY (`tipo_documento`) REFERENCES `tipodocumentosequencias` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.sequencias_documentos: ~13 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.sequencias_documentos: ~13 rows (aproximadamente)
 INSERT INTO `sequencias_documentos` (`id`, `sequencia`, `empresa_id`, `tipo_documento`, `tipoDocumentoNome`, `serie_documento`, `created_at`, `updated_at`) VALUES
 	(1, 1, NULL, 1, 'FATURA RECIBO', 'AGT', '2023-07-21 01:00:46', '2023-07-21 01:00:46'),
 	(2, 1, NULL, 2, 'FATURA', 'AGT', '2023-07-21 01:00:46', '2023-07-21 01:00:46'),
@@ -2938,7 +2973,7 @@ INSERT INTO `sequencias_documentos` (`id`, `sequencia`, `empresa_id`, `tipo_docu
 	(37, 1200, 53, 2, 'FATURA', 'RR', '2023-07-25 16:18:19', '2023-07-25 16:18:19'),
 	(38, 50, 53, 1, 'FATURA RECIBO', 'RR', '2023-07-26 19:31:29', '2023-07-26 19:31:29');
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.series_documento
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.series_documento
 CREATE TABLE IF NOT EXISTS `series_documento` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `serie` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -2948,18 +2983,18 @@ CREATE TABLE IF NOT EXISTS `series_documento` (
   CONSTRAINT `FK_serie_empresas` FOREIGN KEY (`empresa_id`) REFERENCES `empresas` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.series_documento: ~0 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.series_documento: ~0 rows (aproximadamente)
 INSERT INTO `series_documento` (`id`, `serie`, `empresa_id`) VALUES
 	(1, 'ATO', 1);
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.statuspagamentovendaonline
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.statuspagamentovendaonline
 CREATE TABLE IF NOT EXISTS `statuspagamentovendaonline` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `designacao` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.statuspagamentovendaonline: ~6 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.statuspagamentovendaonline: ~6 rows (aproximadamente)
 INSERT INTO `statuspagamentovendaonline` (`id`, `designacao`) VALUES
 	(1, 'Validado'),
 	(2, 'Pendente'),
@@ -2968,44 +3003,44 @@ INSERT INTO `statuspagamentovendaonline` (`id`, `designacao`) VALUES
 	(5, 'Entregue'),
 	(6, 'Devolvido');
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.status_factura
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.status_factura
 CREATE TABLE IF NOT EXISTS `status_factura` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `designacao` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.status_factura: ~3 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.status_factura: ~3 rows (aproximadamente)
 INSERT INTO `status_factura` (`id`, `designacao`) VALUES
 	(1, 'Activo'),
 	(2, 'Proforma'),
 	(3, 'Venda Crédito');
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.status_gerais
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.status_gerais
 CREATE TABLE IF NOT EXISTS `status_gerais` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `designacao` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.status_gerais: ~2 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.status_gerais: ~2 rows (aproximadamente)
 INSERT INTO `status_gerais` (`id`, `designacao`) VALUES
 	(1, 'Activo'),
 	(2, 'Inativo');
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.status_senha
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.status_senha
 CREATE TABLE IF NOT EXISTS `status_senha` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `designacao` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.status_senha: ~2 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.status_senha: ~2 rows (aproximadamente)
 INSERT INTO `status_senha` (`id`, `designacao`) VALUES
 	(1, 'Vulnerável'),
 	(2, 'Segura');
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.subscricao_emails
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.subscricao_emails
 CREATE TABLE IF NOT EXISTS `subscricao_emails` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `email` varchar(255) NOT NULL,
@@ -3016,9 +3051,9 @@ CREATE TABLE IF NOT EXISTS `subscricao_emails` (
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.subscricao_emails: ~0 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.subscricao_emails: ~0 rows (aproximadamente)
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.taxa_carga_aduaneira
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.taxa_carga_aduaneira
 CREATE TABLE IF NOT EXISTS `taxa_carga_aduaneira` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `designacao` char(10) NOT NULL,
@@ -3027,19 +3062,19 @@ CREATE TABLE IF NOT EXISTS `taxa_carga_aduaneira` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.taxa_carga_aduaneira: ~2 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.taxa_carga_aduaneira: ~2 rows (aproximadamente)
 INSERT INTO `taxa_carga_aduaneira` (`id`, `designacao`, `descricao`, `taxa`) VALUES
 	(1, 'Sim', 'Carga sujeita a despacho aduaneiro embarcada ou desembarcada', 0.08),
 	(2, 'Não', 'Carga não sujeita a despacho aduaneiro, apenas ao embarque', 0.07);
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.tipodocumentosequencias
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.tipodocumentosequencias
 CREATE TABLE IF NOT EXISTS `tipodocumentosequencias` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `designacao` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.tipodocumentosequencias: ~7 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.tipodocumentosequencias: ~7 rows (aproximadamente)
 INSERT INTO `tipodocumentosequencias` (`id`, `designacao`) VALUES
 	(1, 'FACTURA RECIBO'),
 	(2, 'FATURA'),
@@ -3049,28 +3084,28 @@ INSERT INTO `tipodocumentosequencias` (`id`, `designacao`) VALUES
 	(6, 'RECIBOS'),
 	(7, 'NOTA CREDITO/ANULAÇÃO RECIBO');
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.tipos_clientes
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.tipos_clientes
 CREATE TABLE IF NOT EXISTS `tipos_clientes` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `designacao` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.tipos_clientes: ~2 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.tipos_clientes: ~2 rows (aproximadamente)
 INSERT INTO `tipos_clientes` (`id`, `designacao`) VALUES
 	(1, 'Entidade levanta'),
 	(2, 'Entidade Assist. da Aeronave');
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.tipos_contactos
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.tipos_contactos
 CREATE TABLE IF NOT EXISTS `tipos_contactos` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `designacao` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.tipos_contactos: ~0 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.tipos_contactos: ~0 rows (aproximadamente)
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.tipos_entregas
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.tipos_entregas
 CREATE TABLE IF NOT EXISTS `tipos_entregas` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `designacao` varchar(50) NOT NULL,
@@ -3079,12 +3114,12 @@ CREATE TABLE IF NOT EXISTS `tipos_entregas` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.tipos_entregas: ~2 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.tipos_entregas: ~2 rows (aproximadamente)
 INSERT INTO `tipos_entregas` (`id`, `designacao`, `status_id`, `icon`) VALUES
 	(1, 'Receber o produto em Casa', 1, 'mdi-home'),
 	(2, 'Receber o produto na Loja', 1, 'mdi-store');
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.tipos_mercadoria
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.tipos_mercadoria
 CREATE TABLE IF NOT EXISTS `tipos_mercadoria` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `designacao` text NOT NULL,
@@ -3095,7 +3130,7 @@ CREATE TABLE IF NOT EXISTS `tipos_mercadoria` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.tipos_mercadoria: ~6 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.tipos_mercadoria: ~6 rows (aproximadamente)
 INSERT INTO `tipos_mercadoria` (`id`, `designacao`, `taxa`, `statuId`, `created_at`, `updated_at`) VALUES
 	(1, 'Carga Geral', 0.03, 1, '2024-01-30 13:50:46', '2024-02-13 01:24:43'),
 	(2, 'Carga Valiosa', 0.07, 1, '2024-01-30 13:50:46', '2024-01-30 13:50:47'),
@@ -3104,33 +3139,33 @@ INSERT INTO `tipos_mercadoria` (`id`, `designacao`, `taxa`, `statuId`, `created_
 	(5, 'Carga Viva', 0.04, 1, '2024-01-30 13:50:46', '2024-01-30 13:50:47'),
 	(6, 'Carga Trânsito', 0.08, 1, '2024-01-30 13:50:46', '2024-01-30 13:50:47');
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.tipos_nota_credito
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.tipos_nota_credito
 CREATE TABLE IF NOT EXISTS `tipos_nota_credito` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `designacao` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.tipos_nota_credito: ~3 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.tipos_nota_credito: ~3 rows (aproximadamente)
 INSERT INTO `tipos_nota_credito` (`id`, `designacao`) VALUES
 	(1, 'CREDITO'),
 	(2, 'ANULAÇÃO'),
 	(3, 'RETIFICAÇÃO');
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.tipos_regimes
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.tipos_regimes
 CREATE TABLE IF NOT EXISTS `tipos_regimes` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `Designacao` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.tipos_regimes: ~3 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.tipos_regimes: ~3 rows (aproximadamente)
 INSERT INTO `tipos_regimes` (`id`, `Designacao`) VALUES
 	(1, 'Regime Geral'),
 	(2, 'Regime Simplificado'),
 	(3, ' Regime de Exclusão');
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.tipos_servicos
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.tipos_servicos
 CREATE TABLE IF NOT EXISTS `tipos_servicos` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `designacao` varchar(255) NOT NULL,
@@ -3140,14 +3175,14 @@ CREATE TABLE IF NOT EXISTS `tipos_servicos` (
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.tipos_servicos: ~4 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.tipos_servicos: ~4 rows (aproximadamente)
 INSERT INTO `tipos_servicos` (`id`, `designacao`, `statuId`, `created_at`, `updated_at`) VALUES
 	(1, 'Serviços de Carga', 1, '2024-01-30 13:50:46', '2024-01-30 13:50:47'),
 	(2, 'Serviços Aeronáutico', 1, '2024-01-30 13:50:46', '2024-01-30 13:50:47'),
 	(3, 'Outros serviços', 1, '2024-01-30 13:50:46', '2024-01-30 13:50:47'),
 	(4, 'Serviços Comerciais', 1, '2024-01-30 13:50:46', '2024-01-30 13:50:47');
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.tipos_stocagens
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.tipos_stocagens
 CREATE TABLE IF NOT EXISTS `tipos_stocagens` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `designacao` varchar(145) NOT NULL,
@@ -3169,9 +3204,9 @@ CREATE TABLE IF NOT EXISTS `tipos_stocagens` (
   CONSTRAINT `FK_tipos_stocagens_user` FOREIGN KEY (`user_id`) REFERENCES `users_cliente` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.tipos_stocagens: ~0 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.tipos_stocagens: ~0 rows (aproximadamente)
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.tipos_stocagens_empresas
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.tipos_stocagens_empresas
 CREATE TABLE IF NOT EXISTS `tipos_stocagens_empresas` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `tipo_stocagem_id` int(10) unsigned NOT NULL,
@@ -3195,9 +3230,9 @@ CREATE TABLE IF NOT EXISTS `tipos_stocagens_empresas` (
   CONSTRAINT `FK_tipos_stocagens_empresas_user` FOREIGN KEY (`user_id`) REFERENCES `users_cliente` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.tipos_stocagens_empresas: ~0 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.tipos_stocagens_empresas: ~0 rows (aproximadamente)
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.tipotaxa
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.tipotaxa
 CREATE TABLE IF NOT EXISTS `tipotaxa` (
   `codigo` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `taxa` int(11) NOT NULL,
@@ -3216,13 +3251,13 @@ CREATE TABLE IF NOT EXISTS `tipotaxa` (
   CONSTRAINT `FK_tipotaxa_motivo` FOREIGN KEY (`codigoMotivo`) REFERENCES `motivo` (`codigo`)
 ) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.tipotaxa: ~3 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.tipotaxa: ~3 rows (aproximadamente)
 INSERT INTO `tipotaxa` (`codigo`, `taxa`, `codigostatus`, `codigoMotivo`, `descricao`, `created_at`, `updated_at`, `empresa_id`) VALUES
 	(1, 0, 1, 12, 'ISENTO(0,00%)', '2020-12-09 16:07:33', '2020-12-09 16:07:33', NULL),
 	(2, 14, 1, 9, 'IVA(14,00%)', '2020-12-09 16:07:33', '2020-12-09 16:07:33', NULL),
 	(14, 7, 1, 7, 'IVA(7,00%)', '2020-12-10 00:29:27', '2020-12-10 00:29:27', NULL);
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.tipo_documentos
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.tipo_documentos
 CREATE TABLE IF NOT EXISTS `tipo_documentos` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `designacao` varchar(45) NOT NULL,
@@ -3230,7 +3265,7 @@ CREATE TABLE IF NOT EXISTS `tipo_documentos` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.tipo_documentos: ~6 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.tipo_documentos: ~6 rows (aproximadamente)
 INSERT INTO `tipo_documentos` (`id`, `designacao`, `sigla`) VALUES
 	(1, 'FACTURA/RECIBO', 'FR'),
 	(2, 'FACTURA', 'FT'),
@@ -3239,7 +3274,7 @@ INSERT INTO `tipo_documentos` (`id`, `designacao`, `sigla`) VALUES
 	(5, 'NOTA DE CREDITO', 'NC'),
 	(6, 'RECIBO', 'RC');
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.tipo_documentos_empresas
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.tipo_documentos_empresas
 CREATE TABLE IF NOT EXISTS `tipo_documentos_empresas` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `tipo_documento_id` int(10) unsigned NOT NULL,
@@ -3264,18 +3299,18 @@ CREATE TABLE IF NOT EXISTS `tipo_documentos_empresas` (
   CONSTRAINT `FK_tipo_documentos_empresas_user` FOREIGN KEY (`user_id`) REFERENCES `users_cliente` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.tipo_documentos_empresas: ~0 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.tipo_documentos_empresas: ~0 rows (aproximadamente)
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.tipo_inventarios
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.tipo_inventarios
 CREATE TABLE IF NOT EXISTS `tipo_inventarios` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `designacao` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.tipo_inventarios: ~0 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.tipo_inventarios: ~0 rows (aproximadamente)
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.tipo_pagamento
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.tipo_pagamento
 CREATE TABLE IF NOT EXISTS `tipo_pagamento` (
   `designacao` varchar(255) DEFAULT NULL,
   `id` int(11) NOT NULL,
@@ -3283,7 +3318,7 @@ CREATE TABLE IF NOT EXISTS `tipo_pagamento` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.tipo_pagamento: ~6 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.tipo_pagamento: ~6 rows (aproximadamente)
 INSERT INTO `tipo_pagamento` (`designacao`, `id`, `sigla`) VALUES
 	('Cartão de Crédito', 1, 'CC'),
 	('Cartão de Débito', 2, 'CD'),
@@ -3292,21 +3327,21 @@ INSERT INTO `tipo_pagamento` (`designacao`, `id`, `sigla`) VALUES
 	('Transferencia bancaria ou meio autorizados', 5, 'TR'),
 	('Cheque bancario', 6, 'CH');
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.tipo_users
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.tipo_users
 CREATE TABLE IF NOT EXISTS `tipo_users` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `designacao` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.tipo_users: ~4 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.tipo_users: ~4 rows (aproximadamente)
 INSERT INTO `tipo_users` (`id`, `designacao`) VALUES
 	(1, 'Admin'),
 	(2, 'Empresa'),
 	(3, 'Funcionário'),
 	(4, 'Cliente');
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.transferencias_produtos
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.transferencias_produtos
 CREATE TABLE IF NOT EXISTS `transferencias_produtos` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int(11) DEFAULT NULL,
@@ -3327,9 +3362,9 @@ CREATE TABLE IF NOT EXISTS `transferencias_produtos` (
   CONSTRAINT `FK_transferencias_produtos_tipo_users` FOREIGN KEY (`tipo_user_id`) REFERENCES `tipo_users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.transferencias_produtos: ~0 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.transferencias_produtos: ~0 rows (aproximadamente)
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.transferencias_produto_items
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.transferencias_produto_items
 CREATE TABLE IF NOT EXISTS `transferencias_produto_items` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `produto_id` int(10) unsigned NOT NULL,
@@ -3353,9 +3388,9 @@ CREATE TABLE IF NOT EXISTS `transferencias_produto_items` (
   CONSTRAINT `FK_transferencias_produto_items_transferencias_produtos` FOREIGN KEY (`transferencia_produto_id`) REFERENCES `transferencias_produtos` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.transferencias_produto_items: ~0 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.transferencias_produto_items: ~0 rows (aproximadamente)
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.unidade_medidas
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.unidade_medidas
 CREATE TABLE IF NOT EXISTS `unidade_medidas` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `designacao` varchar(45) NOT NULL,
@@ -3376,11 +3411,11 @@ CREATE TABLE IF NOT EXISTS `unidade_medidas` (
   CONSTRAINT `FK_unidade_status` FOREIGN KEY (`status_id`) REFERENCES `status_gerais` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.unidade_medidas: ~0 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.unidade_medidas: ~0 rows (aproximadamente)
 INSERT INTO `unidade_medidas` (`id`, `designacao`, `empresa_id`, `user_id`, `canal_id`, `status_id`, `created_at`, `updated_at`, `diversos`) VALUES
 	(1, 'un', 1, NULL, 2, 1, '2024-01-29 12:51:31', '2024-01-29 12:51:32', '2');
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.users_centro_custo
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.users_centro_custo
 CREATE TABLE IF NOT EXISTS `users_centro_custo` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int(10) NOT NULL,
@@ -3389,7 +3424,7 @@ CREATE TABLE IF NOT EXISTS `users_centro_custo` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=79 DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.users_centro_custo: ~7 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.users_centro_custo: ~7 rows (aproximadamente)
 INSERT INTO `users_centro_custo` (`id`, `user_id`, `centro_custo_id`, `status`) VALUES
 	(1, 1, 1, 'Y'),
 	(73, 747, 1, 'Y'),
@@ -3399,7 +3434,7 @@ INSERT INTO `users_centro_custo` (`id`, `user_id`, `centro_custo_id`, `status`) 
 	(77, 752, 1, 'Y'),
 	(78, 753, 1, 'Y');
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.users_cliente
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.users_cliente
 CREATE TABLE IF NOT EXISTS `users_cliente` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
@@ -3428,14 +3463,14 @@ CREATE TABLE IF NOT EXISTS `users_cliente` (
   KEY `FK_users_empresa` (`empresa_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=753 DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.users_cliente: ~4 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.users_cliente: ~4 rows (aproximadamente)
 INSERT INTO `users_cliente` (`id`, `name`, `uuid`, `username`, `password`, `remember_token`, `created_at`, `updated_at`, `tipo_user_id`, `status_id`, `statusUserAdicional`, `status_senha_id`, `telefone`, `email`, `email_verified_at`, `canal_id`, `empresa_id`, `foto`, `guard`, `token_notification_firebase`) VALUES
-	(1, 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', '6a0d01a6-a1e0-4bad-933f-d400be070dc8', 'República de Angola Aeroporto Internacional Dr. António Agostino Neto Operador Temporário Aeroportuário ATO - AIAAN', '$2y$10$LJ82O3PRAjhe5vXd4xk/5uVJqLZndB808MgMHwdK/AGur.mA1aHKO', 'uThG4sL6nlIOgGlcTS96Wi5bCP9S1OnU0qe0cDOdLruYGAZ4NvlmCZoLlWpB', '2024-01-23 16:10:54', '2024-03-29 09:25:34', 2, 1, 1, 2, '937036322', 'info@ato.ao', NULL, 3, 1, 'utilizadores/cliente//4NLOQikHUe6MRF4Sv9gEoMNguUmLE8qBMhhqx2q0.png', 'empresa', NULL),
+	(1, 'Operador Temporário Aeroportuário do Aeroporto Dr. António Agostinho Neto', '6a0d01a6-a1e0-4bad-933f-d400be070dc8', 'República de Angola Aeroporto Internacional Dr. António Agostino Neto Operador Temporário Aeroportuário ATO - AIAAN', '$2y$10$LJ82O3PRAjhe5vXd4xk/5uVJqLZndB808MgMHwdK/AGur.mA1aHKO', 'tTXL88eNoK6WWrjYma5EnNGAfZtrY38xzdlESNWj4YjIoTd1NSBikKgzX2O4', '2024-01-23 16:10:54', '2024-03-29 09:25:34', 2, 1, 1, 2, '937036322', 'info@ato.ao', NULL, 3, 1, 'utilizadores/cliente//4NLOQikHUe6MRF4Sv9gEoMNguUmLE8qBMhhqx2q0.png', 'empresa', NULL),
 	(750, 'Carlos Sampaio', 'ea7711d6-450b-4e91-b858-2df6eb8530e4', 'CSampaio', '$2y$10$eHc1HVG4bNdtFqHJtMeXV.5KkGk9s.cVqcyc6O/HjKEe0nTMrmv0C', NULL, '2024-02-16 09:54:03', '2024-02-16 10:03:08', 2, 1, 1, 2, '922605848', 'carlos.sampaio@ato.co.ao', NULL, 2, 1, 'utilizadores/cliente/avatarEmpresa.png', 'empresa', NULL),
 	(751, 'Milton Lucas', '2a7c4518-0909-4073-871b-9e23cd8396e4', 'MLucas', '$2y$10$mkcuY4kg9F8UCz3N.Y50yu/5N/a7Ad/9lAaJzmdgUfILLbIY1yL2e', NULL, '2024-02-16 09:55:07', '2024-02-16 10:05:55', 2, 1, 1, 2, '921689230', 'milton.lucas@ato.co.ao', NULL, 2, 1, 'utilizadores/cliente/avatarEmpresa.png', 'empresa', NULL),
 	(752, 'Tatiana', 'a4b96cfd-d128-416e-9604-dd24e74ba79b', 'Mouzinho', '$2y$10$JIkRsCEubh7s414WEDrZ9OahDedhTxXk54pbf.ADaRQBposrEWSwO', NULL, '2024-02-16 12:09:04', '2024-02-16 12:12:38', 2, 1, 1, 2, '924264160', 'tatiana.mouzinho@ato.co.ao', NULL, 2, 1, 'utilizadores/cliente/avatarEmpresa.png', 'empresa', NULL);
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.users_cliente_validacao
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.users_cliente_validacao
 CREATE TABLE IF NOT EXISTS `users_cliente_validacao` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
@@ -3458,7 +3493,7 @@ CREATE TABLE IF NOT EXISTS `users_cliente_validacao` (
   KEY `FK_users_empresa` (`empresa_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=786 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.users_cliente_validacao: ~8 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.users_cliente_validacao: ~8 rows (aproximadamente)
 INSERT INTO `users_cliente_validacao` (`id`, `name`, `uuid`, `username`, `password`, `codigo`, `created_at`, `updated_at`, `status_id`, `statusUserAdicional`, `status_senha_id`, `telefone`, `email`, `empresa_id`, `foto`, `used`) VALUES
 	(778, 'Emanuel Lima', '7801430b-8d2b-45c6-b09d-2354a04d8aa9', 'Emanuel Lima', '$2y$10$xGUEE5OvybkSQ1i7puQP9eJAQ84kUC9W2ZznkJh6RhsB9i9du6QSG', 'EWTJCY', '2023-11-14 16:24:03', '2023-11-14 16:24:03', 1, 1, 2, '943117628', 'emanuellima.lnb@gmail.com', NULL, 'utilizadores/cliente/avatarEmpresa.png', 'Y'),
 	(779, 'zua@gmail.com', '07cff175-da72-46d4-8cb7-35b6ad8e96d1', 'zua@gmail.com', '$2y$10$sFdH6qGZMnkAL8VX5XQSVOlrblLdA2RlpjjbiJuRLaYg0dl/8mzC6', 'JQ3XJM', '2023-11-16 13:09:58', '2023-11-16 13:09:58', 1, 1, 2, '923112233', 'conzuadas@gmail.com', NULL, 'utilizadores/cliente/avatarEmpresa.png', 'N'),
@@ -3469,7 +3504,7 @@ INSERT INTO `users_cliente_validacao` (`id`, `name`, `uuid`, `username`, `passwo
 	(784, 'Ramos Soft', '88b32a7d-114e-4ce4-9cae-7813bc40de94', 'Ramos Soft', '$2y$10$pmKv35XwnS1Pt6TsFvR1BOa6RJhnGLZ/xhvABTvukRqMPCIGNI5FC', 'N0C793', '2023-12-06 22:39:48', '2023-12-06 22:39:48', 1, 1, 2, '923292970', 'info@ramossoft.com', NULL, 'utilizadores/cliente/avatarEmpresa.png', 'Y'),
 	(785, 'Elizeu', 'f837c16d-7842-4169-a751-a2f4dc62e5f7', 'Elizeu', '$2y$10$oDxQ0LqHJA1L8oodGmUzDudvBdrQsf/uh5QZDXoPM55Vq5OQ2fN9.', 'U6L4U6', '2024-01-18 12:37:04', '2024-01-18 12:37:04', 1, 1, 2, '928789740', 'eliseucosta4693@gmail.com', NULL, 'utilizadores/cliente/avatarEmpresa.png', 'N');
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.user_perfil
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.user_perfil
 CREATE TABLE IF NOT EXISTS `user_perfil` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int(10) unsigned NOT NULL,
@@ -3479,7 +3514,7 @@ CREATE TABLE IF NOT EXISTS `user_perfil` (
   KEY `plan_profile_profile_id_foreign` (`perfil_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=821 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.user_perfil: ~7 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.user_perfil: ~7 rows (aproximadamente)
 INSERT INTO `user_perfil` (`id`, `user_id`, `perfil_id`) VALUES
 	(814, 749, 29),
 	(815, 750, 29),
@@ -3489,7 +3524,7 @@ INSERT INTO `user_perfil` (`id`, `user_id`, `perfil_id`) VALUES
 	(819, 1, 1),
 	(820, 1, 29);
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.validacao_user_recuperar_senha
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.validacao_user_recuperar_senha
 CREATE TABLE IF NOT EXISTS `validacao_user_recuperar_senha` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `userId` int(10) unsigned NOT NULL,
@@ -3498,7 +3533,7 @@ CREATE TABLE IF NOT EXISTS `validacao_user_recuperar_senha` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.validacao_user_recuperar_senha: ~36 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.validacao_user_recuperar_senha: ~36 rows (aproximadamente)
 INSERT INTO `validacao_user_recuperar_senha` (`id`, `userId`, `codigo`, `used`) VALUES
 	(1, 704, '48PL4I', 'N'),
 	(2, 704, 'EV337Y', 'N'),
@@ -3537,7 +3572,7 @@ INSERT INTO `validacao_user_recuperar_senha` (`id`, `userId`, `codigo`, `used`) 
 	(35, 708, 'WRXRHQ', 'Y'),
 	(36, 708, '30JAN5', 'Y');
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.valorcaracteristicas
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.valorcaracteristicas
 CREATE TABLE IF NOT EXISTS `valorcaracteristicas` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `categoria_caracteristica_id` int(11) NOT NULL,
@@ -3545,7 +3580,7 @@ CREATE TABLE IF NOT EXISTS `valorcaracteristicas` (
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=193 DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.valorcaracteristicas: ~190 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.valorcaracteristicas: ~190 rows (aproximadamente)
 INSERT INTO `valorcaracteristicas` (`id`, `categoria_caracteristica_id`, `designacao`) VALUES
 	(1, 1, '16gb'),
 	(2, 2, 'Preta'),
@@ -3738,7 +3773,7 @@ INSERT INTO `valorcaracteristicas` (`id`, `categoria_caracteristica_id`, `design
 	(191, 251, 'PRETO'),
 	(192, 253, 'SIM');
 
--- Copiando estrutura para tabela mutue_negocios_aeroporto_cliente.valorcaracteristicas_produtos
+-- A despejar estrutura para tabela mutue_negocios_aeroporto_cliente.valorcaracteristicas_produtos
 CREATE TABLE IF NOT EXISTS `valorcaracteristicas_produtos` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `produto_id` int(11) NOT NULL,
@@ -3746,7 +3781,7 @@ CREATE TABLE IF NOT EXISTS `valorcaracteristicas_produtos` (
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=254 DEFAULT CHARSET=latin1;
 
--- Copiando dados para a tabela mutue_negocios_aeroporto_cliente.valorcaracteristicas_produtos: ~201 rows (aproximadamente)
+-- A despejar dados para tabela mutue_negocios_aeroporto_cliente.valorcaracteristicas_produtos: ~201 rows (aproximadamente)
 INSERT INTO `valorcaracteristicas_produtos` (`id`, `produto_id`, `valor_caracteristica_id`) VALUES
 	(1, 646, 1),
 	(2, 646, 2),
